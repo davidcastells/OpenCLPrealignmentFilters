@@ -7,6 +7,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "FPGAKmerFilter.h"
+
 bool gDoUsage = false;
 int gPatternLen = 100;
 int gTextLen = 140;
@@ -21,9 +23,11 @@ int gTh = 0;
 int gFP = 0;	// false positives (detected errors < theshold && real errors > threshold)  = detected errors | real errors
 int gFN = 0;	// false negatives (detected errors > threhold && real errors > threshold)
 
+int gPid = -1; 	// OpenCL platform id
+
 #define ORIGINAL_CHARACTER	'.'
-#define SUBSTITUTION_CHARACTER 'X'
-#define INSERTION_CHARACTER 'I'
+#define SUBSTITUTION_CHARACTER 	'X'
+#define INSERTION_CHARACTER 	'I'
 
 using namespace std;
 
@@ -90,6 +94,12 @@ void parseOptions(int argc, char* args[])
 		{
 			i++;
 			gTh = atoi(args[i]);
+		}
+
+		if (strcmp(args[i], "-pid") == 0)
+		{
+			i++;
+			gPid = atoi(args[i]);
 		}
 	}
 }
@@ -325,7 +335,7 @@ string removeShortZeros(string hamming)
 	return ret;
 }
 
-void SHD(string pattern, string text, int th)
+void SHD_global(string pattern, string text, int th)
 {
 	string acum = ones(text.size());
 	for (int i=-th; i <= th; i++)
@@ -356,10 +366,9 @@ void SHD(string pattern, string text, int th)
 		gFN++;
 }
 
-void testSequence()
+void createPair(string& pattern, string& text)
 {
-	string text = randomSequence(gTextLen);
-	string pattern;
+	text = randomSequence(gTextLen);
 		
 	if (gPatternStart < 0)
 	{
@@ -382,8 +391,48 @@ void testSequence()
 		printf("P:   %s\n", pattern.c_str());
 		printf("C:   %s\n", changes.c_str());
 	}
+}
+
+void testSequence()
+{
+	string pattern;
+	string text;
+	createPair(pattern, text);
 	
-	SHD(pattern, text, gTh);
+	SHD_global(pattern, text, gTh);
+}
+
+void testSoftware()
+{
+	for (int i=0; i < gN; i++)
+		testSequence();
+
+		                              
+	printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%)\n", gFP, (gFP*100.0/gN), gFN, (gFN*100.0/gN));
+}
+
+void testHardware()
+{
+	string pattern;
+	string text;
+
+
+	FPGAKmerFilter filter;
+	filter.initOpenCL(gPid);
+	filter.initKernels(0, "shd", 5);
+
+
+	for (int i=0; i < gN; i++)
+	{
+		createPair(pattern, text);
+		filter.addInput(pattern, text);
+	}
+
+	int realErrors = gES + gEI + gED;
+	filter.computeAll(realErrors);
+
+	filter.finalizeKernels();
+	filter.finalizeOpenCL();
 }
 
 int main(int argc, char* args[])
@@ -395,9 +444,11 @@ int main(int argc, char* args[])
 	if (gDoUsage)
 		usage();
 	
-	for (int i=0; i < gN; i++)
-		testSequence();
+	if (gPid < 0)
+		testSoftware();
+	else
+		testHardware();
+
+
 	
-	                                      
-	printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%)\n", gFP, (gFP*100.0/gN), gFN, (gFN*100.0/gN));
 }
