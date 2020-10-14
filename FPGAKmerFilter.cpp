@@ -135,20 +135,60 @@ void FPGAKmerFilter::encodeSequence(string bases, unsigned int basesLength, unsi
 
 }
 
+void FPGAKmerFilter::encodeEntry( unsigned char* pPattern, unsigned int offset, string pattern, string text )
+{
+	int pl = pattern.size();
+	int tl = text.size();
+
+	assert(pl < 256);
+	assert(tl < 256);
+
+	pPattern[offset + 0] = pl;
+	pPattern[offset + 1] = tl;
+
+	int baseByteIdx;
+	int baseBitIdx;
+
+	int alignedTextStart = 2 + (((pl * 2) + 7) / 8) ;
+
+	for (int i=0; i < pl; i++)
+	{
+		int bc = dna_encode_valid(pattern[i]);
+		baseByteIdx = i / 4;
+		baseBitIdx = (3 - i%4) * 2;
+		
+		unsigned char vset = bc << baseBitIdx;
+		unsigned char mask = 3 << baseBitIdx;
+		unsigned char nmask = ~mask;
+	
+		pPattern[offset + 2 + baseByteIdx] = (pPattern[offset + 2 + baseByteIdx] & nmask) | vset; 
+	}
+
+	for (int i=0; i < tl; i++)
+	{
+		int bc = dna_encode_valid(text[i]);
+		baseByteIdx = i / 4;
+		baseBitIdx = (3 - i%4) * 2;
+		
+		unsigned char vset = bc << baseBitIdx;
+		unsigned char mask = 3 << baseBitIdx;
+		unsigned char nmask = ~mask;
+	
+		pPattern[offset + alignedTextStart  + baseByteIdx] = (pPattern[offset + alignedTextStart + baseByteIdx] & nmask) | vset; 
+	}
+}
+
 
 
 void FPGAKmerFilter::computeAll(int realErrors)
 {
     // allocate memory buffers
-    size_t requiredPatternMemory = countRequiredMemory(m_basesPatternLength);    
-    size_t requiredTextMemory = countRequiredMemory(m_basesTextLength);
+    //size_t requiredPatternMemory = countRequiredMemory(m_basesPatternLength);    
+    //size_t requiredTextMemory = countRequiredMemory(m_basesTextLength);
     
-    unsigned char* pattern = (unsigned char*) alignedMalloc(requiredPatternMemory);
-    unsigned char* text = (unsigned char*) alignedMalloc(requiredTextMemory);
-    
-    unsigned int* patternIdx = (unsigned int*) alignedMalloc(m_basesPatternLength.size() * sizeof(unsigned int) * INDEX_SIZE);
-    unsigned int* textIdx = (unsigned int*) alignedMalloc(m_basesTextLength.size() * sizeof(unsigned int) * INDEX_SIZE);
-    
+    size_t requiredEntryMemory = m_basesPatternLength.size() * (512/8);
+
+    unsigned char* pattern = (unsigned char*) alignedMalloc(requiredEntryMemory);
     unsigned int* workload = (unsigned int*) alignedMalloc(m_basesTextLength.size() * sizeof(unsigned int) * WORKLOAD_TASK_SIZE);
     
     // now fill
@@ -162,30 +202,32 @@ void FPGAKmerFilter::computeAll(int realErrors)
         workload[i*WORKLOAD_TASK_SIZE+1] = i;   // text
         
         // fill the pattern
-        patternIdx[i*INDEX_SIZE+0] = poff;   // pattern offset
-        patternIdx[i*INDEX_SIZE+1] = m_basesPatternLength[i];
+//        patternIdx[i*INDEX_SIZE+0] = poff;   // pattern offset
+//        patternIdx[i*INDEX_SIZE+1] = m_basesPatternLength[i];
+
+	encodeEntry(pattern, i*(512/8), m_basesPattern[i],  m_basesText[i]);
  
 //printf("Pattern: %s\n", m_basesPattern[i].c_str());       
  //printf("Pattern: %s\n", m_original[i]->pattern);       
-encodeSequence(m_basesPattern[i], m_basesPatternLength[i], pattern, poff);
+//encodeSequence(m_basesPattern[i], m_basesPatternLength[i], pattern, poff);
 
-string debug = decodeSequence(pattern, poff, m_basesPatternLength[i]);
+//string debug = decodeSequence(pattern, poff, m_basesPatternLength[i]);
 //printf("Decoded: %s\n", debug.c_str());
         
-        poff += alignedSequenceSize(m_basesPatternLength[i]);
+//        poff += alignedSequenceSize(m_basesPatternLength[i]);
         
         // fill the text
-        textIdx[i*INDEX_SIZE+0] = toff;
-        textIdx[i*INDEX_SIZE+1] = m_basesTextLength[i];
+//        textIdx[i*INDEX_SIZE+0] = toff;
+//        textIdx[i*INDEX_SIZE+1] = m_basesTextLength[i];
 //     printf("Text: %s\n", m_basesText[i].c_str());   
-        encodeSequence(m_basesText[i], m_basesTextLength[i], text, toff);
+//        encodeSequence(m_basesText[i], m_basesTextLength[i], text, toff);
         
-        toff += alignedSequenceSize(m_basesTextLength[i]);
+//        toff += alignedSequenceSize(m_basesTextLength[i]);
     }
 
 //    printf("Invoke kernel\n");
 
-    invokeKernel(pattern, requiredPatternMemory, patternIdx, text, requiredTextMemory, textIdx, workload, m_basesPatternLength.size());
+    invokeKernel(pattern, requiredEntryMemory, workload, m_basesPatternLength.size());
     
 	int FP = 0;
 	int FN = 0;
@@ -210,17 +252,13 @@ string debug = decodeSequence(pattern, poff, m_basesPatternLength[i]);
     printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%)\n", FP, (FP*100.0/total), FN, (FN*100.0/total));
 
     // free all
-    alignedFree(patternIdx);
-    alignedFree(textIdx);
     alignedFree(pattern);
-    alignedFree(text);
+    
 }
 
 
 
-void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSize, unsigned int* patternIdx,
-                                    unsigned char* text, unsigned int textSize, unsigned int* textIdx,
-                                    unsigned int* workload, unsigned int tasks)
+void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSize, unsigned int* workload, unsigned int tasks)
 {
     cl_int ret;
     
@@ -231,14 +269,14 @@ void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSi
     m_memPattern = clCreateBuffer(m_context, CL_MEM_READ_WRITE, patternSize, NULL, &ret);
     SAMPLE_CHECK_ERRORS(ret);
 
-    m_memPatternIdx = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*INDEX_SIZE*sizeof(unsigned int), NULL, &ret);
-    SAMPLE_CHECK_ERRORS(ret);
+    //m_memPatternIdx = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*INDEX_SIZE*sizeof(unsigned int), NULL, &ret);
+    //SAMPLE_CHECK_ERRORS(ret);
 
-    m_memText = clCreateBuffer(m_context, CL_MEM_READ_ONLY, textSize, NULL, &ret);
-    SAMPLE_CHECK_ERRORS(ret);
+    //m_memText = clCreateBuffer(m_context, CL_MEM_READ_ONLY, textSize, NULL, &ret);
+    //SAMPLE_CHECK_ERRORS(ret);
     
-    m_memTextIdx = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*INDEX_SIZE*sizeof(unsigned int), NULL, &ret);
-    SAMPLE_CHECK_ERRORS(ret);
+    //m_memTextIdx = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*INDEX_SIZE*sizeof(unsigned int), NULL, &ret);
+    //SAMPLE_CHECK_ERRORS(ret);
 
     m_memWorkload = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), NULL, &ret);
     SAMPLE_CHECK_ERRORS(ret);
@@ -246,15 +284,15 @@ void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSi
     ret = clEnqueueWriteBuffer(m_queue, m_memPattern, CL_TRUE, 0, patternSize, pattern, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
-    ret = clEnqueueWriteBuffer(m_queue, m_memPatternIdx, CL_TRUE, 0, tasks*INDEX_SIZE*sizeof(unsigned int), patternIdx, 0, NULL, NULL);
-    SAMPLE_CHECK_ERRORS(ret);
+    //ret = clEnqueueWriteBuffer(m_queue, m_memPatternIdx, CL_TRUE, 0, tasks*INDEX_SIZE*sizeof(unsigned int), patternIdx, 0, NULL, NULL);
+    //SAMPLE_CHECK_ERRORS(ret);
 
     
-    ret = clEnqueueWriteBuffer(m_queue, m_memText, CL_TRUE, 0, textSize, text, 0, NULL, NULL);
-    SAMPLE_CHECK_ERRORS(ret);
+    //ret = clEnqueueWriteBuffer(m_queue, m_memText, CL_TRUE, 0, textSize, text, 0, NULL, NULL);
+    //SAMPLE_CHECK_ERRORS(ret);
     
-    ret = clEnqueueWriteBuffer(m_queue, m_memTextIdx, CL_TRUE, 0, tasks*INDEX_SIZE*sizeof(unsigned int), textIdx, 0, NULL, NULL);
-    SAMPLE_CHECK_ERRORS(ret);
+    //ret = clEnqueueWriteBuffer(m_queue, m_memTextIdx, CL_TRUE, 0, tasks*INDEX_SIZE*sizeof(unsigned int), textIdx, 0, NULL, NULL);
+    //SAMPLE_CHECK_ERRORS(ret);
 
     ret = clEnqueueWriteBuffer(m_queue, m_memWorkload, CL_TRUE, 0, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), workload, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
@@ -262,19 +300,19 @@ void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSi
     ret = clSetKernelArg(m_kmerKernel, 0, sizeof(cl_mem), (void *)&m_memPattern);
     SAMPLE_CHECK_ERRORS(ret);
     
-    ret = clSetKernelArg(m_kmerKernel, 1, sizeof(cl_mem), (void *)&m_memPatternIdx);
-    SAMPLE_CHECK_ERRORS(ret);
+    //ret = clSetKernelArg(m_kmerKernel, 1, sizeof(cl_mem), (void *)&m_memPatternIdx);
+    //SAMPLE_CHECK_ERRORS(ret);
     
-    ret = clSetKernelArg(m_kmerKernel, 2, sizeof(cl_mem), (void *)&m_memText);
-    SAMPLE_CHECK_ERRORS(ret);
+    //ret = clSetKernelArg(m_kmerKernel, 2, sizeof(cl_mem), (void *)&m_memText);
+    //SAMPLE_CHECK_ERRORS(ret);
     
-    ret = clSetKernelArg(m_kmerKernel, 3, sizeof(cl_mem), (void *)&m_memTextIdx);
-    SAMPLE_CHECK_ERRORS(ret);
+    //ret = clSetKernelArg(m_kmerKernel, 3, sizeof(cl_mem), (void *)&m_memTextIdx);
+    //SAMPLE_CHECK_ERRORS(ret);
     
-    ret = clSetKernelArg(m_kmerKernel, 4, sizeof(cl_mem), (void *)&m_memWorkload);
+    ret = clSetKernelArg(m_kmerKernel, 1, sizeof(cl_mem), (void *)&m_memWorkload);
     SAMPLE_CHECK_ERRORS(ret);
 
-    ret = clSetKernelArg(m_kmerKernel, 5, sizeof(cl_int), (void *)&tasks);
+    ret = clSetKernelArg(m_kmerKernel, 2, sizeof(cl_int), (void *)&tasks);
     SAMPLE_CHECK_ERRORS(ret);
 
     lap.stop();
@@ -307,14 +345,14 @@ void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSi
     ret = clReleaseMemObject(m_memPattern);
     SAMPLE_CHECK_ERRORS(ret);
     
-    ret = clReleaseMemObject(m_memPatternIdx);
-    SAMPLE_CHECK_ERRORS(ret);
+    //ret = clReleaseMemObject(m_memPatternIdx);
+    //SAMPLE_CHECK_ERRORS(ret);
     
-    ret = clReleaseMemObject(m_memText);
-    SAMPLE_CHECK_ERRORS(ret);
+    //ret = clReleaseMemObject(m_memText);
+    //SAMPLE_CHECK_ERRORS(ret);
 
-    ret = clReleaseMemObject(m_memTextIdx);
-    SAMPLE_CHECK_ERRORS(ret);
+    //ret = clReleaseMemObject(m_memTextIdx);
+    //SAMPLE_CHECK_ERRORS(ret);
     
     ret = clReleaseMemObject(m_memWorkload);
     SAMPLE_CHECK_ERRORS(ret);

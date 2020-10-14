@@ -47,17 +47,18 @@ public:
     void finalizeKernels();
     void addInput(string pattern, string text);
     void computeAll(int realErrors);
-    void destroy();
-
-    void invokeKernel(unsigned char* pattern, unsigned int patternSize, unsigned int* patternIdx,
-                                    unsigned char* text, unsigned int textSize, unsigned int* textIdx,
+ 
+   void destroy();
+   
+    void invokeKernel(unsigned char* pattern, unsigned int patternSize, 
                                     unsigned int* workload, unsigned int tasks);
     
 private:
     size_t countRequiredMemory(vector<int>& len);
     void encodeSequence(string bases, unsigned int basesLength, unsigned char* pattern, unsigned int offset);
     string decodeSequence(unsigned char* pattern, unsigned int offset, unsigned int basesLength);
-    
+    void encodeEntry( unsigned char* pPattern, unsigned int offset, string pattern, string text );
+ 
 public:
     bool m_verbose;
 
