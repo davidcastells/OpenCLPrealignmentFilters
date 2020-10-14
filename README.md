@@ -10,8 +10,14 @@ We can control the number and type of the errors introduced, so we can analyze t
 ## Options
 
 | Parameter | Description |
----------------------------
+|-----|----------------|
 | -v | verbose output |
+| -pid <number> | Identifier of the OpenCL Platform to use |
+| -tl <number> | Length of the Text |
+| -pl <number> | Length of the pattern |
+| -ES <number> | Number of Substitution Errors |
+| -EI <number> | Number of Insertion Errors |
+| -ED <number> | Number of Deletion Errors |
 
 ## Examples
 
