@@ -1,7 +1,8 @@
 #include "adapter.cl"
 
-
+#ifndef SHD_THRESHOLD
 #define SHD_THRESHOLD	3
+#endif
 
 unsigned int getBase(ap_uint_512 w, int len, int i)
 {
@@ -17,18 +18,22 @@ unsigned int getBase(ap_uint_512 w, int len, int i)
 
 void xorBases(ap_uint_512 p, ap_uint_512 t, int len, ap_uint_512p ret)
 {
+	ap_uint_512_zero(ret);
+
+	#pragma unroll
 	for (int i=0; i < len; i++)
 	{
 		unsigned int pb = getBase(p, len, i);
 		unsigned int tb = getBase(t, len, i);
 		unsigned int xb = pb ^ tb;		// XOR bases
 		unsigned int r = (xb>0)?1:0;
-		ap_uint_512_set_bit(ret, 512-1-i, r);
+		ap_uint_512_or_bit(ret, 512-1-i, r);
 	}
 }
 
 void removeShortZeros(ap_uint_512 x, int len, ap_uint_512p r)
 {
+	#pragma unroll
 	for (int i=0; i < len; i++)
 	{
 		int idx = 512-1-i;
@@ -55,7 +60,7 @@ void removeShortZeros(ap_uint_512 x, int len, ap_uint_512p r)
 	
 }
 
-unsigned int shd(ap_uint_512 pattern, int poffset, int plen, ap_uint_512 text, int toffset, int tlen)
+unsigned int shd(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 {
 	ap_uint_512 acum;
 	ap_uint_512_onesHigh(AP_UINT_PTR(acum), plen);
@@ -84,6 +89,7 @@ unsigned int shd(ap_uint_512 pattern, int poffset, int plen, ap_uint_512 text, i
 	}
 #endif
 
+	#pragma unroll
 	for (int i=-SHD_THRESHOLD; i <= SHD_THRESHOLD; i++)
 	{
 		ap_uint_512 shifted_pattern;
@@ -111,25 +117,30 @@ unsigned int shd(ap_uint_512 pattern, int poffset, int plen, ap_uint_512 text, i
 		ap_uint_512_printBinHigh(dist, plen);
 		printf("\n");
 
+		
+#endif
+
+		ap_uint_512_and_self(AP_UINT_PTR(acum), dist);
+
+#ifdef FPGA_DEBUG
+
 		printf("acum       =");
 		ap_uint_512_printBinHigh(acum, plen);
 		printf("\n");
 #endif
-
-		ap_uint_512_and_self(AP_UINT_PTR(acum), dist);
 	}
-#ifdef FPGA_DEBUG
-	printf("acum       =");
-	ap_uint_512_printBinHigh(acum, plen);
-	printf("\n");
-#endif
+
 	return ap_uint_512_pop_count(acum);
 }
 
 
 
-unsigned int computeDistance(ap_uint_512 pattern, int poffset, int plen, ap_uint_512 text, int toffset, int tlen)
+unsigned int computeDistance(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 {
-	return shd(pattern, poffset, plen, text, toffset, plen);
+#ifdef PATTERN_LEN
+	return shd(pattern, PATTERN_LEN, text, TEXT_LEN);
+#else
+	return shd(pattern,  plen, text,  plen);
+#endif
 }
 
