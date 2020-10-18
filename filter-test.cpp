@@ -411,15 +411,19 @@ void testSoftware()
 	printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%)\n", gFP, (gFP*100.0/gN), gFN, (gFN*100.0/gN));
 }
 
+
 void testHardware()
 {
 	string pattern;
 	string text;
 
+	string aocx_file = AOCX_FILE;
 
 	FPGAKmerFilter filter;
+	filter.setVerbose(verbose);
+	filter.setReportTime(true);
 	filter.initOpenCL(gPid);
-	filter.initKernels(0, "shd", 5);
+	filter.initKernels(0,  aocx_file , 5);
 
 
 	for (int i=0; i < gN; i++)
