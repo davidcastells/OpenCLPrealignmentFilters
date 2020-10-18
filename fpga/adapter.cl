@@ -3,31 +3,13 @@
 #define WORKLOAD_TASK_SIZE  3
 #define INDEX_SIZE          2
 #define BASE_SIZE           2
-#define LOAD_BASES_ALIGNMENT_BITS   512
 
-
-#define PATTERN_LEN      100
-#define TEXT_LEN         100 
 
 unsigned int computeTask(__global unsigned char* restrict pairs, unsigned int pi);
-unsigned int computeDistance(ap_uint_512 pattern, int poffset, int plen, ap_uint_512 text, int toffset, int tlen);
+unsigned int computeDistance(ap_uint_512 pattern, int plen, ap_uint_512 text,  int tlen);
 void printSequence(ap_uint_512 w, int len);
 
 
-/**
- * Compute the number of bytes required to store the number of bases, considering
- * that we require memory alignment
- * @param bases
- * @return 
- */
-unsigned int alignedSequenceSize(int bases)
-{
-    unsigned int lenBits = bases * BASE_SIZE;         // length in bases
-    unsigned int lenAlignedUnits = ((lenBits  + (LOAD_BASES_ALIGNMENT_BITS-1)) / LOAD_BASES_ALIGNMENT_BITS) * LOAD_BASES_ALIGNMENT_BITS; // round up
-
-    unsigned int lenAlignedUnitsBytes = lenAlignedUnits / 8;
-    return lenAlignedUnitsBytes;
-}
 
 /**
  * from version 11 we assume that pattern index, and text index is the same worload index  
@@ -56,7 +38,7 @@ __kernel void kmer(__global unsigned char* restrict pairs ,
 		   unsigned int workloadLength)
 {
 #ifdef FPGA_DEBUG
-	test_my_ap_uint();
+	// test_my_ap_uint();
 #endif
 
 	#define WORKLOAD_CHUNK 1024*16
@@ -79,10 +61,9 @@ __kernel void kmer(__global unsigned char* restrict pairs ,
      }
 }
 
-
+#ifdef FPGA_DEBUG
 void readBigEndian512bits(__global unsigned char* restrict p, ap_uint_512p ret)
 {
-#ifdef FPGA_DEBUG
     ap_uint_512_zero(ret);
     
     #pragma unroll
@@ -94,28 +75,55 @@ void readBigEndian512bits(__global unsigned char* restrict p, ap_uint_512p ret)
 
 	// printf("[%d] = 0x%02X\n", i, p[i]);
     }   
-#else
-   
-    *ret = 0;
-	
-    for (int i=0; i < 512/8; i++)
-    {
-        *ret |= p[i] << (i * 8);
-    }
-#endif
+
     printf("Long Word: ");
     ap_uint_512_print(AP_UINT_FROM_PTR(ret));
     printf("\n");
 }
 
+#else
+void readBigEndian512bits(__global unsigned char* restrict p, ap_uint_512p ret)
+{
+    ap_uint<512> v;
+    ap_uint_512_zero(AP_UINT_PTR(v));
+
+    #pragma unroll
+    for (int i=0; i < 512/8; i++)
+    {
+	int byteIdx = 512/8 - 1 - i;
 
 
+	ap_uint<512> incoming = p[i];
+
+        v |= incoming << (byteIdx*8);
+
+	unsigned int v2 = (v >> (byteIdx*8)) & 0xFF;
+
+	//printf("[%d] (%d) = 0x%02X - in word = 0x%02X\n", i, byteIdx, p[i], v2);
+    }
+
+    *ret =  v;
+}
+#endif
+    
+
+
+
+#ifdef FPGA_DEBUG
 void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_uint_512p ret)
 {
     unsigned int offset = pi * 512 /  8;
     
     readBigEndian512bits(&pattern[offset], ret);  
 }
+#else
+void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_uint_512p ret)
+{
+    unsigned int offset = pi * (512 / 8);	// bytes of the next entry
+    
+    readBigEndian512bits(&pattern[offset], ret);   
+}
+#endif
 
 
 
@@ -129,10 +137,27 @@ unsigned int computeTask(__global unsigned char* restrict pairs,
 	ap_uint_512 pattern_word;
 	ap_uint_512 text_word;
 
+#ifdef FPGA_DEBUG
 	readPairs(pairs, pi, AP_UINT_PTR(pairs_word));
 
 	int pl = ap_uint_512_getHighByte(pairs_word, 0);
 	int tl = ap_uint_512_getHighByte(pairs_word, 1);
+#else
+	readPairs(pairs, pi, AP_UINT_PTR(pairs_word));
+
+	//printf("Long Word: ");
+        //ap_uint_512_print(pairs_word);
+        //printf("\n");
+
+	//int pl = (pairs_word >> (512-8)) & 0xFF;
+	//int tl = (pairs_word >> (512-16)) & 0xFF;
+
+	int pl = ap_uint_512_getHighByte(pairs_word, 0);
+	int tl = ap_uint_512_getHighByte(pairs_word, 1);
+
+#endif
+
+	
 
 #ifdef FPGA_DEBUG
 	printf("pattern len: %d\ttext len: %d\n", pl, tl);
@@ -160,7 +185,7 @@ unsigned int computeTask(__global unsigned char* restrict pairs,
 	printf("\n");*/
 
 
-	d = computeDistance(pattern_word, 0, pl, text_word, 0, tl);	// we just compare pattern
+	d = computeDistance(pattern_word,  pl, text_word,  tl);	// we just compare pattern
 	
 	return d;
 }
