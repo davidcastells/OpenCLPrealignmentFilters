@@ -1,0 +1,10 @@
+*.aocx
+*.aoco
+*.out
+filter-kmers
+filter-shd
+datasets/
+fpga/DE5NET/kmers/
+fpga/DE5NET/shd_3_100_100/
+fpga/Emulator_DE5NET/kmers/
+fpga/Emulator_DE5NET/shd/
