@@ -49,6 +49,8 @@ public:
     void computeAll(int realErrors);
  
    void destroy();
+    void setVerbose(bool verbose);
+    void setReportTime(bool reportTime);
    
     void invokeKernel(unsigned char* pattern, unsigned int patternSize, 
                                     unsigned int* workload, unsigned int tasks);
@@ -61,6 +63,7 @@ private:
  
 public:
     bool m_verbose;
+    bool m_reportTime;
 
 private:
     vector<string> m_basesPattern;

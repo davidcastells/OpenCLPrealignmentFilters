@@ -179,6 +179,10 @@ void FPGAKmerFilter::encodeEntry( unsigned char* pPattern, unsigned int offset, 
 }
 
 
+void FPGAKmerFilter::setVerbose(bool verbose)
+{
+	m_verbose = verbose;
+}
 
 void FPGAKmerFilter::computeAll(int realErrors)
 {
@@ -238,7 +242,8 @@ void FPGAKmerFilter::computeAll(int realErrors)
         unsigned int detectedErrors = workload[i*WORKLOAD_TASK_SIZE+2];
 
 
-        printf("[%d] distance=%d max error=%d\n", i, detectedErrors, m_threshold);
+	if (m_verbose)
+	        printf("[%d] distance=%d max error=%d\n", i, detectedErrors, m_threshold);
 //        my_benchmark_check(m_original[i], m_basesPattern[i], m_basesText[i], accepted);
 
 
@@ -256,7 +261,10 @@ void FPGAKmerFilter::computeAll(int realErrors)
     
 }
 
-
+void FPGAKmerFilter::setReportTime(bool reportTime)
+{
+   m_reportTime = reportTime;
+}
 
 void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSize, unsigned int* workload, unsigned int tasks)
 {
@@ -316,7 +324,7 @@ void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSi
     SAMPLE_CHECK_ERRORS(ret);
 
     lap.stop();
-    if (m_verbose)
+    if (m_reportTime)
         printf("Argument Setting= %f seconds\n", lap.lap());
     
     lap.start();
@@ -333,7 +341,7 @@ void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSi
     
     lap.stop();
     
-    if (m_verbose)
+    if (m_reportTime)
         printf("Kernel time= %f seconds\n", lap.lap());
     
     lap.start();
@@ -359,7 +367,7 @@ void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSi
 
     lap.stop();
     
-    if (m_verbose)
+    if (m_reportTime)
         printf("Result fetch= %f seconds\n", lap.lap());
 
 }
