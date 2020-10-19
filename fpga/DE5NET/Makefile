@@ -1,4 +1,4 @@
-all: shd_3_var.aocx
+all: shd_3_var.aocx shd_3_100_100.aocx kmers_var.aocx kmers_100_100.aocx
 
 early:
 	aoc -c ../shd.cl -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers
