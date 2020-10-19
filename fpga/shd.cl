@@ -137,10 +137,6 @@ unsigned int shd(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 
 unsigned int computeDistance(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 {
-#ifdef PATTERN_LEN
-	return shd(pattern, PATTERN_LEN, text, TEXT_LEN);
-#else
 	return shd(pattern,  plen, text,  plen);
-#endif
 }
 
