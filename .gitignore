@@ -5,6 +5,7 @@ filter-kmers
 filter-shd
 datasets/
 fpga/*/kmers/
+fpga/*/shd_3_var/
 fpga/*/shd_3_100_100/
 fpga/*/kmers_100_100/
 fpga/*/kmers_var/
