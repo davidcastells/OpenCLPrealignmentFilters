@@ -270,52 +270,24 @@ void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSi
 {
     cl_int ret;
     
-    
     PerformanceLap lap;
-    lap.start();
     
     m_memPattern = clCreateBuffer(m_context, CL_MEM_READ_WRITE, patternSize, NULL, &ret);
     SAMPLE_CHECK_ERRORS(ret);
 
-    //m_memPatternIdx = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*INDEX_SIZE*sizeof(unsigned int), NULL, &ret);
-    //SAMPLE_CHECK_ERRORS(ret);
-
-    //m_memText = clCreateBuffer(m_context, CL_MEM_READ_ONLY, textSize, NULL, &ret);
-    //SAMPLE_CHECK_ERRORS(ret);
-    
-    //m_memTextIdx = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*INDEX_SIZE*sizeof(unsigned int), NULL, &ret);
-    //SAMPLE_CHECK_ERRORS(ret);
-
     m_memWorkload = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), NULL, &ret);
     SAMPLE_CHECK_ERRORS(ret);
+
+    lap.start();
 
     ret = clEnqueueWriteBuffer(m_queue, m_memPattern, CL_TRUE, 0, patternSize, pattern, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
-    //ret = clEnqueueWriteBuffer(m_queue, m_memPatternIdx, CL_TRUE, 0, tasks*INDEX_SIZE*sizeof(unsigned int), patternIdx, 0, NULL, NULL);
-    //SAMPLE_CHECK_ERRORS(ret);
-
-    
-    //ret = clEnqueueWriteBuffer(m_queue, m_memText, CL_TRUE, 0, textSize, text, 0, NULL, NULL);
-    //SAMPLE_CHECK_ERRORS(ret);
-    
-    //ret = clEnqueueWriteBuffer(m_queue, m_memTextIdx, CL_TRUE, 0, tasks*INDEX_SIZE*sizeof(unsigned int), textIdx, 0, NULL, NULL);
-    //SAMPLE_CHECK_ERRORS(ret);
-
     ret = clEnqueueWriteBuffer(m_queue, m_memWorkload, CL_TRUE, 0, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), workload, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
 
     ret = clSetKernelArg(m_kmerKernel, 0, sizeof(cl_mem), (void *)&m_memPattern);
     SAMPLE_CHECK_ERRORS(ret);
-    
-    //ret = clSetKernelArg(m_kmerKernel, 1, sizeof(cl_mem), (void *)&m_memPatternIdx);
-    //SAMPLE_CHECK_ERRORS(ret);
-    
-    //ret = clSetKernelArg(m_kmerKernel, 2, sizeof(cl_mem), (void *)&m_memText);
-    //SAMPLE_CHECK_ERRORS(ret);
-    
-    //ret = clSetKernelArg(m_kmerKernel, 3, sizeof(cl_mem), (void *)&m_memTextIdx);
-    //SAMPLE_CHECK_ERRORS(ret);
     
     ret = clSetKernelArg(m_kmerKernel, 1, sizeof(cl_mem), (void *)&m_memWorkload);
     SAMPLE_CHECK_ERRORS(ret);
@@ -352,15 +324,6 @@ void FPGAKmerFilter::invokeKernel(unsigned char* pattern, unsigned int patternSi
     
     ret = clReleaseMemObject(m_memPattern);
     SAMPLE_CHECK_ERRORS(ret);
-    
-    //ret = clReleaseMemObject(m_memPatternIdx);
-    //SAMPLE_CHECK_ERRORS(ret);
-    
-    //ret = clReleaseMemObject(m_memText);
-    //SAMPLE_CHECK_ERRORS(ret);
-
-    //ret = clReleaseMemObject(m_memTextIdx);
-    //SAMPLE_CHECK_ERRORS(ret);
     
     ret = clReleaseMemObject(m_memWorkload);
     SAMPLE_CHECK_ERRORS(ret);
