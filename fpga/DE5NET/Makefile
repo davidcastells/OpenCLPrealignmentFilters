@@ -3,10 +3,22 @@ all: shd_3_var.aocx
 early:
 	aoc -c ../shd.cl -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers
 
-shd_3_var.aocx:
+select_shd_3_var:
+	rm -f ../shd.aocx
+	ln -s DE5NET/shd_3_var.aocx ../shd.aocx
+
+select_shd_3_var:
+	rm -f ../shd.aocx
+	ln -s DE5NET/shd_3_var.aocx ../shd.aocx
+
+shd_3_var.aocx: ../shd.cl
 	nohup aoc -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -D SHD_THRESHOLD=3 ../shd.cl -o shd_3_var.aocx > compile.shd_3_var.out &
 
-shd_3_100_100.aocx:
+select_shd_3_100_100:
+	rm -f ../shd.aocx
+	ln -s DE5NET/shd_3_100_100.aocx ../shd.aocx
+
+shd_3_100_100.aocx: ../shd.cl
 	nohup aoc -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100 ../shd.cl -o shd_3_100_100.aocx > compile.shd_3_100_100.out &
 
 shd_4_var.aocx:
@@ -15,7 +27,14 @@ shd_4_var.aocx:
 shd_5_var.aocx:
 	nohup aoc -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -D SHD_THRESHOLD=3 ../shd.cl -o shd_5_var.aocx > compile.fpga.out &
 
-kmers.aocx: ../kmers.cl
-	nohup aoc -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers ../kmers.cl -o kmers.aocx > compile.kmers.out &
+kmers_var.aocx: ../kmers.cl
+	nohup aoc -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers ../kmers.cl -o kmers_var.aocx > compile.kmers_var.out &
+
+select_kmers_100_100:
+	rm -f ../kmers.aocx
+	ln -s DE5NET/kmers_100_100.aocx ../kmers.aocx
+
+kmers_100_100.aocx: ../kmers.cl
+	nohup aoc -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -D PATTERN_LEN=100 -D TEXT_LEN=100 ../kmers.cl -o kmers_100_100.aocx > compile.kmers_100_100.out &
 
 
