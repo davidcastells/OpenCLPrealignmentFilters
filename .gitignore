@@ -4,8 +4,8 @@
 filter-kmers
 filter-shd
 datasets/
-fpga/DE5NET/kmers/
-fpga/DE5NET/shd_3_100_100/
-fpga/Emulator_DE5NET/kmers/
-fpga/Emulator_DE5NET/shd/
-fpga/PAC10/shd_3_100_100/
+fpga/*/kmers/
+fpga/*/shd_3_100_100/
+fpga/*/kmers_100_100/
+fpga/*/kmers_var/
+fpga/*/shd/
