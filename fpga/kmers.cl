@@ -102,10 +102,6 @@ unsigned int kmers(ap_uint_512 pattern, int plen, ap_uint_512 text, int tlen)
 
 unsigned int computeDistance(ap_uint_512 pattern,  int plen, ap_uint_512 text, int tlen)
 {
-#ifdef PATTERN_LEN
-	return kmers(pattern, PATTERN_LEN, text,  TEXT_LEN);
-#else
 	return kmers(pattern, plen, text,  plen);
-#endif
 }
 
