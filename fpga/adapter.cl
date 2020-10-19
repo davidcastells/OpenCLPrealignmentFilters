@@ -137,27 +137,15 @@ unsigned int computeTask(__global unsigned char* restrict pairs,
 	ap_uint_512 pattern_word;
 	ap_uint_512 text_word;
 
-#ifdef FPGA_DEBUG
 	readPairs(pairs, pi, AP_UINT_PTR(pairs_word));
 
-	int pl = ap_uint_512_getHighByte(pairs_word, 0);
-	int tl = ap_uint_512_getHighByte(pairs_word, 1);
+#ifdef PATTERN_LEN
+	int pl = PATTERN_LEN;
+	int tl = TEXT_LEN;
 #else
-	readPairs(pairs, pi, AP_UINT_PTR(pairs_word));
-
-	//printf("Long Word: ");
-        //ap_uint_512_print(pairs_word);
-        //printf("\n");
-
-	//int pl = (pairs_word >> (512-8)) & 0xFF;
-	//int tl = (pairs_word >> (512-16)) & 0xFF;
-
 	int pl = ap_uint_512_getHighByte(pairs_word, 0);
 	int tl = ap_uint_512_getHighByte(pairs_word, 1);
-
 #endif
-
-	
 
 #ifdef FPGA_DEBUG
 	printf("pattern len: %d\ttext len: %d\n", pl, tl);
