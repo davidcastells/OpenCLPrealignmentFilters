@@ -13,6 +13,18 @@ clean:
 	rm -f filter-shd
 	rm -f filter-kmers
 
+fix_pac10:
+	rm filter-shd-pac10
+	rm filter-kmers-pac10
+	mv filter-shd filter-shd-pac10
+	mv filter-kmers filter-kmers-pac10
+
+fix_pacs10:
+	rm filter-shd-pacs10
+	rm filter-kmers-pacs10
+	mv filter-shd filter-shd-pacs10
+	mv filter-kmers filter-kmers-pacs10
+
 filter-shd: filter-test.cpp
 	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""shd"\" filter-test.cpp FPGAKmerFilter.cpp PerformanceLap.cpp OpenCLUtils.cpp TextUtils.cpp -o filter-shd -lOpenCL
 
