@@ -27,6 +27,10 @@ shd_4_var.aocx:
 shd_5_var.aocx:
 	nohup aoc -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -D SHD_THRESHOLD=3 ../shd.cl -o shd_5_var.aocx > compile.fpga.out &
 
+select_kmers_var:
+	rm -f ../kmers.aocx
+	ln -s DE5NET/kmers_var.aocx ../kmers.aocx
+
 kmers_var.aocx: ../kmers.cl
 	nohup aoc -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers ../kmers.cl -o kmers_var.aocx > compile.kmers_var.out &
 
