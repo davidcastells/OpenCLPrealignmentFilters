@@ -28,7 +28,7 @@ shd_5_var.aocx:
 
 select_kmers_var:
 	rm -f ../kmers.aocx
-	ln -s DE5NET/kmers_var.aocx ../kmers.aocx
+	ln -s PAC10/kmers_var.aocx ../kmers.aocx
 
 kmers_var.aocx: ../kmers.cl
 	$(NOHUP) aoc -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers ../kmers.cl -o kmers_var.aocx > compile.kmers_var.out &
