@@ -83,7 +83,7 @@ void ap_uint_512_setLowByte(ap_uint_512p v, int index, int value)
 #endif
 }
 
-void ap_uint_512_setLowByteConcurrent(ap_uint_512p v, int index, int value)
+void ap_uint_512_orLowByteConcurrent(ap_uint_512p v, int index, int value)
 {	
 #ifdef FPGA_EMULATION
 	int wordidx = (index * 8) / 32;
@@ -107,9 +107,9 @@ void ap_uint_512_setHighByte(ap_uint_512p v, int index, int value)
 	ap_uint_512_setLowByte(v, (512/8) - 1 - index, value);
 }
 
-void ap_uint_512_setHighByteConcurrent(ap_uint_512p v, int index, int value)
+void ap_uint_512_orHighByteConcurrent(ap_uint_512p v, int index, int value)
 {	
-	ap_uint_512_setLowByteConcurrent(v, (512/8) - 1 - index, value);
+	ap_uint_512_orLowByteConcurrent(v, (512/8) - 1 - index, value);
 }
 
 unsigned char ap_uint_512_getHighByte(ap_uint_512 v, int index)
