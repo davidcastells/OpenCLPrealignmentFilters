@@ -72,7 +72,7 @@ void computeKmerFingerprint(ap_uint_512 bases, int len, ap_uint_1024p fingerprin
 		//ap_uint_1024_or_self(fingerprint, decoded_kmer);
 		
 		// this is the same as above
-		ap_uint_1024_or_bit(AP_UINT_PTR(fingerprint), kmer_index, 1);
+		ap_uint_1024_or_bit(fingerprint, kmer_index, 1);
 	}
 }
 
