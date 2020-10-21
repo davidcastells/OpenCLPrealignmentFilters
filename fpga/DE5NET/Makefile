@@ -9,10 +9,6 @@ select_shd_3_var:
 	rm -f ../shd.aocx
 	ln -s $(BOARD)/shd_3_var.aocx ../shd.aocx
 
-select_shd_3_var:
-	rm -f ../shd.aocx
-	ln -s $(BOARD)/shd_3_var.aocx ../shd.aocx
-
 shd_3_var.aocx: ../shd.cl
 	nohup aoc -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -D SHD_THRESHOLD=3 ../shd.cl -o shd_3_var.aocx > compile.shd_3_var.out &
 
