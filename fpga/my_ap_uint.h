@@ -1,7 +1,7 @@
  
 // the numbers are stored in less significant order 
 
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	typedef unsigned int ap_uint_512[512/32]; 
 	typedef unsigned int ap_uint_512p[512/32];
 
@@ -43,15 +43,15 @@ void ap_uint_512_shift_right(ap_uint_512 x, int shift, ap_uint_512p r);
 
 int ap_uint_1024_get_bit(ap_uint_1024 x, int bit);
 
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 
-#define assert(x) assert_function(x, __FILE__, __LINE__)
+	#define assert(x) assert_function(x, __FILE__, __LINE__)
 
-void assert_function(int condition, char* file, int line)
-{
-    if (!condition)
-	printf("ASSERTION FAILED IN %s %d\n", file, line);
-}
+	void assert_function(int condition, char* file, int line)
+	{
+	    if (!condition)
+		printf("ASSERTION FAILED IN %s %d\n", file, line);
+	}
 
 #endif
 
@@ -65,7 +65,7 @@ void assert_function(int condition, char* file, int line)
 */
 void ap_uint_512_setLowByte(ap_uint_512p v, int index, int value)
 {	
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	int wordidx = (index * 8) / 32;
 	int byteidx = (index % (32/8));
 	
@@ -85,7 +85,7 @@ void ap_uint_512_setLowByte(ap_uint_512p v, int index, int value)
 
 void ap_uint_512_setLowByteConcurrent(ap_uint_512p v, int index, int value)
 {	
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	int wordidx = (index * 8) / 32;
 	int byteidx = (index % (32/8));
 	
@@ -101,6 +101,7 @@ void ap_uint_512_setLowByteConcurrent(ap_uint_512p v, int index, int value)
 	*v = (*v)  | bv; 
 #endif
 }
+
 void ap_uint_512_setHighByte(ap_uint_512p v, int index, int value)
 {	
 	ap_uint_512_setLowByte(v, (512/8) - 1 - index, value);
@@ -121,7 +122,7 @@ unsigned char ap_uint_512_getLowByte(ap_uint_512 v, int index)
 	ap_uint_512 w;
 	ap_uint_512_shift_right(v, (index * 8), AP_UINT_PTR(w));
 	
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	return w[0] & 0xFF;
 #else
 	return w & 0xFF;
@@ -130,7 +131,7 @@ unsigned char ap_uint_512_getLowByte(ap_uint_512 v, int index)
 
 unsigned int ap_uint_512_getDword(ap_uint_512 v, int index)
 {	
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	ap_uint_512 w;
 	ap_uint_512_shift_right(v, (index * 32), AP_UINT_PTR(w));
 	
@@ -146,7 +147,7 @@ unsigned int ap_uint_512_getDword(ap_uint_512 v, int index)
 */
 void ap_uint_512_zero(ap_uint_512p v)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 512/32; i++)
 	{
 		v[i] = 0;
@@ -161,7 +162,7 @@ void ap_uint_512_zero(ap_uint_512p v)
 */
 void ap_uint_1024_zero(ap_uint_1024p v)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 1024/32; i++)
 	{
 		v[i] = 0;
@@ -175,7 +176,7 @@ void ap_uint_1024_zero(ap_uint_1024p v)
 
 int ap_uint_512_isZero(ap_uint_512 v)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 512/32; i++)
 		if (v[i] != 0) 
 			return 1;
@@ -188,7 +189,7 @@ int ap_uint_512_isZero(ap_uint_512 v)
 
 void ap_uint_512_set(ap_uint_512p dst, ap_uint_512 src)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 512/32; i++)
 		dst[i] = src[i];
 #else
@@ -204,7 +205,7 @@ void ap_uint_512_set(ap_uint_512p dst, ap_uint_512 src)
 */
 void ap_uint_1024_set(ap_uint_1024p dst, ap_uint_1024 src)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 1024/32; i++)
 		dst[i] = src[i];
 #else
@@ -215,7 +216,7 @@ void ap_uint_1024_set(ap_uint_1024p dst, ap_uint_1024 src)
 
 void ap_uint_512_set_bit(ap_uint_512p v, int bit, int x)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	int wordidx = bit / 32;
 	int bitidx = (bit % 32);
 	
@@ -243,7 +244,7 @@ void ap_uint_512_set_bit(ap_uint_512p v, int bit, int x)
 
 void ap_uint_512_or_bit(ap_uint_512p v, int bit, int x)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	int wordidx = bit / 32;
 	int bitidx = (bit % 32);
 	
@@ -266,7 +267,7 @@ void ap_uint_512_or_bit(ap_uint_512p v, int bit, int x)
 
 void ap_uint_1024_or_bit(ap_uint_1024p v, int bit, int x)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	int wordidx = bit / 32;
 	int bitidx = (bit % 32);
 	
@@ -286,7 +287,7 @@ void ap_uint_1024_or_bit(ap_uint_1024p v, int bit, int x)
 
 void ap_uint_1024_set_bit(ap_uint_1024p v, int bit, int x)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	int wordidx = bit / 32;
 	int bitidx = (bit % 32);
 	
@@ -328,7 +329,7 @@ void ap_uint_512_onesHigh(ap_uint_512p v, int n)
 
 int ap_uint_512_get_bit(ap_uint_512 x, int bit)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	int wordidx = bit / 32;
 	int bitidx = (bit % 32);
 	
@@ -348,7 +349,7 @@ int ap_uint_512_get_bit_high(ap_uint_512 x, int bit)
 */
 int ap_uint_1024_get_bit(ap_uint_1024 x, int bit)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	int wordidx = bit / 32;
 	int bitidx = (bit % 32);
 	
@@ -376,7 +377,7 @@ unsigned int ap_uint_512_pop_count(ap_uint_512 x)
 
 void ap_uint_512_not(ap_uint_512 x, ap_uint_512p ret)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 512/32; i++)
 	{
 		ret[i] = ~x[i];
@@ -388,7 +389,7 @@ void ap_uint_512_not(ap_uint_512 x, ap_uint_512p ret)
 
 void ap_uint_512_and(ap_uint_512 a, ap_uint_512 b, ap_uint_512p ret)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 512/32; i++)
 	{
 		ret[i] = a[i]&b[i];
@@ -407,7 +408,7 @@ void ap_uint_512_and_self(ap_uint_512p a, ap_uint_512 b)
 
 void ap_uint_512_or(ap_uint_512 a, ap_uint_512 b, ap_uint_512p ret)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 512/32; i++)
 	{
 		ret[i] = a[i]|b[i];
@@ -419,7 +420,7 @@ void ap_uint_512_or(ap_uint_512 a, ap_uint_512 b, ap_uint_512p ret)
 
 void ap_uint_1024_or(ap_uint_1024 a, ap_uint_1024 b, ap_uint_1024p ret)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 1024/32; i++)
 	{
 		ret[i] = a[i]|b[i];
@@ -441,7 +442,7 @@ void ap_uint_1024_or_self(ap_uint_1024p a, ap_uint_1024 b)
 
 void ap_uint_512_xor(ap_uint_512 a, ap_uint_512 b, ap_uint_512p ret)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 512/32; i++)
 	{
 		ret[i] = a[i]^b[i];
@@ -454,7 +455,7 @@ void ap_uint_512_xor(ap_uint_512 a, ap_uint_512 b, ap_uint_512p ret)
 
 void ap_uint_512_shift_right(ap_uint_512 x, int shift, ap_uint_512p r)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 512; i++)
 	{
 		int src = i+shift;
@@ -481,7 +482,7 @@ void ap_uint_512_shift_right_self(int shift, ap_uint_512p r)
 
 void ap_uint_512_shift_left(ap_uint_512 x, int shift, ap_uint_512p r)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	for (int i=0; i < 512; i++)
 	{
 		int src = i-shift;
@@ -505,7 +506,7 @@ void ap_uint_512_shift_left_self(int shift, ap_uint_512p r)
 }
 
 
-#ifdef FPGA_DEBUG	
+#ifdef FPGA_EMULATION	
 void ap_uint_512_print(ap_uint_512 r)
 {
 	printf("0x");
@@ -549,7 +550,7 @@ void ap_uint_1024_printBinHigh(ap_uint_1024 r, int len)
 */
 void ap_uint_1024_decode(unsigned int v, int bits, ap_uint_1024p ret)
 {
-#ifdef FPGA_DEBUG
+#ifdef FPGA_EMULATION
 	assert(bits == 10);
 #endif
 	ap_uint_1024_zero(ret);
@@ -557,7 +558,7 @@ void ap_uint_1024_decode(unsigned int v, int bits, ap_uint_1024p ret)
 
 }
 
-//#ifdef FPGA_DEBUG
+#ifdef FPGA_DEBUG
 
 void test_my_ap_uint()
 {
@@ -593,5 +594,5 @@ void test_my_ap_uint()
 
 }
 
-//#endif
+#endif
 
