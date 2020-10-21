@@ -1,4 +1,8 @@
-#include "my_ap_uint.h"
+#ifdef BASIC_AP_UINT
+	#include "basic_ap_uint.h"
+#else
+	#include "my_ap_uint.h"
+#endif
 
 #define WORKLOAD_TASK_SIZE  3
 #define INDEX_SIZE          2
@@ -61,7 +65,6 @@ __kernel void kmer(__global unsigned char* restrict pairs ,
      }
 }
 
-#ifdef FPGA_DEBUG
 void readBigEndian512bits(__global unsigned char* restrict p, ap_uint_512p ret)
 {
     ap_uint_512_zero(ret);
@@ -71,59 +74,27 @@ void readBigEndian512bits(__global unsigned char* restrict p, ap_uint_512p ret)
     {
         // ret |= p[i] << (i * 8);
         // ap_uint_512_shift_left_self(8, ret);
-        ap_uint_512_setHighByteConcurrent(ret, i, p[i]);
+        ap_uint_512_orHighByteConcurrent(ret, i, p[i]);
 
 	// printf("[%d] = 0x%02X\n", i, p[i]);
     }   
 
+#ifdef FPGA_DEBUG
     printf("Long Word: ");
     ap_uint_512_print(AP_UINT_FROM_PTR(ret));
     printf("\n");
-}
-
-#else
-void readBigEndian512bits(__global unsigned char* restrict p, ap_uint_512p ret)
-{
-    ap_uint<512> v;
-    ap_uint_512_zero(AP_UINT_PTR(v));
-
-    #pragma unroll
-    for (int i=0; i < 512/8; i++)
-    {
-	int byteIdx = 512/8 - 1 - i;
-
-
-	ap_uint<512> incoming = p[i];
-
-        v |= incoming << (byteIdx*8);
-
-	unsigned int v2 = (v >> (byteIdx*8)) & 0xFF;
-
-	//printf("[%d] (%d) = 0x%02X - in word = 0x%02X\n", i, byteIdx, p[i], v2);
-    }
-
-    *ret =  v;
-}
 #endif
+}
+
+
     
-
-
-
-#ifdef FPGA_DEBUG
 void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_uint_512p ret)
 {
     unsigned int offset = pi * 512 /  8;
     
     readBigEndian512bits(&pattern[offset], ret);  
 }
-#else
-void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_uint_512p ret)
-{
-    unsigned int offset = pi * (512 / 8);	// bytes of the next entry
-    
-    readBigEndian512bits(&pattern[offset], ret);   
-}
-#endif
+
 
 
 
