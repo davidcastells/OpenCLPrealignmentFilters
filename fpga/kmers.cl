@@ -27,6 +27,7 @@ unsigned int getKmerIndex(ap_uint_512 bases, int offset)
 {
 	unsigned int r = 0;
 
+	#pragma unroll
 	for (int i = 0; i < KMER_K*BASE_SIZE; i++)
 	{
 		int idx = offset*BASE_SIZE + i;
