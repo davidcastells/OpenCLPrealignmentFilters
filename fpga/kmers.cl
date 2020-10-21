@@ -49,6 +49,7 @@ unsigned int computeFingerprintDistance(ap_uint_1024 pattern, ap_uint_1024 text)
 {
 	unsigned int d = 0;
 
+	#pragma unroll
 	for (int i=0; i < 1024; i++)
 	{
 		int bp = ap_uint_1024_get_bit(pattern, i);
@@ -65,6 +66,7 @@ void computeKmerFingerprint(ap_uint_512 bases, int len, ap_uint_1024p fingerprin
 {
 	ap_uint_1024_zero(fingerprint);
 
+	#pragma unroll
 	for (int i=0; i < (len-KMER_K+1); i++)
     	{
         	unsigned int kmer_index = getKmerIndex(bases,i);
