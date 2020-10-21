@@ -32,7 +32,7 @@ unsigned int getKmerIndex(ap_uint_512 bases, int offset)
 	{
 		int idx = offset*BASE_SIZE + i;
 
-		r = (r << 1) | ap_uint_512_get_bit_high(bases, idx);
+		r |= ap_uint_512_get_bit_high(bases, idx) << (KMER_K * BASE_SIZE -1 -i);
 	}
 
 	//printf("kmer [%05X] = ", r);
