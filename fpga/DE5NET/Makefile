@@ -2,6 +2,10 @@ BOARD=DE5NET
 
 all: shd_3_var.aocx shd_3_100_100.aocx kmers_var.aocx kmers_100_100.aocx
 
+clean:
+	rm -fr kmers*
+	rm -fr shd_*
+
 early:
 	aoc -c ../shd.cl -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers
 
