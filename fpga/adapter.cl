@@ -111,20 +111,20 @@ unsigned int computeTask(__global unsigned char* restrict pairs,
 	readPairs(pairs, pi, AP_UINT_PTR(pairs_word));
 
 #ifdef PATTERN_LEN
-	int pl = PATTERN_LEN;
-	int tl = TEXT_LEN;
+	unsigned char pl = PATTERN_LEN;
+	unsigned char tl = TEXT_LEN;
 #else
-	int pl = ap_uint_512_getHighByte(pairs_word, 0);
-	int tl = ap_uint_512_getHighByte(pairs_word, 1);
+	unsigned char pl = ap_uint_512_getHighByte(pairs_word, 0);
+	unsigned char tl = ap_uint_512_getHighByte(pairs_word, 1);
 #endif
 
 #ifdef FPGA_DEBUG
 	printf("pattern len: %d\ttext len: %d\n", pl, tl);
 #endif
-	int alignedTextStart = 8 + 8 + (((pl * BASE_SIZE) + 7) / 8) * 8;
+	int alignedTextStart = 1 + 1 + (((pl * BASE_SIZE) + 7) / 8) ;	// in bytes
 
-	ap_uint_512_shift_left(pairs_word, 8+8, AP_UINT_PTR(pattern_word));
-	ap_uint_512_shift_left(pairs_word, alignedTextStart, AP_UINT_PTR(text_word));
+	ap_uint_512_shift_left_bytes(pairs_word, 2, AP_UINT_PTR(pattern_word));
+	ap_uint_512_shift_left_bytes(pairs_word, alignedTextStart, AP_UINT_PTR(text_word));
 
 
 #ifdef FPGA_DEBUG
