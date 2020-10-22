@@ -9,6 +9,9 @@ int get_bit(unsigned int w, int bit)
 	return (w >> bit) & 1;
 }
 
+/**
+* @param len length of the sequence in bases
+*/
 void printSequenceInInt(unsigned int w, int size, int len)
 {
 	char sym[]={'A','C','G', 'T'};
@@ -23,21 +26,49 @@ void printSequenceInInt(unsigned int w, int size, int len)
 
 }
 
+/**
+* A KMER will be surely < 32 bits , so we can store it in a single word
+* @param bases 512 bitmap with the bases (in Big Endian order, the first base is in bits (511,510)
+* @param offset starting offset (in bases)
+*/
 unsigned int getKmerIndex(ap_uint_512 bases, int offset)
 {
 	unsigned int r = 0;
+	unsigned int mask = (1 << (KMER_K*BASE_SIZE)) -1;
 
-	#pragma unroll
-	for (int i = 0; i < KMER_K*BASE_SIZE; i++)
+	int highest_bit = 512 - 1 - BASE_SIZE * offset;
+	int lowest_bit = highest_bit + 1 - KMER_K * BASE_SIZE;
+
+	int wordidx0 = highest_bit / 32;
+	int bitidx0 = highest_bit % 32;
+  
+	int wordidx1 = lowest_bit / 32;
+	int bitidx1 = lowest_bit % 32;
+
+	unsigned int high_word = ap_uint_512_getDword(bases, wordidx0);
+	unsigned int low_word = ap_uint_512_getDword(bases, wordidx1);
+
+	if (wordidx0 == wordidx1)
 	{
-		int idx = offset*BASE_SIZE + i;
-
-		r |= ap_uint_512_get_bit_high(bases, idx) << (KMER_K * BASE_SIZE -1 -i);
+		// the same word, just shift right to put lowest bit in position 0
+		// w0 |     [h        l]       |
+		// w1 |     [h        l]       |
+  		r = (low_word >> bitidx1) & mask;
+	}
+	else
+	{
+		// different word, the high bit is in position bitidx0 and should be in KMER_K * BASE_SIZE -1 
+		// w0 |                    [h  |
+		// w1 |     l]                 |
+		r = ((high_word << (KMER_K * BASE_SIZE -1 - bitidx0)) | (low_word >> bitidx1)) & mask;
 	}
 
-	//printf("kmer [%05X] = ", r);
-	//printSequenceInInt(r, 10, KMER_K);
-	//printf("\n");
+#ifdef FPGA_DEBUG
+	printf("kmer[%d]=", offset);
+	printSequenceInInt(r, KMER_K * BASE_SIZE, KMER_K);
+	printf(" (%d)", r);
+	printf("\n");
+#endif
 
 	return r;
 }
@@ -47,18 +78,8 @@ unsigned int getKmerIndex(ap_uint_512 bases, int offset)
 */
 unsigned int computeFingerprintDistance(ap_uint_1024 pattern, ap_uint_1024 text)
 {
-	unsigned int d = 0;
-
-	#pragma unroll
-	for (int i=0; i < 1024; i++)
-	{
-		int bp = ap_uint_1024_get_bit(pattern, i);
-		int bt = ap_uint_1024_get_bit(text, i);
-
-		if (bp & ~bt)
-			d++;	
-	}
-
+	unsigned int d = ap_uint_1024_manhattan_distance_a_and_not_b(pattern, text);
+	
 	return (d+KMER_K-1)/KMER_K;
 }
 
@@ -70,10 +91,7 @@ void computeKmerFingerprint(ap_uint_512 bases, int len, ap_uint_1024p fingerprin
 	for (int i=0; i < (len-KMER_K+1); i++)
     	{
         	unsigned int kmer_index = getKmerIndex(bases,i);
-		//ap_uint_1024 decoded_kmer;
-		//ap_uint_1024_decode(kmer_index, KMER_K*2, AP_UINT_PTR(decoded_kmer));
-		//ap_uint_1024_or_self(fingerprint, decoded_kmer);
-		
+				
 		// this is the same as above
 		ap_uint_1024_or_bit(fingerprint, kmer_index, 1);
 	}
