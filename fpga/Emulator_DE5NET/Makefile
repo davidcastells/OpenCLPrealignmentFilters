@@ -15,7 +15,7 @@ select_shd_3_var:
 	ln -s $(BOARD)/shd_3_var.aocx ../shd.aocx
 
 shd_3_var.aocx: ../shd.cl
-	aoc -march=emulator -D FPGA_DEBUG -D FPGA_EMULATION -D SHD_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_var.aocx
+	aoc -march=emulator -D FPGA_DEBUG -D FPGA_EMULATION -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_var.aocx
 
 select_kmers_var:
 	rm -f ../kmers.aocx
