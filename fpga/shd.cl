@@ -33,6 +33,8 @@ void xorBases(ap_uint_512 p, ap_uint_512 t, int len, ap_uint_512p ret)
 
 void removeShortZeros(ap_uint_512 x, int len, ap_uint_512p r)
 {
+	ap_uint_512_zero(r);
+
 	#pragma unroll
 	for (int i=0; i < len; i++)
 	{
@@ -54,7 +56,7 @@ void removeShortZeros(ap_uint_512 x, int len, ap_uint_512p r)
 				v = 1;
 		}
 		
-		ap_uint_512_set_bit(r, idx, v);	
+		ap_uint_512_or_bit(r, idx, v);	
 	}
 	
 	
@@ -116,8 +118,6 @@ unsigned int shd(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		printf("shift [%2d] =", i);
 		ap_uint_512_printBinHigh(dist, plen);
 		printf("\n");
-
-		
 #endif
 
 		ap_uint_512_and_self(AP_UINT_PTR(acum), dist);
