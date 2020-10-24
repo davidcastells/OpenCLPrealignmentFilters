@@ -1,4 +1,5 @@
- 
+
+
 // the numbers are stored in less significant order 
 
 #ifndef FALSE
@@ -98,6 +99,143 @@ int ap_uint_1024_get_bit(ap_uint_1024 x, int bit);
 
 #endif
 
+
+
+void decoder_4_16(unsigned int w, int* sel0, int* sel1, int* sel2, int* sel3, int* sel4, int* sel5, int* sel6, int* sel7, int* sel8, int* sel9, int* sel10, int* sel11, int* sel12, int* sel13, int* sel14, int* sel15)
+{
+	int bit0 = (w >> 0) & 0x1;
+	int bit1 = (w >> 1) & 0x1;
+	int bit2 = (w >> 2) & 0x1;
+	int bit3 = (w >> 3) & 0x1;
+
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+
+
+	*sel0=nbit0 & nbit1 & nbit2 & nbit3;
+	*sel1=bit0 & nbit1 & nbit2 & nbit3;
+	*sel2=nbit0 & bit1 & nbit2 & nbit3;
+	*sel3=bit0 & bit1 & nbit2 & nbit3;
+	*sel4=nbit0 & nbit1 & bit2 & nbit3;
+	*sel5=bit0 & nbit1 & bit2 & nbit3;
+	*sel6=nbit0 & bit1 & bit2 & nbit3;
+	*sel7=bit0 & bit1 & bit2 & nbit3;
+	*sel8=nbit0 & nbit1 & nbit2 & bit3;
+	*sel9=bit0 & nbit1 & nbit2 & bit3;
+	*sel10=nbit0 & bit1 & nbit2 & bit3;
+	*sel11=bit0 & bit1 & nbit2 & bit3;
+	*sel12=nbit0 & nbit1 & bit2 & bit3;
+	*sel13=bit0 & nbit1 & bit2 & bit3;
+	*sel14=nbit0 & bit1 & bit2 & bit3;
+	*sel15=bit0 & bit1 & bit2 & bit3;
+
+	
+}
+
+int ap_uint_512_get_bit(ap_uint_512 x, int bit)
+{
+
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3;
+	int sel3=bit0 & bit1 & nbit2 & nbit3;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3;
+	int sel5=bit0 & nbit1 & bit2 & nbit3;
+	int sel6=nbit0 & bit1 & bit2 & nbit3;
+	int sel7=bit0 & bit1 & bit2 & nbit3;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3;
+	int sel9=bit0 & nbit1 & nbit2 & bit3;
+	int sel10=nbit0 & bit1 & nbit2 & bit3;
+	int sel11=bit0 & bit1 & nbit2 & bit3;
+	int sel12=nbit0 & nbit1 & bit2 & bit3;
+	int sel13=bit0 & nbit1 & bit2 & bit3;
+	int sel14=nbit0 & bit1 & bit2 & bit3;
+	int sel15=bit0 & bit1 & bit2 & bit3;
+
+
+	
+	if (sel0) { return (x.w0 >> bitidx) & 0x1;}	
+	if (sel1) { return (x.w1 >> bitidx) & 0x1;}	
+	if (sel2) { return (x.w2 >> bitidx) & 0x1;}	
+	if (sel3) { return (x.w3 >> bitidx) & 0x1;}	
+	if (sel4) { return (x.w4 >> bitidx) & 0x1;}	
+	if (sel5) { return (x.w5 >> bitidx) & 0x1;}	
+	if (sel6) { return (x.w6 >> bitidx) & 0x1;}	
+	if (sel7) { return (x.w7 >> bitidx) & 0x1;}	
+	if (sel8) { return (x.w8 >> bitidx) & 0x1;}	
+	if (sel9) { return (x.w9 >> bitidx) & 0x1;}	
+	if (sel10) { return (x.w10 >> bitidx) & 0x1;}	
+	if (sel11) { return (x.w11 >> bitidx) & 0x1;}	
+	if (sel12) { return (x.w12 >> bitidx) & 0x1;}	
+	if (sel13) { return (x.w13 >> bitidx) & 0x1;}	
+	if (sel14) { return (x.w14 >> bitidx) & 0x1;}	
+	if (sel15) { return (x.w15 >> bitidx) & 0x1;}
+
+}
+
+int ap_uint_512_get_bit_high(ap_uint_512 x, int bit)
+{
+	return ap_uint_512_get_bit(x, 512-1-bit);
+}
+
+/**
+* return the value of a bit
+*/
+int ap_uint_1024_get_bit(ap_uint_1024 x, int bit)
+{
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+
+
+	
+	if (wordidx == 0) { return (x.w0 >> bitidx) & 0x1;}	
+	if (wordidx == 1) { return (x.w1 >> bitidx) & 0x1;}	
+	if (wordidx == 2) { return (x.w2 >> bitidx) & 0x1;}	
+	if (wordidx == 3) { return (x.w3 >> bitidx) & 0x1;}	
+	if (wordidx == 4) { return (x.w4 >> bitidx) & 0x1;}	
+	if (wordidx == 5) { return (x.w5 >> bitidx) & 0x1;}	
+	if (wordidx == 6) { return (x.w6 >> bitidx) & 0x1;}	
+	if (wordidx == 7) { return (x.w7 >> bitidx) & 0x1;}	
+	if (wordidx == 8) { return (x.w8 >> bitidx) & 0x1;}	
+	if (wordidx == 9) { return (x.w9 >> bitidx) & 0x1;}	
+	if (wordidx == 10) { return (x.w10 >> bitidx) & 0x1;}	
+	if (wordidx == 11) { return (x.w11 >> bitidx) & 0x1;}	
+	if (wordidx == 12) { return (x.w12 >> bitidx) & 0x1;}	
+	if (wordidx == 13) { return (x.w13 >> bitidx) & 0x1;}	
+	if (wordidx == 14) { return (x.w14 >> bitidx) & 0x1;}	
+	if (wordidx == 15) { return (x.w15 >> bitidx) & 0x1;}	
+	if (wordidx == 16) { return (x.w16 >> bitidx) & 0x1;}	
+	if (wordidx == 17) { return (x.w17 >> bitidx) & 0x1;}	
+	if (wordidx == 18) { return (x.w18 >> bitidx) & 0x1;}	
+	if (wordidx == 19) { return (x.w19 >> bitidx) & 0x1;}	
+	if (wordidx == 20) { return (x.w20 >> bitidx) & 0x1;}	
+	if (wordidx == 21) { return (x.w21 >> bitidx) & 0x1;}	
+	if (wordidx == 22) { return (x.w22 >> bitidx) & 0x1;}	
+	if (wordidx == 23) { return (x.w23 >> bitidx) & 0x1;}	
+	if (wordidx == 24) { return (x.w24 >> bitidx) & 0x1;}	
+	if (wordidx == 25) { return (x.w25 >> bitidx) & 0x1;}	
+	if (wordidx == 26) { return (x.w26 >> bitidx) & 0x1;}	
+	if (wordidx == 27) { return (x.w27 >> bitidx) & 0x1;}	
+	if (wordidx == 28) { return (x.w28 >> bitidx) & 0x1;}	
+	if (wordidx == 29) { return (x.w29 >> bitidx) & 0x1;}	
+	if (wordidx == 30) { return (x.w30 >> bitidx) & 0x1;}	
+	if (wordidx == 31) { return (x.w31 >> bitidx) & 0x1;}
+
+}
+
 /**
 * Sets a byte in a 32bits word of the 512 stream.
 * It cannot be used concurrently
@@ -107,44 +245,95 @@ void ap_uint_512_set_word_byte(ap_uint_512p v, int wordidx, int byteidx, unsigne
 	unsigned int mask = (0xFF << (byteidx * 8));
 	unsigned int nmask = ~mask;
 
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3;
+	int sel3=bit0 & bit1 & nbit2 & nbit3;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3;
+	int sel5=bit0 & nbit1 & bit2 & nbit3;
+	int sel6=nbit0 & bit1 & bit2 & nbit3;
+	int sel7=bit0 & bit1 & bit2 & nbit3;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3;
+	int sel9=bit0 & nbit1 & nbit2 & bit3;
+	int sel10=nbit0 & bit1 & nbit2 & bit3;
+	int sel11=bit0 & bit1 & nbit2 & bit3;
+	int sel12=nbit0 & nbit1 & bit2 & bit3;
+	int sel13=bit0 & nbit1 & bit2 & bit3;
+	int sel14=nbit0 & bit1 & bit2 & bit3;
+	int sel15=bit0 & bit1 & bit2 & bit3;
+
 	
-	if (wordidx == 0){ v->w0 = (v->w0 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 1){ v->w1 = (v->w1 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 2){ v->w2 = (v->w2 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 3){ v->w3 = (v->w3 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 4){ v->w4 = (v->w4 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 5){ v->w5 = (v->w5 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 6){ v->w6 = (v->w6 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 7){ v->w7 = (v->w7 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 8){ v->w8 = (v->w8 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 9){ v->w9 = (v->w9 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 10){ v->w10 = (v->w10 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 11){ v->w11 = (v->w11 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 12){ v->w12 = (v->w12 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 13){ v->w13 = (v->w13 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 14){ v->w14 = (v->w14 & nmask) | (value << (byteidx*8)); }
-	if (wordidx == 15){ v->w15 = (v->w15 & nmask) | (value << (byteidx*8)); }			
+	if (sel0){ v->w0 = (v->w0 & nmask) | (value << (byteidx*8)); }
+	if (sel1){ v->w1 = (v->w1 & nmask) | (value << (byteidx*8)); }
+	if (sel2){ v->w2 = (v->w2 & nmask) | (value << (byteidx*8)); }
+	if (sel3){ v->w3 = (v->w3 & nmask) | (value << (byteidx*8)); }
+	if (sel4){ v->w4 = (v->w4 & nmask) | (value << (byteidx*8)); }
+	if (sel5){ v->w5 = (v->w5 & nmask) | (value << (byteidx*8)); }
+	if (sel6){ v->w6 = (v->w6 & nmask) | (value << (byteidx*8)); }
+	if (sel7){ v->w7 = (v->w7 & nmask) | (value << (byteidx*8)); }
+	if (sel8){ v->w8 = (v->w8 & nmask) | (value << (byteidx*8)); }
+	if (sel9){ v->w9 = (v->w9 & nmask) | (value << (byteidx*8)); }
+	if (sel10){ v->w10 = (v->w10 & nmask) | (value << (byteidx*8)); }
+	if (sel11){ v->w11 = (v->w11 & nmask) | (value << (byteidx*8)); }
+	if (sel12){ v->w12 = (v->w12 & nmask) | (value << (byteidx*8)); }
+	if (sel13){ v->w13 = (v->w13 & nmask) | (value << (byteidx*8)); }
+	if (sel14){ v->w14 = (v->w14 & nmask) | (value << (byteidx*8)); }
+	if (sel15){ v->w15 = (v->w15 & nmask) | (value << (byteidx*8)); }			
 }
 
 void ap_uint_512_or_word_byte(ap_uint_512p v, int wordidx, int byteidx, unsigned int value)
 {
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3;
+	int sel3=bit0 & bit1 & nbit2 & nbit3;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3;
+	int sel5=bit0 & nbit1 & bit2 & nbit3;
+	int sel6=nbit0 & bit1 & bit2 & nbit3;
+	int sel7=bit0 & bit1 & bit2 & nbit3;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3;
+	int sel9=bit0 & nbit1 & nbit2 & bit3;
+	int sel10=nbit0 & bit1 & nbit2 & bit3;
+	int sel11=bit0 & bit1 & nbit2 & bit3;
+	int sel12=nbit0 & nbit1 & bit2 & bit3;
+	int sel13=bit0 & nbit1 & bit2 & bit3;
+	int sel14=nbit0 & bit1 & bit2 & bit3;
+	int sel15=bit0 & bit1 & bit2 & bit3;
+
+
 	
-	if (wordidx == 0){ v->w0 = v->w0  | (value << (byteidx*8)); }
-	if (wordidx == 1){ v->w1 = v->w1  | (value << (byteidx*8)); }
-	if (wordidx == 2){ v->w2 = v->w2  | (value << (byteidx*8)); }
-	if (wordidx == 3){ v->w3 = v->w3  | (value << (byteidx*8)); }
-	if (wordidx == 4){ v->w4 = v->w4  | (value << (byteidx*8)); }
-	if (wordidx == 5){ v->w5 = v->w5  | (value << (byteidx*8)); }
-	if (wordidx == 6){ v->w6 = v->w6  | (value << (byteidx*8)); }
-	if (wordidx == 7){ v->w7 = v->w7  | (value << (byteidx*8)); }
-	if (wordidx == 8){ v->w8 = v->w8  | (value << (byteidx*8)); }
-	if (wordidx == 9){ v->w9 = v->w9  | (value << (byteidx*8)); }
-	if (wordidx == 10){ v->w10 = v->w10  | (value << (byteidx*8)); }
-	if (wordidx == 11){ v->w11 = v->w11  | (value << (byteidx*8)); }
-	if (wordidx == 12){ v->w12 = v->w12  | (value << (byteidx*8)); }
-	if (wordidx == 13){ v->w13 = v->w13  | (value << (byteidx*8)); }
-	if (wordidx == 14){ v->w14 = v->w14  | (value << (byteidx*8)); }
-	if (wordidx == 15){ v->w15 = v->w15  | (value << (byteidx*8)); }	
+	if (sel0){ v->w0 = v->w0  | (value << (byteidx*8)); }
+	if (sel1){ v->w1 = v->w1  | (value << (byteidx*8)); }
+	if (sel2){ v->w2 = v->w2  | (value << (byteidx*8)); }
+	if (sel3){ v->w3 = v->w3  | (value << (byteidx*8)); }
+	if (sel4){ v->w4 = v->w4  | (value << (byteidx*8)); }
+	if (sel5){ v->w5 = v->w5  | (value << (byteidx*8)); }
+	if (sel6){ v->w6 = v->w6  | (value << (byteidx*8)); }
+	if (sel7){ v->w7 = v->w7  | (value << (byteidx*8)); }
+	if (sel8){ v->w8 = v->w8  | (value << (byteidx*8)); }
+	if (sel9){ v->w9 = v->w9  | (value << (byteidx*8)); }
+	if (sel10){ v->w10 = v->w10  | (value << (byteidx*8)); }
+	if (sel11){ v->w11 = v->w11  | (value << (byteidx*8)); }
+	if (sel12){ v->w12 = v->w12  | (value << (byteidx*8)); }
+	if (sel13){ v->w13 = v->w13  | (value << (byteidx*8)); }
+	if (sel14){ v->w14 = v->w14  | (value << (byteidx*8)); }
+	if (sel15){ v->w15 = v->w15  | (value << (byteidx*8)); }	
 	
 }
 
@@ -157,9 +346,8 @@ void ap_uint_512_or_word_byte(ap_uint_512p v, int wordidx, int byteidx, unsigned
 */
 void ap_uint_512_setLowByte(ap_uint_512p v, int index, int value)
 {	
-
-	int wordidx = (index * 8) / 32;
-	int byteidx = (index % (32/8));
+	int wordidx = index >> 2; // int wordidx = (index * 8) / 32;
+	int byteidx = index & 0x3; // int byteidx = (index % (32/8));
 	
 	ap_uint_512_set_word_byte(v, wordidx, byteidx, value);
 
@@ -167,8 +355,8 @@ void ap_uint_512_setLowByte(ap_uint_512p v, int index, int value)
 
 void ap_uint_512_orLowByteConcurrent(ap_uint_512p v, int index, int value)
 {	
-	int wordidx = (index * 8) / 32;
-	int byteidx = (index % (32/8));
+	int wordidx = index >> 2; // int wordidx = (index * 8) / 32;
+	int byteidx = index & 0x3; // int byteidx = (index % (32/8));
 	
 	ap_uint_512_or_word_byte(v, wordidx, byteidx, value);
 }
@@ -188,10 +376,13 @@ unsigned char ap_uint_512_getHighByte(ap_uint_512 v, int index)
 	return ap_uint_512_getLowByte(v, (512/8) - 1 - index);
 }
 
+/**
+* @param one of the 64 bytes of the 512 bits word
+*/
 unsigned char ap_uint_512_getLowByte(ap_uint_512 v, int index)
 {
-	int wordidx = (index * 8) / 32;
-	int byteidx = (index % (32/8));
+	int wordidx = (index >> 2); 	// int wordidx = (index * 8) / 32;
+	int byteidx = (index & 0x03);	// (index % (32/8));
 
 	unsigned int dword = ap_uint_512_getDword(v, wordidx);
 
@@ -200,23 +391,49 @@ unsigned char ap_uint_512_getLowByte(ap_uint_512 v, int index)
 
 unsigned int ap_uint_512_getDword(ap_uint_512 v, int wordidx)
 {	
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3;
+	int sel3=bit0 & bit1 & nbit2 & nbit3;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3;
+	int sel5=bit0 & nbit1 & bit2 & nbit3;
+	int sel6=nbit0 & bit1 & bit2 & nbit3;
+	int sel7=bit0 & bit1 & bit2 & nbit3;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3;
+	int sel9=bit0 & nbit1 & nbit2 & bit3;
+	int sel10=nbit0 & bit1 & nbit2 & bit3;
+	int sel11=bit0 & bit1 & nbit2 & bit3;
+	int sel12=nbit0 & nbit1 & bit2 & bit3;
+	int sel13=bit0 & nbit1 & bit2 & bit3;
+	int sel14=nbit0 & bit1 & bit2 & bit3;
+	int sel15=bit0 & bit1 & bit2 & bit3;
+
+
 	
-	if (wordidx == 0){ return v.w0;}
-	if (wordidx == 1){ return v.w1;}
-	if (wordidx == 2){ return v.w2;}
-	if (wordidx == 3){ return v.w3;}
-	if (wordidx == 4){ return v.w4;}
-	if (wordidx == 5){ return v.w5;}
-	if (wordidx == 6){ return v.w6;}
-	if (wordidx == 7){ return v.w7;}
-	if (wordidx == 8){ return v.w8;}
-	if (wordidx == 9){ return v.w9;}
-	if (wordidx == 10){ return v.w10;}
-	if (wordidx == 11){ return v.w11;}
-	if (wordidx == 12){ return v.w12;}
-	if (wordidx == 13){ return v.w13;}
-	if (wordidx == 14){ return v.w14;}
-	if (wordidx == 15){ return v.w15;}	
+	if (sel0){ return v.w0;}
+	if (sel1){ return v.w1;}
+	if (sel2){ return v.w2;}
+	if (sel3){ return v.w3;}
+	if (sel4){ return v.w4;}
+	if (sel5){ return v.w5;}
+	if (sel6){ return v.w6;}
+	if (sel7){ return v.w7;}
+	if (sel8){ return v.w8;}
+	if (sel9){ return v.w9;}
+	if (sel10){ return v.w10;}
+	if (sel11){ return v.w11;}
+	if (sel12){ return v.w12;}
+	if (sel13){ return v.w13;}
+	if (sel14){ return v.w14;}
+	if (sel15){ return v.w15;}	
 
 
 
@@ -379,107 +596,112 @@ void ap_uint_1024_set(ap_uint_1024p dst, ap_uint_1024 src)
 
 void ap_uint_512_set_bit(ap_uint_512p v, int bit, int x)
 {
-	int wordidx = bit / 32;
-	int bitidx = (bit % 32);
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3;
+	int sel3=bit0 & bit1 & nbit2 & nbit3;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3;
+	int sel5=bit0 & nbit1 & bit2 & nbit3;
+	int sel6=nbit0 & bit1 & bit2 & nbit3;
+	int sel7=bit0 & bit1 & bit2 & nbit3;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3;
+	int sel9=bit0 & nbit1 & nbit2 & bit3;
+	int sel10=nbit0 & bit1 & nbit2 & bit3;
+	int sel11=bit0 & bit1 & nbit2 & bit3;
+	int sel12=nbit0 & nbit1 & bit2 & bit3;
+	int sel13=bit0 & nbit1 & bit2 & bit3;
+	int sel14=nbit0 & bit1 & bit2 & bit3;
+	int sel15=bit0 & bit1 & bit2 & bit3;
+
+
 	
-	
-	if (wordidx == 0){
-		if (x) v->w0 |= (1 << bitidx);
-		else v->w0 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 1){
-		if (x) v->w1 |= (1 << bitidx);
-		else v->w1 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 2){
-		if (x) v->w2 |= (1 << bitidx);
-		else v->w2 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 3){
-		if (x) v->w3 |= (1 << bitidx);
-		else v->w3 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 4){
-		if (x) v->w4 |= (1 << bitidx);
-		else v->w4 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 5){
-		if (x) v->w5 |= (1 << bitidx);
-		else v->w5 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 6){
-		if (x) v->w6 |= (1 << bitidx);
-		else v->w6 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 7){
-		if (x) v->w7 |= (1 << bitidx);
-		else v->w7 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 8){
-		if (x) v->w8 |= (1 << bitidx);
-		else v->w8 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 9){
-		if (x) v->w9 |= (1 << bitidx);
-		else v->w9 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 10){
-		if (x) v->w10 |= (1 << bitidx);
-		else v->w10 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 11){
-		if (x) v->w11 |= (1 << bitidx);
-		else v->w11 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 12){
-		if (x) v->w12 |= (1 << bitidx);
-		else v->w12 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 13){
-		if (x) v->w13 |= (1 << bitidx);
-		else v->w13 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 14){
-		if (x) v->w14 |= (1 << bitidx);
-		else v->w14 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 15){
-		if (x) v->w15 |= (1 << bitidx);
-		else v->w15 &= (~(1 << bitidx));
-	}
+	if (sel0) if (x) v->w0 |= (1 << bitidx); else v->w0 &= (~(1 << bitidx));	
+	if (sel1) if (x) v->w1 |= (1 << bitidx); else v->w1 &= (~(1 << bitidx));	
+	if (sel2) if (x) v->w2 |= (1 << bitidx); else v->w2 &= (~(1 << bitidx));	
+	if (sel3) if (x) v->w3 |= (1 << bitidx); else v->w3 &= (~(1 << bitidx));	
+	if (sel4) if (x) v->w4 |= (1 << bitidx); else v->w4 &= (~(1 << bitidx));	
+	if (sel5) if (x) v->w5 |= (1 << bitidx); else v->w5 &= (~(1 << bitidx));	
+	if (sel6) if (x) v->w6 |= (1 << bitidx); else v->w6 &= (~(1 << bitidx));	
+	if (sel7) if (x) v->w7 |= (1 << bitidx); else v->w7 &= (~(1 << bitidx));	
+	if (sel8) if (x) v->w8 |= (1 << bitidx); else v->w8 &= (~(1 << bitidx));	
+	if (sel9) if (x) v->w9 |= (1 << bitidx); else v->w9 &= (~(1 << bitidx));	
+	if (sel10) if (x) v->w10 |= (1 << bitidx); else v->w10 &= (~(1 << bitidx));	
+	if (sel11) if (x) v->w11 |= (1 << bitidx); else v->w11 &= (~(1 << bitidx));	
+	if (sel12) if (x) v->w12 |= (1 << bitidx); else v->w12 &= (~(1 << bitidx));	
+	if (sel13) if (x) v->w13 |= (1 << bitidx); else v->w13 &= (~(1 << bitidx));	
+	if (sel14) if (x) v->w14 |= (1 << bitidx); else v->w14 &= (~(1 << bitidx));	
+	if (sel15) if (x) v->w15 |= (1 << bitidx); else v->w15 &= (~(1 << bitidx));
 
 }
 
 void ap_uint_512_or_bit(ap_uint_512p v, int bit, int x)
 {
-	int wordidx = bit / 32;
-	int bitidx = (bit % 32);
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+
+
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3;
+	int sel3=bit0 & bit1 & nbit2 & nbit3;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3;
+	int sel5=bit0 & nbit1 & bit2 & nbit3;
+	int sel6=nbit0 & bit1 & bit2 & nbit3;
+	int sel7=bit0 & bit1 & bit2 & nbit3;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3;
+	int sel9=bit0 & nbit1 & nbit2 & bit3;
+	int sel10=nbit0 & bit1 & nbit2 & bit3;
+	int sel11=bit0 & bit1 & nbit2 & bit3;
+	int sel12=nbit0 & nbit1 & bit2 & bit3;
+	int sel13=bit0 & nbit1 & bit2 & bit3;
+	int sel14=nbit0 & bit1 & bit2 & bit3;
+	int sel15=bit0 & bit1 & bit2 & bit3;
+
 
 	
-	if (wordidx == 0){ v->w0 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 1){ v->w1 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 2){ v->w2 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 3){ v->w3 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 4){ v->w4 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 5){ v->w5 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 6){ v->w6 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 7){ v->w7 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 8){ v->w8 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 9){ v->w9 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 10){ v->w10 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 11){ v->w11 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 12){ v->w12 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 13){ v->w13 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 14){ v->w14 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 15){ v->w15 |= (x) ? (1 << bitidx) : 0; }
+	if (sel0){ v->w0 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel1){ v->w1 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel2){ v->w2 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel3){ v->w3 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel4){ v->w4 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel5){ v->w5 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel6){ v->w6 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel7){ v->w7 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel8){ v->w8 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel9){ v->w9 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel10){ v->w10 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel11){ v->w11 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel12){ v->w12 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel13){ v->w13 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel14){ v->w14 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel15){ v->w15 |= (x) ? (1 << bitidx) : 0; }
 	
 }
 
 
 void ap_uint_1024_or_bit(ap_uint_1024p v, int bit, int x)
 {
-	int wordidx = bit / 32;
-	int bitidx = (bit % 32);
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
 
 	
 	if (wordidx == 0){ v->w0 |= (x) ? (1 << bitidx) : 0; }	
@@ -519,8 +741,8 @@ void ap_uint_1024_or_bit(ap_uint_1024p v, int bit, int x)
 
 void ap_uint_1024_set_bit(ap_uint_1024p v, int bit, int x)
 {
-	int wordidx = bit / 32;
-	int bitidx = (bit % 32);
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
 	
 	
 	if (wordidx == 0){
@@ -658,98 +880,1038 @@ void ap_uint_512_onesLow(ap_uint_512p v, int n)
 {
 	ap_uint_512_zero(v);
 
-	#pragma unroll
-	for (int i=0; i < 512; i++)
-	{
-		ap_uint_512_or_bit(v, i, (i<n)?1:0);
-	}
+	
+	ap_uint_512_or_bit(v, 0, (0<n)?1:0);
+	ap_uint_512_or_bit(v, 1, (1<n)?1:0);
+	ap_uint_512_or_bit(v, 2, (2<n)?1:0);
+	ap_uint_512_or_bit(v, 3, (3<n)?1:0);
+	ap_uint_512_or_bit(v, 4, (4<n)?1:0);
+	ap_uint_512_or_bit(v, 5, (5<n)?1:0);
+	ap_uint_512_or_bit(v, 6, (6<n)?1:0);
+	ap_uint_512_or_bit(v, 7, (7<n)?1:0);
+	ap_uint_512_or_bit(v, 8, (8<n)?1:0);
+	ap_uint_512_or_bit(v, 9, (9<n)?1:0);
+	ap_uint_512_or_bit(v, 10, (10<n)?1:0);
+	ap_uint_512_or_bit(v, 11, (11<n)?1:0);
+	ap_uint_512_or_bit(v, 12, (12<n)?1:0);
+	ap_uint_512_or_bit(v, 13, (13<n)?1:0);
+	ap_uint_512_or_bit(v, 14, (14<n)?1:0);
+	ap_uint_512_or_bit(v, 15, (15<n)?1:0);
+	ap_uint_512_or_bit(v, 16, (16<n)?1:0);
+	ap_uint_512_or_bit(v, 17, (17<n)?1:0);
+	ap_uint_512_or_bit(v, 18, (18<n)?1:0);
+	ap_uint_512_or_bit(v, 19, (19<n)?1:0);
+	ap_uint_512_or_bit(v, 20, (20<n)?1:0);
+	ap_uint_512_or_bit(v, 21, (21<n)?1:0);
+	ap_uint_512_or_bit(v, 22, (22<n)?1:0);
+	ap_uint_512_or_bit(v, 23, (23<n)?1:0);
+	ap_uint_512_or_bit(v, 24, (24<n)?1:0);
+	ap_uint_512_or_bit(v, 25, (25<n)?1:0);
+	ap_uint_512_or_bit(v, 26, (26<n)?1:0);
+	ap_uint_512_or_bit(v, 27, (27<n)?1:0);
+	ap_uint_512_or_bit(v, 28, (28<n)?1:0);
+	ap_uint_512_or_bit(v, 29, (29<n)?1:0);
+	ap_uint_512_or_bit(v, 30, (30<n)?1:0);
+	ap_uint_512_or_bit(v, 31, (31<n)?1:0);
+	ap_uint_512_or_bit(v, 32, (32<n)?1:0);
+	ap_uint_512_or_bit(v, 33, (33<n)?1:0);
+	ap_uint_512_or_bit(v, 34, (34<n)?1:0);
+	ap_uint_512_or_bit(v, 35, (35<n)?1:0);
+	ap_uint_512_or_bit(v, 36, (36<n)?1:0);
+	ap_uint_512_or_bit(v, 37, (37<n)?1:0);
+	ap_uint_512_or_bit(v, 38, (38<n)?1:0);
+	ap_uint_512_or_bit(v, 39, (39<n)?1:0);
+	ap_uint_512_or_bit(v, 40, (40<n)?1:0);
+	ap_uint_512_or_bit(v, 41, (41<n)?1:0);
+	ap_uint_512_or_bit(v, 42, (42<n)?1:0);
+	ap_uint_512_or_bit(v, 43, (43<n)?1:0);
+	ap_uint_512_or_bit(v, 44, (44<n)?1:0);
+	ap_uint_512_or_bit(v, 45, (45<n)?1:0);
+	ap_uint_512_or_bit(v, 46, (46<n)?1:0);
+	ap_uint_512_or_bit(v, 47, (47<n)?1:0);
+	ap_uint_512_or_bit(v, 48, (48<n)?1:0);
+	ap_uint_512_or_bit(v, 49, (49<n)?1:0);
+	ap_uint_512_or_bit(v, 50, (50<n)?1:0);
+	ap_uint_512_or_bit(v, 51, (51<n)?1:0);
+	ap_uint_512_or_bit(v, 52, (52<n)?1:0);
+	ap_uint_512_or_bit(v, 53, (53<n)?1:0);
+	ap_uint_512_or_bit(v, 54, (54<n)?1:0);
+	ap_uint_512_or_bit(v, 55, (55<n)?1:0);
+	ap_uint_512_or_bit(v, 56, (56<n)?1:0);
+	ap_uint_512_or_bit(v, 57, (57<n)?1:0);
+	ap_uint_512_or_bit(v, 58, (58<n)?1:0);
+	ap_uint_512_or_bit(v, 59, (59<n)?1:0);
+	ap_uint_512_or_bit(v, 60, (60<n)?1:0);
+	ap_uint_512_or_bit(v, 61, (61<n)?1:0);
+	ap_uint_512_or_bit(v, 62, (62<n)?1:0);
+	ap_uint_512_or_bit(v, 63, (63<n)?1:0);
+	ap_uint_512_or_bit(v, 64, (64<n)?1:0);
+	ap_uint_512_or_bit(v, 65, (65<n)?1:0);
+	ap_uint_512_or_bit(v, 66, (66<n)?1:0);
+	ap_uint_512_or_bit(v, 67, (67<n)?1:0);
+	ap_uint_512_or_bit(v, 68, (68<n)?1:0);
+	ap_uint_512_or_bit(v, 69, (69<n)?1:0);
+	ap_uint_512_or_bit(v, 70, (70<n)?1:0);
+	ap_uint_512_or_bit(v, 71, (71<n)?1:0);
+	ap_uint_512_or_bit(v, 72, (72<n)?1:0);
+	ap_uint_512_or_bit(v, 73, (73<n)?1:0);
+	ap_uint_512_or_bit(v, 74, (74<n)?1:0);
+	ap_uint_512_or_bit(v, 75, (75<n)?1:0);
+	ap_uint_512_or_bit(v, 76, (76<n)?1:0);
+	ap_uint_512_or_bit(v, 77, (77<n)?1:0);
+	ap_uint_512_or_bit(v, 78, (78<n)?1:0);
+	ap_uint_512_or_bit(v, 79, (79<n)?1:0);
+	ap_uint_512_or_bit(v, 80, (80<n)?1:0);
+	ap_uint_512_or_bit(v, 81, (81<n)?1:0);
+	ap_uint_512_or_bit(v, 82, (82<n)?1:0);
+	ap_uint_512_or_bit(v, 83, (83<n)?1:0);
+	ap_uint_512_or_bit(v, 84, (84<n)?1:0);
+	ap_uint_512_or_bit(v, 85, (85<n)?1:0);
+	ap_uint_512_or_bit(v, 86, (86<n)?1:0);
+	ap_uint_512_or_bit(v, 87, (87<n)?1:0);
+	ap_uint_512_or_bit(v, 88, (88<n)?1:0);
+	ap_uint_512_or_bit(v, 89, (89<n)?1:0);
+	ap_uint_512_or_bit(v, 90, (90<n)?1:0);
+	ap_uint_512_or_bit(v, 91, (91<n)?1:0);
+	ap_uint_512_or_bit(v, 92, (92<n)?1:0);
+	ap_uint_512_or_bit(v, 93, (93<n)?1:0);
+	ap_uint_512_or_bit(v, 94, (94<n)?1:0);
+	ap_uint_512_or_bit(v, 95, (95<n)?1:0);
+	ap_uint_512_or_bit(v, 96, (96<n)?1:0);
+	ap_uint_512_or_bit(v, 97, (97<n)?1:0);
+	ap_uint_512_or_bit(v, 98, (98<n)?1:0);
+	ap_uint_512_or_bit(v, 99, (99<n)?1:0);
+	ap_uint_512_or_bit(v, 100, (100<n)?1:0);
+	ap_uint_512_or_bit(v, 101, (101<n)?1:0);
+	ap_uint_512_or_bit(v, 102, (102<n)?1:0);
+	ap_uint_512_or_bit(v, 103, (103<n)?1:0);
+	ap_uint_512_or_bit(v, 104, (104<n)?1:0);
+	ap_uint_512_or_bit(v, 105, (105<n)?1:0);
+	ap_uint_512_or_bit(v, 106, (106<n)?1:0);
+	ap_uint_512_or_bit(v, 107, (107<n)?1:0);
+	ap_uint_512_or_bit(v, 108, (108<n)?1:0);
+	ap_uint_512_or_bit(v, 109, (109<n)?1:0);
+	ap_uint_512_or_bit(v, 110, (110<n)?1:0);
+	ap_uint_512_or_bit(v, 111, (111<n)?1:0);
+	ap_uint_512_or_bit(v, 112, (112<n)?1:0);
+	ap_uint_512_or_bit(v, 113, (113<n)?1:0);
+	ap_uint_512_or_bit(v, 114, (114<n)?1:0);
+	ap_uint_512_or_bit(v, 115, (115<n)?1:0);
+	ap_uint_512_or_bit(v, 116, (116<n)?1:0);
+	ap_uint_512_or_bit(v, 117, (117<n)?1:0);
+	ap_uint_512_or_bit(v, 118, (118<n)?1:0);
+	ap_uint_512_or_bit(v, 119, (119<n)?1:0);
+	ap_uint_512_or_bit(v, 120, (120<n)?1:0);
+	ap_uint_512_or_bit(v, 121, (121<n)?1:0);
+	ap_uint_512_or_bit(v, 122, (122<n)?1:0);
+	ap_uint_512_or_bit(v, 123, (123<n)?1:0);
+	ap_uint_512_or_bit(v, 124, (124<n)?1:0);
+	ap_uint_512_or_bit(v, 125, (125<n)?1:0);
+	ap_uint_512_or_bit(v, 126, (126<n)?1:0);
+	ap_uint_512_or_bit(v, 127, (127<n)?1:0);
+	ap_uint_512_or_bit(v, 128, (128<n)?1:0);
+	ap_uint_512_or_bit(v, 129, (129<n)?1:0);
+	ap_uint_512_or_bit(v, 130, (130<n)?1:0);
+	ap_uint_512_or_bit(v, 131, (131<n)?1:0);
+	ap_uint_512_or_bit(v, 132, (132<n)?1:0);
+	ap_uint_512_or_bit(v, 133, (133<n)?1:0);
+	ap_uint_512_or_bit(v, 134, (134<n)?1:0);
+	ap_uint_512_or_bit(v, 135, (135<n)?1:0);
+	ap_uint_512_or_bit(v, 136, (136<n)?1:0);
+	ap_uint_512_or_bit(v, 137, (137<n)?1:0);
+	ap_uint_512_or_bit(v, 138, (138<n)?1:0);
+	ap_uint_512_or_bit(v, 139, (139<n)?1:0);
+	ap_uint_512_or_bit(v, 140, (140<n)?1:0);
+	ap_uint_512_or_bit(v, 141, (141<n)?1:0);
+	ap_uint_512_or_bit(v, 142, (142<n)?1:0);
+	ap_uint_512_or_bit(v, 143, (143<n)?1:0);
+	ap_uint_512_or_bit(v, 144, (144<n)?1:0);
+	ap_uint_512_or_bit(v, 145, (145<n)?1:0);
+	ap_uint_512_or_bit(v, 146, (146<n)?1:0);
+	ap_uint_512_or_bit(v, 147, (147<n)?1:0);
+	ap_uint_512_or_bit(v, 148, (148<n)?1:0);
+	ap_uint_512_or_bit(v, 149, (149<n)?1:0);
+	ap_uint_512_or_bit(v, 150, (150<n)?1:0);
+	ap_uint_512_or_bit(v, 151, (151<n)?1:0);
+	ap_uint_512_or_bit(v, 152, (152<n)?1:0);
+	ap_uint_512_or_bit(v, 153, (153<n)?1:0);
+	ap_uint_512_or_bit(v, 154, (154<n)?1:0);
+	ap_uint_512_or_bit(v, 155, (155<n)?1:0);
+	ap_uint_512_or_bit(v, 156, (156<n)?1:0);
+	ap_uint_512_or_bit(v, 157, (157<n)?1:0);
+	ap_uint_512_or_bit(v, 158, (158<n)?1:0);
+	ap_uint_512_or_bit(v, 159, (159<n)?1:0);
+	ap_uint_512_or_bit(v, 160, (160<n)?1:0);
+	ap_uint_512_or_bit(v, 161, (161<n)?1:0);
+	ap_uint_512_or_bit(v, 162, (162<n)?1:0);
+	ap_uint_512_or_bit(v, 163, (163<n)?1:0);
+	ap_uint_512_or_bit(v, 164, (164<n)?1:0);
+	ap_uint_512_or_bit(v, 165, (165<n)?1:0);
+	ap_uint_512_or_bit(v, 166, (166<n)?1:0);
+	ap_uint_512_or_bit(v, 167, (167<n)?1:0);
+	ap_uint_512_or_bit(v, 168, (168<n)?1:0);
+	ap_uint_512_or_bit(v, 169, (169<n)?1:0);
+	ap_uint_512_or_bit(v, 170, (170<n)?1:0);
+	ap_uint_512_or_bit(v, 171, (171<n)?1:0);
+	ap_uint_512_or_bit(v, 172, (172<n)?1:0);
+	ap_uint_512_or_bit(v, 173, (173<n)?1:0);
+	ap_uint_512_or_bit(v, 174, (174<n)?1:0);
+	ap_uint_512_or_bit(v, 175, (175<n)?1:0);
+	ap_uint_512_or_bit(v, 176, (176<n)?1:0);
+	ap_uint_512_or_bit(v, 177, (177<n)?1:0);
+	ap_uint_512_or_bit(v, 178, (178<n)?1:0);
+	ap_uint_512_or_bit(v, 179, (179<n)?1:0);
+	ap_uint_512_or_bit(v, 180, (180<n)?1:0);
+	ap_uint_512_or_bit(v, 181, (181<n)?1:0);
+	ap_uint_512_or_bit(v, 182, (182<n)?1:0);
+	ap_uint_512_or_bit(v, 183, (183<n)?1:0);
+	ap_uint_512_or_bit(v, 184, (184<n)?1:0);
+	ap_uint_512_or_bit(v, 185, (185<n)?1:0);
+	ap_uint_512_or_bit(v, 186, (186<n)?1:0);
+	ap_uint_512_or_bit(v, 187, (187<n)?1:0);
+	ap_uint_512_or_bit(v, 188, (188<n)?1:0);
+	ap_uint_512_or_bit(v, 189, (189<n)?1:0);
+	ap_uint_512_or_bit(v, 190, (190<n)?1:0);
+	ap_uint_512_or_bit(v, 191, (191<n)?1:0);
+	ap_uint_512_or_bit(v, 192, (192<n)?1:0);
+	ap_uint_512_or_bit(v, 193, (193<n)?1:0);
+	ap_uint_512_or_bit(v, 194, (194<n)?1:0);
+	ap_uint_512_or_bit(v, 195, (195<n)?1:0);
+	ap_uint_512_or_bit(v, 196, (196<n)?1:0);
+	ap_uint_512_or_bit(v, 197, (197<n)?1:0);
+	ap_uint_512_or_bit(v, 198, (198<n)?1:0);
+	ap_uint_512_or_bit(v, 199, (199<n)?1:0);
+	ap_uint_512_or_bit(v, 200, (200<n)?1:0);
+	ap_uint_512_or_bit(v, 201, (201<n)?1:0);
+	ap_uint_512_or_bit(v, 202, (202<n)?1:0);
+	ap_uint_512_or_bit(v, 203, (203<n)?1:0);
+	ap_uint_512_or_bit(v, 204, (204<n)?1:0);
+	ap_uint_512_or_bit(v, 205, (205<n)?1:0);
+	ap_uint_512_or_bit(v, 206, (206<n)?1:0);
+	ap_uint_512_or_bit(v, 207, (207<n)?1:0);
+	ap_uint_512_or_bit(v, 208, (208<n)?1:0);
+	ap_uint_512_or_bit(v, 209, (209<n)?1:0);
+	ap_uint_512_or_bit(v, 210, (210<n)?1:0);
+	ap_uint_512_or_bit(v, 211, (211<n)?1:0);
+	ap_uint_512_or_bit(v, 212, (212<n)?1:0);
+	ap_uint_512_or_bit(v, 213, (213<n)?1:0);
+	ap_uint_512_or_bit(v, 214, (214<n)?1:0);
+	ap_uint_512_or_bit(v, 215, (215<n)?1:0);
+	ap_uint_512_or_bit(v, 216, (216<n)?1:0);
+	ap_uint_512_or_bit(v, 217, (217<n)?1:0);
+	ap_uint_512_or_bit(v, 218, (218<n)?1:0);
+	ap_uint_512_or_bit(v, 219, (219<n)?1:0);
+	ap_uint_512_or_bit(v, 220, (220<n)?1:0);
+	ap_uint_512_or_bit(v, 221, (221<n)?1:0);
+	ap_uint_512_or_bit(v, 222, (222<n)?1:0);
+	ap_uint_512_or_bit(v, 223, (223<n)?1:0);
+	ap_uint_512_or_bit(v, 224, (224<n)?1:0);
+	ap_uint_512_or_bit(v, 225, (225<n)?1:0);
+	ap_uint_512_or_bit(v, 226, (226<n)?1:0);
+	ap_uint_512_or_bit(v, 227, (227<n)?1:0);
+	ap_uint_512_or_bit(v, 228, (228<n)?1:0);
+	ap_uint_512_or_bit(v, 229, (229<n)?1:0);
+	ap_uint_512_or_bit(v, 230, (230<n)?1:0);
+	ap_uint_512_or_bit(v, 231, (231<n)?1:0);
+	ap_uint_512_or_bit(v, 232, (232<n)?1:0);
+	ap_uint_512_or_bit(v, 233, (233<n)?1:0);
+	ap_uint_512_or_bit(v, 234, (234<n)?1:0);
+	ap_uint_512_or_bit(v, 235, (235<n)?1:0);
+	ap_uint_512_or_bit(v, 236, (236<n)?1:0);
+	ap_uint_512_or_bit(v, 237, (237<n)?1:0);
+	ap_uint_512_or_bit(v, 238, (238<n)?1:0);
+	ap_uint_512_or_bit(v, 239, (239<n)?1:0);
+	ap_uint_512_or_bit(v, 240, (240<n)?1:0);
+	ap_uint_512_or_bit(v, 241, (241<n)?1:0);
+	ap_uint_512_or_bit(v, 242, (242<n)?1:0);
+	ap_uint_512_or_bit(v, 243, (243<n)?1:0);
+	ap_uint_512_or_bit(v, 244, (244<n)?1:0);
+	ap_uint_512_or_bit(v, 245, (245<n)?1:0);
+	ap_uint_512_or_bit(v, 246, (246<n)?1:0);
+	ap_uint_512_or_bit(v, 247, (247<n)?1:0);
+	ap_uint_512_or_bit(v, 248, (248<n)?1:0);
+	ap_uint_512_or_bit(v, 249, (249<n)?1:0);
+	ap_uint_512_or_bit(v, 250, (250<n)?1:0);
+	ap_uint_512_or_bit(v, 251, (251<n)?1:0);
+	ap_uint_512_or_bit(v, 252, (252<n)?1:0);
+	ap_uint_512_or_bit(v, 253, (253<n)?1:0);
+	ap_uint_512_or_bit(v, 254, (254<n)?1:0);
+	ap_uint_512_or_bit(v, 255, (255<n)?1:0);
+	ap_uint_512_or_bit(v, 256, (256<n)?1:0);
+	ap_uint_512_or_bit(v, 257, (257<n)?1:0);
+	ap_uint_512_or_bit(v, 258, (258<n)?1:0);
+	ap_uint_512_or_bit(v, 259, (259<n)?1:0);
+	ap_uint_512_or_bit(v, 260, (260<n)?1:0);
+	ap_uint_512_or_bit(v, 261, (261<n)?1:0);
+	ap_uint_512_or_bit(v, 262, (262<n)?1:0);
+	ap_uint_512_or_bit(v, 263, (263<n)?1:0);
+	ap_uint_512_or_bit(v, 264, (264<n)?1:0);
+	ap_uint_512_or_bit(v, 265, (265<n)?1:0);
+	ap_uint_512_or_bit(v, 266, (266<n)?1:0);
+	ap_uint_512_or_bit(v, 267, (267<n)?1:0);
+	ap_uint_512_or_bit(v, 268, (268<n)?1:0);
+	ap_uint_512_or_bit(v, 269, (269<n)?1:0);
+	ap_uint_512_or_bit(v, 270, (270<n)?1:0);
+	ap_uint_512_or_bit(v, 271, (271<n)?1:0);
+	ap_uint_512_or_bit(v, 272, (272<n)?1:0);
+	ap_uint_512_or_bit(v, 273, (273<n)?1:0);
+	ap_uint_512_or_bit(v, 274, (274<n)?1:0);
+	ap_uint_512_or_bit(v, 275, (275<n)?1:0);
+	ap_uint_512_or_bit(v, 276, (276<n)?1:0);
+	ap_uint_512_or_bit(v, 277, (277<n)?1:0);
+	ap_uint_512_or_bit(v, 278, (278<n)?1:0);
+	ap_uint_512_or_bit(v, 279, (279<n)?1:0);
+	ap_uint_512_or_bit(v, 280, (280<n)?1:0);
+	ap_uint_512_or_bit(v, 281, (281<n)?1:0);
+	ap_uint_512_or_bit(v, 282, (282<n)?1:0);
+	ap_uint_512_or_bit(v, 283, (283<n)?1:0);
+	ap_uint_512_or_bit(v, 284, (284<n)?1:0);
+	ap_uint_512_or_bit(v, 285, (285<n)?1:0);
+	ap_uint_512_or_bit(v, 286, (286<n)?1:0);
+	ap_uint_512_or_bit(v, 287, (287<n)?1:0);
+	ap_uint_512_or_bit(v, 288, (288<n)?1:0);
+	ap_uint_512_or_bit(v, 289, (289<n)?1:0);
+	ap_uint_512_or_bit(v, 290, (290<n)?1:0);
+	ap_uint_512_or_bit(v, 291, (291<n)?1:0);
+	ap_uint_512_or_bit(v, 292, (292<n)?1:0);
+	ap_uint_512_or_bit(v, 293, (293<n)?1:0);
+	ap_uint_512_or_bit(v, 294, (294<n)?1:0);
+	ap_uint_512_or_bit(v, 295, (295<n)?1:0);
+	ap_uint_512_or_bit(v, 296, (296<n)?1:0);
+	ap_uint_512_or_bit(v, 297, (297<n)?1:0);
+	ap_uint_512_or_bit(v, 298, (298<n)?1:0);
+	ap_uint_512_or_bit(v, 299, (299<n)?1:0);
+	ap_uint_512_or_bit(v, 300, (300<n)?1:0);
+	ap_uint_512_or_bit(v, 301, (301<n)?1:0);
+	ap_uint_512_or_bit(v, 302, (302<n)?1:0);
+	ap_uint_512_or_bit(v, 303, (303<n)?1:0);
+	ap_uint_512_or_bit(v, 304, (304<n)?1:0);
+	ap_uint_512_or_bit(v, 305, (305<n)?1:0);
+	ap_uint_512_or_bit(v, 306, (306<n)?1:0);
+	ap_uint_512_or_bit(v, 307, (307<n)?1:0);
+	ap_uint_512_or_bit(v, 308, (308<n)?1:0);
+	ap_uint_512_or_bit(v, 309, (309<n)?1:0);
+	ap_uint_512_or_bit(v, 310, (310<n)?1:0);
+	ap_uint_512_or_bit(v, 311, (311<n)?1:0);
+	ap_uint_512_or_bit(v, 312, (312<n)?1:0);
+	ap_uint_512_or_bit(v, 313, (313<n)?1:0);
+	ap_uint_512_or_bit(v, 314, (314<n)?1:0);
+	ap_uint_512_or_bit(v, 315, (315<n)?1:0);
+	ap_uint_512_or_bit(v, 316, (316<n)?1:0);
+	ap_uint_512_or_bit(v, 317, (317<n)?1:0);
+	ap_uint_512_or_bit(v, 318, (318<n)?1:0);
+	ap_uint_512_or_bit(v, 319, (319<n)?1:0);
+	ap_uint_512_or_bit(v, 320, (320<n)?1:0);
+	ap_uint_512_or_bit(v, 321, (321<n)?1:0);
+	ap_uint_512_or_bit(v, 322, (322<n)?1:0);
+	ap_uint_512_or_bit(v, 323, (323<n)?1:0);
+	ap_uint_512_or_bit(v, 324, (324<n)?1:0);
+	ap_uint_512_or_bit(v, 325, (325<n)?1:0);
+	ap_uint_512_or_bit(v, 326, (326<n)?1:0);
+	ap_uint_512_or_bit(v, 327, (327<n)?1:0);
+	ap_uint_512_or_bit(v, 328, (328<n)?1:0);
+	ap_uint_512_or_bit(v, 329, (329<n)?1:0);
+	ap_uint_512_or_bit(v, 330, (330<n)?1:0);
+	ap_uint_512_or_bit(v, 331, (331<n)?1:0);
+	ap_uint_512_or_bit(v, 332, (332<n)?1:0);
+	ap_uint_512_or_bit(v, 333, (333<n)?1:0);
+	ap_uint_512_or_bit(v, 334, (334<n)?1:0);
+	ap_uint_512_or_bit(v, 335, (335<n)?1:0);
+	ap_uint_512_or_bit(v, 336, (336<n)?1:0);
+	ap_uint_512_or_bit(v, 337, (337<n)?1:0);
+	ap_uint_512_or_bit(v, 338, (338<n)?1:0);
+	ap_uint_512_or_bit(v, 339, (339<n)?1:0);
+	ap_uint_512_or_bit(v, 340, (340<n)?1:0);
+	ap_uint_512_or_bit(v, 341, (341<n)?1:0);
+	ap_uint_512_or_bit(v, 342, (342<n)?1:0);
+	ap_uint_512_or_bit(v, 343, (343<n)?1:0);
+	ap_uint_512_or_bit(v, 344, (344<n)?1:0);
+	ap_uint_512_or_bit(v, 345, (345<n)?1:0);
+	ap_uint_512_or_bit(v, 346, (346<n)?1:0);
+	ap_uint_512_or_bit(v, 347, (347<n)?1:0);
+	ap_uint_512_or_bit(v, 348, (348<n)?1:0);
+	ap_uint_512_or_bit(v, 349, (349<n)?1:0);
+	ap_uint_512_or_bit(v, 350, (350<n)?1:0);
+	ap_uint_512_or_bit(v, 351, (351<n)?1:0);
+	ap_uint_512_or_bit(v, 352, (352<n)?1:0);
+	ap_uint_512_or_bit(v, 353, (353<n)?1:0);
+	ap_uint_512_or_bit(v, 354, (354<n)?1:0);
+	ap_uint_512_or_bit(v, 355, (355<n)?1:0);
+	ap_uint_512_or_bit(v, 356, (356<n)?1:0);
+	ap_uint_512_or_bit(v, 357, (357<n)?1:0);
+	ap_uint_512_or_bit(v, 358, (358<n)?1:0);
+	ap_uint_512_or_bit(v, 359, (359<n)?1:0);
+	ap_uint_512_or_bit(v, 360, (360<n)?1:0);
+	ap_uint_512_or_bit(v, 361, (361<n)?1:0);
+	ap_uint_512_or_bit(v, 362, (362<n)?1:0);
+	ap_uint_512_or_bit(v, 363, (363<n)?1:0);
+	ap_uint_512_or_bit(v, 364, (364<n)?1:0);
+	ap_uint_512_or_bit(v, 365, (365<n)?1:0);
+	ap_uint_512_or_bit(v, 366, (366<n)?1:0);
+	ap_uint_512_or_bit(v, 367, (367<n)?1:0);
+	ap_uint_512_or_bit(v, 368, (368<n)?1:0);
+	ap_uint_512_or_bit(v, 369, (369<n)?1:0);
+	ap_uint_512_or_bit(v, 370, (370<n)?1:0);
+	ap_uint_512_or_bit(v, 371, (371<n)?1:0);
+	ap_uint_512_or_bit(v, 372, (372<n)?1:0);
+	ap_uint_512_or_bit(v, 373, (373<n)?1:0);
+	ap_uint_512_or_bit(v, 374, (374<n)?1:0);
+	ap_uint_512_or_bit(v, 375, (375<n)?1:0);
+	ap_uint_512_or_bit(v, 376, (376<n)?1:0);
+	ap_uint_512_or_bit(v, 377, (377<n)?1:0);
+	ap_uint_512_or_bit(v, 378, (378<n)?1:0);
+	ap_uint_512_or_bit(v, 379, (379<n)?1:0);
+	ap_uint_512_or_bit(v, 380, (380<n)?1:0);
+	ap_uint_512_or_bit(v, 381, (381<n)?1:0);
+	ap_uint_512_or_bit(v, 382, (382<n)?1:0);
+	ap_uint_512_or_bit(v, 383, (383<n)?1:0);
+	ap_uint_512_or_bit(v, 384, (384<n)?1:0);
+	ap_uint_512_or_bit(v, 385, (385<n)?1:0);
+	ap_uint_512_or_bit(v, 386, (386<n)?1:0);
+	ap_uint_512_or_bit(v, 387, (387<n)?1:0);
+	ap_uint_512_or_bit(v, 388, (388<n)?1:0);
+	ap_uint_512_or_bit(v, 389, (389<n)?1:0);
+	ap_uint_512_or_bit(v, 390, (390<n)?1:0);
+	ap_uint_512_or_bit(v, 391, (391<n)?1:0);
+	ap_uint_512_or_bit(v, 392, (392<n)?1:0);
+	ap_uint_512_or_bit(v, 393, (393<n)?1:0);
+	ap_uint_512_or_bit(v, 394, (394<n)?1:0);
+	ap_uint_512_or_bit(v, 395, (395<n)?1:0);
+	ap_uint_512_or_bit(v, 396, (396<n)?1:0);
+	ap_uint_512_or_bit(v, 397, (397<n)?1:0);
+	ap_uint_512_or_bit(v, 398, (398<n)?1:0);
+	ap_uint_512_or_bit(v, 399, (399<n)?1:0);
+	ap_uint_512_or_bit(v, 400, (400<n)?1:0);
+	ap_uint_512_or_bit(v, 401, (401<n)?1:0);
+	ap_uint_512_or_bit(v, 402, (402<n)?1:0);
+	ap_uint_512_or_bit(v, 403, (403<n)?1:0);
+	ap_uint_512_or_bit(v, 404, (404<n)?1:0);
+	ap_uint_512_or_bit(v, 405, (405<n)?1:0);
+	ap_uint_512_or_bit(v, 406, (406<n)?1:0);
+	ap_uint_512_or_bit(v, 407, (407<n)?1:0);
+	ap_uint_512_or_bit(v, 408, (408<n)?1:0);
+	ap_uint_512_or_bit(v, 409, (409<n)?1:0);
+	ap_uint_512_or_bit(v, 410, (410<n)?1:0);
+	ap_uint_512_or_bit(v, 411, (411<n)?1:0);
+	ap_uint_512_or_bit(v, 412, (412<n)?1:0);
+	ap_uint_512_or_bit(v, 413, (413<n)?1:0);
+	ap_uint_512_or_bit(v, 414, (414<n)?1:0);
+	ap_uint_512_or_bit(v, 415, (415<n)?1:0);
+	ap_uint_512_or_bit(v, 416, (416<n)?1:0);
+	ap_uint_512_or_bit(v, 417, (417<n)?1:0);
+	ap_uint_512_or_bit(v, 418, (418<n)?1:0);
+	ap_uint_512_or_bit(v, 419, (419<n)?1:0);
+	ap_uint_512_or_bit(v, 420, (420<n)?1:0);
+	ap_uint_512_or_bit(v, 421, (421<n)?1:0);
+	ap_uint_512_or_bit(v, 422, (422<n)?1:0);
+	ap_uint_512_or_bit(v, 423, (423<n)?1:0);
+	ap_uint_512_or_bit(v, 424, (424<n)?1:0);
+	ap_uint_512_or_bit(v, 425, (425<n)?1:0);
+	ap_uint_512_or_bit(v, 426, (426<n)?1:0);
+	ap_uint_512_or_bit(v, 427, (427<n)?1:0);
+	ap_uint_512_or_bit(v, 428, (428<n)?1:0);
+	ap_uint_512_or_bit(v, 429, (429<n)?1:0);
+	ap_uint_512_or_bit(v, 430, (430<n)?1:0);
+	ap_uint_512_or_bit(v, 431, (431<n)?1:0);
+	ap_uint_512_or_bit(v, 432, (432<n)?1:0);
+	ap_uint_512_or_bit(v, 433, (433<n)?1:0);
+	ap_uint_512_or_bit(v, 434, (434<n)?1:0);
+	ap_uint_512_or_bit(v, 435, (435<n)?1:0);
+	ap_uint_512_or_bit(v, 436, (436<n)?1:0);
+	ap_uint_512_or_bit(v, 437, (437<n)?1:0);
+	ap_uint_512_or_bit(v, 438, (438<n)?1:0);
+	ap_uint_512_or_bit(v, 439, (439<n)?1:0);
+	ap_uint_512_or_bit(v, 440, (440<n)?1:0);
+	ap_uint_512_or_bit(v, 441, (441<n)?1:0);
+	ap_uint_512_or_bit(v, 442, (442<n)?1:0);
+	ap_uint_512_or_bit(v, 443, (443<n)?1:0);
+	ap_uint_512_or_bit(v, 444, (444<n)?1:0);
+	ap_uint_512_or_bit(v, 445, (445<n)?1:0);
+	ap_uint_512_or_bit(v, 446, (446<n)?1:0);
+	ap_uint_512_or_bit(v, 447, (447<n)?1:0);
+	ap_uint_512_or_bit(v, 448, (448<n)?1:0);
+	ap_uint_512_or_bit(v, 449, (449<n)?1:0);
+	ap_uint_512_or_bit(v, 450, (450<n)?1:0);
+	ap_uint_512_or_bit(v, 451, (451<n)?1:0);
+	ap_uint_512_or_bit(v, 452, (452<n)?1:0);
+	ap_uint_512_or_bit(v, 453, (453<n)?1:0);
+	ap_uint_512_or_bit(v, 454, (454<n)?1:0);
+	ap_uint_512_or_bit(v, 455, (455<n)?1:0);
+	ap_uint_512_or_bit(v, 456, (456<n)?1:0);
+	ap_uint_512_or_bit(v, 457, (457<n)?1:0);
+	ap_uint_512_or_bit(v, 458, (458<n)?1:0);
+	ap_uint_512_or_bit(v, 459, (459<n)?1:0);
+	ap_uint_512_or_bit(v, 460, (460<n)?1:0);
+	ap_uint_512_or_bit(v, 461, (461<n)?1:0);
+	ap_uint_512_or_bit(v, 462, (462<n)?1:0);
+	ap_uint_512_or_bit(v, 463, (463<n)?1:0);
+	ap_uint_512_or_bit(v, 464, (464<n)?1:0);
+	ap_uint_512_or_bit(v, 465, (465<n)?1:0);
+	ap_uint_512_or_bit(v, 466, (466<n)?1:0);
+	ap_uint_512_or_bit(v, 467, (467<n)?1:0);
+	ap_uint_512_or_bit(v, 468, (468<n)?1:0);
+	ap_uint_512_or_bit(v, 469, (469<n)?1:0);
+	ap_uint_512_or_bit(v, 470, (470<n)?1:0);
+	ap_uint_512_or_bit(v, 471, (471<n)?1:0);
+	ap_uint_512_or_bit(v, 472, (472<n)?1:0);
+	ap_uint_512_or_bit(v, 473, (473<n)?1:0);
+	ap_uint_512_or_bit(v, 474, (474<n)?1:0);
+	ap_uint_512_or_bit(v, 475, (475<n)?1:0);
+	ap_uint_512_or_bit(v, 476, (476<n)?1:0);
+	ap_uint_512_or_bit(v, 477, (477<n)?1:0);
+	ap_uint_512_or_bit(v, 478, (478<n)?1:0);
+	ap_uint_512_or_bit(v, 479, (479<n)?1:0);
+	ap_uint_512_or_bit(v, 480, (480<n)?1:0);
+	ap_uint_512_or_bit(v, 481, (481<n)?1:0);
+	ap_uint_512_or_bit(v, 482, (482<n)?1:0);
+	ap_uint_512_or_bit(v, 483, (483<n)?1:0);
+	ap_uint_512_or_bit(v, 484, (484<n)?1:0);
+	ap_uint_512_or_bit(v, 485, (485<n)?1:0);
+	ap_uint_512_or_bit(v, 486, (486<n)?1:0);
+	ap_uint_512_or_bit(v, 487, (487<n)?1:0);
+	ap_uint_512_or_bit(v, 488, (488<n)?1:0);
+	ap_uint_512_or_bit(v, 489, (489<n)?1:0);
+	ap_uint_512_or_bit(v, 490, (490<n)?1:0);
+	ap_uint_512_or_bit(v, 491, (491<n)?1:0);
+	ap_uint_512_or_bit(v, 492, (492<n)?1:0);
+	ap_uint_512_or_bit(v, 493, (493<n)?1:0);
+	ap_uint_512_or_bit(v, 494, (494<n)?1:0);
+	ap_uint_512_or_bit(v, 495, (495<n)?1:0);
+	ap_uint_512_or_bit(v, 496, (496<n)?1:0);
+	ap_uint_512_or_bit(v, 497, (497<n)?1:0);
+	ap_uint_512_or_bit(v, 498, (498<n)?1:0);
+	ap_uint_512_or_bit(v, 499, (499<n)?1:0);
+	ap_uint_512_or_bit(v, 500, (500<n)?1:0);
+	ap_uint_512_or_bit(v, 501, (501<n)?1:0);
+	ap_uint_512_or_bit(v, 502, (502<n)?1:0);
+	ap_uint_512_or_bit(v, 503, (503<n)?1:0);
+	ap_uint_512_or_bit(v, 504, (504<n)?1:0);
+	ap_uint_512_or_bit(v, 505, (505<n)?1:0);
+	ap_uint_512_or_bit(v, 506, (506<n)?1:0);
+	ap_uint_512_or_bit(v, 507, (507<n)?1:0);
+	ap_uint_512_or_bit(v, 508, (508<n)?1:0);
+	ap_uint_512_or_bit(v, 509, (509<n)?1:0);
+	ap_uint_512_or_bit(v, 510, (510<n)?1:0);
+	ap_uint_512_or_bit(v, 511, (511<n)?1:0);
 }
 
 void ap_uint_512_onesHigh(ap_uint_512p v, int n)
 {
 	ap_uint_512_zero(v);
 
-	#pragma unroll
-	for (int i=0; i < 512; i++)
-	{
-		ap_uint_512_or_bit(v, 512-1-i, (i<n)?1:0);
-	}
-}
-
-int ap_uint_512_get_bit(ap_uint_512 x, int bit)
-{
-
-	int wordidx = bit / 32;
-	int bitidx = (bit % 32);
-
 	
-	if (wordidx == 0) { return (x.w0 >> bitidx) & 0x1;}	
-	if (wordidx == 1) { return (x.w1 >> bitidx) & 0x1;}	
-	if (wordidx == 2) { return (x.w2 >> bitidx) & 0x1;}	
-	if (wordidx == 3) { return (x.w3 >> bitidx) & 0x1;}	
-	if (wordidx == 4) { return (x.w4 >> bitidx) & 0x1;}	
-	if (wordidx == 5) { return (x.w5 >> bitidx) & 0x1;}	
-	if (wordidx == 6) { return (x.w6 >> bitidx) & 0x1;}	
-	if (wordidx == 7) { return (x.w7 >> bitidx) & 0x1;}	
-	if (wordidx == 8) { return (x.w8 >> bitidx) & 0x1;}	
-	if (wordidx == 9) { return (x.w9 >> bitidx) & 0x1;}	
-	if (wordidx == 10) { return (x.w10 >> bitidx) & 0x1;}	
-	if (wordidx == 11) { return (x.w11 >> bitidx) & 0x1;}	
-	if (wordidx == 12) { return (x.w12 >> bitidx) & 0x1;}	
-	if (wordidx == 13) { return (x.w13 >> bitidx) & 0x1;}	
-	if (wordidx == 14) { return (x.w14 >> bitidx) & 0x1;}	
-	if (wordidx == 15) { return (x.w15 >> bitidx) & 0x1;}
-
-}
-
-int ap_uint_512_get_bit_high(ap_uint_512 x, int bit)
-{
-	return ap_uint_512_get_bit(x, 512-1-bit);
-}
-
-/**
-* return the value of a bit
-*/
-int ap_uint_1024_get_bit(ap_uint_1024 x, int bit)
-{
-
-	int wordidx = bit / 32;
-	int bitidx = (bit % 32);
-
-	
-	if (wordidx == 0) { return (x.w0 >> bitidx) & 0x1;}	
-	if (wordidx == 1) { return (x.w1 >> bitidx) & 0x1;}	
-	if (wordidx == 2) { return (x.w2 >> bitidx) & 0x1;}	
-	if (wordidx == 3) { return (x.w3 >> bitidx) & 0x1;}	
-	if (wordidx == 4) { return (x.w4 >> bitidx) & 0x1;}	
-	if (wordidx == 5) { return (x.w5 >> bitidx) & 0x1;}	
-	if (wordidx == 6) { return (x.w6 >> bitidx) & 0x1;}	
-	if (wordidx == 7) { return (x.w7 >> bitidx) & 0x1;}	
-	if (wordidx == 8) { return (x.w8 >> bitidx) & 0x1;}	
-	if (wordidx == 9) { return (x.w9 >> bitidx) & 0x1;}	
-	if (wordidx == 10) { return (x.w10 >> bitidx) & 0x1;}	
-	if (wordidx == 11) { return (x.w11 >> bitidx) & 0x1;}	
-	if (wordidx == 12) { return (x.w12 >> bitidx) & 0x1;}	
-	if (wordidx == 13) { return (x.w13 >> bitidx) & 0x1;}	
-	if (wordidx == 14) { return (x.w14 >> bitidx) & 0x1;}	
-	if (wordidx == 15) { return (x.w15 >> bitidx) & 0x1;}	
-	if (wordidx == 16) { return (x.w16 >> bitidx) & 0x1;}	
-	if (wordidx == 17) { return (x.w17 >> bitidx) & 0x1;}	
-	if (wordidx == 18) { return (x.w18 >> bitidx) & 0x1;}	
-	if (wordidx == 19) { return (x.w19 >> bitidx) & 0x1;}	
-	if (wordidx == 20) { return (x.w20 >> bitidx) & 0x1;}	
-	if (wordidx == 21) { return (x.w21 >> bitidx) & 0x1;}	
-	if (wordidx == 22) { return (x.w22 >> bitidx) & 0x1;}	
-	if (wordidx == 23) { return (x.w23 >> bitidx) & 0x1;}	
-	if (wordidx == 24) { return (x.w24 >> bitidx) & 0x1;}	
-	if (wordidx == 25) { return (x.w25 >> bitidx) & 0x1;}	
-	if (wordidx == 26) { return (x.w26 >> bitidx) & 0x1;}	
-	if (wordidx == 27) { return (x.w27 >> bitidx) & 0x1;}	
-	if (wordidx == 28) { return (x.w28 >> bitidx) & 0x1;}	
-	if (wordidx == 29) { return (x.w29 >> bitidx) & 0x1;}	
-	if (wordidx == 30) { return (x.w30 >> bitidx) & 0x1;}	
-	if (wordidx == 31) { return (x.w31 >> bitidx) & 0x1;}
-
+	ap_uint_512_or_bit(v, 512-1-0, (0<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-1, (1<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-2, (2<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-3, (3<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-4, (4<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-5, (5<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-6, (6<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-7, (7<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-8, (8<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-9, (9<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-10, (10<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-11, (11<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-12, (12<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-13, (13<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-14, (14<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-15, (15<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-16, (16<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-17, (17<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-18, (18<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-19, (19<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-20, (20<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-21, (21<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-22, (22<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-23, (23<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-24, (24<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-25, (25<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-26, (26<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-27, (27<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-28, (28<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-29, (29<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-30, (30<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-31, (31<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-32, (32<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-33, (33<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-34, (34<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-35, (35<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-36, (36<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-37, (37<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-38, (38<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-39, (39<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-40, (40<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-41, (41<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-42, (42<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-43, (43<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-44, (44<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-45, (45<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-46, (46<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-47, (47<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-48, (48<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-49, (49<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-50, (50<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-51, (51<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-52, (52<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-53, (53<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-54, (54<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-55, (55<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-56, (56<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-57, (57<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-58, (58<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-59, (59<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-60, (60<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-61, (61<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-62, (62<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-63, (63<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-64, (64<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-65, (65<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-66, (66<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-67, (67<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-68, (68<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-69, (69<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-70, (70<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-71, (71<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-72, (72<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-73, (73<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-74, (74<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-75, (75<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-76, (76<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-77, (77<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-78, (78<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-79, (79<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-80, (80<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-81, (81<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-82, (82<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-83, (83<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-84, (84<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-85, (85<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-86, (86<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-87, (87<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-88, (88<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-89, (89<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-90, (90<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-91, (91<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-92, (92<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-93, (93<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-94, (94<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-95, (95<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-96, (96<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-97, (97<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-98, (98<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-99, (99<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-100, (100<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-101, (101<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-102, (102<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-103, (103<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-104, (104<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-105, (105<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-106, (106<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-107, (107<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-108, (108<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-109, (109<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-110, (110<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-111, (111<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-112, (112<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-113, (113<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-114, (114<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-115, (115<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-116, (116<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-117, (117<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-118, (118<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-119, (119<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-120, (120<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-121, (121<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-122, (122<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-123, (123<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-124, (124<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-125, (125<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-126, (126<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-127, (127<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-128, (128<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-129, (129<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-130, (130<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-131, (131<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-132, (132<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-133, (133<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-134, (134<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-135, (135<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-136, (136<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-137, (137<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-138, (138<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-139, (139<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-140, (140<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-141, (141<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-142, (142<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-143, (143<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-144, (144<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-145, (145<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-146, (146<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-147, (147<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-148, (148<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-149, (149<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-150, (150<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-151, (151<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-152, (152<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-153, (153<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-154, (154<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-155, (155<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-156, (156<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-157, (157<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-158, (158<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-159, (159<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-160, (160<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-161, (161<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-162, (162<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-163, (163<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-164, (164<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-165, (165<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-166, (166<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-167, (167<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-168, (168<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-169, (169<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-170, (170<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-171, (171<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-172, (172<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-173, (173<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-174, (174<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-175, (175<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-176, (176<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-177, (177<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-178, (178<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-179, (179<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-180, (180<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-181, (181<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-182, (182<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-183, (183<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-184, (184<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-185, (185<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-186, (186<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-187, (187<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-188, (188<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-189, (189<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-190, (190<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-191, (191<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-192, (192<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-193, (193<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-194, (194<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-195, (195<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-196, (196<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-197, (197<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-198, (198<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-199, (199<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-200, (200<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-201, (201<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-202, (202<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-203, (203<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-204, (204<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-205, (205<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-206, (206<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-207, (207<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-208, (208<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-209, (209<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-210, (210<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-211, (211<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-212, (212<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-213, (213<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-214, (214<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-215, (215<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-216, (216<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-217, (217<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-218, (218<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-219, (219<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-220, (220<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-221, (221<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-222, (222<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-223, (223<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-224, (224<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-225, (225<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-226, (226<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-227, (227<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-228, (228<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-229, (229<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-230, (230<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-231, (231<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-232, (232<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-233, (233<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-234, (234<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-235, (235<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-236, (236<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-237, (237<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-238, (238<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-239, (239<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-240, (240<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-241, (241<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-242, (242<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-243, (243<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-244, (244<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-245, (245<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-246, (246<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-247, (247<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-248, (248<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-249, (249<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-250, (250<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-251, (251<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-252, (252<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-253, (253<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-254, (254<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-255, (255<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-256, (256<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-257, (257<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-258, (258<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-259, (259<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-260, (260<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-261, (261<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-262, (262<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-263, (263<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-264, (264<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-265, (265<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-266, (266<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-267, (267<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-268, (268<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-269, (269<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-270, (270<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-271, (271<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-272, (272<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-273, (273<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-274, (274<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-275, (275<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-276, (276<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-277, (277<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-278, (278<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-279, (279<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-280, (280<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-281, (281<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-282, (282<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-283, (283<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-284, (284<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-285, (285<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-286, (286<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-287, (287<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-288, (288<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-289, (289<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-290, (290<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-291, (291<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-292, (292<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-293, (293<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-294, (294<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-295, (295<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-296, (296<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-297, (297<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-298, (298<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-299, (299<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-300, (300<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-301, (301<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-302, (302<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-303, (303<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-304, (304<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-305, (305<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-306, (306<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-307, (307<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-308, (308<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-309, (309<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-310, (310<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-311, (311<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-312, (312<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-313, (313<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-314, (314<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-315, (315<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-316, (316<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-317, (317<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-318, (318<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-319, (319<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-320, (320<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-321, (321<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-322, (322<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-323, (323<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-324, (324<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-325, (325<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-326, (326<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-327, (327<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-328, (328<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-329, (329<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-330, (330<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-331, (331<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-332, (332<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-333, (333<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-334, (334<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-335, (335<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-336, (336<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-337, (337<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-338, (338<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-339, (339<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-340, (340<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-341, (341<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-342, (342<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-343, (343<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-344, (344<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-345, (345<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-346, (346<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-347, (347<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-348, (348<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-349, (349<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-350, (350<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-351, (351<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-352, (352<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-353, (353<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-354, (354<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-355, (355<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-356, (356<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-357, (357<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-358, (358<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-359, (359<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-360, (360<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-361, (361<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-362, (362<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-363, (363<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-364, (364<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-365, (365<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-366, (366<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-367, (367<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-368, (368<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-369, (369<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-370, (370<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-371, (371<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-372, (372<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-373, (373<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-374, (374<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-375, (375<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-376, (376<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-377, (377<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-378, (378<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-379, (379<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-380, (380<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-381, (381<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-382, (382<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-383, (383<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-384, (384<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-385, (385<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-386, (386<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-387, (387<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-388, (388<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-389, (389<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-390, (390<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-391, (391<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-392, (392<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-393, (393<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-394, (394<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-395, (395<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-396, (396<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-397, (397<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-398, (398<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-399, (399<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-400, (400<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-401, (401<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-402, (402<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-403, (403<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-404, (404<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-405, (405<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-406, (406<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-407, (407<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-408, (408<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-409, (409<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-410, (410<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-411, (411<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-412, (412<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-413, (413<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-414, (414<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-415, (415<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-416, (416<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-417, (417<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-418, (418<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-419, (419<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-420, (420<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-421, (421<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-422, (422<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-423, (423<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-424, (424<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-425, (425<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-426, (426<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-427, (427<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-428, (428<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-429, (429<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-430, (430<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-431, (431<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-432, (432<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-433, (433<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-434, (434<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-435, (435<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-436, (436<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-437, (437<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-438, (438<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-439, (439<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-440, (440<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-441, (441<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-442, (442<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-443, (443<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-444, (444<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-445, (445<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-446, (446<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-447, (447<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-448, (448<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-449, (449<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-450, (450<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-451, (451<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-452, (452<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-453, (453<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-454, (454<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-455, (455<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-456, (456<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-457, (457<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-458, (458<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-459, (459<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-460, (460<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-461, (461<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-462, (462<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-463, (463<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-464, (464<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-465, (465<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-466, (466<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-467, (467<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-468, (468<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-469, (469<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-470, (470<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-471, (471<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-472, (472<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-473, (473<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-474, (474<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-475, (475<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-476, (476<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-477, (477<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-478, (478<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-479, (479<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-480, (480<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-481, (481<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-482, (482<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-483, (483<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-484, (484<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-485, (485<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-486, (486<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-487, (487<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-488, (488<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-489, (489<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-490, (490<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-491, (491<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-492, (492<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-493, (493<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-494, (494<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-495, (495<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-496, (496<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-497, (497<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-498, (498<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-499, (499<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-500, (500<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-501, (501<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-502, (502<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-503, (503<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-504, (504<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-505, (505<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-506, (506<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-507, (507<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-508, (508<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-509, (509<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-510, (510<n)?1:0);
+	ap_uint_512_or_bit(v, 512-1-511, (511<n)?1:0);
 }
 
 
@@ -1578,329 +2740,265 @@ void ap_uint_512_shift_right_self(int shift, ap_uint_512p r)
 
 void ap_uint_512_shift_left_bytes(ap_uint_512 x, unsigned char shift, ap_uint_512p r)
 {
-	ap_uint_512_zero(r);
+	//ap_uint_512_zero(r);
 
       
-	if ((0-shift) >= 0)
 	{
-		int byte = ap_uint_512_getLowByte(x, (0-shift));
+		unsigned char byte = ((0-shift) >= 0) ? ap_uint_512_getLowByte(x, (0-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 0, byte);
-	}
-	if ((1-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (1-shift));
+		unsigned char byte = ((1-shift) >= 0) ? ap_uint_512_getLowByte(x, (1-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 1, byte);
-	}
-	if ((2-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (2-shift));
+		unsigned char byte = ((2-shift) >= 0) ? ap_uint_512_getLowByte(x, (2-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 2, byte);
-	}
-	if ((3-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (3-shift));
+		unsigned char byte = ((3-shift) >= 0) ? ap_uint_512_getLowByte(x, (3-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 3, byte);
-	}
-	if ((4-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (4-shift));
+		unsigned char byte = ((4-shift) >= 0) ? ap_uint_512_getLowByte(x, (4-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 4, byte);
-	}
-	if ((5-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (5-shift));
+		unsigned char byte = ((5-shift) >= 0) ? ap_uint_512_getLowByte(x, (5-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 5, byte);
-	}
-	if ((6-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (6-shift));
+		unsigned char byte = ((6-shift) >= 0) ? ap_uint_512_getLowByte(x, (6-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 6, byte);
-	}
-	if ((7-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (7-shift));
+		unsigned char byte = ((7-shift) >= 0) ? ap_uint_512_getLowByte(x, (7-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 7, byte);
-	}
-	if ((8-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (8-shift));
+		unsigned char byte = ((8-shift) >= 0) ? ap_uint_512_getLowByte(x, (8-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 8, byte);
-	}
-	if ((9-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (9-shift));
+		unsigned char byte = ((9-shift) >= 0) ? ap_uint_512_getLowByte(x, (9-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 9, byte);
-	}
-	if ((10-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (10-shift));
+		unsigned char byte = ((10-shift) >= 0) ? ap_uint_512_getLowByte(x, (10-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 10, byte);
-	}
-	if ((11-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (11-shift));
+		unsigned char byte = ((11-shift) >= 0) ? ap_uint_512_getLowByte(x, (11-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 11, byte);
-	}
-	if ((12-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (12-shift));
+		unsigned char byte = ((12-shift) >= 0) ? ap_uint_512_getLowByte(x, (12-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 12, byte);
-	}
-	if ((13-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (13-shift));
+		unsigned char byte = ((13-shift) >= 0) ? ap_uint_512_getLowByte(x, (13-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 13, byte);
-	}
-	if ((14-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (14-shift));
+		unsigned char byte = ((14-shift) >= 0) ? ap_uint_512_getLowByte(x, (14-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 14, byte);
-	}
-	if ((15-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (15-shift));
+		unsigned char byte = ((15-shift) >= 0) ? ap_uint_512_getLowByte(x, (15-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 15, byte);
-	}
-	if ((16-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (16-shift));
+		unsigned char byte = ((16-shift) >= 0) ? ap_uint_512_getLowByte(x, (16-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 16, byte);
-	}
-	if ((17-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (17-shift));
+		unsigned char byte = ((17-shift) >= 0) ? ap_uint_512_getLowByte(x, (17-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 17, byte);
-	}
-	if ((18-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (18-shift));
+		unsigned char byte = ((18-shift) >= 0) ? ap_uint_512_getLowByte(x, (18-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 18, byte);
-	}
-	if ((19-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (19-shift));
+		unsigned char byte = ((19-shift) >= 0) ? ap_uint_512_getLowByte(x, (19-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 19, byte);
-	}
-	if ((20-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (20-shift));
+		unsigned char byte = ((20-shift) >= 0) ? ap_uint_512_getLowByte(x, (20-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 20, byte);
-	}
-	if ((21-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (21-shift));
+		unsigned char byte = ((21-shift) >= 0) ? ap_uint_512_getLowByte(x, (21-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 21, byte);
-	}
-	if ((22-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (22-shift));
+		unsigned char byte = ((22-shift) >= 0) ? ap_uint_512_getLowByte(x, (22-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 22, byte);
-	}
-	if ((23-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (23-shift));
+		unsigned char byte = ((23-shift) >= 0) ? ap_uint_512_getLowByte(x, (23-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 23, byte);
-	}
-	if ((24-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (24-shift));
+		unsigned char byte = ((24-shift) >= 0) ? ap_uint_512_getLowByte(x, (24-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 24, byte);
-	}
-	if ((25-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (25-shift));
+		unsigned char byte = ((25-shift) >= 0) ? ap_uint_512_getLowByte(x, (25-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 25, byte);
-	}
-	if ((26-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (26-shift));
+		unsigned char byte = ((26-shift) >= 0) ? ap_uint_512_getLowByte(x, (26-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 26, byte);
-	}
-	if ((27-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (27-shift));
+		unsigned char byte = ((27-shift) >= 0) ? ap_uint_512_getLowByte(x, (27-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 27, byte);
-	}
-	if ((28-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (28-shift));
+		unsigned char byte = ((28-shift) >= 0) ? ap_uint_512_getLowByte(x, (28-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 28, byte);
-	}
-	if ((29-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (29-shift));
+		unsigned char byte = ((29-shift) >= 0) ? ap_uint_512_getLowByte(x, (29-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 29, byte);
-	}
-	if ((30-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (30-shift));
+		unsigned char byte = ((30-shift) >= 0) ? ap_uint_512_getLowByte(x, (30-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 30, byte);
-	}
-	if ((31-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (31-shift));
+		unsigned char byte = ((31-shift) >= 0) ? ap_uint_512_getLowByte(x, (31-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 31, byte);
-	}
-	if ((32-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (32-shift));
+		unsigned char byte = ((32-shift) >= 0) ? ap_uint_512_getLowByte(x, (32-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 32, byte);
-	}
-	if ((33-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (33-shift));
+		unsigned char byte = ((33-shift) >= 0) ? ap_uint_512_getLowByte(x, (33-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 33, byte);
-	}
-	if ((34-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (34-shift));
+		unsigned char byte = ((34-shift) >= 0) ? ap_uint_512_getLowByte(x, (34-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 34, byte);
-	}
-	if ((35-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (35-shift));
+		unsigned char byte = ((35-shift) >= 0) ? ap_uint_512_getLowByte(x, (35-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 35, byte);
-	}
-	if ((36-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (36-shift));
+		unsigned char byte = ((36-shift) >= 0) ? ap_uint_512_getLowByte(x, (36-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 36, byte);
-	}
-	if ((37-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (37-shift));
+		unsigned char byte = ((37-shift) >= 0) ? ap_uint_512_getLowByte(x, (37-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 37, byte);
-	}
-	if ((38-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (38-shift));
+		unsigned char byte = ((38-shift) >= 0) ? ap_uint_512_getLowByte(x, (38-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 38, byte);
-	}
-	if ((39-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (39-shift));
+		unsigned char byte = ((39-shift) >= 0) ? ap_uint_512_getLowByte(x, (39-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 39, byte);
-	}
-	if ((40-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (40-shift));
+		unsigned char byte = ((40-shift) >= 0) ? ap_uint_512_getLowByte(x, (40-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 40, byte);
-	}
-	if ((41-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (41-shift));
+		unsigned char byte = ((41-shift) >= 0) ? ap_uint_512_getLowByte(x, (41-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 41, byte);
-	}
-	if ((42-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (42-shift));
+		unsigned char byte = ((42-shift) >= 0) ? ap_uint_512_getLowByte(x, (42-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 42, byte);
-	}
-	if ((43-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (43-shift));
+		unsigned char byte = ((43-shift) >= 0) ? ap_uint_512_getLowByte(x, (43-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 43, byte);
-	}
-	if ((44-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (44-shift));
+		unsigned char byte = ((44-shift) >= 0) ? ap_uint_512_getLowByte(x, (44-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 44, byte);
-	}
-	if ((45-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (45-shift));
+		unsigned char byte = ((45-shift) >= 0) ? ap_uint_512_getLowByte(x, (45-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 45, byte);
-	}
-	if ((46-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (46-shift));
+		unsigned char byte = ((46-shift) >= 0) ? ap_uint_512_getLowByte(x, (46-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 46, byte);
-	}
-	if ((47-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (47-shift));
+		unsigned char byte = ((47-shift) >= 0) ? ap_uint_512_getLowByte(x, (47-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 47, byte);
-	}
-	if ((48-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (48-shift));
+		unsigned char byte = ((48-shift) >= 0) ? ap_uint_512_getLowByte(x, (48-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 48, byte);
-	}
-	if ((49-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (49-shift));
+		unsigned char byte = ((49-shift) >= 0) ? ap_uint_512_getLowByte(x, (49-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 49, byte);
-	}
-	if ((50-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (50-shift));
+		unsigned char byte = ((50-shift) >= 0) ? ap_uint_512_getLowByte(x, (50-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 50, byte);
-	}
-	if ((51-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (51-shift));
+		unsigned char byte = ((51-shift) >= 0) ? ap_uint_512_getLowByte(x, (51-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 51, byte);
-	}
-	if ((52-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (52-shift));
+		unsigned char byte = ((52-shift) >= 0) ? ap_uint_512_getLowByte(x, (52-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 52, byte);
-	}
-	if ((53-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (53-shift));
+		unsigned char byte = ((53-shift) >= 0) ? ap_uint_512_getLowByte(x, (53-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 53, byte);
-	}
-	if ((54-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (54-shift));
+		unsigned char byte = ((54-shift) >= 0) ? ap_uint_512_getLowByte(x, (54-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 54, byte);
-	}
-	if ((55-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (55-shift));
+		unsigned char byte = ((55-shift) >= 0) ? ap_uint_512_getLowByte(x, (55-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 55, byte);
-	}
-	if ((56-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (56-shift));
+		unsigned char byte = ((56-shift) >= 0) ? ap_uint_512_getLowByte(x, (56-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 56, byte);
-	}
-	if ((57-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (57-shift));
+		unsigned char byte = ((57-shift) >= 0) ? ap_uint_512_getLowByte(x, (57-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 57, byte);
-	}
-	if ((58-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (58-shift));
+		unsigned char byte = ((58-shift) >= 0) ? ap_uint_512_getLowByte(x, (58-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 58, byte);
-	}
-	if ((59-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (59-shift));
+		unsigned char byte = ((59-shift) >= 0) ? ap_uint_512_getLowByte(x, (59-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 59, byte);
-	}
-	if ((60-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (60-shift));
+		unsigned char byte = ((60-shift) >= 0) ? ap_uint_512_getLowByte(x, (60-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 60, byte);
-	}
-	if ((61-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (61-shift));
+		unsigned char byte = ((61-shift) >= 0) ? ap_uint_512_getLowByte(x, (61-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 61, byte);
-	}
-	if ((62-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (62-shift));
+		unsigned char byte = ((62-shift) >= 0) ? ap_uint_512_getLowByte(x, (62-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 62, byte);
-	}
-	if ((63-shift) >= 0)
+	} 
 	{
-		int byte = ap_uint_512_getLowByte(x, (63-shift));
+		unsigned char byte = ((63-shift) >= 0) ? ap_uint_512_getLowByte(x, (63-shift)) : 0;
 		ap_uint_512_orLowByteConcurrent(r, 63, byte);
-	}
+	} 
 }
 
 void ap_uint_512_shift_left(ap_uint_512 x, int shift, ap_uint_512p r)
