@@ -22,15 +22,10 @@ void testGetSetHighByte()
 	}
 }
 
-__kernel void kmer(__global unsigned char* restrict pairs ,
-		   __global unsigned int* workload, 
-		   unsigned int workloadLength)
+
+void testShiftLeftBytes()
 {
-	printf("TESTING basic_ap_uint\n");
-
-	// testGetSetHighByte();
-
-	printf("TESTING Get/Set High Byte\n");
+	printf("TESTING Shift Left Bytes\n");
 
 	ap_uint_512 w;
 	for (int i=0; i < 512/8; i++)
@@ -55,5 +50,36 @@ __kernel void kmer(__global unsigned char* restrict pairs ,
 		printf("\n");
 		
 	}
+}
 
+__kernel void kmer(__global unsigned char* restrict pairs ,
+		   __global unsigned int* workload, 
+		   unsigned int workloadLength)
+{
+	printf("TESTING basic_ap_uint\n");
+
+	// testGetSetHighByte();
+	// testShiftLeftBytes();
+
+	ap_uint_512 w;
+	for (int i=0; i < 512/8; i++)
+	{
+		ap_uint_512_setHighByte(AP_UINT_PTR(w), i, i);
+	}
+
+	printf("ORIGINAL=");
+	ap_uint_512_print(w);
+	printf("\n");
+
+	ap_uint_512 w2;
+
+	for (int i=0; i < 512; i++)
+	{ 
+	
+		ap_uint_512_shift_left(w, i, AP_UINT_PTR(w2));
+
+		printf("w << %d =", i);
+		ap_uint_512_print(w2);
+		printf("\n");
+	}
 }
