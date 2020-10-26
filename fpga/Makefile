@@ -1,25 +1,26 @@
-all: select_fpga
+all: basic_ap_uint.h shd.cl
 
-select_emulator:
-	export CL_CONTEXT_EMULATOR_DEVICE_ALTERA=1
-	export CL_CONTEXT_EMULATOR_DEVICE_INTELFPGA=1
+clean:
+	rm -f basic_ap_uint.h
+	rm -f /tmp/basic_ap_uint.h.metaprogram.cpp
+	rm -f /tmp/basic_ap_uint.h.generator
 
-select_fpga:
-	unset CL_CONTEXT_EMULATOR_DEVICE_ALTERA
-	unset CL_CONTEXT_EMULATOR_DEVICE_INTELFPGA
+basic_ap_uint.h: /tmp/basic_ap_uint.h.generator
+	/tmp/basic_ap_uint.h.generator > basic_ap_uint.h
 
-select_shd_emu:
-	rm -f shd.aocx
-	ln -s Emulator_DE5NET/shd.aocx shd.aocx
+/tmp/basic_ap_uint.h.generator: /tmp/basic_ap_uint.h.generator.cpp
+	g++ /tmp/basic_ap_uint.h.generator.cpp -o /tmp/basic_ap_uint.h.generator
 
-select_shd3:
-	rm -f shd.aocx
-	ln -s DE5NET/shd_3.aocx shd.aocx
+/tmp/basic_ap_uint.h.generator.cpp: basic_ap_uint.h.metaprogram
+	./metagenerator basic_ap_uint.h.metaprogram > /tmp/basic_ap_uint.h.generator.cpp
 
-select_kmers_emu:
-	rm -f kmers.aocx
-	ln -s Emulator_DE5NET/kmers.aocx kmers.aocx
 
-select_kmers:
-	rm -f kmers.aocx
-	ln -s DE5NET/kmers.aocx kmers.aocx
+shd.cl: /tmp/shd.cl.generator
+	/tmp/shd.cl.generator > shd.cl
+
+/tmp/shd.cl.generator: /tmp/shd.cl.generator.cpp
+	g++ /tmp/shd.cl.generator.cpp -o /tmp/shd.cl.generator
+
+/tmp/shd.cl.generator.cpp: shd.cl.metaprogram
+	./metagenerator shd.cl.metaprogram > /tmp/shd.cl.generator.cpp
+
