@@ -17,7 +17,7 @@ select_shd_3_var:
 shd_3_var.aocx: ../shd.cl
 	echo "STARTING COMPILATION" > compile.shd_3_var.out
 	date >> compile.shd_3_var.out
-	nohup $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_var.aocx >> compile.shd_3_var.out &
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_var.aocx >> compile.shd_3_var.out $(NOBLOCK)
 
 
 select_shd_3_100_100_var:
@@ -27,7 +27,7 @@ select_shd_3_100_100_var:
 shd_3_100_100.aocx: ../shd.cl
 	echo "STARTING COMPILATION" > compile.shd_3_100_100.out
 	date >> compile.shd_3_100_100.out
-	nohup $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_100_100.aocx >> compile.shd_3_100_100.out &
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_100_100.aocx >> compile.shd_3_100_100.out $(NOBLOCK)
 
 select_kmers_var:
 	rm -f ../kmers.aocx
@@ -37,7 +37,7 @@ select_kmers_var:
 kmers_var.aocx: ../kmers.cl
 	echo "STARTING COMPILATION" > compile.kmers_var.out
 	date >> compile.kmers_var.out 
-	nohup $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_var.aocx >> compile.kmers_var.out &
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_var.aocx >> compile.kmers_var.out $(NOBLOCK)
 
 
 select_kmers_100_100:
@@ -48,14 +48,14 @@ select_kmers_100_100:
 kmers_100_100.aocx: ../kmers.cl
 	echo "STARTING COMPILATION" > compile.kmers_100_100.out
 	date >> compile.kmers_100_100.out 
-	nohup $(TIME) aoc $(AOC_FLAGS) -D PATTERN_LEN=100 -D TEXT_LEN=100 -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_100_100.aocx >> compile.kmers_100_100.out &
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D PATTERN_LEN=100 -D TEXT_LEN=100 -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_100_100.aocx >> compile.kmers_100_100.out $(NOBLOCK)
 
 	
 
 test.aocx: ../basic_ap_uint_test.cl
 	echo "STARTING COMPILATION" > compile.test.out
 	date >> compile.test.out 
-	nohup $(TIME) aoc $(AOC_FLAGS) ../basic_ap_uint_test.cl -o test.aocx >> compile.test.out &
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) ../basic_ap_uint_test.cl -o test.aocx >> compile.test.out $(NOBLOCK)
 
 select_test:
 	rm -f ../shd.aocx
