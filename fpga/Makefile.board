@@ -1,5 +1,5 @@
 
-all: emulator
+all: shd_3_var.aocx shd_3_100_100.aocx kmers_var.aocx kmers_100_100.aocx test.aocx
 
 clean:
 	rm -f *.aocx
