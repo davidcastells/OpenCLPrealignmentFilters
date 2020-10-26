@@ -901,39 +901,83 @@ void ap_uint_1024_or_bit(ap_uint_1024p v, int bit, int x)
 	int wordidx = bit >> 5; // int wordidx = bit / 32;
 	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
 
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int bit4 = (wordidx >> 4) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int nbit4 = (~bit4) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3 & nbit4;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3 & nbit4;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3 & nbit4;
+	int sel3=bit0 & bit1 & nbit2 & nbit3 & nbit4;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3 & nbit4;
+	int sel5=bit0 & nbit1 & bit2 & nbit3 & nbit4;
+	int sel6=nbit0 & bit1 & bit2 & nbit3 & nbit4;
+	int sel7=bit0 & bit1 & bit2 & nbit3 & nbit4;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3 & nbit4;
+	int sel9=bit0 & nbit1 & nbit2 & bit3 & nbit4;
+	int sel10=nbit0 & bit1 & nbit2 & bit3 & nbit4;
+	int sel11=bit0 & bit1 & nbit2 & bit3 & nbit4;
+	int sel12=nbit0 & nbit1 & bit2 & bit3 & nbit4;
+	int sel13=bit0 & nbit1 & bit2 & bit3 & nbit4;
+	int sel14=nbit0 & bit1 & bit2 & bit3 & nbit4;
+	int sel15=bit0 & bit1 & bit2 & bit3 & nbit4;
+	int sel16=nbit0 & nbit1 & nbit2 & nbit3 & bit4;
+	int sel17=bit0 & nbit1 & nbit2 & nbit3 & bit4;
+	int sel18=nbit0 & bit1 & nbit2 & nbit3 & bit4;
+	int sel19=bit0 & bit1 & nbit2 & nbit3 & bit4;
+	int sel20=nbit0 & nbit1 & bit2 & nbit3 & bit4;
+	int sel21=bit0 & nbit1 & bit2 & nbit3 & bit4;
+	int sel22=nbit0 & bit1 & bit2 & nbit3 & bit4;
+	int sel23=bit0 & bit1 & bit2 & nbit3 & bit4;
+	int sel24=nbit0 & nbit1 & nbit2 & bit3 & bit4;
+	int sel25=bit0 & nbit1 & nbit2 & bit3 & bit4;
+	int sel26=nbit0 & bit1 & nbit2 & bit3 & bit4;
+	int sel27=bit0 & bit1 & nbit2 & bit3 & bit4;
+	int sel28=nbit0 & nbit1 & bit2 & bit3 & bit4;
+	int sel29=bit0 & nbit1 & bit2 & bit3 & bit4;
+	int sel30=nbit0 & bit1 & bit2 & bit3 & bit4;
+	int sel31=bit0 & bit1 & bit2 & bit3 & bit4;
+
+
 	
-	if (wordidx == 0){ v->w0 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 1){ v->w1 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 2){ v->w2 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 3){ v->w3 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 4){ v->w4 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 5){ v->w5 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 6){ v->w6 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 7){ v->w7 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 8){ v->w8 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 9){ v->w9 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 10){ v->w10 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 11){ v->w11 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 12){ v->w12 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 13){ v->w13 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 14){ v->w14 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 15){ v->w15 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 16){ v->w16 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 17){ v->w17 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 18){ v->w18 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 19){ v->w19 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 20){ v->w20 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 21){ v->w21 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 22){ v->w22 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 23){ v->w23 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 24){ v->w24 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 25){ v->w25 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 26){ v->w26 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 27){ v->w27 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 28){ v->w28 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 29){ v->w29 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 30){ v->w30 |= (x) ? (1 << bitidx) : 0; }	
-	if (wordidx == 31){ v->w31 |= (x) ? (1 << bitidx) : 0; }
+	if (sel0){ v->w0 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel1){ v->w1 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel2){ v->w2 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel3){ v->w3 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel4){ v->w4 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel5){ v->w5 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel6){ v->w6 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel7){ v->w7 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel8){ v->w8 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel9){ v->w9 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel10){ v->w10 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel11){ v->w11 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel12){ v->w12 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel13){ v->w13 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel14){ v->w14 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel15){ v->w15 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel16){ v->w16 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel17){ v->w17 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel18){ v->w18 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel19){ v->w19 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel20){ v->w20 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel21){ v->w21 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel22){ v->w22 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel23){ v->w23 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel24){ v->w24 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel25){ v->w25 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel26){ v->w26 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel27){ v->w27 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel28){ v->w28 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel29){ v->w29 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel30){ v->w30 |= (x) ? (1 << bitidx) : 0; }	
+	if (sel31){ v->w31 |= (x) ? (1 << bitidx) : 0; }
 	
 }
 
