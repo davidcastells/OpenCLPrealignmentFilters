@@ -199,6 +199,9 @@ void FPGAKmerFilter::computeAll(int realErrors)
     unsigned int poff = 0;  // pattern offset
     unsigned int toff = 0;  // text offset
     
+    PerformanceLap lap;
+    lap.start();
+
     for (int i=0; i < m_basesPatternLength.size(); i++)
     {
         // fill the workload
@@ -206,28 +209,12 @@ void FPGAKmerFilter::computeAll(int realErrors)
         workload[i*WORKLOAD_TASK_SIZE+1] = i;   // text
         
         // fill the pattern
-//        patternIdx[i*INDEX_SIZE+0] = poff;   // pattern offset
-//        patternIdx[i*INDEX_SIZE+1] = m_basesPatternLength[i];
 
 	encodeEntry(pattern, i*(512/8), m_basesPattern[i],  m_basesText[i]);
  
-//printf("Pattern: %s\n", m_basesPattern[i].c_str());       
- //printf("Pattern: %s\n", m_original[i]->pattern);       
-//encodeSequence(m_basesPattern[i], m_basesPatternLength[i], pattern, poff);
-
-//string debug = decodeSequence(pattern, poff, m_basesPatternLength[i]);
-//printf("Decoded: %s\n", debug.c_str());
-        
-//        poff += alignedSequenceSize(m_basesPatternLength[i]);
-        
-        // fill the text
-//        textIdx[i*INDEX_SIZE+0] = toff;
-//        textIdx[i*INDEX_SIZE+1] = m_basesTextLength[i];
-//     printf("Text: %s\n", m_basesText[i].c_str());   
-//        encodeSequence(m_basesText[i], m_basesTextLength[i], text, toff);
-        
-//        toff += alignedSequenceSize(m_basesTextLength[i]);
     }
+    lap.stop();
+	printf("Enconding of entries took %f seconds\n", lap.lap());
 
 //    printf("Invoke kernel\n");
 
