@@ -38,7 +38,7 @@ void xorBases(ap_uint_512 p, ap_uint_512 t, ap_uint_512p ret)
 	//for (int i=0; i < len; i++)
 	// we can do worst case loop to force unrolling, the remaining invalid part
 	// will be masked by the AND with acum  
-	//#pragma unroll
+	#pragma unroll
 	for (int i=0; i < 512/BASE_SIZE; i++)
 	{
 		//unsigned int pb = getBase(p, i);
