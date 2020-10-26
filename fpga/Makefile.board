@@ -20,7 +20,7 @@ shd_3_var.aocx: ../shd.cl
 	nohup $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_var.aocx >> compile.shd_3_var.out &
 
 
-select_shd_100_100_var:
+select_shd_3_100_100_var:
 	rm -f ../shd.aocx
 	ln -s $(BOARD)/shd_3_100_100.aocx ../shd.aocx
 
