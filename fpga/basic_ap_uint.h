@@ -2740,265 +2740,218 @@ void ap_uint_512_shift_right_self(int shift, ap_uint_512p r)
 
 void ap_uint_512_shift_left_bytes(ap_uint_512 x, unsigned char shift, ap_uint_512p r)
 {
-	//ap_uint_512_zero(r);
+	int word_shift = shift >> 2; 	// shift / 4;
+	int byte_shift = shift & 0x3; 	// shift % 4;
 
-      
-	{
-		unsigned char byte = ((0-shift) >= 0) ? ap_uint_512_getLowByte(x, (0-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 0, byte);
-	} 
-	{
-		unsigned char byte = ((1-shift) >= 0) ? ap_uint_512_getLowByte(x, (1-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 1, byte);
-	} 
-	{
-		unsigned char byte = ((2-shift) >= 0) ? ap_uint_512_getLowByte(x, (2-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 2, byte);
-	} 
-	{
-		unsigned char byte = ((3-shift) >= 0) ? ap_uint_512_getLowByte(x, (3-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 3, byte);
-	} 
-	{
-		unsigned char byte = ((4-shift) >= 0) ? ap_uint_512_getLowByte(x, (4-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 4, byte);
-	} 
-	{
-		unsigned char byte = ((5-shift) >= 0) ? ap_uint_512_getLowByte(x, (5-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 5, byte);
-	} 
-	{
-		unsigned char byte = ((6-shift) >= 0) ? ap_uint_512_getLowByte(x, (6-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 6, byte);
-	} 
-	{
-		unsigned char byte = ((7-shift) >= 0) ? ap_uint_512_getLowByte(x, (7-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 7, byte);
-	} 
-	{
-		unsigned char byte = ((8-shift) >= 0) ? ap_uint_512_getLowByte(x, (8-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 8, byte);
-	} 
-	{
-		unsigned char byte = ((9-shift) >= 0) ? ap_uint_512_getLowByte(x, (9-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 9, byte);
-	} 
-	{
-		unsigned char byte = ((10-shift) >= 0) ? ap_uint_512_getLowByte(x, (10-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 10, byte);
-	} 
-	{
-		unsigned char byte = ((11-shift) >= 0) ? ap_uint_512_getLowByte(x, (11-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 11, byte);
-	} 
-	{
-		unsigned char byte = ((12-shift) >= 0) ? ap_uint_512_getLowByte(x, (12-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 12, byte);
-	} 
-	{
-		unsigned char byte = ((13-shift) >= 0) ? ap_uint_512_getLowByte(x, (13-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 13, byte);
-	} 
-	{
-		unsigned char byte = ((14-shift) >= 0) ? ap_uint_512_getLowByte(x, (14-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 14, byte);
-	} 
-	{
-		unsigned char byte = ((15-shift) >= 0) ? ap_uint_512_getLowByte(x, (15-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 15, byte);
-	} 
-	{
-		unsigned char byte = ((16-shift) >= 0) ? ap_uint_512_getLowByte(x, (16-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 16, byte);
-	} 
-	{
-		unsigned char byte = ((17-shift) >= 0) ? ap_uint_512_getLowByte(x, (17-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 17, byte);
-	} 
-	{
-		unsigned char byte = ((18-shift) >= 0) ? ap_uint_512_getLowByte(x, (18-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 18, byte);
-	} 
-	{
-		unsigned char byte = ((19-shift) >= 0) ? ap_uint_512_getLowByte(x, (19-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 19, byte);
-	} 
-	{
-		unsigned char byte = ((20-shift) >= 0) ? ap_uint_512_getLowByte(x, (20-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 20, byte);
-	} 
-	{
-		unsigned char byte = ((21-shift) >= 0) ? ap_uint_512_getLowByte(x, (21-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 21, byte);
-	} 
-	{
-		unsigned char byte = ((22-shift) >= 0) ? ap_uint_512_getLowByte(x, (22-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 22, byte);
-	} 
-	{
-		unsigned char byte = ((23-shift) >= 0) ? ap_uint_512_getLowByte(x, (23-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 23, byte);
-	} 
-	{
-		unsigned char byte = ((24-shift) >= 0) ? ap_uint_512_getLowByte(x, (24-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 24, byte);
-	} 
-	{
-		unsigned char byte = ((25-shift) >= 0) ? ap_uint_512_getLowByte(x, (25-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 25, byte);
-	} 
-	{
-		unsigned char byte = ((26-shift) >= 0) ? ap_uint_512_getLowByte(x, (26-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 26, byte);
-	} 
-	{
-		unsigned char byte = ((27-shift) >= 0) ? ap_uint_512_getLowByte(x, (27-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 27, byte);
-	} 
-	{
-		unsigned char byte = ((28-shift) >= 0) ? ap_uint_512_getLowByte(x, (28-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 28, byte);
-	} 
-	{
-		unsigned char byte = ((29-shift) >= 0) ? ap_uint_512_getLowByte(x, (29-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 29, byte);
-	} 
-	{
-		unsigned char byte = ((30-shift) >= 0) ? ap_uint_512_getLowByte(x, (30-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 30, byte);
-	} 
-	{
-		unsigned char byte = ((31-shift) >= 0) ? ap_uint_512_getLowByte(x, (31-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 31, byte);
-	} 
-	{
-		unsigned char byte = ((32-shift) >= 0) ? ap_uint_512_getLowByte(x, (32-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 32, byte);
-	} 
-	{
-		unsigned char byte = ((33-shift) >= 0) ? ap_uint_512_getLowByte(x, (33-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 33, byte);
-	} 
-	{
-		unsigned char byte = ((34-shift) >= 0) ? ap_uint_512_getLowByte(x, (34-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 34, byte);
-	} 
-	{
-		unsigned char byte = ((35-shift) >= 0) ? ap_uint_512_getLowByte(x, (35-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 35, byte);
-	} 
-	{
-		unsigned char byte = ((36-shift) >= 0) ? ap_uint_512_getLowByte(x, (36-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 36, byte);
-	} 
-	{
-		unsigned char byte = ((37-shift) >= 0) ? ap_uint_512_getLowByte(x, (37-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 37, byte);
-	} 
-	{
-		unsigned char byte = ((38-shift) >= 0) ? ap_uint_512_getLowByte(x, (38-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 38, byte);
-	} 
-	{
-		unsigned char byte = ((39-shift) >= 0) ? ap_uint_512_getLowByte(x, (39-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 39, byte);
-	} 
-	{
-		unsigned char byte = ((40-shift) >= 0) ? ap_uint_512_getLowByte(x, (40-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 40, byte);
-	} 
-	{
-		unsigned char byte = ((41-shift) >= 0) ? ap_uint_512_getLowByte(x, (41-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 41, byte);
-	} 
-	{
-		unsigned char byte = ((42-shift) >= 0) ? ap_uint_512_getLowByte(x, (42-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 42, byte);
-	} 
-	{
-		unsigned char byte = ((43-shift) >= 0) ? ap_uint_512_getLowByte(x, (43-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 43, byte);
-	} 
-	{
-		unsigned char byte = ((44-shift) >= 0) ? ap_uint_512_getLowByte(x, (44-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 44, byte);
-	} 
-	{
-		unsigned char byte = ((45-shift) >= 0) ? ap_uint_512_getLowByte(x, (45-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 45, byte);
-	} 
-	{
-		unsigned char byte = ((46-shift) >= 0) ? ap_uint_512_getLowByte(x, (46-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 46, byte);
-	} 
-	{
-		unsigned char byte = ((47-shift) >= 0) ? ap_uint_512_getLowByte(x, (47-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 47, byte);
-	} 
-	{
-		unsigned char byte = ((48-shift) >= 0) ? ap_uint_512_getLowByte(x, (48-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 48, byte);
-	} 
-	{
-		unsigned char byte = ((49-shift) >= 0) ? ap_uint_512_getLowByte(x, (49-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 49, byte);
-	} 
-	{
-		unsigned char byte = ((50-shift) >= 0) ? ap_uint_512_getLowByte(x, (50-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 50, byte);
-	} 
-	{
-		unsigned char byte = ((51-shift) >= 0) ? ap_uint_512_getLowByte(x, (51-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 51, byte);
-	} 
-	{
-		unsigned char byte = ((52-shift) >= 0) ? ap_uint_512_getLowByte(x, (52-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 52, byte);
-	} 
-	{
-		unsigned char byte = ((53-shift) >= 0) ? ap_uint_512_getLowByte(x, (53-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 53, byte);
-	} 
-	{
-		unsigned char byte = ((54-shift) >= 0) ? ap_uint_512_getLowByte(x, (54-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 54, byte);
-	} 
-	{
-		unsigned char byte = ((55-shift) >= 0) ? ap_uint_512_getLowByte(x, (55-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 55, byte);
-	} 
-	{
-		unsigned char byte = ((56-shift) >= 0) ? ap_uint_512_getLowByte(x, (56-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 56, byte);
-	} 
-	{
-		unsigned char byte = ((57-shift) >= 0) ? ap_uint_512_getLowByte(x, (57-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 57, byte);
-	} 
-	{
-		unsigned char byte = ((58-shift) >= 0) ? ap_uint_512_getLowByte(x, (58-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 58, byte);
-	} 
-	{
-		unsigned char byte = ((59-shift) >= 0) ? ap_uint_512_getLowByte(x, (59-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 59, byte);
-	} 
-	{
-		unsigned char byte = ((60-shift) >= 0) ? ap_uint_512_getLowByte(x, (60-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 60, byte);
-	} 
-	{
-		unsigned char byte = ((61-shift) >= 0) ? ap_uint_512_getLowByte(x, (61-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 61, byte);
-	} 
-	{
-		unsigned char byte = ((62-shift) >= 0) ? ap_uint_512_getLowByte(x, (62-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 62, byte);
-	} 
-	{
-		unsigned char byte = ((63-shift) >= 0) ? ap_uint_512_getLowByte(x, (63-shift)) : 0;
-		ap_uint_512_orLowByteConcurrent(r, 63, byte);
-	} 
+	
+	{
+		
+		int src_word_hi = 15 - word_shift;
+		int src_word_lo = 15 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w15 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 14 - word_shift;
+		int src_word_lo = 14 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w14 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 13 - word_shift;
+		int src_word_lo = 13 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w13 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 12 - word_shift;
+		int src_word_lo = 12 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w12 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 11 - word_shift;
+		int src_word_lo = 11 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w11 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 10 - word_shift;
+		int src_word_lo = 10 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w10 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 9 - word_shift;
+		int src_word_lo = 9 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w9 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 8 - word_shift;
+		int src_word_lo = 8 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w8 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 7 - word_shift;
+		int src_word_lo = 7 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w7 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 6 - word_shift;
+		int src_word_lo = 6 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w6 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 5 - word_shift;
+		int src_word_lo = 5 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w5 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 4 - word_shift;
+		int src_word_lo = 4 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w4 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 3 - word_shift;
+		int src_word_lo = 3 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w3 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 2 - word_shift;
+		int src_word_lo = 2 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w2 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 1 - word_shift;
+		int src_word_lo = 1 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w1 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
+	{
+		
+		int src_word_hi = 0 - word_shift;
+		int src_word_lo = 0 - word_shift -1;
+
+		unsigned int whi = (src_word_hi >= 0)? ap_uint_512_getDword(x, src_word_hi) : 0;
+		unsigned int wlo = (src_word_lo >= 0)? ap_uint_512_getDword(x, src_word_lo) : 0;
+
+		
+		r->w0 = (byte_shift == 0)? whi :  (whi << (8 * byte_shift)) | (wlo >> (8 * (4-byte_shift)));
+		
+
+	}
 }
 
 void ap_uint_512_shift_left(ap_uint_512 x, int shift, ap_uint_512p r)
