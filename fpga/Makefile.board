@@ -2,9 +2,10 @@
 all: emulator
 
 clean:
-	rm *.aocx
+	rm -f *.aocx
 	rm -fr kmers*
 	rm -fr shd*
+	rm -fr test*
 
 emulator: shd_3_var.aocx kmers_var.aocx
 
@@ -14,7 +15,7 @@ select_shd_3_var:
 	ln -s $(BOARD)/shd_3_var.aocx ../shd.aocx
 
 shd_3_var.aocx: ../shd.cl
-	$(TIME) nohup aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_var.aocx > compile.shd_3_var.out &
+	nohup $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_var.aocx > compile.shd_3_var.out &
 
 
 select_shd_100_100_var:
@@ -22,7 +23,7 @@ select_shd_100_100_var:
 	ln -s $(BOARD)/shd_3_100_100.aocx ../shd.aocx
 
 shd_3_100_100.aocx: ../shd.cl
-	$(TIME) nohup aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_100_100_var.aocx > compile.shd_3_100_100.out &
+	nohup $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_100_100_var.aocx > compile.shd_3_100_100.out &
 
 select_kmers_var:
 	rm -f ../kmers.aocx
@@ -30,7 +31,7 @@ select_kmers_var:
 
 
 kmers_var.aocx: ../kmers.cl
-	$(TIME) nohup aoc $(AOC_FLAGS) -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_var.aocx > compile.kmers_var.out &
+	nohup $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_var.aocx > compile.kmers_var.out &
 
 
 select_kmers_100_100:
@@ -39,12 +40,12 @@ select_kmers_100_100:
 
 
 kmers_100_100.aocx: ../kmers.cl
-	$(TIME) nohup aoc $(AOC_FLAGS) -D PATTERN_LEN=100 -D TEXT_LEN=100 -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_100_100.aocx > compile.kmers_100_100.out &
+	nohup $(TIME) aoc $(AOC_FLAGS) -D PATTERN_LEN=100 -D TEXT_LEN=100 -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_100_100.aocx > compile.kmers_100_100.out &
 
 	
 
 test.aocx: ../basic_ap_uint_test.cl
-	$(TIME) nohup $(TIME) aoc $(AOC_FLAGS) ../basic_ap_uint_test.cl -o test.aocx > compile.test.out &
+	nohup $(TIME) aoc $(AOC_FLAGS) ../basic_ap_uint_test.cl -o test.aocx > compile.test.out &
 
 select_test:
 	rm -f ../shd.aocx
