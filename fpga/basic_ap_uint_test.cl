@@ -109,6 +109,38 @@ void testShiftRight()
 	}
 }
 
+void testGetBits()
+{
+	printf("TESTING Shift Right\n");
+
+	ap_uint_512 w;
+	for (int i=0; i < 512/8; i++)
+	{
+		ap_uint_512_setHighByte(AP_UINT_PTR(w), i, i);
+	}
+
+	for (int i=0; i < 512; i++)
+	{
+		int bit = ap_uint_512_get_bit(w, i);
+
+		printf("w >> %d = %d\n", i, bit);
+	}
+
+	ap_uint_1024 w2;
+	for (int i=0; i < 1024/8; i++)
+	{
+		ap_uint_1024_setHighByte(AP_UINT_PTR(w2), i, i);
+	}
+
+	for (int i=0; i < 1024; i++)
+	{
+		int bit = ap_uint_1024_get_bit(w2, i);
+
+		printf("w >> %d = %d\n", i, bit);
+	}
+
+}
+
 __kernel void kmer(__global unsigned char* restrict pairs ,
 		   __global unsigned int* workload, 
 		   unsigned int workloadLength)
@@ -118,6 +150,7 @@ __kernel void kmer(__global unsigned char* restrict pairs ,
 	// testGetSetHighByte();
 	// testShiftLeftBytes();
 	// testShiftLeft();
-	testShiftRight();
+	// testShiftRight();
+	testGetBits();
 	
 }
