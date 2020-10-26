@@ -101,40 +101,6 @@ int ap_uint_1024_get_bit(ap_uint_1024 x, int bit);
 #endif
 
 
-
-void decoder_4_16(unsigned int w, int* sel0, int* sel1, int* sel2, int* sel3, int* sel4, int* sel5, int* sel6, int* sel7, int* sel8, int* sel9, int* sel10, int* sel11, int* sel12, int* sel13, int* sel14, int* sel15)
-{
-	int bit0 = (w >> 0) & 0x1;
-	int bit1 = (w >> 1) & 0x1;
-	int bit2 = (w >> 2) & 0x1;
-	int bit3 = (w >> 3) & 0x1;
-
-	int nbit0 = (~bit0) & 0x1;
-	int nbit1 = (~bit1) & 0x1;
-	int nbit2 = (~bit2) & 0x1;
-	int nbit3 = (~bit3) & 0x1;
-
-
-	*sel0=nbit0 & nbit1 & nbit2 & nbit3;
-	*sel1=bit0 & nbit1 & nbit2 & nbit3;
-	*sel2=nbit0 & bit1 & nbit2 & nbit3;
-	*sel3=bit0 & bit1 & nbit2 & nbit3;
-	*sel4=nbit0 & nbit1 & bit2 & nbit3;
-	*sel5=bit0 & nbit1 & bit2 & nbit3;
-	*sel6=nbit0 & bit1 & bit2 & nbit3;
-	*sel7=bit0 & bit1 & bit2 & nbit3;
-	*sel8=nbit0 & nbit1 & nbit2 & bit3;
-	*sel9=bit0 & nbit1 & nbit2 & bit3;
-	*sel10=nbit0 & bit1 & nbit2 & bit3;
-	*sel11=bit0 & bit1 & nbit2 & bit3;
-	*sel12=nbit0 & nbit1 & bit2 & bit3;
-	*sel13=bit0 & nbit1 & bit2 & bit3;
-	*sel14=nbit0 & bit1 & bit2 & bit3;
-	*sel15=bit0 & bit1 & bit2 & bit3;
-
-	
-}
-
 int ap_uint_512_get_bit(ap_uint_512 x, int bit)
 {
 
@@ -192,54 +158,96 @@ int ap_uint_512_get_bit_high(ap_uint_512 x, int bit)
 	return ap_uint_512_get_bit(x, 512-1-bit);
 }
 
-/**
-* return the value of a bit
-*/
+
 int ap_uint_1024_get_bit(ap_uint_1024 x, int bit)
 {
+
 	int wordidx = bit >> 5; // int wordidx = bit / 32;
 	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
 
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int bit4 = (wordidx >> 4) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int nbit4 = (~bit4) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3 & nbit4;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3 & nbit4;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3 & nbit4;
+	int sel3=bit0 & bit1 & nbit2 & nbit3 & nbit4;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3 & nbit4;
+	int sel5=bit0 & nbit1 & bit2 & nbit3 & nbit4;
+	int sel6=nbit0 & bit1 & bit2 & nbit3 & nbit4;
+	int sel7=bit0 & bit1 & bit2 & nbit3 & nbit4;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3 & nbit4;
+	int sel9=bit0 & nbit1 & nbit2 & bit3 & nbit4;
+	int sel10=nbit0 & bit1 & nbit2 & bit3 & nbit4;
+	int sel11=bit0 & bit1 & nbit2 & bit3 & nbit4;
+	int sel12=nbit0 & nbit1 & bit2 & bit3 & nbit4;
+	int sel13=bit0 & nbit1 & bit2 & bit3 & nbit4;
+	int sel14=nbit0 & bit1 & bit2 & bit3 & nbit4;
+	int sel15=bit0 & bit1 & bit2 & bit3 & nbit4;
+	int sel16=nbit0 & nbit1 & nbit2 & nbit3 & bit4;
+	int sel17=bit0 & nbit1 & nbit2 & nbit3 & bit4;
+	int sel18=nbit0 & bit1 & nbit2 & nbit3 & bit4;
+	int sel19=bit0 & bit1 & nbit2 & nbit3 & bit4;
+	int sel20=nbit0 & nbit1 & bit2 & nbit3 & bit4;
+	int sel21=bit0 & nbit1 & bit2 & nbit3 & bit4;
+	int sel22=nbit0 & bit1 & bit2 & nbit3 & bit4;
+	int sel23=bit0 & bit1 & bit2 & nbit3 & bit4;
+	int sel24=nbit0 & nbit1 & nbit2 & bit3 & bit4;
+	int sel25=bit0 & nbit1 & nbit2 & bit3 & bit4;
+	int sel26=nbit0 & bit1 & nbit2 & bit3 & bit4;
+	int sel27=bit0 & bit1 & nbit2 & bit3 & bit4;
+	int sel28=nbit0 & nbit1 & bit2 & bit3 & bit4;
+	int sel29=bit0 & nbit1 & bit2 & bit3 & bit4;
+	int sel30=nbit0 & bit1 & bit2 & bit3 & bit4;
+	int sel31=bit0 & bit1 & bit2 & bit3 & bit4;
+
 
 	
-	if (wordidx == 0) { return (x.w0 >> bitidx) & 0x1;}	
-	if (wordidx == 1) { return (x.w1 >> bitidx) & 0x1;}	
-	if (wordidx == 2) { return (x.w2 >> bitidx) & 0x1;}	
-	if (wordidx == 3) { return (x.w3 >> bitidx) & 0x1;}	
-	if (wordidx == 4) { return (x.w4 >> bitidx) & 0x1;}	
-	if (wordidx == 5) { return (x.w5 >> bitidx) & 0x1;}	
-	if (wordidx == 6) { return (x.w6 >> bitidx) & 0x1;}	
-	if (wordidx == 7) { return (x.w7 >> bitidx) & 0x1;}	
-	if (wordidx == 8) { return (x.w8 >> bitidx) & 0x1;}	
-	if (wordidx == 9) { return (x.w9 >> bitidx) & 0x1;}	
-	if (wordidx == 10) { return (x.w10 >> bitidx) & 0x1;}	
-	if (wordidx == 11) { return (x.w11 >> bitidx) & 0x1;}	
-	if (wordidx == 12) { return (x.w12 >> bitidx) & 0x1;}	
-	if (wordidx == 13) { return (x.w13 >> bitidx) & 0x1;}	
-	if (wordidx == 14) { return (x.w14 >> bitidx) & 0x1;}	
-	if (wordidx == 15) { return (x.w15 >> bitidx) & 0x1;}	
-	if (wordidx == 16) { return (x.w16 >> bitidx) & 0x1;}	
-	if (wordidx == 17) { return (x.w17 >> bitidx) & 0x1;}	
-	if (wordidx == 18) { return (x.w18 >> bitidx) & 0x1;}	
-	if (wordidx == 19) { return (x.w19 >> bitidx) & 0x1;}	
-	if (wordidx == 20) { return (x.w20 >> bitidx) & 0x1;}	
-	if (wordidx == 21) { return (x.w21 >> bitidx) & 0x1;}	
-	if (wordidx == 22) { return (x.w22 >> bitidx) & 0x1;}	
-	if (wordidx == 23) { return (x.w23 >> bitidx) & 0x1;}	
-	if (wordidx == 24) { return (x.w24 >> bitidx) & 0x1;}	
-	if (wordidx == 25) { return (x.w25 >> bitidx) & 0x1;}	
-	if (wordidx == 26) { return (x.w26 >> bitidx) & 0x1;}	
-	if (wordidx == 27) { return (x.w27 >> bitidx) & 0x1;}	
-	if (wordidx == 28) { return (x.w28 >> bitidx) & 0x1;}	
-	if (wordidx == 29) { return (x.w29 >> bitidx) & 0x1;}	
-	if (wordidx == 30) { return (x.w30 >> bitidx) & 0x1;}	
-	if (wordidx == 31) { return (x.w31 >> bitidx) & 0x1;}
+	if (sel0) { return (x.w0 >> bitidx) & 0x1;}	
+	if (sel1) { return (x.w1 >> bitidx) & 0x1;}	
+	if (sel2) { return (x.w2 >> bitidx) & 0x1;}	
+	if (sel3) { return (x.w3 >> bitidx) & 0x1;}	
+	if (sel4) { return (x.w4 >> bitidx) & 0x1;}	
+	if (sel5) { return (x.w5 >> bitidx) & 0x1;}	
+	if (sel6) { return (x.w6 >> bitidx) & 0x1;}	
+	if (sel7) { return (x.w7 >> bitidx) & 0x1;}	
+	if (sel8) { return (x.w8 >> bitidx) & 0x1;}	
+	if (sel9) { return (x.w9 >> bitidx) & 0x1;}	
+	if (sel10) { return (x.w10 >> bitidx) & 0x1;}	
+	if (sel11) { return (x.w11 >> bitidx) & 0x1;}	
+	if (sel12) { return (x.w12 >> bitidx) & 0x1;}	
+	if (sel13) { return (x.w13 >> bitidx) & 0x1;}	
+	if (sel14) { return (x.w14 >> bitidx) & 0x1;}	
+	if (sel15) { return (x.w15 >> bitidx) & 0x1;}	
+	if (sel16) { return (x.w16 >> bitidx) & 0x1;}	
+	if (sel17) { return (x.w17 >> bitidx) & 0x1;}	
+	if (sel18) { return (x.w18 >> bitidx) & 0x1;}	
+	if (sel19) { return (x.w19 >> bitidx) & 0x1;}	
+	if (sel20) { return (x.w20 >> bitidx) & 0x1;}	
+	if (sel21) { return (x.w21 >> bitidx) & 0x1;}	
+	if (sel22) { return (x.w22 >> bitidx) & 0x1;}	
+	if (sel23) { return (x.w23 >> bitidx) & 0x1;}	
+	if (sel24) { return (x.w24 >> bitidx) & 0x1;}	
+	if (sel25) { return (x.w25 >> bitidx) & 0x1;}	
+	if (sel26) { return (x.w26 >> bitidx) & 0x1;}	
+	if (sel27) { return (x.w27 >> bitidx) & 0x1;}	
+	if (sel28) { return (x.w28 >> bitidx) & 0x1;}	
+	if (sel29) { return (x.w29 >> bitidx) & 0x1;}	
+	if (sel30) { return (x.w30 >> bitidx) & 0x1;}	
+	if (sel31) { return (x.w31 >> bitidx) & 0x1;}
 
 }
 
+
 /**
 * Sets a byte in a 32bits word of the 512 stream.
-* It cannot be used concurrently
 */
 void ap_uint_512_set_word_byte(ap_uint_512p v, int wordidx, int byteidx, unsigned int value)
 {
@@ -288,6 +296,92 @@ void ap_uint_512_set_word_byte(ap_uint_512p v, int wordidx, int byteidx, unsigne
 	if (sel13){ v->w13 = (v->w13 & nmask) | (value << (byteidx*8)); }
 	if (sel14){ v->w14 = (v->w14 & nmask) | (value << (byteidx*8)); }
 	if (sel15){ v->w15 = (v->w15 & nmask) | (value << (byteidx*8)); }			
+}
+
+/**
+* Sets a byte in a 32bits word of the 1024 word.
+*/
+void ap_uint_1024_set_word_byte(ap_uint_1024p v, int wordidx, int byteidx, unsigned int value)
+{
+	unsigned int mask = (0xFF << (byteidx * 8));
+	unsigned int nmask = ~mask;
+
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int bit4 = (wordidx >> 4) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int nbit4 = (~bit4) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3 & nbit4;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3 & nbit4;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3 & nbit4;
+	int sel3=bit0 & bit1 & nbit2 & nbit3 & nbit4;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3 & nbit4;
+	int sel5=bit0 & nbit1 & bit2 & nbit3 & nbit4;
+	int sel6=nbit0 & bit1 & bit2 & nbit3 & nbit4;
+	int sel7=bit0 & bit1 & bit2 & nbit3 & nbit4;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3 & nbit4;
+	int sel9=bit0 & nbit1 & nbit2 & bit3 & nbit4;
+	int sel10=nbit0 & bit1 & nbit2 & bit3 & nbit4;
+	int sel11=bit0 & bit1 & nbit2 & bit3 & nbit4;
+	int sel12=nbit0 & nbit1 & bit2 & bit3 & nbit4;
+	int sel13=bit0 & nbit1 & bit2 & bit3 & nbit4;
+	int sel14=nbit0 & bit1 & bit2 & bit3 & nbit4;
+	int sel15=bit0 & bit1 & bit2 & bit3 & nbit4;
+	int sel16=nbit0 & nbit1 & nbit2 & nbit3 & bit4;
+	int sel17=bit0 & nbit1 & nbit2 & nbit3 & bit4;
+	int sel18=nbit0 & bit1 & nbit2 & nbit3 & bit4;
+	int sel19=bit0 & bit1 & nbit2 & nbit3 & bit4;
+	int sel20=nbit0 & nbit1 & bit2 & nbit3 & bit4;
+	int sel21=bit0 & nbit1 & bit2 & nbit3 & bit4;
+	int sel22=nbit0 & bit1 & bit2 & nbit3 & bit4;
+	int sel23=bit0 & bit1 & bit2 & nbit3 & bit4;
+	int sel24=nbit0 & nbit1 & nbit2 & bit3 & bit4;
+	int sel25=bit0 & nbit1 & nbit2 & bit3 & bit4;
+	int sel26=nbit0 & bit1 & nbit2 & bit3 & bit4;
+	int sel27=bit0 & bit1 & nbit2 & bit3 & bit4;
+	int sel28=nbit0 & nbit1 & bit2 & bit3 & bit4;
+	int sel29=bit0 & nbit1 & bit2 & bit3 & bit4;
+	int sel30=nbit0 & bit1 & bit2 & bit3 & bit4;
+	int sel31=bit0 & bit1 & bit2 & bit3 & bit4;
+
+	
+	if (sel0){ v->w0 = (v->w0 & nmask) | (value << (byteidx*8)); }
+	if (sel1){ v->w1 = (v->w1 & nmask) | (value << (byteidx*8)); }
+	if (sel2){ v->w2 = (v->w2 & nmask) | (value << (byteidx*8)); }
+	if (sel3){ v->w3 = (v->w3 & nmask) | (value << (byteidx*8)); }
+	if (sel4){ v->w4 = (v->w4 & nmask) | (value << (byteidx*8)); }
+	if (sel5){ v->w5 = (v->w5 & nmask) | (value << (byteidx*8)); }
+	if (sel6){ v->w6 = (v->w6 & nmask) | (value << (byteidx*8)); }
+	if (sel7){ v->w7 = (v->w7 & nmask) | (value << (byteidx*8)); }
+	if (sel8){ v->w8 = (v->w8 & nmask) | (value << (byteidx*8)); }
+	if (sel9){ v->w9 = (v->w9 & nmask) | (value << (byteidx*8)); }
+	if (sel10){ v->w10 = (v->w10 & nmask) | (value << (byteidx*8)); }
+	if (sel11){ v->w11 = (v->w11 & nmask) | (value << (byteidx*8)); }
+	if (sel12){ v->w12 = (v->w12 & nmask) | (value << (byteidx*8)); }
+	if (sel13){ v->w13 = (v->w13 & nmask) | (value << (byteidx*8)); }
+	if (sel14){ v->w14 = (v->w14 & nmask) | (value << (byteidx*8)); }
+	if (sel15){ v->w15 = (v->w15 & nmask) | (value << (byteidx*8)); }
+	if (sel16){ v->w16 = (v->w16 & nmask) | (value << (byteidx*8)); }
+	if (sel17){ v->w17 = (v->w17 & nmask) | (value << (byteidx*8)); }
+	if (sel18){ v->w18 = (v->w18 & nmask) | (value << (byteidx*8)); }
+	if (sel19){ v->w19 = (v->w19 & nmask) | (value << (byteidx*8)); }
+	if (sel20){ v->w20 = (v->w20 & nmask) | (value << (byteidx*8)); }
+	if (sel21){ v->w21 = (v->w21 & nmask) | (value << (byteidx*8)); }
+	if (sel22){ v->w22 = (v->w22 & nmask) | (value << (byteidx*8)); }
+	if (sel23){ v->w23 = (v->w23 & nmask) | (value << (byteidx*8)); }
+	if (sel24){ v->w24 = (v->w24 & nmask) | (value << (byteidx*8)); }
+	if (sel25){ v->w25 = (v->w25 & nmask) | (value << (byteidx*8)); }
+	if (sel26){ v->w26 = (v->w26 & nmask) | (value << (byteidx*8)); }
+	if (sel27){ v->w27 = (v->w27 & nmask) | (value << (byteidx*8)); }
+	if (sel28){ v->w28 = (v->w28 & nmask) | (value << (byteidx*8)); }
+	if (sel29){ v->w29 = (v->w29 & nmask) | (value << (byteidx*8)); }
+	if (sel30){ v->w30 = (v->w30 & nmask) | (value << (byteidx*8)); }
+	if (sel31){ v->w31 = (v->w31 & nmask) | (value << (byteidx*8)); }			
 }
 
 void ap_uint_512_or_word_byte(ap_uint_512p v, int wordidx, int byteidx, unsigned int value)
@@ -354,6 +448,15 @@ void ap_uint_512_setLowByte(ap_uint_512p v, int index, int value)
 
 }
 
+void ap_uint_1024_setLowByte(ap_uint_1024p v, int index, int value)
+{	
+	int wordidx = index >> 2; // int wordidx = (index * 8) / 32;
+	int byteidx = index & 0x3; // int byteidx = (index % (32/8));
+	
+	ap_uint_1024_set_word_byte(v, wordidx, byteidx, value);
+
+}
+
 void ap_uint_512_orLowByteConcurrent(ap_uint_512p v, int index, int value)
 {	
 	int wordidx = index >> 2; // int wordidx = (index * 8) / 32;
@@ -365,6 +468,11 @@ void ap_uint_512_orLowByteConcurrent(ap_uint_512p v, int index, int value)
 void ap_uint_512_setHighByte(ap_uint_512p v, int index, int value)
 {	
 	ap_uint_512_setLowByte(v, (512/8) - 1 - index, value);
+}
+
+void ap_uint_1024_setHighByte(ap_uint_1024p v, int index, int value)
+{	
+	ap_uint_1024_setLowByte(v, (1024/8) - 1 - index, value);
 }
 
 void ap_uint_512_orHighByteConcurrent(ap_uint_512p v, int index, int value)
@@ -646,6 +754,95 @@ void ap_uint_512_set_bit(ap_uint_512p v, int bit, int x)
 
 }
 
+
+/**
+* Sets a bit in a 1024 bits word
+*/
+void ap_uint_1024_set_bit(ap_uint_1024p v, int bit, int x)
+{
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+	
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int bit4 = (wordidx >> 4) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int nbit4 = (~bit4) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3 & nbit4;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3 & nbit4;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3 & nbit4;
+	int sel3=bit0 & bit1 & nbit2 & nbit3 & nbit4;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3 & nbit4;
+	int sel5=bit0 & nbit1 & bit2 & nbit3 & nbit4;
+	int sel6=nbit0 & bit1 & bit2 & nbit3 & nbit4;
+	int sel7=bit0 & bit1 & bit2 & nbit3 & nbit4;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3 & nbit4;
+	int sel9=bit0 & nbit1 & nbit2 & bit3 & nbit4;
+	int sel10=nbit0 & bit1 & nbit2 & bit3 & nbit4;
+	int sel11=bit0 & bit1 & nbit2 & bit3 & nbit4;
+	int sel12=nbit0 & nbit1 & bit2 & bit3 & nbit4;
+	int sel13=bit0 & nbit1 & bit2 & bit3 & nbit4;
+	int sel14=nbit0 & bit1 & bit2 & bit3 & nbit4;
+	int sel15=bit0 & bit1 & bit2 & bit3 & nbit4;
+	int sel16=nbit0 & nbit1 & nbit2 & nbit3 & bit4;
+	int sel17=bit0 & nbit1 & nbit2 & nbit3 & bit4;
+	int sel18=nbit0 & bit1 & nbit2 & nbit3 & bit4;
+	int sel19=bit0 & bit1 & nbit2 & nbit3 & bit4;
+	int sel20=nbit0 & nbit1 & bit2 & nbit3 & bit4;
+	int sel21=bit0 & nbit1 & bit2 & nbit3 & bit4;
+	int sel22=nbit0 & bit1 & bit2 & nbit3 & bit4;
+	int sel23=bit0 & bit1 & bit2 & nbit3 & bit4;
+	int sel24=nbit0 & nbit1 & nbit2 & bit3 & bit4;
+	int sel25=bit0 & nbit1 & nbit2 & bit3 & bit4;
+	int sel26=nbit0 & bit1 & nbit2 & bit3 & bit4;
+	int sel27=bit0 & bit1 & nbit2 & bit3 & bit4;
+	int sel28=nbit0 & nbit1 & bit2 & bit3 & bit4;
+	int sel29=bit0 & nbit1 & bit2 & bit3 & bit4;
+	int sel30=nbit0 & bit1 & bit2 & bit3 & bit4;
+	int sel31=bit0 & bit1 & bit2 & bit3 & bit4;
+
+
+	
+	if (sel0) if (x) v->w0 |= (1 << bitidx); else v->w0 &= (~(1 << bitidx));	
+	if (sel1) if (x) v->w1 |= (1 << bitidx); else v->w1 &= (~(1 << bitidx));	
+	if (sel2) if (x) v->w2 |= (1 << bitidx); else v->w2 &= (~(1 << bitidx));	
+	if (sel3) if (x) v->w3 |= (1 << bitidx); else v->w3 &= (~(1 << bitidx));	
+	if (sel4) if (x) v->w4 |= (1 << bitidx); else v->w4 &= (~(1 << bitidx));	
+	if (sel5) if (x) v->w5 |= (1 << bitidx); else v->w5 &= (~(1 << bitidx));	
+	if (sel6) if (x) v->w6 |= (1 << bitidx); else v->w6 &= (~(1 << bitidx));	
+	if (sel7) if (x) v->w7 |= (1 << bitidx); else v->w7 &= (~(1 << bitidx));	
+	if (sel8) if (x) v->w8 |= (1 << bitidx); else v->w8 &= (~(1 << bitidx));	
+	if (sel9) if (x) v->w9 |= (1 << bitidx); else v->w9 &= (~(1 << bitidx));	
+	if (sel10) if (x) v->w10 |= (1 << bitidx); else v->w10 &= (~(1 << bitidx));	
+	if (sel11) if (x) v->w11 |= (1 << bitidx); else v->w11 &= (~(1 << bitidx));	
+	if (sel12) if (x) v->w12 |= (1 << bitidx); else v->w12 &= (~(1 << bitidx));	
+	if (sel13) if (x) v->w13 |= (1 << bitidx); else v->w13 &= (~(1 << bitidx));	
+	if (sel14) if (x) v->w14 |= (1 << bitidx); else v->w14 &= (~(1 << bitidx));	
+	if (sel15) if (x) v->w15 |= (1 << bitidx); else v->w15 &= (~(1 << bitidx));	
+	if (sel16) if (x) v->w16 |= (1 << bitidx); else v->w16 &= (~(1 << bitidx));	
+	if (sel17) if (x) v->w17 |= (1 << bitidx); else v->w17 &= (~(1 << bitidx));	
+	if (sel18) if (x) v->w18 |= (1 << bitidx); else v->w18 &= (~(1 << bitidx));	
+	if (sel19) if (x) v->w19 |= (1 << bitidx); else v->w19 &= (~(1 << bitidx));	
+	if (sel20) if (x) v->w20 |= (1 << bitidx); else v->w20 &= (~(1 << bitidx));	
+	if (sel21) if (x) v->w21 |= (1 << bitidx); else v->w21 &= (~(1 << bitidx));	
+	if (sel22) if (x) v->w22 |= (1 << bitidx); else v->w22 &= (~(1 << bitidx));	
+	if (sel23) if (x) v->w23 |= (1 << bitidx); else v->w23 &= (~(1 << bitidx));	
+	if (sel24) if (x) v->w24 |= (1 << bitidx); else v->w24 &= (~(1 << bitidx));	
+	if (sel25) if (x) v->w25 |= (1 << bitidx); else v->w25 &= (~(1 << bitidx));	
+	if (sel26) if (x) v->w26 |= (1 << bitidx); else v->w26 &= (~(1 << bitidx));	
+	if (sel27) if (x) v->w27 |= (1 << bitidx); else v->w27 &= (~(1 << bitidx));	
+	if (sel28) if (x) v->w28 |= (1 << bitidx); else v->w28 &= (~(1 << bitidx));	
+	if (sel29) if (x) v->w29 |= (1 << bitidx); else v->w29 &= (~(1 << bitidx));	
+	if (sel30) if (x) v->w30 |= (1 << bitidx); else v->w30 &= (~(1 << bitidx));	
+	if (sel31) if (x) v->w31 |= (1 << bitidx); else v->w31 &= (~(1 << bitidx));
+
+}
+
 void ap_uint_512_or_bit(ap_uint_512p v, int bit, int x)
 {
 	int wordidx = bit >> 5; // int wordidx = bit / 32;
@@ -740,142 +937,6 @@ void ap_uint_1024_or_bit(ap_uint_1024p v, int bit, int x)
 	
 }
 
-void ap_uint_1024_set_bit(ap_uint_1024p v, int bit, int x)
-{
-	int wordidx = bit >> 5; // int wordidx = bit / 32;
-	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
-	
-	
-	if (wordidx == 0){
-		if (x) v->w0 |= (1 << bitidx);
-		else v->w0 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 1){
-		if (x) v->w1 |= (1 << bitidx);
-		else v->w1 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 2){
-		if (x) v->w2 |= (1 << bitidx);
-		else v->w2 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 3){
-		if (x) v->w3 |= (1 << bitidx);
-		else v->w3 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 4){
-		if (x) v->w4 |= (1 << bitidx);
-		else v->w4 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 5){
-		if (x) v->w5 |= (1 << bitidx);
-		else v->w5 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 6){
-		if (x) v->w6 |= (1 << bitidx);
-		else v->w6 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 7){
-		if (x) v->w7 |= (1 << bitidx);
-		else v->w7 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 8){
-		if (x) v->w8 |= (1 << bitidx);
-		else v->w8 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 9){
-		if (x) v->w9 |= (1 << bitidx);
-		else v->w9 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 10){
-		if (x) v->w10 |= (1 << bitidx);
-		else v->w10 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 11){
-		if (x) v->w11 |= (1 << bitidx);
-		else v->w11 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 12){
-		if (x) v->w12 |= (1 << bitidx);
-		else v->w12 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 13){
-		if (x) v->w13 |= (1 << bitidx);
-		else v->w13 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 14){
-		if (x) v->w14 |= (1 << bitidx);
-		else v->w14 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 15){
-		if (x) v->w15 |= (1 << bitidx);
-		else v->w15 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 16){
-		if (x) v->w16 |= (1 << bitidx);
-		else v->w16 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 17){
-		if (x) v->w17 |= (1 << bitidx);
-		else v->w17 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 18){
-		if (x) v->w18 |= (1 << bitidx);
-		else v->w18 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 19){
-		if (x) v->w19 |= (1 << bitidx);
-		else v->w19 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 20){
-		if (x) v->w20 |= (1 << bitidx);
-		else v->w20 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 21){
-		if (x) v->w21 |= (1 << bitidx);
-		else v->w21 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 22){
-		if (x) v->w22 |= (1 << bitidx);
-		else v->w22 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 23){
-		if (x) v->w23 |= (1 << bitidx);
-		else v->w23 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 24){
-		if (x) v->w24 |= (1 << bitidx);
-		else v->w24 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 25){
-		if (x) v->w25 |= (1 << bitidx);
-		else v->w25 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 26){
-		if (x) v->w26 |= (1 << bitidx);
-		else v->w26 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 27){
-		if (x) v->w27 |= (1 << bitidx);
-		else v->w27 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 28){
-		if (x) v->w28 |= (1 << bitidx);
-		else v->w28 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 29){
-		if (x) v->w29 |= (1 << bitidx);
-		else v->w29 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 30){
-		if (x) v->w30 |= (1 << bitidx);
-		else v->w30 &= (~(1 << bitidx));
-	}	
-	if (wordidx == 31){
-		if (x) v->w31 |= (1 << bitidx);
-		else v->w31 &= (~(1 << bitidx));
-	}
-
-}
 
 void ap_uint_512_onesLow(ap_uint_512p v, int n)
 {
