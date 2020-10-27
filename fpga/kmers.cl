@@ -87,7 +87,9 @@ void computeKmerFingerprint(ap_uint_512 bases, int len, ap_uint_1024p fingerprin
 {
 	ap_uint_1024_zero(fingerprint);
 
+#ifndef DISABLE_FINGERPRINT_LOOP_UNROLLING
 	#pragma unroll
+#endif
 	for (int i=0; i < (len-KMER_K+1); i++)
     	{
         	unsigned int kmer_index = getKmerIndex(bases,i);
