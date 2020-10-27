@@ -9,6 +9,10 @@
 #define BASE_SIZE           2
 
 
+#ifndef WORKLOAD_CHUNK
+#define WORKLOAD_CHUNK 1024*16
+#endif
+
 unsigned int computeTask(__global unsigned char* restrict pairs, unsigned int pi);
 unsigned int computeDistance(ap_uint_512 pattern, int plen, ap_uint_512 text,  int tlen);
 void printSequence(ap_uint_512 w, int len);
@@ -45,7 +49,7 @@ __kernel void kmer(__global unsigned char* restrict pairs ,
 	// test_my_ap_uint();
 #endif
 
-	#define WORKLOAD_CHUNK 1024*16
+	
 	unsigned int workload_result[WORKLOAD_CHUNK];
 	
     for (int i=0; i < workloadLength; /*i++*/)
