@@ -10,3 +10,5 @@ fpga/*/shd_3_100_100/
 fpga/*/kmers_100_100/
 fpga/*/kmers_var/
 fpga/*/shd/
+fpga/*/test/
+fpga/metagenerator
