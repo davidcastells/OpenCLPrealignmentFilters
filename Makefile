@@ -14,14 +14,14 @@ clean:
 	rm -f filter-kmers
 
 fix_pac10:
-	rm filter-shd-pac10
-	rm filter-kmers-pac10
+	rm -f filter-shd-pac10
+	rm -f filter-kmers-pac10
 	mv filter-shd filter-shd-pac10
 	mv filter-kmers filter-kmers-pac10
 
 fix_pacs10:
-	rm filter-shd-pacs10
-	rm filter-kmers-pacs10
+	rm -f filter-shd-pacs10
+	rm -f filter-kmers-pacs10
 	mv filter-shd filter-shd-pacs10
 	mv filter-kmers filter-kmers-pacs10
 

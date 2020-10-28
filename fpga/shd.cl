@@ -574,9 +574,7 @@ unsigned int shd(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 	}
 #endif
 
-#ifdef PATTERN_LEN
 	#pragma unroll
-#endif
 	for (int i=-SHD_THRESHOLD; i <= SHD_THRESHOLD; i++)
 	{
 		ap_uint_512 shifted_pattern;
