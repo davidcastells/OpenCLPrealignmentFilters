@@ -37,6 +37,16 @@ shouji_3_var.aocx: ../shouji.cl
 	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHOUJI_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shouji.cl -o shouji_3_var.aocx >> compile.shouji_3_var.out $(NOBLOCK)
 
 
+select_shouji_3_100_100:
+	rm -f ../shouji.aocx
+	ln -s $(BOARD)/shouji_3_100_100.aocx ../shouji.aocx
+
+shouji_3_100_100.aocx: ../shouji.cl
+	echo "STARTING COMPILATION" > compile.shouji_3_var.out
+	date >> compile.shouji_3_100_100.out
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHOUJI_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shouji.cl -o shouji_3_100_100.aocx >> compile.shouji_3_100_100.out $(NOBLOCK)
+
+
 select_kmers_var:
 	rm -f ../kmers.aocx
 	ln -s $(BOARD)/kmers_var.aocx ../kmers.aocx

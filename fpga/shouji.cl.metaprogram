@@ -408,13 +408,10 @@ for (int i=-SHOUJI_THRESHOLD; i <= SHOUJI_THRESHOLD; i++)
 	%>
 	{
 		unsigned int maxz = 0;
-		int cb = 1;
-
-		<%
+		int cb = 1;<%
 		for (int i=-SHOUJI_THRESHOLD; i <= SHOUJI_THRESHOLD; i++){
 		%>
-		{
-			<%
+		{<%
 			//ap_uint_512 shifted_pattern;
 			//ap_uint_512 dist;
 
@@ -423,25 +420,19 @@ for (int i=-SHOUJI_THRESHOLD; i <= SHOUJI_THRESHOLD; i++)
 				char* shifted_pattern_prefix = "shifted_pattern_m"; 
 				char* dist_prefix = "dist_m"; 
 			%>
-			unsigned int xpart = ap_uint_512_range_high_32(<%printf("%s%d", dist_prefix, -i);%>, <%printf("%d",k);%>, SHOUJI_WINDOW_SIZE);
-			<%}
+			unsigned int xpart = ap_uint_512_range_high_32(<%printf("%s%d", dist_prefix, -i);%>, <%printf("%d",k);%>, SHOUJI_WINDOW_SIZE); <%}
 			else if (i==0)
 			{
 				char* shifted_pattern_prefix = "shifted_pattern_";
 				char* dist_prefix = "dist_"; 
 			%>
-			unsigned int xpart = ap_uint_512_range_high_32(dist_0, <%printf("%d",k);%>, SHOUJI_WINDOW_SIZE);
-			<%}
+			unsigned int xpart = ap_uint_512_range_high_32(dist_0, <%printf("%d",k);%>, SHOUJI_WINDOW_SIZE);<%}
 			else
 			{
 				char* shifted_pattern_prefix = "shifted_pattern_p";
 				char* dist_prefix = "dist_p"; 
 			%>
-			unsigned int xpart = ap_uint_512_range_high_32(<%printf("%s%d", dist_prefix, i);%>, <%printf("%d",k);%>, SHOUJI_WINDOW_SIZE);
-			<%}%>
-			
-			
-		<%	
+			unsigned int xpart = ap_uint_512_range_high_32(<%printf("%s%d", dist_prefix, i);%>, <%printf("%d",k);%>, SHOUJI_WINDOW_SIZE);<%}	
 
 #ifdef FPGA_DEBUG
 			printf("shift [%2d] =", i);
@@ -460,7 +451,6 @@ for (int i=-SHOUJI_THRESHOLD; i <= SHOUJI_THRESHOLD; i++)
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), <%printf("%d",k);%>, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -468,8 +458,7 @@ for (int i=-SHOUJI_THRESHOLD; i <= SHOUJI_THRESHOLD; i++)
 
 		if (<%printf("%d",k);%> < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), <%printf("%d",k);%>, cb);
-	}
-	<%}%>
+	}<%}%>
 
 #ifdef FPGA_DEBUG
 	printf("acum       =");

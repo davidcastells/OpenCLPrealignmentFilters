@@ -406,130 +406,86 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 0, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 0, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 0, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 0, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 0, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 0, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 0, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 0, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 0, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 0, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 0, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 0, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 0, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 0, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 0, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 0, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 0, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -538,134 +494,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (0 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 0, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 1, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 1, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 1, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 1, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 1, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 1, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 1, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 1, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 1, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 1, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 1, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 1, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 1, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 1, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 1, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 1, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 1, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -674,134 +585,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (1 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 1, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 2, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 2, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 2, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 2, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 2, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 2, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 2, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 2, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 2, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 2, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 2, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 2, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 2, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 2, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 2, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 2, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 2, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -810,134 +676,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (2 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 2, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 3, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 3, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 3, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 3, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 3, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 3, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 3, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 3, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 3, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 3, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 3, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 3, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 3, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 3, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 3, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 3, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 3, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -946,134 +767,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (3 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 3, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 4, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 4, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 4, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 4, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 4, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 4, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 4, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 4, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 4, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 4, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 4, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 4, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 4, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 4, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 4, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 4, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 4, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -1082,134 +858,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (4 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 4, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 5, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 5, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 5, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 5, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 5, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 5, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 5, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 5, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 5, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 5, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 5, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 5, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 5, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 5, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 5, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 5, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 5, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -1218,134 +949,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (5 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 5, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 6, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 6, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 6, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 6, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 6, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 6, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 6, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 6, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 6, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 6, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 6, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 6, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 6, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 6, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 6, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 6, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 6, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -1354,134 +1040,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (6 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 6, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 7, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 7, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 7, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 7, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 7, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 7, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 7, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 7, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 7, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 7, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 7, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 7, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 7, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 7, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 7, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 7, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 7, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -1490,134 +1131,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (7 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 7, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 8, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 8, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 8, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 8, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 8, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 8, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 8, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 8, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 8, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 8, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 8, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 8, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 8, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 8, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 8, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 8, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 8, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -1626,134 +1222,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (8 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 8, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 9, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 9, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 9, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 9, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 9, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 9, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 9, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 9, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 9, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 9, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 9, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 9, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 9, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 9, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 9, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 9, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 9, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -1762,134 +1313,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (9 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 9, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 10, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 10, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 10, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 10, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 10, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 10, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 10, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 10, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 10, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 10, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 10, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 10, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 10, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 10, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 10, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 10, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 10, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -1898,134 +1404,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (10 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 10, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 11, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 11, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 11, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 11, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 11, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 11, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 11, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 11, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 11, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 11, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 11, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 11, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 11, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 11, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 11, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 11, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 11, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -2034,134 +1495,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (11 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 11, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 12, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 12, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 12, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 12, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 12, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 12, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 12, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 12, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 12, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 12, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 12, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 12, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 12, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 12, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 12, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 12, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 12, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -2170,134 +1586,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (12 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 12, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 13, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 13, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 13, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 13, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 13, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 13, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 13, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 13, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 13, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 13, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 13, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 13, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 13, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 13, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 13, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 13, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 13, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -2306,134 +1677,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (13 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 13, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 14, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 14, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 14, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 14, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 14, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 14, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 14, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 14, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 14, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 14, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 14, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 14, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 14, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 14, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 14, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 14, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 14, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -2442,134 +1768,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (14 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 14, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 15, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 15, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 15, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 15, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 15, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 15, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 15, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 15, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 15, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 15, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 15, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 15, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 15, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 15, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 15, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 15, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 15, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -2578,134 +1859,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (15 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 15, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 16, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 16, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 16, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 16, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 16, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 16, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 16, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 16, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 16, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 16, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 16, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 16, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 16, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 16, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 16, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 16, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 16, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -2714,134 +1950,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (16 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 16, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 17, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 17, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 17, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 17, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 17, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 17, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 17, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 17, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 17, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 17, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 17, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 17, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 17, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 17, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 17, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 17, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 17, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -2850,134 +2041,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (17 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 17, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 18, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 18, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 18, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 18, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 18, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 18, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 18, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 18, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 18, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 18, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 18, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 18, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 18, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 18, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 18, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 18, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 18, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -2986,134 +2132,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (18 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 18, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 19, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 19, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 19, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 19, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 19, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 19, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 19, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 19, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 19, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 19, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 19, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 19, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 19, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 19, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 19, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 19, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 19, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -3122,134 +2223,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (19 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 19, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 20, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 20, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 20, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 20, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 20, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 20, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 20, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 20, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 20, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 20, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 20, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 20, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 20, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 20, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 20, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 20, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 20, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -3258,134 +2314,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (20 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 20, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 21, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 21, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 21, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 21, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 21, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 21, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 21, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 21, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 21, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 21, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 21, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 21, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 21, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 21, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 21, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 21, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 21, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -3394,134 +2405,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (21 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 21, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 22, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 22, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 22, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 22, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 22, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 22, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 22, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 22, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 22, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 22, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 22, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 22, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 22, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 22, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 22, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 22, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 22, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -3530,134 +2496,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (22 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 22, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 23, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 23, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 23, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 23, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 23, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 23, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 23, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 23, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 23, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 23, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 23, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 23, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 23, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 23, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 23, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 23, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 23, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -3666,134 +2587,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (23 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 23, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 24, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 24, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 24, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 24, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 24, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 24, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 24, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 24, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 24, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 24, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 24, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 24, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 24, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 24, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 24, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 24, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 24, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -3802,134 +2678,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (24 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 24, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 25, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 25, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 25, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 25, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 25, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 25, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 25, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 25, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 25, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 25, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 25, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 25, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 25, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 25, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 25, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 25, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 25, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -3938,134 +2769,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (25 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 25, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 26, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 26, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 26, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 26, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 26, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 26, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 26, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 26, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 26, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 26, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 26, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 26, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 26, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 26, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 26, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 26, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 26, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -4074,134 +2860,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (26 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 26, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 27, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 27, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 27, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 27, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 27, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 27, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 27, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 27, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 27, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 27, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 27, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 27, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 27, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 27, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 27, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 27, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 27, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -4210,134 +2951,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (27 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 27, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 28, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 28, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 28, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 28, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 28, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 28, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 28, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 28, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 28, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 28, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 28, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 28, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 28, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 28, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 28, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 28, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 28, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -4346,134 +3042,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (28 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 28, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 29, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 29, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 29, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 29, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 29, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 29, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 29, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 29, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 29, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 29, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 29, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 29, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 29, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 29, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 29, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 29, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 29, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -4482,134 +3133,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (29 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 29, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 30, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 30, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 30, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 30, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 30, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 30, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 30, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 30, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 30, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 30, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 30, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 30, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 30, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 30, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 30, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 30, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 30, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -4618,134 +3224,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (30 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 30, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 31, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 31, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 31, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 31, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 31, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 31, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 31, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 31, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 31, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 31, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 31, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 31, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 31, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 31, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 31, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 31, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 31, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -4754,134 +3315,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (31 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 31, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 32, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 32, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 32, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 32, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 32, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 32, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 32, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 32, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 32, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 32, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 32, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 32, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 32, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 32, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 32, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 32, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 32, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -4890,134 +3406,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (32 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 32, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 33, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 33, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 33, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 33, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 33, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 33, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 33, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 33, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 33, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 33, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 33, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 33, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 33, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 33, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 33, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 33, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 33, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -5026,134 +3497,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (33 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 33, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 34, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 34, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 34, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 34, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 34, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 34, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 34, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 34, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 34, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 34, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 34, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 34, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 34, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 34, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 34, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 34, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 34, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -5162,134 +3588,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (34 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 34, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 35, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 35, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 35, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 35, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 35, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 35, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 35, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 35, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 35, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 35, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 35, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 35, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 35, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 35, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 35, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 35, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 35, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -5298,134 +3679,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (35 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 35, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 36, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 36, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 36, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 36, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 36, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 36, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 36, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 36, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 36, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 36, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 36, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 36, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 36, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 36, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 36, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 36, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 36, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -5434,134 +3770,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (36 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 36, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 37, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 37, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 37, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 37, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 37, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 37, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 37, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 37, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 37, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 37, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 37, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 37, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 37, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 37, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 37, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 37, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 37, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -5570,134 +3861,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (37 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 37, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 38, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 38, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 38, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 38, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 38, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 38, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 38, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 38, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 38, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 38, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 38, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 38, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 38, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 38, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 38, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 38, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 38, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -5706,134 +3952,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (38 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 38, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 39, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 39, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 39, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 39, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 39, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 39, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 39, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 39, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 39, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 39, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 39, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 39, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 39, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 39, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 39, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 39, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 39, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -5842,134 +4043,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (39 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 39, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 40, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 40, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 40, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 40, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 40, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 40, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 40, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 40, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 40, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 40, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 40, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 40, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 40, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 40, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 40, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 40, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 40, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -5978,134 +4134,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (40 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 40, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 41, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 41, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 41, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 41, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 41, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 41, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 41, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 41, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 41, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 41, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 41, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 41, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 41, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 41, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 41, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 41, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 41, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -6114,134 +4225,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (41 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 41, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 42, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 42, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 42, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 42, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 42, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 42, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 42, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 42, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 42, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 42, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 42, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 42, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 42, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 42, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 42, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 42, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 42, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -6250,134 +4316,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (42 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 42, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 43, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 43, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 43, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 43, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 43, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 43, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 43, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 43, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 43, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 43, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 43, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 43, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 43, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 43, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 43, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 43, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 43, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -6386,134 +4407,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (43 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 43, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 44, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 44, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 44, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 44, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 44, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 44, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 44, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 44, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 44, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 44, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 44, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 44, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 44, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 44, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 44, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 44, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 44, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -6522,134 +4498,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (44 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 44, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 45, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 45, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 45, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 45, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 45, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 45, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 45, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 45, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 45, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 45, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 45, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 45, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 45, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 45, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 45, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 45, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 45, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -6658,134 +4589,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (45 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 45, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 46, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 46, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 46, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 46, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 46, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 46, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 46, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 46, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 46, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 46, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 46, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 46, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 46, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 46, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 46, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 46, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 46, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -6794,134 +4680,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (46 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 46, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 47, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 47, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 47, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 47, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 47, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 47, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 47, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 47, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 47, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 47, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 47, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 47, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 47, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 47, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 47, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 47, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 47, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -6930,134 +4771,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (47 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 47, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 48, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 48, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 48, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 48, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 48, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 48, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 48, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 48, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 48, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 48, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 48, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 48, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 48, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 48, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 48, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 48, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 48, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -7066,134 +4862,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (48 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 48, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 49, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 49, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 49, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 49, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 49, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 49, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 49, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 49, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 49, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 49, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 49, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 49, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 49, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 49, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 49, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 49, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 49, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -7202,134 +4953,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (49 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 49, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 50, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 50, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 50, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 50, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 50, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 50, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 50, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 50, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 50, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 50, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 50, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 50, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 50, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 50, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 50, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 50, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 50, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -7338,134 +5044,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (50 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 50, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 51, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 51, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 51, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 51, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 51, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 51, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 51, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 51, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 51, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 51, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 51, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 51, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 51, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 51, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 51, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 51, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 51, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -7474,134 +5135,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (51 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 51, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 52, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 52, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 52, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 52, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 52, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 52, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 52, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 52, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 52, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 52, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 52, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 52, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 52, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 52, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 52, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 52, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 52, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -7610,134 +5226,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (52 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 52, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 53, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 53, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 53, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 53, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 53, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 53, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 53, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 53, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 53, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 53, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 53, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 53, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 53, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 53, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 53, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 53, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 53, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -7746,134 +5317,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (53 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 53, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 54, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 54, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 54, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 54, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 54, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 54, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 54, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 54, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 54, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 54, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 54, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 54, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 54, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 54, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 54, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 54, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 54, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -7882,134 +5408,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (54 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 54, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 55, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 55, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 55, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 55, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 55, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 55, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 55, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 55, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 55, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 55, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 55, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 55, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 55, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 55, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 55, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 55, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 55, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -8018,134 +5499,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (55 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 55, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 56, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 56, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 56, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 56, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 56, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 56, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 56, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 56, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 56, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 56, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 56, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 56, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 56, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 56, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 56, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 56, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 56, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -8154,134 +5590,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (56 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 56, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 57, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 57, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 57, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 57, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 57, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 57, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 57, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 57, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 57, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 57, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 57, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 57, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 57, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 57, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 57, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 57, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 57, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -8290,134 +5681,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (57 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 57, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 58, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 58, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 58, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 58, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 58, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 58, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 58, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 58, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 58, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 58, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 58, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 58, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 58, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 58, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 58, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 58, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 58, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -8426,134 +5772,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (58 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 58, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 59, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 59, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 59, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 59, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 59, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 59, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 59, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 59, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 59, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 59, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 59, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 59, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 59, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 59, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 59, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 59, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 59, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -8562,134 +5863,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (59 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 59, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 60, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 60, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 60, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 60, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 60, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 60, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 60, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 60, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 60, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 60, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 60, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 60, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 60, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 60, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 60, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 60, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 60, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -8698,134 +5954,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (60 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 60, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 61, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 61, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 61, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 61, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 61, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 61, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 61, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 61, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 61, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 61, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 61, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 61, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 61, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 61, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 61, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 61, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 61, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -8834,134 +6045,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (61 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 61, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 62, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 62, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 62, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 62, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 62, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 62, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 62, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 62, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 62, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 62, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 62, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 62, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 62, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 62, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 62, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 62, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 62, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -8970,134 +6136,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (62 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 62, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 63, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 63, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 63, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 63, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 63, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 63, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 63, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 63, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 63, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 63, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 63, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 63, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 63, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 63, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 63, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 63, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 63, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -9106,134 +6227,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (63 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 63, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 64, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 64, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 64, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 64, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 64, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 64, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 64, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 64, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 64, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 64, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 64, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 64, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 64, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 64, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 64, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 64, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 64, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -9242,134 +6318,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (64 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 64, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 65, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 65, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 65, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 65, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 65, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 65, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 65, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 65, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 65, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 65, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 65, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 65, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 65, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 65, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 65, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 65, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 65, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -9378,134 +6409,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (65 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 65, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 66, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 66, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 66, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 66, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 66, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 66, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 66, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 66, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 66, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 66, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 66, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 66, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 66, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 66, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 66, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 66, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 66, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -9514,134 +6500,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (66 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 66, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 67, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 67, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 67, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 67, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 67, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 67, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 67, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 67, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 67, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 67, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 67, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 67, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 67, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 67, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 67, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 67, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 67, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -9650,134 +6591,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (67 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 67, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 68, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 68, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 68, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 68, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 68, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 68, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 68, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 68, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 68, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 68, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 68, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 68, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 68, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 68, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 68, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 68, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 68, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -9786,134 +6682,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (68 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 68, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 69, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 69, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 69, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 69, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 69, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 69, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 69, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 69, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 69, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 69, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 69, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 69, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 69, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 69, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 69, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 69, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 69, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -9922,134 +6773,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (69 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 69, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 70, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 70, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 70, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 70, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 70, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 70, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 70, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 70, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 70, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 70, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 70, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 70, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 70, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 70, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 70, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 70, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 70, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -10058,134 +6864,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (70 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 70, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 71, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 71, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 71, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 71, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 71, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 71, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 71, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 71, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 71, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 71, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 71, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 71, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 71, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 71, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 71, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 71, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 71, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -10194,134 +6955,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (71 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 71, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 72, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 72, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 72, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 72, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 72, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 72, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 72, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 72, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 72, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 72, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 72, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 72, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 72, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 72, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 72, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 72, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 72, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -10330,134 +7046,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (72 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 72, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 73, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 73, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 73, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 73, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 73, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 73, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 73, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 73, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 73, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 73, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 73, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 73, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 73, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 73, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 73, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 73, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 73, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -10466,134 +7137,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (73 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 73, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 74, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 74, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 74, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 74, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 74, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 74, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 74, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 74, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 74, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 74, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 74, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 74, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 74, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 74, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 74, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 74, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 74, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -10602,134 +7228,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (74 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 74, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 75, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 75, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 75, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 75, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 75, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 75, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 75, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 75, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 75, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 75, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 75, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 75, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 75, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 75, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 75, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 75, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 75, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -10738,134 +7319,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (75 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 75, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 76, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 76, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 76, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 76, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 76, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 76, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 76, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 76, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 76, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 76, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 76, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 76, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 76, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 76, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 76, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 76, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 76, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -10874,134 +7410,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (76 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 76, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 77, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 77, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 77, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 77, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 77, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 77, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 77, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 77, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 77, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 77, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 77, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 77, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 77, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 77, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 77, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 77, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 77, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -11010,134 +7501,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (77 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 77, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 78, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 78, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 78, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 78, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 78, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 78, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 78, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 78, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 78, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 78, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 78, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 78, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 78, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 78, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 78, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 78, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 78, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -11146,134 +7592,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (78 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 78, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 79, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 79, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 79, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 79, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 79, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 79, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 79, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 79, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 79, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 79, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 79, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 79, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 79, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 79, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 79, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 79, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 79, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -11282,134 +7683,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (79 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 79, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 80, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 80, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 80, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 80, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 80, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 80, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 80, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 80, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 80, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 80, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 80, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 80, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 80, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 80, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 80, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 80, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 80, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -11418,134 +7774,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (80 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 80, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 81, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 81, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 81, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 81, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 81, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 81, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 81, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 81, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 81, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 81, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 81, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 81, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 81, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 81, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 81, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 81, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 81, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -11554,134 +7865,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (81 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 81, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 82, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 82, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 82, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 82, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 82, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 82, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 82, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 82, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 82, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 82, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 82, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 82, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 82, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 82, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 82, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 82, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 82, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -11690,134 +7956,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (82 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 82, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 83, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 83, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 83, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 83, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 83, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 83, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 83, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 83, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 83, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 83, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 83, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 83, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 83, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 83, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 83, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 83, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 83, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -11826,134 +8047,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (83 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 83, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 84, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 84, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 84, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 84, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 84, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 84, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 84, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 84, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 84, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 84, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 84, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 84, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 84, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 84, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 84, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 84, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 84, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -11962,134 +8138,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (84 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 84, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 85, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 85, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 85, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 85, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 85, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 85, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 85, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 85, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 85, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 85, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 85, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 85, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 85, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 85, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 85, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 85, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 85, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -12098,134 +8229,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (85 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 85, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 86, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 86, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 86, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 86, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 86, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 86, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 86, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 86, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 86, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 86, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 86, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 86, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 86, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 86, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 86, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 86, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 86, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -12234,134 +8320,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (86 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 86, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 87, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 87, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 87, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 87, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 87, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 87, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 87, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 87, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 87, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 87, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 87, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 87, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 87, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 87, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 87, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 87, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 87, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -12370,134 +8411,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (87 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 87, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 88, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 88, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 88, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 88, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 88, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 88, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 88, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 88, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 88, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 88, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 88, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 88, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 88, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 88, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 88, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 88, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 88, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -12506,134 +8502,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (88 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 88, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 89, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 89, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 89, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 89, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 89, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 89, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 89, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 89, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 89, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 89, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 89, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 89, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 89, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 89, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 89, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 89, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 89, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -12642,134 +8593,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (89 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 89, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 90, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 90, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 90, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 90, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 90, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 90, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 90, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 90, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 90, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 90, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 90, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 90, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 90, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 90, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 90, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 90, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 90, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -12778,134 +8684,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (90 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 90, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 91, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 91, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 91, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 91, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 91, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 91, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 91, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 91, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 91, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 91, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 91, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 91, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 91, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 91, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 91, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 91, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 91, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -12914,134 +8775,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (91 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 91, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 92, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 92, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 92, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 92, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 92, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 92, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 92, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 92, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 92, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 92, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 92, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 92, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 92, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 92, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 92, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 92, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 92, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -13050,134 +8866,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (92 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 92, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 93, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 93, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 93, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 93, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 93, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 93, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 93, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 93, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 93, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 93, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 93, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 93, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 93, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 93, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 93, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 93, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 93, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -13186,134 +8957,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (93 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 93, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 94, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 94, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 94, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 94, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 94, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 94, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 94, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 94, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 94, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 94, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 94, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 94, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 94, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 94, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 94, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 94, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 94, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -13322,134 +9048,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (94 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 94, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 95, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 95, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 95, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 95, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 95, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 95, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 95, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 95, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 95, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 95, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 95, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 95, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 95, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 95, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 95, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 95, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 95, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -13458,134 +9139,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (95 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 95, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 96, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 96, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 96, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 96, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 96, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 96, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 96, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 96, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 96, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 96, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 96, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 96, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 96, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 96, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 96, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 96, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 96, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -13594,134 +9230,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (96 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 96, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 97, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 97, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 97, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 97, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 97, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 97, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 97, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 97, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 97, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 97, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 97, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 97, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 97, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 97, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 97, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 97, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 97, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -13730,134 +9321,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (97 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 97, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 98, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 98, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 98, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 98, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 98, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 98, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 98, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 98, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 98, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 98, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 98, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 98, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 98, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 98, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 98, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 98, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 98, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -13866,134 +9412,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (98 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 98, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 99, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 99, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 99, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 99, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 99, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 99, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 99, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 99, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 99, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 99, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 99, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 99, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 99, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 99, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 99, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 99, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 99, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -14002,134 +9503,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (99 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 99, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 100, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 100, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 100, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 100, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 100, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 100, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 100, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 100, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 100, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 100, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 100, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 100, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 100, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 100, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 100, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 100, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 100, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -14138,134 +9594,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (100 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 100, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 101, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 101, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 101, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 101, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 101, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 101, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 101, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 101, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 101, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 101, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 101, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 101, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 101, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 101, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 101, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 101, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 101, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -14274,134 +9685,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (101 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 101, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 102, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 102, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 102, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 102, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 102, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 102, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 102, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 102, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 102, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 102, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 102, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 102, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 102, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 102, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 102, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 102, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 102, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -14410,134 +9776,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (102 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 102, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 103, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 103, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 103, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 103, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 103, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 103, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 103, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 103, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 103, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 103, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 103, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 103, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 103, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 103, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 103, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 103, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 103, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -14546,134 +9867,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (103 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 103, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 104, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 104, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 104, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 104, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 104, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 104, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 104, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 104, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 104, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 104, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 104, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 104, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 104, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 104, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 104, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 104, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 104, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -14682,134 +9958,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (104 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 104, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 105, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 105, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 105, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 105, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 105, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 105, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 105, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 105, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 105, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 105, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 105, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 105, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 105, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 105, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 105, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 105, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 105, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -14818,134 +10049,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (105 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 105, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 106, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 106, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 106, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 106, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 106, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 106, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 106, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 106, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 106, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 106, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 106, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 106, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 106, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 106, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 106, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 106, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 106, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -14954,134 +10140,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (106 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 106, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 107, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 107, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 107, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 107, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 107, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 107, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 107, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 107, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 107, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 107, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 107, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 107, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 107, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 107, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 107, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 107, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 107, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -15090,134 +10231,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (107 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 107, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 108, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 108, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 108, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 108, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 108, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 108, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 108, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 108, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 108, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 108, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 108, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 108, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 108, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 108, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 108, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 108, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 108, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -15226,134 +10322,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (108 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 108, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 109, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 109, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 109, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 109, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 109, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 109, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 109, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 109, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 109, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 109, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 109, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 109, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 109, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 109, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 109, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 109, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 109, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -15362,134 +10413,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (109 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 109, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 110, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 110, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 110, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 110, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 110, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 110, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 110, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 110, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 110, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 110, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 110, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 110, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 110, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 110, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 110, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 110, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 110, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -15498,134 +10504,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (110 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 110, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 111, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 111, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 111, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 111, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 111, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 111, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 111, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 111, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 111, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 111, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 111, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 111, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 111, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 111, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 111, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 111, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 111, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -15634,134 +10595,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (111 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 111, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 112, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 112, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 112, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 112, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 112, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 112, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 112, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 112, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 112, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 112, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 112, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 112, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 112, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 112, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 112, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 112, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 112, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -15770,134 +10686,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (112 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 112, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 113, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 113, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 113, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 113, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 113, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 113, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 113, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 113, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 113, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 113, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 113, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 113, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 113, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 113, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 113, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 113, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 113, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -15906,134 +10777,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (113 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 113, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 114, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 114, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 114, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 114, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 114, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 114, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 114, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 114, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 114, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 114, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 114, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 114, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 114, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 114, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 114, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 114, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 114, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -16042,134 +10868,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (114 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 114, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 115, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 115, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 115, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 115, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 115, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 115, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 115, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 115, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 115, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 115, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 115, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 115, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 115, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 115, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 115, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 115, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 115, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -16178,134 +10959,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (115 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 115, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 116, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 116, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 116, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 116, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 116, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 116, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 116, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 116, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 116, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 116, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 116, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 116, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 116, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 116, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 116, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 116, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 116, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -16314,134 +11050,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (116 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 116, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 117, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 117, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 117, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 117, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 117, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 117, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 117, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 117, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 117, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 117, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 117, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 117, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 117, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 117, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 117, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 117, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 117, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -16450,134 +11141,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (117 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 117, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 118, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 118, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 118, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 118, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 118, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 118, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 118, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 118, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 118, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 118, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 118, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 118, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 118, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 118, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 118, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 118, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 118, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -16586,134 +11232,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (118 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 118, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 119, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 119, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 119, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 119, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 119, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 119, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 119, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 119, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 119, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 119, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 119, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 119, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 119, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 119, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 119, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 119, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 119, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -16722,134 +11323,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (119 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 119, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 120, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 120, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 120, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 120, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 120, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 120, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 120, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 120, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 120, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 120, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 120, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 120, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 120, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 120, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 120, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 120, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 120, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -16858,134 +11414,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (120 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 120, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 121, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 121, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 121, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 121, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 121, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 121, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 121, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 121, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 121, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 121, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 121, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 121, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 121, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 121, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 121, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 121, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 121, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -16994,134 +11505,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (121 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 121, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 122, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 122, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 122, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 122, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 122, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 122, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 122, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 122, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 122, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 122, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 122, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 122, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 122, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 122, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 122, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 122, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 122, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -17130,134 +11596,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (122 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 122, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 123, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 123, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 123, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 123, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 123, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 123, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 123, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 123, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 123, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 123, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 123, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 123, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 123, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 123, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 123, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 123, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 123, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -17266,134 +11687,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (123 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 123, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 124, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 124, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 124, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 124, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 124, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 124, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 124, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 124, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 124, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 124, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 124, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 124, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 124, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 124, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 124, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 124, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 124, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -17402,134 +11778,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (124 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 124, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 125, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 125, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 125, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 125, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 125, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 125, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 125, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 125, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 125, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 125, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 125, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 125, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 125, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 125, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 125, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 125, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 125, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -17538,134 +11869,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (125 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 125, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 126, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 126, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 126, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 126, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 126, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 126, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 126, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 126, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 126, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 126, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 126, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 126, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 126, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 126, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 126, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 126, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 126, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -17674,134 +11960,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (126 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 126, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 127, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 127, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 127, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 127, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 127, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 127, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 127, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 127, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 127, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 127, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 127, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 127, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 127, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 127, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 127, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 127, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 127, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -17810,134 +12051,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (127 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 127, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 128, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 128, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 128, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 128, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 128, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 128, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 128, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 128, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 128, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 128, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 128, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 128, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 128, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 128, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 128, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 128, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 128, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -17946,134 +12142,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (128 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 128, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 129, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 129, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 129, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 129, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 129, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 129, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 129, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 129, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 129, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 129, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 129, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 129, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 129, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 129, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 129, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 129, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 129, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -18082,134 +12233,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (129 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 129, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 130, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 130, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 130, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 130, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 130, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 130, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 130, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 130, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 130, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 130, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 130, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 130, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 130, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 130, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 130, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 130, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 130, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -18218,134 +12324,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (130 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 130, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 131, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 131, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 131, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 131, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 131, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 131, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 131, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 131, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 131, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 131, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 131, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 131, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 131, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 131, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 131, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 131, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 131, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -18354,134 +12415,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (131 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 131, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 132, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 132, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 132, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 132, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 132, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 132, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 132, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 132, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 132, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 132, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 132, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 132, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 132, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 132, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 132, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 132, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 132, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -18490,134 +12506,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (132 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 132, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 133, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 133, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 133, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 133, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 133, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 133, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 133, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 133, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 133, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 133, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 133, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 133, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 133, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 133, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 133, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 133, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 133, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -18626,134 +12597,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (133 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 133, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 134, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 134, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 134, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 134, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 134, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 134, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 134, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 134, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 134, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 134, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 134, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 134, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 134, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 134, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 134, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 134, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 134, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -18762,134 +12688,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (134 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 134, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 135, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 135, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 135, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 135, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 135, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 135, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 135, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 135, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 135, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 135, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 135, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 135, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 135, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 135, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 135, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 135, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 135, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -18898,134 +12779,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (135 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 135, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 136, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 136, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 136, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 136, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 136, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 136, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 136, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 136, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 136, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 136, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 136, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 136, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 136, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 136, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 136, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 136, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 136, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -19034,134 +12870,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (136 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 136, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 137, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 137, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 137, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 137, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 137, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 137, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 137, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 137, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 137, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 137, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 137, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 137, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 137, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 137, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 137, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 137, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 137, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -19170,134 +12961,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (137 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 137, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 138, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 138, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 138, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 138, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 138, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 138, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 138, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 138, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 138, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 138, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 138, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 138, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 138, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 138, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 138, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 138, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 138, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -19306,134 +13052,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (138 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 138, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 139, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 139, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 139, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 139, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 139, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 139, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 139, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 139, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 139, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 139, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 139, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 139, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 139, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 139, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 139, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 139, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 139, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -19442,134 +13143,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (139 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 139, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 140, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 140, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 140, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 140, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 140, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 140, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 140, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 140, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 140, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 140, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 140, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 140, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 140, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 140, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 140, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 140, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 140, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -19578,134 +13234,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (140 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 140, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 141, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 141, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 141, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 141, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 141, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 141, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 141, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 141, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 141, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 141, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 141, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 141, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 141, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 141, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 141, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 141, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 141, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -19714,134 +13325,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (141 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 141, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 142, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 142, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 142, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 142, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 142, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 142, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 142, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 142, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 142, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 142, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 142, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 142, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 142, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 142, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 142, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 142, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 142, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -19850,134 +13416,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (142 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 142, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 143, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 143, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 143, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 143, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 143, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 143, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 143, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 143, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 143, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 143, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 143, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 143, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 143, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 143, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 143, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 143, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 143, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -19986,134 +13507,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (143 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 143, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 144, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 144, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 144, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 144, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 144, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 144, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 144, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 144, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 144, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 144, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 144, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 144, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 144, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 144, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 144, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 144, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 144, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -20122,134 +13598,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (144 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 144, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 145, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 145, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 145, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 145, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 145, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 145, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 145, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 145, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 145, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 145, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 145, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 145, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 145, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 145, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 145, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 145, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 145, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -20258,134 +13689,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (145 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 145, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 146, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 146, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 146, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 146, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 146, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 146, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 146, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 146, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 146, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 146, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 146, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 146, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 146, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 146, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 146, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 146, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 146, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -20394,134 +13780,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (146 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 146, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 147, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 147, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 147, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 147, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 147, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 147, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 147, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 147, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 147, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 147, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 147, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 147, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 147, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 147, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 147, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 147, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 147, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -20530,134 +13871,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (147 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 147, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 148, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 148, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 148, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 148, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 148, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 148, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 148, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 148, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 148, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 148, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 148, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 148, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 148, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 148, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 148, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 148, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 148, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -20666,134 +13962,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (148 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 148, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 149, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 149, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 149, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 149, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 149, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 149, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 149, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 149, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 149, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 149, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 149, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 149, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 149, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 149, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 149, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 149, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 149, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -20802,134 +14053,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (149 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 149, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 150, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 150, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 150, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 150, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 150, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 150, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 150, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 150, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 150, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 150, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 150, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 150, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 150, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 150, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 150, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 150, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 150, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -20938,134 +14144,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (150 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 150, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 151, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 151, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 151, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 151, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 151, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 151, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 151, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 151, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 151, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 151, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 151, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 151, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 151, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 151, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 151, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 151, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 151, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -21074,134 +14235,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (151 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 151, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 152, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 152, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 152, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 152, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 152, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 152, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 152, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 152, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 152, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 152, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 152, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 152, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 152, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 152, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 152, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 152, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 152, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -21210,134 +14326,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (152 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 152, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 153, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 153, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 153, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 153, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 153, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 153, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 153, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 153, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 153, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 153, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 153, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 153, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 153, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 153, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 153, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 153, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 153, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -21346,134 +14417,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (153 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 153, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 154, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 154, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 154, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 154, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 154, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 154, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 154, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 154, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 154, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 154, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 154, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 154, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 154, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 154, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 154, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 154, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 154, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -21482,134 +14508,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (154 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 154, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 155, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 155, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 155, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 155, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 155, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 155, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 155, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 155, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 155, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 155, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 155, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 155, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 155, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 155, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 155, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 155, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 155, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -21618,134 +14599,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (155 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 155, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 156, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 156, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 156, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 156, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 156, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 156, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 156, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 156, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 156, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 156, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 156, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 156, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 156, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 156, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 156, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 156, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 156, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -21754,134 +14690,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (156 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 156, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 157, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 157, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 157, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 157, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 157, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 157, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 157, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 157, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 157, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 157, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 157, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 157, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 157, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 157, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 157, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 157, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 157, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -21890,134 +14781,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (157 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 157, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 158, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 158, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 158, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 158, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 158, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 158, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 158, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 158, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 158, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 158, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 158, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 158, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 158, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 158, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 158, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 158, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 158, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -22026,134 +14872,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (158 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 158, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 159, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 159, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 159, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 159, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 159, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 159, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 159, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 159, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 159, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 159, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 159, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 159, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 159, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 159, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 159, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 159, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 159, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -22162,134 +14963,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (159 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 159, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 160, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 160, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 160, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 160, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 160, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 160, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 160, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 160, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 160, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 160, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 160, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 160, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 160, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 160, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 160, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 160, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 160, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -22298,134 +15054,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (160 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 160, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 161, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 161, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 161, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 161, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 161, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 161, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 161, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 161, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 161, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 161, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 161, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 161, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 161, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 161, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 161, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 161, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 161, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -22434,134 +15145,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (161 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 161, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 162, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 162, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 162, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 162, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 162, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 162, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 162, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 162, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 162, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 162, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 162, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 162, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 162, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 162, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 162, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 162, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 162, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -22570,134 +15236,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (162 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 162, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 163, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 163, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 163, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 163, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 163, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 163, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 163, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 163, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 163, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 163, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 163, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 163, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 163, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 163, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 163, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 163, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 163, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -22706,134 +15327,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (163 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 163, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 164, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 164, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 164, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 164, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 164, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 164, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 164, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 164, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 164, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 164, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 164, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 164, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 164, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 164, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 164, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 164, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 164, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -22842,134 +15418,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (164 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 164, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 165, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 165, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 165, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 165, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 165, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 165, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 165, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 165, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 165, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 165, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 165, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 165, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 165, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 165, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 165, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 165, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 165, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -22978,134 +15509,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (165 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 165, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 166, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 166, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 166, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 166, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 166, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 166, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 166, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 166, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 166, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 166, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 166, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 166, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 166, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 166, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 166, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 166, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 166, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -23114,134 +15600,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (166 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 166, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 167, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 167, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 167, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 167, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 167, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 167, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 167, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 167, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 167, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 167, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 167, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 167, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 167, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 167, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 167, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 167, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 167, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -23250,134 +15691,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (167 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 167, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 168, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 168, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 168, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 168, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 168, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 168, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 168, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 168, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 168, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 168, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 168, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 168, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 168, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 168, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 168, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 168, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 168, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -23386,134 +15782,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (168 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 168, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 169, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 169, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 169, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 169, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 169, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 169, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 169, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 169, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 169, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 169, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 169, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 169, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 169, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 169, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 169, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 169, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 169, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -23522,134 +15873,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (169 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 169, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 170, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 170, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 170, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 170, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 170, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 170, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 170, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 170, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 170, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 170, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 170, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 170, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 170, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 170, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 170, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 170, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 170, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -23658,134 +15964,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (170 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 170, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 171, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 171, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 171, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 171, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 171, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 171, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 171, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 171, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 171, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 171, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 171, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 171, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 171, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 171, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 171, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 171, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 171, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -23794,134 +16055,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (171 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 171, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 172, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 172, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 172, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 172, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 172, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 172, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 172, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 172, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 172, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 172, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 172, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 172, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 172, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 172, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 172, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 172, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 172, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -23930,134 +16146,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (172 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 172, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 173, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 173, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 173, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 173, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 173, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 173, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 173, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 173, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 173, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 173, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 173, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 173, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 173, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 173, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 173, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 173, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 173, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -24066,134 +16237,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (173 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 173, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 174, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 174, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 174, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 174, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 174, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 174, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 174, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 174, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 174, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 174, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 174, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 174, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 174, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 174, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 174, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 174, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 174, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -24202,134 +16328,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (174 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 174, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 175, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 175, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 175, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 175, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 175, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 175, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 175, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 175, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 175, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 175, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 175, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 175, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 175, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 175, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 175, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 175, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 175, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -24338,134 +16419,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (175 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 175, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 176, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 176, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 176, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 176, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 176, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 176, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 176, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 176, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 176, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 176, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 176, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 176, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 176, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 176, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 176, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 176, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 176, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -24474,134 +16510,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (176 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 176, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 177, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 177, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 177, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 177, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 177, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 177, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 177, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 177, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 177, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 177, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 177, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 177, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 177, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 177, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 177, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 177, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 177, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -24610,134 +16601,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (177 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 177, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 178, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 178, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 178, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 178, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 178, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 178, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 178, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 178, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 178, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 178, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 178, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 178, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 178, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 178, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 178, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 178, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 178, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -24746,134 +16692,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (178 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 178, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 179, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 179, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 179, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 179, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 179, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 179, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 179, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 179, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 179, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 179, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 179, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 179, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 179, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 179, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 179, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 179, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 179, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -24882,134 +16783,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (179 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 179, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 180, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 180, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 180, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 180, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 180, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 180, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 180, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 180, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 180, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 180, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 180, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 180, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 180, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 180, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 180, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 180, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 180, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -25018,134 +16874,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (180 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 180, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 181, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 181, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 181, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 181, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 181, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 181, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 181, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 181, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 181, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 181, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 181, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 181, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 181, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 181, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 181, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 181, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 181, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -25154,134 +16965,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (181 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 181, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 182, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 182, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 182, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 182, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 182, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 182, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 182, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 182, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 182, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 182, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 182, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 182, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 182, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 182, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 182, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 182, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 182, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -25290,134 +17056,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (182 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 182, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 183, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 183, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 183, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 183, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 183, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 183, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 183, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 183, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 183, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 183, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 183, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 183, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 183, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 183, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 183, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 183, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 183, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -25426,134 +17147,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (183 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 183, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 184, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 184, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 184, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 184, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 184, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 184, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 184, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 184, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 184, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 184, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 184, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 184, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 184, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 184, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 184, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 184, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 184, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -25562,134 +17238,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (184 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 184, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 185, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 185, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 185, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 185, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 185, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 185, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 185, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 185, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 185, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 185, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 185, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 185, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 185, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 185, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 185, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 185, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 185, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -25698,134 +17329,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (185 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 185, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 186, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 186, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 186, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 186, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 186, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 186, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 186, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 186, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 186, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 186, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 186, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 186, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 186, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 186, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 186, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 186, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 186, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -25834,134 +17420,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (186 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 186, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 187, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 187, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 187, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 187, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 187, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 187, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 187, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 187, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 187, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 187, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 187, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 187, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 187, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 187, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 187, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 187, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 187, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -25970,134 +17511,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (187 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 187, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 188, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 188, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 188, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 188, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 188, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 188, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 188, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 188, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 188, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 188, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 188, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 188, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 188, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 188, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 188, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 188, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 188, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -26106,134 +17602,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (188 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 188, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 189, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 189, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 189, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 189, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 189, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 189, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 189, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 189, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 189, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 189, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 189, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 189, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 189, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 189, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 189, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 189, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 189, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -26242,134 +17693,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (189 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 189, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 190, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 190, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 190, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 190, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 190, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 190, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 190, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 190, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 190, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 190, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 190, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 190, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 190, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 190, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 190, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 190, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 190, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -26378,134 +17784,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (190 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 190, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 191, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 191, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 191, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 191, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 191, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 191, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 191, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 191, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 191, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 191, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 191, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 191, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 191, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 191, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 191, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 191, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 191, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -26514,134 +17875,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (191 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 191, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 192, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 192, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 192, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 192, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 192, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 192, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 192, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 192, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 192, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 192, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 192, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 192, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 192, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 192, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 192, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 192, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 192, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -26650,134 +17966,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (192 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 192, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 193, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 193, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 193, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 193, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 193, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 193, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 193, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 193, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 193, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 193, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 193, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 193, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 193, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 193, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 193, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 193, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 193, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -26786,134 +18057,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (193 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 193, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 194, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 194, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 194, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 194, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 194, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 194, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 194, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 194, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 194, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 194, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 194, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 194, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 194, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 194, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 194, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 194, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 194, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -26922,134 +18148,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (194 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 194, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 195, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 195, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 195, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 195, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 195, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 195, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 195, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 195, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 195, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 195, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 195, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 195, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 195, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 195, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 195, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 195, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 195, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -27058,134 +18239,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (195 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 195, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 196, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 196, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 196, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 196, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 196, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 196, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 196, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 196, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 196, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 196, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 196, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 196, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 196, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 196, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 196, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 196, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 196, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -27194,134 +18330,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (196 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 196, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 197, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 197, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 197, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 197, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 197, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 197, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 197, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 197, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 197, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 197, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 197, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 197, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 197, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 197, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 197, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 197, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 197, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -27330,134 +18421,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (197 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 197, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 198, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 198, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 198, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 198, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 198, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 198, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 198, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 198, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 198, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 198, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 198, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 198, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 198, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 198, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 198, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 198, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 198, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -27466,134 +18512,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (198 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 198, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 199, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 199, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 199, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 199, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 199, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 199, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 199, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 199, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 199, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 199, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 199, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 199, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 199, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 199, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 199, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 199, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 199, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -27602,134 +18603,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (199 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 199, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 200, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 200, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 200, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 200, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 200, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 200, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 200, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 200, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 200, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 200, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 200, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 200, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 200, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 200, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 200, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 200, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 200, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -27738,134 +18694,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (200 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 200, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 201, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 201, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 201, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 201, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 201, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 201, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 201, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 201, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 201, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 201, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 201, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 201, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 201, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 201, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 201, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 201, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 201, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -27874,134 +18785,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (201 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 201, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 202, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 202, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 202, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 202, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 202, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 202, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 202, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 202, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 202, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 202, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 202, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 202, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 202, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 202, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 202, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 202, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 202, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -28010,134 +18876,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (202 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 202, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 203, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 203, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 203, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 203, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 203, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 203, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 203, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 203, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 203, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 203, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 203, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 203, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 203, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 203, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 203, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 203, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 203, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -28146,134 +18967,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (203 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 203, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 204, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 204, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 204, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 204, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 204, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 204, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 204, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 204, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 204, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 204, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 204, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 204, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 204, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 204, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 204, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 204, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 204, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -28282,134 +19058,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (204 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 204, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 205, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 205, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 205, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 205, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 205, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 205, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 205, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 205, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 205, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 205, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 205, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 205, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 205, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 205, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 205, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 205, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 205, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -28418,134 +19149,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (205 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 205, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 206, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 206, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 206, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 206, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 206, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 206, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 206, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 206, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 206, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 206, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 206, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 206, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 206, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 206, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 206, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 206, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 206, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -28554,134 +19240,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (206 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 206, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 207, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 207, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 207, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 207, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 207, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 207, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 207, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 207, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 207, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 207, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 207, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 207, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 207, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 207, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 207, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 207, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 207, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -28690,134 +19331,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (207 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 207, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 208, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 208, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 208, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 208, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 208, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 208, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 208, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 208, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 208, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 208, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 208, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 208, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 208, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 208, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 208, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 208, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 208, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -28826,134 +19422,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (208 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 208, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 209, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 209, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 209, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 209, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 209, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 209, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 209, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 209, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 209, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 209, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 209, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 209, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 209, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 209, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 209, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 209, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 209, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -28962,134 +19513,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (209 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 209, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 210, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 210, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 210, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 210, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 210, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 210, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 210, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 210, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 210, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 210, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 210, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 210, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 210, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 210, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 210, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 210, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 210, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -29098,134 +19604,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (210 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 210, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 211, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 211, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 211, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 211, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 211, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 211, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 211, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 211, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 211, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 211, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 211, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 211, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 211, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 211, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 211, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 211, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 211, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -29234,134 +19695,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (211 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 211, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 212, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 212, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 212, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 212, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 212, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 212, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 212, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 212, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 212, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 212, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 212, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 212, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 212, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 212, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 212, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 212, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 212, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -29370,134 +19786,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (212 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 212, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 213, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 213, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 213, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 213, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 213, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 213, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 213, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 213, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 213, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 213, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 213, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 213, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 213, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 213, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 213, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 213, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 213, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -29506,134 +19877,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (213 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 213, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 214, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 214, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 214, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 214, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 214, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 214, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 214, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 214, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 214, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 214, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 214, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 214, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 214, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 214, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 214, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 214, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 214, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -29642,134 +19968,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (214 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 214, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 215, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 215, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 215, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 215, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 215, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 215, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 215, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 215, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 215, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 215, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 215, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 215, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 215, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 215, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 215, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 215, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 215, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -29778,134 +20059,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (215 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 215, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 216, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 216, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 216, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 216, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 216, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 216, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 216, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 216, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 216, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 216, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 216, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 216, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 216, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 216, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 216, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 216, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 216, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -29914,134 +20150,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (216 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 216, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 217, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 217, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 217, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 217, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 217, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 217, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 217, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 217, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 217, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 217, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 217, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 217, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 217, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 217, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 217, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 217, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 217, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -30050,134 +20241,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (217 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 217, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 218, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 218, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 218, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 218, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 218, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 218, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 218, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 218, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 218, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 218, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 218, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 218, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 218, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 218, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 218, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 218, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 218, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -30186,134 +20332,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (218 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 218, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 219, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 219, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 219, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 219, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 219, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 219, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 219, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 219, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 219, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 219, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 219, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 219, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 219, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 219, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 219, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 219, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 219, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -30322,134 +20423,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (219 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 219, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 220, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 220, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 220, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 220, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 220, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 220, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 220, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 220, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 220, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 220, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 220, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 220, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 220, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 220, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 220, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 220, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 220, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -30458,134 +20514,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (220 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 220, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 221, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 221, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 221, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 221, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 221, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 221, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 221, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 221, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 221, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 221, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 221, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 221, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 221, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 221, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 221, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 221, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 221, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -30594,134 +20605,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (221 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 221, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 222, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 222, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 222, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 222, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 222, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 222, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 222, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 222, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 222, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 222, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 222, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 222, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 222, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 222, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 222, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 222, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 222, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -30730,134 +20696,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (222 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 222, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 223, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 223, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 223, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 223, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 223, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 223, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 223, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 223, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 223, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 223, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 223, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 223, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 223, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 223, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 223, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 223, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 223, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -30866,134 +20787,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (223 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 223, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 224, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 224, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 224, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 224, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 224, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 224, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 224, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 224, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 224, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 224, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 224, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 224, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 224, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 224, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 224, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 224, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 224, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -31002,134 +20878,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (224 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 224, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 225, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 225, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 225, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 225, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 225, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 225, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 225, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 225, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 225, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 225, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 225, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 225, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 225, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 225, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 225, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 225, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 225, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -31138,134 +20969,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (225 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 225, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 226, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 226, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 226, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 226, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 226, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 226, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 226, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 226, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 226, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 226, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 226, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 226, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 226, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 226, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 226, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 226, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 226, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -31274,134 +21060,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (226 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 226, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 227, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 227, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 227, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 227, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 227, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 227, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 227, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 227, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 227, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 227, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 227, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 227, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 227, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 227, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 227, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 227, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 227, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -31410,134 +21151,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (227 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 227, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 228, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 228, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 228, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 228, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 228, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 228, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 228, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 228, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 228, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 228, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 228, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 228, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 228, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 228, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 228, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 228, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 228, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -31546,134 +21242,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (228 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 228, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 229, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 229, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 229, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 229, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 229, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 229, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 229, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 229, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 229, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 229, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 229, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 229, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 229, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 229, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 229, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 229, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 229, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -31682,134 +21333,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (229 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 229, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 230, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 230, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 230, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 230, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 230, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 230, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 230, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 230, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 230, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 230, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 230, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 230, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 230, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 230, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 230, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 230, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 230, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -31818,134 +21424,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (230 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 230, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 231, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 231, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 231, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 231, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 231, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 231, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 231, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 231, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 231, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 231, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 231, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 231, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 231, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 231, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 231, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 231, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 231, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -31954,134 +21515,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (231 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 231, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 232, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 232, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 232, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 232, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 232, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 232, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 232, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 232, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 232, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 232, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 232, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 232, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 232, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 232, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 232, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 232, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 232, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -32090,134 +21606,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (232 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 232, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 233, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 233, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 233, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 233, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 233, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 233, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 233, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 233, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 233, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 233, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 233, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 233, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 233, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 233, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 233, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 233, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 233, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -32226,134 +21697,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (233 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 233, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 234, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 234, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 234, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 234, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 234, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 234, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 234, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 234, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 234, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 234, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 234, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 234, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 234, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 234, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 234, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 234, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 234, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -32362,134 +21788,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (234 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 234, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 235, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 235, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 235, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 235, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 235, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 235, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 235, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 235, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 235, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 235, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 235, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 235, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 235, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 235, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 235, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 235, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 235, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -32498,134 +21879,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (235 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 235, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 236, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 236, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 236, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 236, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 236, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 236, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 236, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 236, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 236, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 236, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 236, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 236, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 236, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 236, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 236, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 236, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 236, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -32634,134 +21970,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (236 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 236, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 237, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 237, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 237, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 237, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 237, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 237, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 237, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 237, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 237, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 237, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 237, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 237, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 237, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 237, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 237, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 237, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 237, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -32770,134 +22061,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (237 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 237, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 238, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 238, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 238, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 238, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 238, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 238, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 238, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 238, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 238, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 238, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 238, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 238, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 238, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 238, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 238, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 238, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 238, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -32906,134 +22152,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (238 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 238, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 239, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 239, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 239, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 239, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 239, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 239, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 239, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 239, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 239, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 239, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 239, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 239, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 239, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 239, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 239, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 239, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 239, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -33042,134 +22243,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (239 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 239, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 240, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 240, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 240, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 240, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 240, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 240, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 240, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 240, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 240, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 240, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 240, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 240, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 240, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 240, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 240, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 240, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 240, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -33178,134 +22334,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (240 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 240, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 241, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 241, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 241, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 241, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 241, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 241, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 241, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 241, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 241, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 241, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 241, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 241, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 241, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 241, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 241, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 241, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 241, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -33314,134 +22425,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (241 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 241, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 242, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 242, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 242, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 242, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 242, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 242, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 242, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 242, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 242, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 242, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 242, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 242, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 242, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 242, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 242, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 242, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 242, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -33450,134 +22516,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (242 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 242, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 243, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 243, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 243, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 243, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 243, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 243, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 243, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 243, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 243, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 243, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 243, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 243, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 243, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 243, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 243, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 243, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 243, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -33586,134 +22607,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (243 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 243, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 244, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 244, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 244, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 244, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 244, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 244, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 244, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 244, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 244, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 244, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 244, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 244, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 244, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 244, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 244, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 244, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 244, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -33722,134 +22698,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (244 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 244, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 245, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 245, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 245, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 245, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 245, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 245, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 245, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 245, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 245, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 245, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 245, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 245, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 245, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 245, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 245, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 245, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 245, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -33858,134 +22789,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (245 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 245, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 246, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 246, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 246, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 246, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 246, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 246, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 246, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 246, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 246, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 246, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 246, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 246, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 246, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 246, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 246, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 246, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 246, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -33994,134 +22880,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (246 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 246, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 247, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 247, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 247, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 247, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 247, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 247, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 247, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 247, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 247, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 247, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 247, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 247, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 247, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 247, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 247, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 247, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 247, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -34130,134 +22971,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (247 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 247, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 248, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 248, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 248, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 248, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 248, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 248, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 248, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 248, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 248, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 248, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 248, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 248, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 248, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 248, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 248, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 248, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 248, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -34266,134 +23062,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (248 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 248, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 249, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 249, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 249, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 249, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 249, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 249, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 249, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 249, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 249, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 249, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 249, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 249, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 249, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 249, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 249, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 249, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 249, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -34402,134 +23153,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (249 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 249, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 250, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 250, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 250, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 250, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 250, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 250, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 250, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 250, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 250, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 250, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 250, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 250, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 250, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 250, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 250, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 250, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 250, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -34538,134 +23244,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (250 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 250, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 251, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 251, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 251, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 251, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 251, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 251, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 251, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 251, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 251, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 251, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 251, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 251, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 251, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 251, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 251, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 251, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 251, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -34674,134 +23335,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (251 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 251, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 252, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 252, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 252, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 252, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 252, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 252, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 252, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 252, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 252, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 252, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 252, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 252, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 252, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 252, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 252, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 252, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 252, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -34810,134 +23426,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (252 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 252, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 253, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 253, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 253, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 253, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 253, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 253, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 253, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 253, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 253, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 253, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 253, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 253, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 253, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 253, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 253, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 253, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 253, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -34946,134 +23517,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (253 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 253, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 254, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 254, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 254, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 254, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 254, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 254, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 254, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 254, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 254, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 254, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 254, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 254, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 254, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 254, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 254, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 254, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 254, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -35082,134 +23608,89 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (254 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 254, cb);
 	}
-	
 	{
 		unsigned int maxz = 0;
 		int cb = 1;
-
-		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 255, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m3, 255, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 255, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 255, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m2, 255, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 255, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
-			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 255, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
+			unsigned int xpart = ap_uint_512_range_high_32(dist_m1, 255, SHOUJI_WINDOW_SIZE); 
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 255, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_0, 255, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 255, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p1, 255, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 255, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p2, 255, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 255, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
 		
 		{
-			
 			unsigned int xpart = ap_uint_512_range_high_32(dist_p3, 255, SHOUJI_WINDOW_SIZE);
-			
-			
-			
-		
 			unsigned int cz = countZeros(xpart, SHOUJI_WINDOW_SIZE); 
 			int xpart_hb = (xpart >> (SHOUJI_WINDOW_SIZE-1)) & 0x1;
 
 			if ((cz > maxz) || (cz == maxz && (xpart_hb==0)))
 			{
 				maxz = cz;
-				//ap_uint_512_set_range_high_32(AP_UINT_PTR(acum), 255, SHOUJI_WINDOW_SIZE, xpart);
 				cb = xpart_hb;
 			}
 		}
@@ -35218,7 +23699,6 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		if (255 < plen)
 			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), 255, cb);
 	}
-	
 
 #ifdef FPGA_DEBUG
 	printf("acum       =");
