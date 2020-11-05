@@ -1,13 +1,11 @@
 
-all: shd_3_var.aocx shd_3_100_100.aocx kmers_var.aocx kmers_100_100.aocx test.aocx
+all: shd_3_var.aocx shd_3_100_100.aocx kmers_var.aocx kmers_100_100.aocx shouji_3_var.aocx test.aocx
 
 clean:
 	rm -f *.aocx
 	rm -fr kmers*
 	rm -fr shd*
 	rm -fr test*
-
-emulator: shd_3_var.aocx kmers_var.aocx
 
 
 select_shd_3_var:
@@ -28,6 +26,16 @@ shd_3_100_100.aocx: ../shd.cl
 	echo "STARTING COMPILATION" > compile.shd_3_100_100.out
 	date >> compile.shd_3_100_100.out
 	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_100_100.aocx >> compile.shd_3_100_100.out $(NOBLOCK)
+
+select_shouji_3_var:
+	rm -f ../shouji.aocx
+	ln -s $(BOARD)/shouji_3_var.aocx ../shouji.aocx
+
+shouji_3_var.aocx: ../shouji.cl
+	echo "STARTING COMPILATION" > compile.shouji_3_var.out
+	date >> compile.shouji_3_var.out
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHOUJI_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shouji.cl -o shouji_3_var.aocx >> compile.shouji_3_var.out $(NOBLOCK)
+
 
 select_kmers_var:
 	rm -f ../kmers.aocx

@@ -72,19 +72,22 @@ typedef ap_uint_1024* ap_uint_1024p;
 #define AP_UINT_FROM_PTR(x)	*x
 
 
-void ap_uint_512_setLowByte(ap_uint_512p v, int index, int value);
-void ap_uint_512_zero(ap_uint_512p v);
-void ap_uint_512_set_bit(ap_uint_512p v, int bit, int x);
-void ap_uint_512_orLowByteConcurrent(ap_uint_512p v, int index, int value);
-unsigned char ap_uint_512_getLowByte(ap_uint_512 v, int index);
-unsigned char ap_uint_512_getHighByte(ap_uint_512 v, int index);
-unsigned int ap_uint_512_getDword(ap_uint_512 v, int index);
-unsigned int ap_uint_512_pop_count(ap_uint_512 x);
-int ap_uint_512_get_bit(ap_uint_512 x, int bit);
-int ap_uint_512_get_bit_high(ap_uint_512 x, int bit);
-int ap_uint_512_isZero(ap_uint_512 v);
-void ap_uint_512_shift_left(ap_uint_512 x, unsigned int shift, ap_uint_512p r);
-void ap_uint_512_shift_right(ap_uint_512 x, unsigned int shift, ap_uint_512p r);
+
+void 		ap_uint_512_setLowByte(ap_uint_512p v, int index, int value);
+void 		ap_uint_512_zero(ap_uint_512p v);
+void 		ap_uint_512_set_bit(ap_uint_512p v, int bit, int x);
+void 		ap_uint_512_orLowByteConcurrent(ap_uint_512p v, int index, int value);
+unsigned char 	ap_uint_512_getLowByte(ap_uint_512 v, int index);
+unsigned char 	ap_uint_512_getHighByte(ap_uint_512 v, int index);
+unsigned int 	ap_uint_512_getDword(ap_uint_512 v, int index);
+void 		ap_uint_512_setDword(ap_uint_512p v, int wordidx, unsigned int value);
+unsigned int 	ap_uint_512_pop_count(ap_uint_512 x);
+int 		ap_uint_512_get_bit(ap_uint_512 x, int bit);
+int 		ap_uint_512_get_bit_high(ap_uint_512 x, int bit);
+int 		ap_uint_512_isZero(ap_uint_512 v);
+void 		ap_uint_512_shift_left(ap_uint_512 x, unsigned int shift, ap_uint_512p r);
+void 		ap_uint_512_shift_right(ap_uint_512 x, unsigned int shift, ap_uint_512p r);
+void 		ap_uint_512_or_bit(ap_uint_512p v, int bit, int x);
 
 int ap_uint_1024_get_bit(ap_uint_1024 x, int bit);
 
@@ -151,6 +154,7 @@ int ap_uint_512_get_bit(ap_uint_512 x, int bit)
 	if (sel14) { return (x.w14 >> bitidx) & 0x1;}	
 	if (sel15) { return (x.w15 >> bitidx) & 0x1;}
 
+	return 0;
 }
 
 int ap_uint_512_get_bit_high(ap_uint_512 x, int bit)
@@ -243,6 +247,7 @@ int ap_uint_1024_get_bit(ap_uint_1024 x, int bit)
 	if (sel30) { return (x.w30 >> bitidx) & 0x1;}	
 	if (sel31) { return (x.w31 >> bitidx) & 0x1;}
 
+	return 0;
 }
 
 
@@ -496,6 +501,53 @@ unsigned char ap_uint_512_getLowByte(ap_uint_512 v, int index)
 	unsigned int dword = ap_uint_512_getDword(v, wordidx);
 
 	return (dword >> (8*byteidx)) & 0xFF;
+}
+
+void ap_uint_512_setDword(ap_uint_512p v, int wordidx, unsigned int value)
+{	
+	int bit0 = (wordidx >> 0) & 0x1;
+	int bit1 = (wordidx >> 1) & 0x1;
+	int bit2 = (wordidx >> 2) & 0x1;
+	int bit3 = (wordidx >> 3) & 0x1;
+	int nbit0 = (~bit0) & 0x1;
+	int nbit1 = (~bit1) & 0x1;
+	int nbit2 = (~bit2) & 0x1;
+	int nbit3 = (~bit3) & 0x1;
+	int sel0=nbit0 & nbit1 & nbit2 & nbit3;
+	int sel1=bit0 & nbit1 & nbit2 & nbit3;
+	int sel2=nbit0 & bit1 & nbit2 & nbit3;
+	int sel3=bit0 & bit1 & nbit2 & nbit3;
+	int sel4=nbit0 & nbit1 & bit2 & nbit3;
+	int sel5=bit0 & nbit1 & bit2 & nbit3;
+	int sel6=nbit0 & bit1 & bit2 & nbit3;
+	int sel7=bit0 & bit1 & bit2 & nbit3;
+	int sel8=nbit0 & nbit1 & nbit2 & bit3;
+	int sel9=bit0 & nbit1 & nbit2 & bit3;
+	int sel10=nbit0 & bit1 & nbit2 & bit3;
+	int sel11=bit0 & bit1 & nbit2 & bit3;
+	int sel12=nbit0 & nbit1 & bit2 & bit3;
+	int sel13=bit0 & nbit1 & bit2 & bit3;
+	int sel14=nbit0 & bit1 & bit2 & bit3;
+	int sel15=bit0 & bit1 & bit2 & bit3;
+
+
+	
+	if (sel0){ v->w0=value;}
+	if (sel1){ v->w1=value;}
+	if (sel2){ v->w2=value;}
+	if (sel3){ v->w3=value;}
+	if (sel4){ v->w4=value;}
+	if (sel5){ v->w5=value;}
+	if (sel6){ v->w6=value;}
+	if (sel7){ v->w7=value;}
+	if (sel8){ v->w8=value;}
+	if (sel9){ v->w9=value;}
+	if (sel10){ v->w10=value;}
+	if (sel11){ v->w11=value;}
+	if (sel12){ v->w12=value;}
+	if (sel13){ v->w13=value;}
+	if (sel14){ v->w14=value;}
+	if (sel15){ v->w15=value;}	
 }
 
 unsigned int ap_uint_512_getDword(ap_uint_512 v, int wordidx)
@@ -841,6 +893,11 @@ void ap_uint_1024_set_bit(ap_uint_1024p v, int bit, int x)
 	if (sel30) if (x) v->w30 |= (1 << bitidx); else v->w30 &= (~(1 << bitidx));	
 	if (sel31) if (x) v->w31 |= (1 << bitidx); else v->w31 &= (~(1 << bitidx));
 
+}
+
+void ap_uint_512_or_high_bit(ap_uint_512p v, int bit, int x)
+{	
+	ap_uint_512_or_bit(v, 512 - 1 - bit, x);
 }
 
 void ap_uint_512_or_bit(ap_uint_512p v, int bit, int x)
