@@ -111,61 +111,194 @@ void printBin32(unsigned int r, int size)
 
 
 
+unsigned int LeftOnes(unsigned int x)
+{
+	unsigned int r = 0;
+	
+	#pragma unroll
+	for (int i=0; i < 32; i++)
+	{
+		unsigned int b= ((x >> i) > 0) ? 1 : 0;
+				
+		r |= ((b&1) << i);		// bits in LSB order
+	}
+	
+	return r;
+}
+
 unsigned int sneaky(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 {
 	unsigned int EE = 0;
 
-	for (int i=0; i < SNEAKY_WINDOW_SIZE; i++)
+//#ifdef PATTERN_LENGTH 
+//#pragma unroll
+//#endif
+	#pragma unroll
+	for (int w=0; w < plen/SNEAKY_WINDOW_SIZE; w++)
 	{
-		unsigned int kstart = i*SNEAKY_WINDOW_SIZE;
-		unsigned int kend = (i+1) * SNEAKY_WINDOW_SIZE;
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
 
-		while (kstart < kend)
-		{
-			unsigned int lz = 0;
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
 		
-			// Finds the longest stream of zeros in the sneaky window
-			#pragma unroll
-			for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
 			{
-				ap_uint_512 shifted_pattern;
-				if (s < 0)
-				{
-					ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
-				}
-				else if (s==0)
-				{
-					ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
-				}
-				else
-				{
-					// > 0
-					ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
-				}
-	
-				ap_uint_512 dist2;
-				ap_uint_512 dist;
-			
-				//xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
-				xorBases(shifted_pattern, text, AP_UINT_PTR(dist2));
-
-				unsigned int part = ap_uint_512_range(shifted_pattern, kstart, kend);
-
-				unsigned int clz = CLZ_32(part, kend - kstart);
-
-				if (clz > lz)
-					lz = clz;
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
 			}
 
-			unsigned int c = kend - lz;
-			if (c < kend)
-				EE = EE+1;
-			kstart = kstart + lz + 1; 
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
 		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
 	}
 
 	return EE;
 }
+
+
 
 unsigned int computeDistance(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 {
