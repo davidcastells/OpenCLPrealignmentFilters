@@ -1,5 +1,5 @@
 
-all: shd_3_var.aocx shd_3_100_100.aocx kmers_var.aocx kmers_100_100.aocx shouji_3_var.aocx test.aocx
+all: shd_3_var.aocx shd_3_100_100.aocx kmers_var.aocx kmers_100_100.aocx shouji_3_var.aocx shouji_3_100_100.aocx sneaky_3_var.aocx sneaky_3_100_100.aocx test.aocx
 
 clean:
 	rm -f *.aocx
