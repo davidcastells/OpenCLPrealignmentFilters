@@ -78,6 +78,15 @@ sneaky_3_var.aocx: ../sneaky.cl
 	date >> compile.sneaky_3_var.out
 	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SNEAKY_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../sneaky.cl -o sneaky_3_var.aocx >> compile.sneaky_3_var.out $(NOBLOCK)
 
+select_sneaky_3_100_100:
+	rm -f ../sneaky.aocx
+	ln -s $(BOARD)/sneaky_3_100_100.aocx ../sneaky.aocx
+
+sneaky_3_100_100.aocx: ../sneaky.cl
+	echo "STARTING COMPILATION" > compile.sneaky_3_100_100.out
+	date >> compile.sneaky_3_100_100.out
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SNEAKY_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../sneaky.cl -o sneaky_3_100_100.aocx >> compile.sneaky_3_100_100.out $(NOBLOCK)
+
 
 test.aocx: ../basic_ap_uint_test.cl
 	echo "STARTING COMPILATION" > compile.test.out
