@@ -33,3 +33,7 @@ echo "========================================================"
 grep kernel_fmax sneaky_3_var/quartus_sh_compile.log
 head -n 63 sneaky_3_var/top.flow.rpt | tail -n 25
 
+echo "7) KERNEL SNEAKY_3_100_100"
+echo "========================================================"
+grep kernel_fmax sneaky_3_100_100/quartus_sh_compile.log
+head -n 63 sneaky_3_100_100/top.flow.rpt | tail -n 25
