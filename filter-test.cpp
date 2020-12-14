@@ -7,7 +7,8 @@
 #include <vector>
 #include <algorithm>
 
-#include "FPGAKmerFilter.h"
+#include "PrealignmentFilter.h"
+#include "edlib.h"
 
 bool gDoUsage = false;
 int gPatternLen = 100;
@@ -116,8 +117,10 @@ void usage()
 	printf("\t-ES <errors>\tNumber of substitution errors\n");
 	printf("\t-EI <errors>\tNumber of insertion errors\n");
 	printf("\t-ED <errors>\tNumber of deletion errors\n");
+	printf("\t-th <errors>\nError threshold\n");
 	printf("\t-pl <len>\tPattern Length\n");
 	printf("\t-tl <len>\tText Length\n");
+	printf("\t-pid <id>\tOpenCL Platform ID\n");
 	exit(0);
 }
 
@@ -360,9 +363,11 @@ void SHD_global(string pattern, string text, int th)
 	int realErrors = gES + gEI + gED;
 	
 	if ((detectedErrors <= gTh) && (realErrors > gTh)) 	
+		// @todo we should recheck with edlib
 		gFP++;
 	
 	if ((detectedErrors > gTh) && (realErrors <= gTh))
+		// @todo we should recheck with edlib
 		gFN++;
 }
 
@@ -419,7 +424,7 @@ void testHardware()
 
 	string aocx_file = AOCX_FILE;
 
-	FPGAKmerFilter filter;
+	PrealignmentFilter filter;
 	filter.setVerbose(verbose);
 	filter.setReportTime(true);
 	filter.initOpenCL(gPid);
