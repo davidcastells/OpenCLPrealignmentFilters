@@ -35,14 +35,14 @@ fix_pacs10:
 	mv filter-shouji filter-shouji-pacs10
 	mv filter-sneaky filter-sneaky-pacs10
 
-filter-shd: filter-test.cpp
-	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""shd"\" filter-test.cpp FPGAKmerFilter.cpp PerformanceLap.cpp OpenCLUtils.cpp TextUtils.cpp -o filter-shd -lOpenCL
+filter-shd: filter-test.cpp PrealignmentFilter.cpp
+	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""shd"\" filter-test.cpp PrealignmentFilter.cpp PerformanceLap.cpp OpenCLUtils.cpp TextUtils.cpp edlib.cpp -o filter-shd -lOpenCL
 
-filter-kmers: filter-test.cpp FPGAKmerFilter.cpp
-	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""kmers"\" filter-test.cpp FPGAKmerFilter.cpp PerformanceLap.cpp OpenCLUtils.cpp TextUtils.cpp -o filter-kmers -lOpenCL
+filter-kmers: filter-test.cpp PrealignmentFilter.cpp
+	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""kmers"\" filter-test.cpp PrealignmentFilter.cpp PerformanceLap.cpp OpenCLUtils.cpp TextUtils.cpp edlib.cpp -o filter-kmers -lOpenCL
 
-filter-shouji: filter-test.cpp
-	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""shouji"\" filter-test.cpp FPGAKmerFilter.cpp PerformanceLap.cpp OpenCLUtils.cpp TextUtils.cpp -o filter-shouji -lOpenCL
+filter-shouji: filter-test.cpp PrealignmentFilter.cpp
+	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""shouji"\" filter-test.cpp PrealignmentFilter.cpp PerformanceLap.cpp OpenCLUtils.cpp TextUtils.cpp edlib.cpp -o filter-shouji -lOpenCL
 
-filter-sneaky: filter-test.cpp
-	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""sneaky"\" filter-test.cpp FPGAKmerFilter.cpp PerformanceLap.cpp OpenCLUtils.cpp TextUtils.cpp -o filter-sneaky -lOpenCL
+filter-sneaky: filter-test.cpp PrealignmentFilter.cpp
+	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""sneaky"\" filter-test.cpp PrealignmentFilter.cpp PerformanceLap.cpp OpenCLUtils.cpp TextUtils.cpp edlib.cpp -o filter-sneaky -lOpenCL
