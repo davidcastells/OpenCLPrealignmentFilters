@@ -7,6 +7,9 @@ This kind of filters are used to discard sequence pairs that have a higher numbe
 The test builds synthetic sequences with a number of errors.
 We can control the number and type of the errors introduced, so we can analyze the response of the filter in various situations.
 
+The source code embedds the edlib (https://github.com/Martinsos/edlib/) to check the number of errors when necessary.
+
+
 ## Options
 
 | Parameter | Description |
