@@ -1,5 +1,7 @@
 
-all: shd_3_var.aocx shd_3_100_100.aocx kmers_var.aocx kmers_100_100.aocx shouji_3_var.aocx shouji_3_100_100.aocx sneaky_3_var.aocx sneaky_3_100_100.aocx test.aocx
+all: shd_3_var.aocx shd_3_100_100.aocx kmers_var.aocx kmers_100_100.aocx shouji_3_var.aocx shouji_3_100_100.aocx sneaky_3_var.aocx sneaky_3_100_100.aocx \
+	shd_5_var.aocx shd_5_100_100.aocx shouji_5_var.aocx shouji_5_100_100.aocx sneaky_5_var.aocx sneaky_5_100_100.aocx \
+	test.aocx
 
 clean:
 	rm -f *.aocx
@@ -7,20 +9,54 @@ clean:
 	rm -fr shd*
 	rm -fr test*
 
+#---------------------
+# No Threshold
+#---------------------
 
+select_kmers_var:
+	rm -f ../kmers.aocx
+	ln -s $(BOARD)/kmers_var.aocx ../kmers.aocx
+
+select_kmers_100_100:
+	rm -f ../kmers.aocx
+	ln -s $(BOARD)/kmers_100_100.aocx ../kmers.aocx
+
+kmers_var.aocx: ../kmers.cl
+	echo "STARTING COMPILATION" > compile.kmers_var.out
+	date >> compile.kmers_var.out 
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_var.aocx >> compile.kmers_var.out $(NOBLOCK)
+
+kmers_100_100.aocx: ../kmers.cl
+	echo "STARTING COMPILATION" > compile.kmers_100_100.out
+	date >> compile.kmers_100_100.out 
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D PATTERN_LEN=100 -D TEXT_LEN=100 -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_100_100.aocx >> compile.kmers_100_100.out $(NOBLOCK)
+
+test.aocx: ../basic_ap_uint_test.cl
+	echo "STARTING COMPILATION" > compile.test.out
+	date >> compile.test.out 
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) ../basic_ap_uint_test.cl -o test.aocx >> compile.test.out $(NOBLOCK)
+
+select_test:
+	rm -f ../shd.aocx
+	ln -s $(BOARD)/test.aocx ../shd.aocx
+
+
+#---------------------
+# Threshold 3
+#---------------------
 select_shd_3_var:
 	rm -f ../shd.aocx
 	ln -s $(BOARD)/shd_3_var.aocx ../shd.aocx
+
+select_shd_3_100_100:
+	rm -f ../shd.aocx
+	ln -s $(BOARD)/shd_3_100_100.aocx ../shd.aocx
 
 shd_3_var.aocx: ../shd.cl
 	echo "STARTING COMPILATION" > compile.shd_3_var.out
 	date >> compile.shd_3_var.out
 	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=3 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_3_var.aocx >> compile.shd_3_var.out $(NOBLOCK)
 
-
-select_shd_3_100_100:
-	rm -f ../shd.aocx
-	ln -s $(BOARD)/shd_3_100_100.aocx ../shd.aocx
 
 shd_3_100_100.aocx: ../shd.cl
 	echo "STARTING COMPILATION" > compile.shd_3_100_100.out
@@ -47,26 +83,6 @@ shouji_3_100_100.aocx: ../shouji.cl
 	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHOUJI_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shouji.cl -o shouji_3_100_100.aocx >> compile.shouji_3_100_100.out $(NOBLOCK)
 
 
-select_kmers_var:
-	rm -f ../kmers.aocx
-	ln -s $(BOARD)/kmers_var.aocx ../kmers.aocx
-
-
-kmers_var.aocx: ../kmers.cl
-	echo "STARTING COMPILATION" > compile.kmers_var.out
-	date >> compile.kmers_var.out 
-	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_var.aocx >> compile.kmers_var.out $(NOBLOCK)
-
-
-select_kmers_100_100:
-	rm -f ../kmers.aocx
-	ln -s $(BOARD)/kmers_100_100.aocx ../kmers.aocx
-
-
-kmers_100_100.aocx: ../kmers.cl
-	echo "STARTING COMPILATION" > compile.kmers_100_100.out
-	date >> compile.kmers_100_100.out 
-	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D PATTERN_LEN=100 -D TEXT_LEN=100 -D BASIC_AP_UINT -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../kmers.cl -o kmers_100_100.aocx >> compile.kmers_100_100.out $(NOBLOCK)
 
 	
 select_sneaky_3_var:
@@ -88,12 +104,66 @@ sneaky_3_100_100.aocx: ../sneaky.cl
 	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SNEAKY_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../sneaky.cl -o sneaky_3_100_100.aocx >> compile.sneaky_3_100_100.out $(NOBLOCK)
 
 
-test.aocx: ../basic_ap_uint_test.cl
-	echo "STARTING COMPILATION" > compile.test.out
-	date >> compile.test.out 
-	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) ../basic_ap_uint_test.cl -o test.aocx >> compile.test.out $(NOBLOCK)
-
-select_test:
+#---------------------
+# Threshold 5
+#---------------------
+select_shd_5_var:
 	rm -f ../shd.aocx
-	ln -s $(BOARD)/test.aocx ../shd.aocx
+	ln -s $(BOARD)/shd_5_var.aocx ../shd.aocx
+
+select_shd_5_100_100:
+	rm -f ../shd.aocx
+	ln -s $(BOARD)/shd_5_100_100.aocx ../shd.aocx
+
+shd_5_var.aocx: ../shd.cl
+	echo "STARTING COMPILATION" > compile.shd_5_var.out
+	date >> compile.shd_5_var.out
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=5 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_5_var.aocx >> compile.shd_5_var.out $(NOBLOCK)
+
+
+shd_5_100_100.aocx: ../shd.cl
+	echo "STARTING COMPILATION" > compile.shd_5_100_100.out
+	date >> compile.shd_5_100_100.out
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHD_THRESHOLD=5 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shd.cl -o shd_5_100_100.aocx >> compile.shd_3_100_100.out $(NOBLOCK)
+
+select_shouji_5_var:
+	rm -f ../shouji.aocx
+	ln -s $(BOARD)/shouji_5_var.aocx ../shouji.aocx
+
+shouji_5_var.aocx: ../shouji.cl
+	echo "STARTING COMPILATION" > compile.shouji_5_var.out
+	date >> compile.shouji_5_var.out
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHOUJI_THRESHOLD=5 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shouji.cl -o shouji_5_var.aocx >> compile.shouji_5_var.out $(NOBLOCK)
+
+
+select_shouji_5_100_100:
+	rm -f ../shouji.aocx
+	ln -s $(BOARD)/shouji_5_100_100.aocx ../shouji.aocx
+
+shouji_5_100_100.aocx: ../shouji.cl
+	echo "STARTING COMPILATION" > compile.shouji_5_100_100.out
+	date >> compile.shouji_5_100_100.out
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SHOUJI_THRESHOLD=5 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../shouji.cl -o shouji_5_100_100.aocx >> compile.shouji_5_100_100.out $(NOBLOCK)
+
+
+
+	
+select_sneaky_5_var:
+	rm -f ../sneaky.aocx
+	ln -s $(BOARD)/sneaky_5_var.aocx ../sneaky.aocx
+
+sneaky_5_var.aocx: ../sneaky.cl
+	echo "STARTING COMPILATION" > compile.sneaky_5_var.out
+	date >> compile.sneaky_5_var.out
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SNEAKY_THRESHOLD=5 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../sneaky.cl -o sneaky_5_var.aocx >> compile.sneaky_5_var.out $(NOBLOCK)
+
+select_sneaky_5_100_100:
+	rm -f ../sneaky.aocx
+	ln -s $(BOARD)/sneaky_5_100_100.aocx ../sneaky.aocx
+
+sneaky_5_100_100.aocx: ../sneaky.cl
+	echo "STARTING COMPILATION" > compile.sneaky_5_100_100.out
+	date >> compile.sneaky_5_100_100.out
+	$(NOHUP) $(TIME) aoc $(AOC_FLAGS) -D BASIC_AP_UINT -D SNEAKY_THRESHOLD=5 -D PATTERN_LEN=100 -D TEXT_LEN=100 -I $(INTELFPGAOCLSDKROOT)/include/kernel_headers -g ../sneaky.cl -o sneaky_5_100_100.aocx >> compile.sneaky_5_100_100.out $(NOBLOCK)
+
 
