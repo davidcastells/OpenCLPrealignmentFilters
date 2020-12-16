@@ -9,11 +9,13 @@
 
 #include "PrealignmentFilter.h"
 #include "edlib.h"
+#include "SWVersions.h"
 
 bool gDoUsage = false;
 int gPatternLen = 100;
 int gTextLen = 140;
 int gN = 1;
+int gTotalCorrect;
 bool verbose = false;
 int gES = 0;	// substitution errors
 int gEI = 0; 	// insertion errors
@@ -25,6 +27,7 @@ int gFP = 0;	// false positives (detected errors < theshold && real errors > thr
 int gFN = 0;	// false negatives (detected errors > threhold && real errors > threshold)
 
 int gPid = -1; 	// OpenCL platform id
+
 
 #define ORIGINAL_CHARACTER	'.'
 #define SUBSTITUTION_CHARACTER 	'X'
@@ -41,6 +44,15 @@ bool contains(vector<T> v, T x)
            return true;
       else
            return false;
+}
+
+EdlibAlignConfig gAlignConfig = edlibNewAlignConfig(-1, EDLIB_MODE_HW, EDLIB_TASK_DISTANCE, NULL, 0);
+
+int recheckErrors(string& pattern, string& text)
+{
+	EdlibAlignResult ret = edlibAlign(pattern.c_str(), pattern.size(), text.c_str(), text.size(), gAlignConfig);
+
+	return ret.editDistance;
 }
 
 void parseOptions(int argc, char* args[])
@@ -234,142 +246,7 @@ void createDeletions(string& pattern, string& changes, int n)
 	}
 }
 
-string ones(int len)
-{
-	string ret;
-	for (int i=0; i < len; i++)
-		ret.push_back('1');
-	return ret;
-}
 
-string shiftLeft(string str, int v)
-{
-	string ret = str;
-	
-	if (v == 0)
-		return ret;
-	if (v > 0)
-	{
-		for (int i=0; i < v; i++)
-		{
-			ret.erase(0, 1);
-			ret.push_back('-');	// invalid base
-		}
-	}
-	else
-	{
-		v = -v;
-		for (int i=0; i < v; i++)
-		{
-			ret.insert(0, "-");	// invalid base
-			ret.erase(str.size()-1, 1);
-		}
-	}
-	
-	return ret;
-}
-
-string bitHamming(string pattern, string text)
-{
-	string ret;
-	
-	for (int i=0; i < text.size(); i++)
-	{
-		if (pattern[i] == text[i])
-			ret.push_back('0');
-		else
-			ret.push_back('1');
-	}
-	
-	return ret;
-}
-
-string bitAnd(string a, string b)
-{
-	string ret;
-	
-	for (int i=0; i < a.size(); i++)
-	{
-		if ((a[i] == '1') && (b[i] == '1'))
-			ret.push_back('1');
-		else
-			ret.push_back('0');
-	}
-	
-	return ret;
-}
-
-
-int popCount(string a)
-{
-	int n = 0;
-	
-	for (int i=0; i < a.size(); i++)
-	{
-		if (a[i] == '1')
-			n++;
-	}
-	
-	return n;
-}
-
-string removeShortZeros(string hamming)
-{
-	string ret = hamming;
-	bool longZero = false;
-	
-	for (int i=0; i<hamming.size(); i++)
-	{
-		if (ret[i] == '0') 
-		{
-			if (longZero == false)
-			{
-				if (i < (hamming.size()-2))
-					if ((ret[i+1] == '1') || (ret[i+2] == '1'))
-						ret[i] = '1';
-					else
-						longZero = true;
-			}
-		}
-		else
-			longZero = false;
-	}
-	
-	return ret;
-}
-
-void SHD_global(string pattern, string text, int th)
-{
-	string acum = ones(text.size());
-	for (int i=-th; i <= th; i++)
-	{
-		string shifted = shiftLeft(pattern, i);
-		string hamming = bitHamming(shifted, text);
-		
-		hamming = removeShortZeros(hamming);
-		
-		//printf("P[%d] %s\n", abs(i), shifted.c_str());
-		if (verbose)
-			printf("H[%2d] %s\n", i, hamming.c_str());
-		
-		acum = bitAnd(acum, hamming);
-	}
-	
-	int detectedErrors = popCount(acum);
-	
-	if (verbose)
-		printf("TOTAL %s  ERRORS:%d\n", acum.c_str(), detectedErrors);
-	
-	int realErrors = gES + gEI + gED;
-	
-	if ((detectedErrors <= gTh) && (realErrors > gTh)) 	
-		// @todo we should recheck with edlib
-		gFP++;
-	
-	if ((detectedErrors > gTh) && (realErrors <= gTh))
-		// @todo we should recheck with edlib
-		gFN++;
-}
 
 void createPair(string& pattern, string& text)
 {
@@ -403,17 +280,74 @@ void testSequence()
 	string pattern;
 	string text;
 	createPair(pattern, text);
+	int detectedErrors;
 	
-	SHD_global(pattern, text, gTh);
+	string aocx_file = AOCX_FILE;
+
+	if (aocx_file.compare("shd") == 0)
+		detectedErrors = SHD_SW(pattern, text, gTh);
+	else if (aocx_file.compare("shouji") == 0)
+		detectedErrors = Shouji_SW(pattern, text, gTh);
+	else if (aocx_file.compare("sneaky") == 0)
+		detectedErrors = Sneaky_SW(pattern, text, gTh);
+	else if (aocx_file.compare("kmers") == 0)
+		detectedErrors = Kmers_SW(pattern, text, gTh);
+	else
+	{
+		printf("Invalid algorithm %s\n", AOCX_FILE);
+		exit(0);
+	}
+
+		
+	int realErrors = gES + gEI + gED;
+	
+	if ((detectedErrors <= gTh) && (realErrors > gTh)) 	
+	{
+		int recheckedErrors = recheckErrors(pattern, text);
+
+		if (recheckedErrors != realErrors)
+		{
+			if (verbose)
+			{
+				printf("EDLIB:%d PLANNED:%d\n", recheckedErrors, realErrors);
+				printf("PATTERN: %s\n", pattern.c_str());
+				printf("TEXT:    %s\n", text.c_str());
+			}
+			gTotalCorrect--;
+		}
+		else
+			gFP++;
+		
+	}
+
+	if ((detectedErrors > gTh) && (realErrors <= gTh))
+	{
+		int recheckedErrors = recheckErrors(pattern, text);
+
+		if (recheckedErrors != realErrors)
+		{
+			if (verbose)
+			{
+				printf("EDLIB:%d PLANNED:%d\n", recheckedErrors, realErrors);
+				printf("PATTERN: %s\n", pattern.c_str());
+				printf("TEXT:    %s\n", text.c_str());
+			}
+			gTotalCorrect--;
+		}
+		else
+			gFN++;
+	}
+
 }
 
 void testSoftware()
 {
+	gTotalCorrect = gN;
+
 	for (int i=0; i < gN; i++)
 		testSequence();
 
-		                              
-	printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%)\n", gFP, (gFP*100.0/gN), gFN, (gFN*100.0/gN));
+	printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%) Total: %d\n", gFP, (gFP*100.0/gTotalCorrect), gFN, (gFN*100.0/gTotalCorrect), gTotalCorrect);
 }
 
 
@@ -428,7 +362,7 @@ void testHardware()
 	filter.setVerbose(verbose);
 	filter.setReportTime(true);
 	filter.initOpenCL(gPid);
-	filter.initKernels(0,  aocx_file , 5);
+	filter.initKernels(0,  aocx_file , gTh);
 
 
 	for (int i=0; i < gN; i++)
