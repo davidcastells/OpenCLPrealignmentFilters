@@ -58,9 +58,12 @@ public:
     
 private:
     size_t countRequiredMemory(vector<int>& len);
-    void encodeSequence(string bases, unsigned int basesLength, unsigned char* pattern, unsigned int offset);
+    
     string decodeSequence(unsigned char* pattern, unsigned int offset, unsigned int basesLength);
-    void encodeEntry( unsigned char* pPattern, unsigned int offset, string pattern, string text );
+    void encodeEntry0( unsigned char* pPattern, unsigned int offset, string pattern, string text );
+    void encodeEntry1( unsigned char* pPattern, unsigned int offset, string pattern, string text );
+    void encodeEntry2( unsigned char* pPattern, unsigned int offset, string pattern, string text );
+    void encodeEntry3( unsigned char* pPattern, unsigned int offset, string pattern, string text );
  
     int recheckErrors(string& pattern,string& text);
 
@@ -93,7 +96,7 @@ private:
     
     int m_openCLKernelVersion;
 
-    EdlibAlignConfig m_alignConfig;
+
 };
 
 #endif /* PREALIGNMENTFILTER_H */

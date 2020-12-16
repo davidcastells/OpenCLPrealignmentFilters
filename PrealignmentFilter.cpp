@@ -55,12 +55,13 @@ unsigned int alignedSequenceSize(int bases)
 
 PrealignmentFilter::PrealignmentFilter() 
 {
-	m_alignConfig = edlibNewAlignConfig(-1, EDLIB_MODE_HW, EDLIB_TASK_DISTANCE, NULL, 0);
+	
 }
 
 
 
-PrealignmentFilter::~PrealignmentFilter() {
+PrealignmentFilter::~PrealignmentFilter() 
+{
 }
 
 void PrealignmentFilter::addInput(string pattern, string text) 
@@ -100,51 +101,19 @@ string PrealignmentFilter::decodeSequence(unsigned char* pattern, unsigned int o
 	return bases;
 }
 
-void PrealignmentFilter::encodeSequence(string bases, unsigned int basesLength, unsigned char* pattern, unsigned int offset)
-{
-    assert(bases.size() == basesLength);
-    	int start = offset;
 
-    // round the number of bases to a byte multiple
-    int basesWithPaddingBytes = (basesLength * BASE_SIZE + 7) / 8;  //number of bytes required to store the bases
-    int basesWithPadding = basesWithPaddingBytes * 8 / BASE_SIZE;   // number of basesincluding the passing 
-    int paddingBases = basesWithPadding - basesLength;
-    
-    // add the padding to the base array
-    for (int i=0; i < paddingBases; i++)
-        bases.append("A");  // any character would do
-    
-    unsigned int gi;
-    
-    // now write the sequence to the memory
-    for ( gi = 0; gi < basesLength; )    // gi is incremented in byte filling
-    {
-        // encode 4 bases in big endian
-        unsigned char c = 0;
-        for (int i=0; i < (8/BASE_SIZE); i++)
-        {
-            c = c << 2;
-            c |= dna_encode_valid(bases[gi]);
-		gi++;
-        }
-
-//        printf("t[%d]==%02X (gi=%d)\n", offset, (int) c, gi);
-
-	pattern[offset] = c;
-        offset++;
-    }
-        
-//    printf("bases length=%d start offset: %d end offset = %d gi=%d\n", basesLength, start, offset, gi);
-
-}
-
-void PrealignmentFilter::encodeEntry( unsigned char* pPattern, unsigned int offset, string pattern, string text )
+void PrealignmentFilter::encodeEntry0( unsigned char* pPattern, unsigned int offset, string pattern, string text )
 {
 	int pl = pattern.size();
 	int tl = text.size();
 
 	assert(pl < 256);
 	assert(tl < 256);
+
+	if (m_verbose)
+	{
+		printf("PL: %d TL: %d\n", pl, tl);
+	}
 
 	pPattern[offset + 0] = pl;
 	pPattern[offset + 1] = tl;
@@ -181,6 +150,67 @@ void PrealignmentFilter::encodeEntry( unsigned char* pPattern, unsigned int offs
 	}
 }
 
+void PrealignmentFilter::encodeEntry1( unsigned char* pPattern, unsigned int offset, string pattern, string text )
+{
+	int pl = pattern.size();
+	int tl = text.size();
+
+	assert(pl < 256);
+	assert(tl < 256);
+
+	if (m_verbose)
+	{
+		printf("PL: %d TL: %d\n", pl, tl);
+	}
+
+	pPattern[offset + 0] = pl;
+
+
+	int baseByteIdx;
+	int baseBitIdx;
+
+	for (int i=0; i < pl; i++)
+	{
+		int bc = dna_encode_valid(pattern[i]);
+		baseByteIdx = i / 4;
+		baseBitIdx = (3 - i%4) * 2;
+		
+		unsigned char vset = bc << baseBitIdx;
+		unsigned char mask = 3 << baseBitIdx;
+		unsigned char nmask = ~mask;
+	
+		pPattern[offset + 1 + baseByteIdx] = (pPattern[offset + 1 + baseByteIdx] & nmask) | vset; 
+	}
+
+	offset += (512/8);
+
+	pPattern[offset + 0] = tl;
+
+	for (int i=0; i < tl; i++)
+	{
+		int bc = dna_encode_valid(text[i]);
+		baseByteIdx = i / 4;
+		baseBitIdx = (3 - i%4) * 2;
+		
+		unsigned char vset = bc << baseBitIdx;
+		unsigned char mask = 3 << baseBitIdx;
+		unsigned char nmask = ~mask;
+	
+		pPattern[offset + 1 + baseByteIdx] = (pPattern[offset + 1 + baseByteIdx] & nmask) | vset; 
+	}
+}
+
+void PrealignmentFilter::encodeEntry2( unsigned char* pPattern, unsigned int offset, string pattern, string text )
+{
+	printf("encodeEntry2 not implemented");
+	exit(0);
+}
+
+void PrealignmentFilter::encodeEntry3( unsigned char* pPattern, unsigned int offset, string pattern, string text )
+{
+	printf("encodeEntry3 not implemented");
+	exit(0);
+}
 
 void PrealignmentFilter::setVerbose(bool verbose)
 {
@@ -212,8 +242,28 @@ void PrealignmentFilter::computeAll(int realErrors)
         workload[i*WORKLOAD_TASK_SIZE+1] = i;   // text
         
         // fill the pattern
+	int pl = m_basesPattern[i].size();
+	int tl = m_basesText[i].size();
 
-	encodeEntry(pattern, i*(512/8), m_basesPattern[i],  m_basesText[i]);
+	int pBytes = (pl+3)/4;
+	int tBytes = (tl+3)/4;
+
+	if ((pBytes + tBytes + 2) <= (512 / 8))
+	{
+		// Type 0 format
+		encodeEntry0(pattern, i*(512/8), m_basesPattern[i],  m_basesText[i]);
+	}
+	else if (((pBytes + 1) < (512/8)) && ((tBytes + 1) < (512/8)))
+	{
+		// Type 1 format
+		encodeEntry1(pattern, i*(1024/8), m_basesPattern[i], m_basesText[i]);
+	}
+	else
+	{	
+		// 
+		printf("Lengths %d+%d = BYTES %d\n", pl, tl, (pBytes+tBytes+2));
+		exit(0);
+	}
  
     }
     lap.stop();
@@ -226,6 +276,7 @@ void PrealignmentFilter::computeAll(int realErrors)
 	int FP = 0;
 	int FN = 0;
 	int total = m_basesPatternLength.size();
+	int totalCorrect = total;
     
     for (int i=0; i < total; i++)
     {
@@ -244,8 +295,13 @@ void PrealignmentFilter::computeAll(int realErrors)
 
 		if (recheckedErrors != realErrors)
 		{
-			printf("EDLIB:%d PLANNED:%d\n", recheckedErrors, realErrors);
-			exit(0);
+			if (m_verbose)
+			{
+				printf("EDLIB:%d PLANNED:%d\n", recheckedErrors, realErrors);
+				printf("PATTERN: %s\n", m_basesPattern[i].c_str());
+				printf("TEXT:    %s\n", m_basesText[i].c_str());
+			}
+			totalCorrect--;
 		}
 		else
 			FP++;
@@ -257,26 +313,31 @@ void PrealignmentFilter::computeAll(int realErrors)
 
 		if (recheckedErrors != realErrors)
 		{
-			printf("EDLIB:%d PLANNED:%d\n", recheckedErrors, realErrors);
-			exit(0);
+			if (m_verbose)
+			{
+				printf("EDLIB:%d PLANNED:%d\n", recheckedErrors, realErrors);
+				printf("PATTERN: %s\n", m_basesPattern[i].c_str());
+				printf("TEXT:    %s\n", m_basesText[i].c_str());
+			}
+			totalCorrect--;
 		}
 		else
 			FN++;
 	}	
     }
 
-    printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%)\n", FP, (FP*100.0/total), FN, (FN*100.0/total));
+    printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%) Total: %d\n", FP, (FP*100.0/totalCorrect), FN, (FN*100.0/totalCorrect), totalCorrect);
 
     // free all
     alignedFree(pattern);
     
 }
 
+extern int recheckErrors(string& pattern, string& text);
+
 int PrealignmentFilter::recheckErrors(string& pattern, string& text)
 {
-	EdlibAlignResult ret = edlibAlign(pattern.c_str(), pattern.size(), text.c_str(), text.size(), m_alignConfig);
-
-	return ret.editDistance;
+	return ::recheckErrors(pattern, text);	
 }
 
 void PrealignmentFilter::setReportTime(bool reportTime)
