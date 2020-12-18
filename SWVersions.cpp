@@ -205,16 +205,13 @@ string range(string& str, int offset, int len)
 }
 
 
-int Shouji_SW(string pattern, string& text, int threshold)
+int Shouji_SW(string& pattern, string& text, int threshold)
 {
 	int WS = 4;
 	int pl = pattern.size();
 	string ac = zeros(pl);
 
-	// we extend the pattern so that we can ignore border cases when selecting
-	// the 4 bit range for the final part of the sequence 
-	pattern = pattern + "---";
-
+	
 	for (int i=0; i < pattern.size(); i++)
 	{
 		int maxz = 0;
@@ -224,6 +221,16 @@ int Shouji_SW(string pattern, string& text, int threshold)
 		{
 			string shifted = shiftLeft(pattern, th);
 			string hamming = bitHamming(shifted, text);
+
+			if (verbose)
+				printf("h1 %s\n", hamming.c_str());
+
+			// extend the hamming vector to ignore the corner cases at the end of the pattern
+			hamming = hamming + ones(WS);
+
+			if (verbose)
+				printf("h2 %s\n", hamming.c_str());
+
 			string part = range(hamming, i, WS);
 			int cz = countZeros(part);
 			
