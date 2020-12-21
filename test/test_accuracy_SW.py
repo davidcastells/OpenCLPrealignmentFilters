@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 def test(name, EI, ED, ES, th, PL, TL, N):
-	cmd = '../filter-{} -ps 0 -EI {} -ED {} -ES {} -th {} -pl {} -tl {} -n {}'.format(name, EI, ED, ES, th, PL, TL, N)
+	cmd = '../filter-{} -k 5 -ps 0 -EI {} -ED {} -ES {} -th {} -pl {} -tl {} -n {}'.format(name, EI, ED, ES, th, PL, TL, N)
 	print(cmd)
 	stream = os.popen(cmd)
 	outStr = stream.read()
