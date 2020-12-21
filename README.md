@@ -4,11 +4,19 @@ This is a test application to test the effectiveness of sequence-alignment pre-a
 
 This kind of filters are used to discard sequence pairs that have a higher number of errors than a given threshold.
 
-The test builds synthetic sequences with a number of errors.
-We can control the number and type of the errors introduced, so we can analyze the response of the filter in various situations.
+The test main goal is to build synthetic sequences with a number of controlled errors to analyze the response of the filter in various situations.
 
 The source code embedds the edlib (https://github.com/Martinsos/edlib/) to check the number of errors when necessary.
 
+## Modes of operation
+
+The application can work in two modes of operation.
+
+-- Single Test
+   In this mode the user provides the sequences to be compared
+
+-- Multiple Synthetic Test
+   In this mode the user provides the characteristics of the features that are randomly created. 
 
 ## Options
 
@@ -21,9 +29,13 @@ The source code embedds the edlib (https://github.com/Martinsos/edlib/) to check
 | -ES <number> | Number of Substitution Errors |
 | -EI <number> | Number of Insertion Errors |
 | -ED <number> | Number of Deletion Errors |
+| -th <number> | The error threshold |
+| -N <number> | The number of pairs to test |
+| -t <string> | The text sequence for a single test |
+| -p <string> | The pattern sequence for a single test |
 
 ## Examples
 
-filter-test -pid 0 -ES 2 -tl 100 -pl 100 -n 10
+filter-shd -pid 0 -ES 4 -th 3 -tl 100 -pl 100 -n 10
 
-It creates 10 sequence pairs. The text length and pattern length are all equal to 100. The pattern has two substitution errors compared with the text. The OpenCL platform 0 is used.
+It creates 10 sequence pairs. The text length and pattern length are all equal to 100. The pattern has 4 substitution errors compared with the text and the detection threshold is set to 3. The OpenCL platform 0 is used and the SHD algorithm is tested.
