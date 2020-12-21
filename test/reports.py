@@ -18,6 +18,7 @@ def plotAlg(name):
 	plt.xlabel('Input Errors', fontsize=14)
 	plt.ylabel('FP rate', fontsize=14)
 	plt.xlim((0, 40))
+	plt.ylim((0, 1))
 
 	colors = ['k','b','r']
 	print('thresholds: ', ths)
