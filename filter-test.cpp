@@ -11,6 +11,8 @@
 #include "edlib.h"
 #include "SWVersions.h"
 
+using namespace std;
+
 bool gDoUsage = false;
 int gPatternLen = 100;
 int gTextLen = 140;
@@ -22,18 +24,20 @@ int gEI = 0; 	// insertion errors
 int gED = 0; 	// deletion errors
 int gPatternStart = -1;		// random pattern start offset
 int gTh = 0;
+int gKmersK = 5;	// by default the kmers-filter k is 5
 
 int gFP = 0;	// false positives (detected errors < theshold && real errors > threshold)  = detected errors | real errors
 int gFN = 0;	// false negatives (detected errors > threhold && real errors > threshold)
 
 int gPid = -1; 	// OpenCL platform id
+string gText;		// Text string for single test mode
+string gPattern;	// Pattern string for single test mode
 
 
 #define ORIGINAL_CHARACTER	'.'
 #define SUBSTITUTION_CHARACTER 	'X'
 #define INSERTION_CHARACTER 	'I'
 
-using namespace std;
 
 template<typename T>
 bool contains(vector<T> v, T x)
@@ -114,6 +118,24 @@ void parseOptions(int argc, char* args[])
 			i++;
 			gPid = atoi(args[i]);
 		}
+		if (strcmp(args[i], "-t") == 0)
+		{
+			i++;
+			gText = args[i];
+			gN = -1;
+			//printf("Setting text: %s\n", gText.c_str());
+		}
+		if (strcmp(args[i], "-p") == 0)
+		{
+			i++;
+			gPattern = args[i];
+			gN = -1;
+		}
+		if (strcmp(args[i], "-k") == 0)
+		{
+			i++;
+			gKmersK = atoi(args[i]);
+		}
 	}
 }
 
@@ -133,6 +155,8 @@ void usage()
 	printf("\t-pl <len>\tPattern Length\n");
 	printf("\t-tl <len>\tText Length\n");
 	printf("\t-pid <id>\tOpenCL Platform ID\n");
+	printf("\t-t <str>\tThe Text Sequence (for an especific pair test)\n");
+	printf("\t-p <str>\tThe Pattern Sequence (for an especific pair test)\n");
 	exit(0);
 }
 
@@ -275,11 +299,9 @@ void createPair(string& pattern, string& text)
 	}
 }
 
-void testSequence()
+void testSequence(string& pattern, string& text)
 {
-	string pattern;
-	string text;
-	createPair(pattern, text);
+	
 	int detectedErrors;
 	
 	string aocx_file = AOCX_FILE;
@@ -288,6 +310,8 @@ void testSequence()
 		detectedErrors = SHD_SW(pattern, text, gTh);
 	else if (aocx_file.compare("shouji") == 0)
 		detectedErrors = Shouji_SW(pattern, text, gTh);
+	else if (aocx_file.compare("shoujialser") == 0)
+		detectedErrors = Shouji_Alser(pattern, text, gTh);
 	else if (aocx_file.compare("sneaky") == 0)
 		detectedErrors = Sneaky_SW(pattern, text, gTh);
 	else if (aocx_file.compare("kmers") == 0)
@@ -343,9 +367,28 @@ void testSequence()
 void testSoftware()
 {
 	gTotalCorrect = gN;
+	string pattern;
+	string text;
+		
+	if (gN == -1)
+	{
+		// Single Test
+		pattern = gPattern;
+		text = gText;
 
-	for (int i=0; i < gN; i++)
-		testSequence();
+		if (verbose)
+			printf("Single Test Mode\n");
+
+		gTotalCorrect = 1;
+		testSequence(pattern, text);
+	}
+	else
+		// Multiple Synthetic test
+		for (int i=0; i < gN; i++)
+		{
+			createPair(pattern, text);
+			testSequence(pattern, text);
+		}
 
 	printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%) Total: %d\n", gFP, (gFP*100.0/gTotalCorrect), gFN, (gFN*100.0/gTotalCorrect), gTotalCorrect);
 }
