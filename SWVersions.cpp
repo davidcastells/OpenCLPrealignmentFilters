@@ -100,6 +100,14 @@ int countZeros(string& a)
 	return n;
 }
 
+string spaces(int len)
+{
+	string ret;
+	for (int i=0; i < len; i++)
+		ret.push_back(' ');
+	return ret;
+}
+
 string ones(int len)
 {
 	string ret;
@@ -107,6 +115,7 @@ string ones(int len)
 		ret.push_back('1');
 	return ret;
 }
+
 
 string zeros(int len)
 {
@@ -119,6 +128,7 @@ string zeros(int len)
 string shiftLeft(string& str, int v)
 {
 	string ret = str;
+	int len = str.size();
 	
 	if (v == 0)
 		return ret;
@@ -126,9 +136,10 @@ string shiftLeft(string& str, int v)
 	{
 		for (int i=0; i < v; i++)
 		{
-			ret.erase(0, 1);
 			ret.push_back('-');	// invalid base
 		}
+
+		ret = ret.substr(v, len); // ret.erase(0, v);		// erase the [v] first values
 	}
 	else
 	{
@@ -136,8 +147,10 @@ string shiftLeft(string& str, int v)
 		for (int i=0; i < v; i++)
 		{
 			ret.insert(0, "-");	// invalid base
-			ret.erase(str.size()-1, 1);
+			
 		}
+		
+		ret = ret.substr(0, len); // ret.erase(str.size()-1, v);	// erase the [v] last values
 	}
 	
 	return ret;
@@ -209,12 +222,24 @@ int Shouji_SW(string& pattern, string& text, int threshold)
 {
 	int WS = 4;
 	int pl = pattern.size();
-	string ac = zeros(pl);
+	string ac = ones(pl);
 
+	if (verbose)
+	{
+		for (int th = -threshold; th <= threshold; th++)
+		{
+			string shifted = shiftLeft(pattern, th);
+			string hamming = bitHamming(shifted, text);
+			printf("[%2d] %s\n", th, hamming.c_str());
+		}
+	}
 	
 	for (int i=0; i < pattern.size(); i++)
 	{
-		int maxz = 0;
+		string acpart = range(ac, i, WS);
+
+		int maxz = countZeros(acpart);
+		string maxpart = acpart;
 		char b = '1';
 		
 		for (int th = -threshold; th <= threshold; th++)
@@ -222,29 +247,37 @@ int Shouji_SW(string& pattern, string& text, int threshold)
 			string shifted = shiftLeft(pattern, th);
 			string hamming = bitHamming(shifted, text);
 
-			if (verbose)
-				printf("h1 %s\n", hamming.c_str());
+			//if (verbose)
+			//	printf("h1 %s\n", hamming.c_str());
 
 			// extend the hamming vector to ignore the corner cases at the end of the pattern
 			hamming = hamming + ones(WS);
 
-			if (verbose)
-				printf("h2 %s\n", hamming.c_str());
+			//if (verbose)
+			//	printf("h2 %s\n", hamming.c_str());
 
 			string part = range(hamming, i, WS);
 			int cz = countZeros(part);
 			
-			if (verbose)
-				printf("[%d][%d] %s = %d\n", i, th, part.c_str(), cz);
+			//if (verbose)
+			//	printf("[%d][%d] %s = %d\n", i, th, part.c_str(), cz);
 
 			if ((cz > maxz) || ((cz == maxz) && (part[0]=='0')))
 			{
 				maxz = cz;
-				b = part[0];
+				maxpart = part;
+				//b = part[0];
 			}
 		}
+		
+		if (verbose)
+		{
+			printf("%s%s\n", spaces(6+i).c_str(), maxpart.c_str());
+			printf("TOTAL %s\n", ac.c_str());
+		}
 
-		ac[i] = b;
+		for (int k=0; k < WS; k++)
+			ac[i+k] = maxpart[k];
 	}
 
 	int detectedErrors = popCount(ac);
@@ -411,9 +444,11 @@ string kmerFingerprint(string& pattern, int k)
 	return fingerprint;
 }
 
+extern int gKmersK;
+
 int Kmers_SW(string pattern, string text, int threshold)
 {
-	int k = 5;
+	int k = gKmersK;
 
 	string fp = kmerFingerprint(pattern, k);
 	string ft = kmerFingerprint(text, k);
@@ -431,4 +466,361 @@ int Kmers_SW(string pattern, string text, int threshold)
 	return detectedErrors;
 }
 
+int Shouji_Alser(string& pattern, string& text, int ErrorThreshold) 
+//int ret = Shouji_Alser(pattern.size(), text.c_str(), pattern.c_str(), th,  GridSize,  DebugMode);
+//int Shouji_Alser(int ReadLength, const char RefSeq[], const char ReadSeq[], int ErrorThreshold, int GridSize, int DebugMode)
+{
+	int ReadLength = pattern.size();
+	const char* RefSeq = text.c_str(); 
+	const char* ReadSeq = pattern.c_str(); 
+	//int ErrorThreshold, 
+	int GridSize = 4;
+	int DebugMode = verbose;
 
+	int Accepted=1;
+	//int *HammingMask;
+	int i0;
+	int ii;
+	int n;
+	int e;
+	int i1;
+	int ShoujiMask[ReadLength];
+	int count;
+	int GridIndex;
+	int MagnetCount;
+	int d0;
+	int i;
+	int MaxZeros;
+	int MaxZerosIndex;
+	int GridBound ;
+	int dd;
+
+	/* 20-Sept-2016 */
+	/*  Building the Hamming masks */
+	ii = ((2 * ErrorThreshold) + 1) * ReadLength;
+	int HammingMask[ii];
+	int HammingMask1[ii];//this to maintain the order of the neighborhood map
+	int C,K;
+	/*
+	HammingMask = (int *)malloc(ii * sizeof(int));
+	if(!HammingMask)
+	{
+		printf("Out of Memory !!\n");
+		exit(1);
+	}
+	*/	
+	/*for (n = 0; n < ii; n++) {
+		HammingMask[n] = 0;
+	}
+	
+	
+	//  Original Hamming Mask
+	for (n = 0; n < ReadLength; n++) {
+		if (ReadSeq[n]== RefSeq[n])
+			HammingMask[n] = 0;
+		else if (ReadSeq[n]!= RefSeq[n])
+			HammingMask[n] = 1;
+	}
+	
+	//  Incremental-step right shifted Hamming Masks (Deletion)
+	for (e = 0; e < ErrorThreshold; e++) {
+		// fill the shifted chars with Zeros
+		for (i0 = 0; i0 <= e; i0++) {
+		  HammingMask[((e +1) * ReadLength) + i0] = 0;
+		}
+		 ii=e+1;
+		//  shift the Read chars and compare
+		for (n = 0; n < (ReadLength-ii); n++) {
+			if (ReadSeq[n]== RefSeq[n+ii]){
+				HammingMask[((e+1) * ReadLength) + n + ii] = 0;}
+			else if (ReadSeq[n]!= RefSeq[n+ii])
+				HammingMask[((e+1) * ReadLength) + n + ii] = 1;
+		}
+	}
+	
+	
+	//  Incremental-step left shifted Hamming Masks (Insertion)
+	for (e = 0; e < ErrorThreshold; e++) {
+		// fill the shifted chars with Zeros
+		for (i0 = 0; i0 <= e; i0++) {
+			HammingMask[((e + ErrorThreshold+1) * ReadLength) + (ReadLength-i0)-1] = 0;
+		}
+		ii=e+1;
+		//  shift the Read chars and compare
+		for (n = 0; n < ReadLength-e-1; n++) {
+			//printf("%c",ReadSeq[n+ii]);
+			//printf(" %c\n",RefSeq[n]);
+			if (ReadSeq[n+ii]== RefSeq[n])
+				HammingMask[((e + ErrorThreshold + 1) * ReadLength) + n] = 0;
+			else if (ReadSeq[n+ii]!= RefSeq[n])
+				HammingMask[((e + ErrorThreshold + 1) * ReadLength) + n] = 1;
+		}
+	}
+	
+	// END of Building the Hamming masks */
+
+	count=0;
+	// Original Hamming Mask
+	for (n = (ReadLength-1); n >=0 ; n--) {
+		if (ReadSeq[n]!= RefSeq[n]){
+			HammingMask[n] = 1;
+			count++;
+		}
+		else{
+			HammingMask[n] = 0;
+			
+		}
+	}
+	
+	if (count<=(ErrorThreshold))
+		return count;
+
+	if (ErrorThreshold==0) 
+		return count;
+	
+	if (ErrorThreshold>0) {
+		// Shifted Hamming Masks
+		for (e = 1; e <= ErrorThreshold; e++) {
+			ii = e * ReadLength;
+			dd = ii + (ErrorThreshold * ReadLength);
+			// fill the shifted chars with Zeros
+			for (i0 = e-1; i0 >=0; i0--) {
+				// Deletion
+				HammingMask[ii + i0] = 1;
+				// Insertion
+				HammingMask[dd + (ReadLength-i0)-1] = 1;
+			}
+			count=0;
+			//  shift the Read chars and compare
+			for (n = (ReadLength-e-1); n >=0 ; n--) {
+				//  Incremental-step right shifted Hamming Masks (Deletion)
+				if (ReadSeq[n]!= RefSeq[n+e])
+					HammingMask[ii + n + e] = 1;
+				else{
+					HammingMask[ii + n + e] = 0;
+					count++;
+				}
+			}
+			if (count>=(ReadLength-ErrorThreshold))
+				return 1;
+			count=0;
+			for (n = (ReadLength-e-1); n >=0 ; n--) {
+				// Incremental-step left shifted Hamming Masks (Insertion)
+				if (ReadSeq[n+e]!= RefSeq[n])
+					HammingMask[dd + n] = 1;
+				else{
+					HammingMask[dd + n] = 0;
+					count++;
+				}
+			}
+			if (count>=(ReadLength-ErrorThreshold))
+				return count;
+		}
+		// END of Building the Hamming masks
+
+		// This is to reorder the bit-vector to match the same order of the neighborhood map
+		/*for(n=0; n<(((2*ErrorThreshold)+1)*ReadLength);n++){
+			HammingMask1[n]=HammingMask[n];
+		}
+		C=ErrorThreshold+1;
+		K=0;
+		for (n = 0; n < (((ErrorThreshold))*ReadLength); n++) {
+			if ( n % 100 == 0){
+				C=C-1;
+				K=0;
+			}
+			HammingMask[n]=HammingMask1[K+(C*ReadLength)];
+			K=K+1;
+		}
+		for(n=0; n<ReadLength;n++){
+			HammingMask[n+((ErrorThreshold)*ReadLength)]=HammingMask1[n];
+		}*/
+		// This is to reorder the bit-vector to match the same order of the neighborhood map
+		
+		if (DebugMode==1) {
+			printf("\nHamming \n");
+			for (n = 0; n < (((2*ErrorThreshold)+1)*ReadLength); n++) {
+				if ( n % ReadLength == 0)
+					printf("\n");
+				printf("%d", HammingMask[n]  );
+			}
+			printf("\n\n\n\n");
+		}
+
+
+		/*  Search for Longest Consecutive Zeros in a sliding window fashion*/
+		for (i0 = 0; i0 < ReadLength; i0++) {
+			//ShoujiMask[i0] = HammingMask[i0+((ErrorThreshold)*ReadLength)];
+			ShoujiMask[i0] = HammingMask[i0];
+		}
+		GridBound = ReadLength - GridSize + 1;
+		count=0;
+		d0 = (2 * ErrorThreshold) + 1;
+		for (GridIndex = 0; GridIndex < ReadLength; GridIndex++) {
+			
+			if (GridIndex <= (ReadLength - GridSize) ) {
+				MaxZeros = 0;
+				MaxZerosIndex=0;
+				for (i = 0; i < d0; i++) {
+					count = 0;
+					for (i1 = 0; i1 < GridSize; i1++) {
+						if (DebugMode==1) {
+							printf("%d", HammingMask[(i * ReadLength) + (GridIndex + i1)] );
+						}
+						if (HammingMask[(i * ReadLength) + (GridIndex + i1)] == 0) {
+							count++ ;
+						}
+					}
+					if (DebugMode==1) {
+						printf("\n");
+					}
+					//printf("count:%d \n", count);
+					if (count > MaxZeros) {
+						MaxZeros = count;
+						MaxZerosIndex = i;
+					}
+					else if (count == MaxZeros) {
+						if ((HammingMask[(i * ReadLength) + (GridIndex)]==0) && (HammingMask[(i * ReadLength) + (GridIndex + 1)]==0)&& (HammingMask[(i * ReadLength) + (GridIndex + 2)]==0))
+							MaxZerosIndex = i;
+						else if ((HammingMask[(i * ReadLength) + (GridIndex)]==0) && (HammingMask[(i * ReadLength) + (GridIndex + 1)]==0))
+							MaxZerosIndex = i;
+						else if (HammingMask[(i * ReadLength) + (GridIndex)]==0)
+							MaxZerosIndex = i;
+					}
+				}
+				MagnetCount=0;
+				for (i0 = 0; i0 < GridSize; i0++) {
+					if (ShoujiMask[GridIndex + i0] == 0)
+						MagnetCount++;
+				}
+				//printf("Max%d	\n", MaxZeros);
+				if (MaxZeros > MagnetCount) 
+				{
+					
+					 {
+						for (i0 = 0; i0 < GridSize; i0++) {
+							ShoujiMask[GridIndex + i0] = HammingMask[(MaxZerosIndex * ReadLength) + (GridIndex + i0)];
+						}
+					}
+				}
+				
+				
+				if (DebugMode==1) {
+					printf("The selected seed is: ");
+					for (i0 = 0; i0 < GridSize; i0++) {
+						printf("%d", HammingMask[(MaxZerosIndex * ReadLength) + (GridIndex + i0)]);
+					}
+					printf("\n");
+					for (n = 0; n < ReadLength; n++) {
+						printf("%d", ShoujiMask[n]);
+					}
+					printf("\n");
+					for (n = 0; n < GridBound; n++) {
+						if (n==GridIndex)
+							printf("****");
+						else
+							printf("_");
+					}
+					printf("\n");
+				}
+			}
+			else if (GridIndex <= (ReadLength - 3) ) {
+				MaxZeros = 0;
+				MaxZerosIndex=0;
+				for (i = 0; i < d0; i++) {
+					count = 0;
+					for (i1 = 0; i1 < (ReadLength-GridIndex); i1++) {
+						if (DebugMode==1) {
+							printf("%d", HammingMask[(i * ReadLength) + (GridIndex + i1)] );
+						}
+						if (HammingMask[(i * ReadLength) + (GridIndex + i1)] == 0) {
+							count++ ;
+						}
+					}
+					if (DebugMode==1) {
+						printf("\n");
+					}
+					//printf("count:%d \n", count);
+					if (count > MaxZeros) {
+						MaxZeros = count;
+						MaxZerosIndex = i;
+					}
+					else if (count == MaxZeros) {
+						if ((HammingMask[(i * ReadLength) + (GridIndex)]==0) && (HammingMask[(i * ReadLength) + (GridIndex + 1)]==0) && (HammingMask[(MaxZerosIndex * ReadLength) + (GridIndex)]==1))
+							MaxZerosIndex = i;
+						else if (HammingMask[(i * ReadLength) + (GridIndex)]==0 && HammingMask[(MaxZerosIndex * ReadLength) + (GridIndex)]==1)
+							MaxZerosIndex = i;
+					}
+				}
+				MagnetCount=0;
+				for (i0 = 0; i0 < (ReadLength-GridIndex); i0++) {
+					if (ShoujiMask[GridIndex + i0] == 0)
+						MagnetCount++;
+				}
+				//printf("Max%d	\n", MaxZeros);
+				if (MaxZeros > MagnetCount) {
+					for (i0 = 0; i0 < (ReadLength-GridIndex); i0++) {
+						ShoujiMask[GridIndex + i0] = HammingMask[(MaxZerosIndex * ReadLength) + (GridIndex + i0)];
+					}
+				}
+				if (DebugMode==1) {
+					printf("The selected seed is: ");
+					for (i0 = 0; i0 < (ReadLength-GridIndex); i0++) {
+						printf("%d", HammingMask[(MaxZerosIndex * ReadLength) + (GridIndex + i0)]);
+					}
+					printf("\n");
+					for (n = 0; n < ReadLength; n++) {
+						printf("%d", ShoujiMask[n]);
+					}
+					printf("\n");
+					for (n = 0; n < GridBound; n++) {
+						if (n==GridIndex)
+							printf("****");
+						else
+							printf("_");
+					}
+					printf("\n");
+				}
+			}
+			count = 0;
+			for (n = 0; n < GridIndex; n++) {
+				if (ShoujiMask[n] == 1 && ShoujiMask[n+1] == 1){
+					count++;
+					n++;
+				}
+				else if (ShoujiMask[n] == 1)
+					count++ ;
+			}
+			if (DebugMode==1) 
+				printf("count: %d\n", count);
+
+			if (count> ErrorThreshold)
+				return count;
+		}
+
+		/*  END of Search for Longest Consecutive Zeros */
+
+	}
+
+	if (ErrorThreshold>0){
+	//	free(HammingMask);
+		count = 0;
+		for (n = 0; n < ReadLength; n++) {
+			if (ShoujiMask[n] == 1 && ShoujiMask[n+1] == 1){
+				count++;
+				n++;
+			}
+			else if (ShoujiMask[n] == 1)
+				count++ ;
+			
+		}
+			for(n=0; n< ReadLength; n++) if(DebugMode) printf("%d",ShoujiMask[n]);
+		
+		if (DebugMode==1) printf("\ncount: %d\n", count);
+
+		return count;
+	}
+	
+	//printf("%d\n", count);
+	return count;
+}
