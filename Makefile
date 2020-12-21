@@ -6,13 +6,14 @@ LD_FLAGS=-lm -lrt $(FPGA_OCL_LFLAGS)
 CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2
 
 
-all: filter-shd filter-kmers filter-shouji filter-sneaky
+all: filter-shd filter-kmers filter-shouji filter-sneaky filter-shoujialser
 
 clean:
 	rm -f *.o
 	rm -f filter-shd
 	rm -f filter-kmers
 	rm -f filter-shouji
+	rm -f filter-shoujialser
 	rm -f filter-sneaky
 
 fix_pac10:
@@ -45,6 +46,9 @@ filter-kmers: $(SOURCES)
 
 filter-shouji: $(SOURCES)
 	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""shouji"\" $(SOURCES) -o filter-shouji -lOpenCL
+
+filter-shoujialser: $(SOURCES)
+	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""shoujialser"\" $(SOURCES) -o filter-shoujialser -lOpenCL
 
 filter-sneaky: $(SOURCES)
 	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""sneaky"\" $(SOURCES) -o filter-sneaky -lOpenCL
