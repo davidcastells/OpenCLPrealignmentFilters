@@ -15,3 +15,8 @@ mb.makeAocx(aocx='shd_5_100_100.aocx', cl='../shd.cl', threshold=5, pattern_len=
 mb.makeAocx(aocx='shouji_5_100_100.aocx', cl='../shouji.cl', threshold=5, pattern_len=100, text_len=100)
 mb.makeAocx(aocx='sneaky_5_100_100.aocx', cl='../sneaky.cl', threshold=5, pattern_len=100, text_len=100)
 
+mb.makeAocx(aocx='shd_7_100_100.aocx', cl='../shd.cl', threshold=7, pattern_len=100, text_len=100)
+mb.makeAocx(aocx='shouji_7_100_100.aocx', cl='../shouji.cl', threshold=7, pattern_len=100, text_len=100)
+mb.makeAocx(aocx='sneaky_7_100_100.aocx', cl='../sneaky.cl', threshold=7, pattern_len=100, text_len=100)
+
+
