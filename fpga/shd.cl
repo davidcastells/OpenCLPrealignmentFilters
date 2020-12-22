@@ -1,9 +1,9 @@
 
 #include "adapter.cl"
 
-#ifndef SHD_THRESHOLD
-#define SHD_THRESHOLD	3
-#endif
+//#ifndef SHD_THRESHOLD
+//#define SHD_THRESHOLD	3
+//#endif
 
 
 void xorBases(ap_uint_512 p, ap_uint_512 t, ap_uint_512p r)
