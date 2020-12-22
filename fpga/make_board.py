@@ -25,6 +25,10 @@ def isCompiled(aocx, cl):
     if (aocx_date > cl_date):
         return True
 
+def designConstant(aocx):
+    part = aocx.split('_')
+    return part[0].upper()
+
 def makeAocx(aocx, cl, threshold, pattern_len, text_len):
     if (isCompiling(aocx, cl)):
         print('Already compiling ' + aocx)
@@ -35,12 +39,13 @@ def makeAocx(aocx, cl, threshold, pattern_len, text_len):
 
     common_flags = '-D BASIC_AP_UINT -I $INTELFPGAOCLSDKROOT/include/kernel_headers -g'
     design_name = withoutExtension(aocx)
-    threshold_flag = withoutExtension(aocx) + '_THRESHOLD'
+    threshold_flag = designConstant(aocx) + '_THRESHOLD'
 
     item_flags = ' -D {}={} -D PATTERN_LEN={} -D TEXT_LEN={} '.format(threshold_flag, threshold, pattern_len, text_len)
     nohup = 'nohup'
     outlog = ' >> compile.' + design_name + '.out'
     cmd = nohup + ' aoc '+common_flags+item_flags+cl+' -o '+aocx + outlog + '&'
     print(cmd)
+    os.system('echo "'+cmd+'" > compile.' + design_name + '.out')
     os.system(cmd)
     
