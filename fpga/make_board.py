@@ -29,7 +29,7 @@ def designConstant(aocx):
     part = aocx.split('_')
     return part[0].upper()
 
-def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1):
+def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1, entry_type=0, extra_flags='', blocking=False):
     if (isCompiling(aocx, cl)):
         print('Already compiling ' + aocx)
         return
@@ -37,6 +37,7 @@ def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1):
         print('Already compiled ' + aocx)
         return
 
+    entry_type_flags = ' -D ENTRY_TYPE_{} '.format(entry_type)
     common_flags = '-D BASIC_AP_UINT -I $INTELFPGAOCLSDKROOT/include/kernel_headers -g'
     design_name = withoutExtension(aocx)
 
@@ -50,12 +51,35 @@ def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1):
     else:
         item_flags = ' '
 
-    nohup = 'nohup'
+    if (blocking):
+        nohup = ''
+        noblocksuffix = ''
+    else:
+        nohup = 'nohup'
+        noblocksuffix = '&'
     outlog = ' >> compile.' + design_name + '.out'
-    cmd = nohup + ' aoc '+common_flags + threshold_flag + item_flags+cl+' -o '+aocx + outlog + '&'
+    cmd = nohup + ' aoc '+common_flags + threshold_flag + entry_type_flags + extra_flags + item_flags+cl+' -o '+aocx + outlog + noblocksuffix
     print(cmd)
     os.system('echo "'+cmd+'" > compile.' + design_name + '.out')
     os.system(cmd)
+
+def makeVariants(BOARD, AOCL_FLAGS):
+	ths = [[3,5,7],[3,7,10]]
+	lens = [100,150]
+	entry_types = [0,1]
+
+	for i in range(len(lens)):
+		plen = lens[i]
+		et = entry_types[i]
+
+		for th in ths[i]:
+			makeAocx(aocx='shd_e{}_{}_{}_{}.aocx'.format(et,th, plen, plen), cl='../shd.cl', threshold=th, pattern_len=plen, text_len=plen, extra_flags=AOCL_FLAGS, entry_type=et)
+			makeAocx(aocx='shouji_e{}_{}_{}_{}.aocx'.format(et,th, plen, plen), cl='../shouji.cl', threshold=th, pattern_len=plen, text_len=plen, extra_flags=AOCL_FLAGS, entry_type=et)
+			makeAocx(aocx='sneaky_e{}_{}_{}_{}.aocx'.format(et,th, plen, plen), cl='../sneaky.cl', threshold=th, pattern_len=plen, text_len=plen, extra_flags=AOCL_FLAGS, entry_type=et)
+
+
+		makeAocx(aocx='kmers_e{}_{}_{}.aocx'.format(et,plen,plen), cl='../kmers.cl', threshold=-1, pattern_len=plen, text_len=plen, extra_flags=AOCL_FLAGS, entry_type=et)
+		makeAocx(aocx='kmers_e{}_var.aocx'.format(et), cl='../kmers.cl', extra_flags=AOCL_FLAGS, entry_type=et)
     
 
 
