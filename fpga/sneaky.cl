@@ -10,7 +10,7 @@
 #endif
 
 void xorBases(ap_uint_512 p, ap_uint_512 t, ap_uint_512p r);
-
+void printBin32(unsigned int r, int size);
 
 /**
 * A KMER will be surely < 32 bits , so we can store it in a single word
