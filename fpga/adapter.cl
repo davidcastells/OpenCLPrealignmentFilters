@@ -13,7 +13,13 @@
 #define WORKLOAD_CHUNK 1024*16
 #endif
 
-unsigned int computeTask(__global unsigned char* restrict pairs, unsigned int pi);
+#ifdef ENTRY_TYPE_0
+unsigned int computeTaskEntryType0(__global unsigned char* restrict pairs, unsigned int pi);
+#endif
+#ifdef ENTRY_TYPE_1
+unsigned int computeTaskEntryType1(__global unsigned char* restrict pairs, unsigned int pi);
+#endif
+
 unsigned int computeDistance(ap_uint_512 pattern, int plen, ap_uint_512 text,  int tlen);
 void printSequence(ap_uint_512 w, int len);
 
@@ -28,9 +34,13 @@ void doWorkloadTask(__global unsigned char* restrict pairs ,
     unsigned int pi = wi; // workload[wi*WORKLOAD_TASK_SIZE+0];
     unsigned int ti = wi; // workload[wi*WORKLOAD_TASK_SIZE+1];
 
-    
-    unsigned int d = computeTask(pairs,  pi);
-    
+#ifdef ENTRY_TYPE_0
+    unsigned int d = computeTaskEntryType0(pairs,  pi);
+#endif
+#ifdef ENTRY_TYPE_1
+    unsigned int d = computeTaskEntryType1(pairs,  pi);
+#endif
+
 #ifdef FPGA_DEBUG
     printf("[FPGA] pi=%d  ", pi);
     printf(" task %d = %d\n", wi, d);
@@ -92,6 +102,11 @@ void readBigEndian512bits(__global unsigned char* restrict p, ap_uint_512p ret)
 
 
     
+
+
+
+#ifdef ENTRY_TYPE_0
+
 void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_uint_512p ret)
 {
     unsigned int offset = pi * 512 /  8;
@@ -100,9 +115,7 @@ void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_ui
 }
 
 
-
-
-unsigned int computeTask(__global unsigned char* restrict pairs,
+unsigned int computeTaskEntryType0(__global unsigned char* restrict pairs,
                  unsigned int pi)
 {
 	int d = 0;
@@ -152,6 +165,73 @@ unsigned int computeTask(__global unsigned char* restrict pairs,
 	
 	return d;
 }
+#endif
+
+
+
+#ifdef ENTRY_TYPE_1
+
+void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_uint_512p pword,  ap_uint_512p tword )
+{
+    unsigned int offsetp = (pi * 2 * 512) /  8;
+    unsigned int offsett = ((pi * 2 * 512) + 512) /  8;
+    
+    readBigEndian512bits(&pattern[offsetp], pword);  
+    readBigEndian512bits(&pattern[offsett], tword);  
+}
+
+unsigned int computeTaskEntryType1(__global unsigned char* restrict pairs,
+                 unsigned int pi)
+{
+	int d = 0;
+
+	ap_uint_512 pairs_word_p;
+	ap_uint_512 pairs_word_t;
+	
+	ap_uint_512 pattern_word;
+	ap_uint_512 text_word;
+
+	readPairs(pairs, pi, AP_UINT_PTR(pairs_word_p), AP_UINT_PTR(pairs_word_t));
+
+#ifdef PATTERN_LEN
+	unsigned char pl = PATTERN_LEN;
+	unsigned char tl = TEXT_LEN;
+#else
+	unsigned char pl = ap_uint_512_getHighByte(pairs_word_p, 0);
+	unsigned char tl = ap_uint_512_getHighByte(pairs_word_t, 0);
+#endif
+
+#ifdef FPGA_DEBUG
+	printf("pattern len: %d\ttext len: %d\n", pl, tl);
+#endif
+	//int alignedTextStart = 1 + 1 + (((pl * BASE_SIZE) + 7) / 8) ;	// in bytes
+
+	ap_uint_512_shift_left_bytes(pairs_word_p, 1, AP_UINT_PTR(pattern_word));
+	ap_uint_512_shift_left_bytes(pairs_word_t, 1, AP_UINT_PTR(text_word));
+
+
+#ifdef FPGA_DEBUG
+	printf("T:   ");
+	printSequence(text_word, tl);
+	printf("\n");
+	printf("P:   ");        
+	printSequence(pattern_word, pl);
+	printf("\n");
+#endif
+
+	/*printf("T:   ");
+	ap_uint_512_print(text_word);
+	printf("\n");
+	printf("P:   ");        
+	ap_uint_512_print(pattern_word);
+	printf("\n");*/
+
+
+	d = computeDistance(pattern_word,  pl, text_word,  tl);	// we just compare pattern
+	
+	return d;
+}
+#endif
 
 /**
 * we assume the sequence is left aligned to the 512 bits word, and stored in Most Significant Bit First order
