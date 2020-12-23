@@ -217,13 +217,42 @@ void PrealignmentFilter::setVerbose(bool verbose)
 	m_verbose = verbose;
 }
 
+int PrealignmentFilter::determineEncodingType()
+{
+	// @todo we do not support multiple different encoding types in the same set
+	int pl = m_basesPattern[0].size();
+	int tl = m_basesText[0].size();
+
+	int pBytes = (pl+3)/4;
+	int tBytes = (tl+3)/4;
+
+	if ((pBytes + tBytes + 2) <= (512 / 8)) 
+		// both pattern and text in the same 512 bits word
+		return 0;
+	if (((pBytes + 1) < (512/8)) && ((tBytes + 1) < (512/8)))
+		// pattern in a 512 bits word, and text in the following 512 bits word
+		return 1;
+	
+	// Unsupported encoding
+	printf("Unsupported Encoding ! Lengths %d+%d = BYTES %d\n", pl, tl, (pBytes+tBytes+2));
+	exit(-1);
+	
+}
+
 void PrealignmentFilter::computeAll(int realErrors)
 {
     // allocate memory buffers
     //size_t requiredPatternMemory = countRequiredMemory(m_basesPatternLength);    
     //size_t requiredTextMemory = countRequiredMemory(m_basesTextLength);
+
+    int encodingType = determineEncodingType();
     
-    size_t requiredEntryMemory = m_basesPatternLength.size() * (512/8);
+    size_t requiredEntryMemory;
+
+    if (encodingType == 0)
+	requiredEntryMemory = m_basesPatternLength.size() * (512/8);
+    else if (encodingType == 1)
+	requiredEntryMemory = m_basesPatternLength.size() * 2 * (512/8);
 
     unsigned char* pattern = (unsigned char*) alignedMalloc(requiredEntryMemory);
     unsigned int* workload = (unsigned int*) alignedMalloc(m_basesTextLength.size() * sizeof(unsigned int) * WORKLOAD_TASK_SIZE);
@@ -234,6 +263,7 @@ void PrealignmentFilter::computeAll(int realErrors)
     
     PerformanceLap lap;
     lap.start();
+  
 
     for (int i=0; i < m_basesPatternLength.size(); i++)
     {
@@ -241,6 +271,7 @@ void PrealignmentFilter::computeAll(int realErrors)
         workload[i*WORKLOAD_TASK_SIZE+0] = i;   // pattern
         workload[i*WORKLOAD_TASK_SIZE+1] = i;   // text
         
+
         // fill the pattern
 	int pl = m_basesPattern[i].size();
 	int tl = m_basesText[i].size();
@@ -248,22 +279,17 @@ void PrealignmentFilter::computeAll(int realErrors)
 	int pBytes = (pl+3)/4;
 	int tBytes = (tl+3)/4;
 
-	if ((pBytes + tBytes + 2) <= (512 / 8))
+	if (encodingType == 0)
 	{
 		// Type 0 format
 		encodeEntry0(pattern, i*(512/8), m_basesPattern[i],  m_basesText[i]);
 	}
-	else if (((pBytes + 1) < (512/8)) && ((tBytes + 1) < (512/8)))
+	else if (encodingType == 1)
 	{
 		// Type 1 format
 		encodeEntry1(pattern, i*(1024/8), m_basesPattern[i], m_basesText[i]);
 	}
-	else
-	{	
-		// 
-		printf("Lengths %d+%d = BYTES %d\n", pl, tl, (pBytes+tBytes+2));
-		exit(0);
-	}
+	
  
     }
     lap.stop();

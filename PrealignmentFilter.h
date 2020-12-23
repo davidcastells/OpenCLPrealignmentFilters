@@ -58,7 +58,8 @@ public:
     
 private:
     size_t countRequiredMemory(vector<int>& len);
-    
+ 	   
+    int determineEncodingType();
     string decodeSequence(unsigned char* pattern, unsigned int offset, unsigned int basesLength);
     void encodeEntry0( unsigned char* pPattern, unsigned int offset, string pattern, string text );
     void encodeEntry1( unsigned char* pPattern, unsigned int offset, string pattern, string text );
