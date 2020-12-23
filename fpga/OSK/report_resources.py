@@ -8,7 +8,7 @@ def reportDesign(name, th, type):
 	else:		
 		dir = '{}_{}_{}'.format(name, th, type)
 	os.system('grep kernel_fmax {}/quartus_sh_compile.log'.format(dir))
-	os.system('head -n 68 {}/top.flow.rpt | tail -n 30'.format(dir))
+	os.system('head -n 63 {}/top.flow.rpt | tail -n 25'.format(dir))
 
 
 if __name__ == "__main__":
