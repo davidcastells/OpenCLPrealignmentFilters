@@ -1,0 +1,253 @@
+Arguments count: 1
+Results for shd 3 100_100
+========================================================
+Info: kernel_fmax 137.579999864 
+
++--------------------------------------------------------------------------------------------+
+; Flow Summary                                                                               ;
++---------------------------------+----------------------------------------------------------+
+; Flow Status                     ; Successful - Tue Dec 22 09:25:55 2020                    ;
+; Quartus Prime Version           ; 17.1.1 Internal Build 593 12/11/2017 SJ Standard Edition ;
+; Revision Name                   ; top                                                      ;
+; Top-level Entity Name           ; top                                                      ;
+; Family                          ; Cyclone V                                                ;
+; Device                          ; 5CGTFD9D5F27C7                                           ;
+; Timing Models                   ; Final                                                    ;
+; Logic utilization (in ALMs)     ; 18,914 / 113,560 ( 17 % )                                ;
+; Total registers                 ; 30417                                                    ;
+; Total pins                      ; 100 / 378 ( 26 % )                                       ;
+; Total virtual pins              ; 30                                                       ;
+; Total block memory bits         ; 1,356,016 / 12,492,800 ( 11 % )                          ;
+; Total DSP Blocks                ; 0 / 342 ( 0 % )                                          ;
+; Total HSSI RX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA RX Deserializers ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI TX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA TX Serializers   ; 4 / 9 ( 44 % )                                           ;
+; Total PLLs                      ; 8 / 17 ( 47 % )                                          ;
+; Total DLLs                      ; 1 / 4 ( 25 % )                                           ;
++---------------------------------+----------------------------------------------------------+
+
+Results for shd 5 100_100
+========================================================
+Info: kernel_fmax 138.349999488 
+
++--------------------------------------------------------------------------------------------+
+; Flow Summary                                                                               ;
++---------------------------------+----------------------------------------------------------+
+; Flow Status                     ; Successful - Tue Dec 22 09:29:47 2020                    ;
+; Quartus Prime Version           ; 17.1.1 Internal Build 593 12/11/2017 SJ Standard Edition ;
+; Revision Name                   ; top                                                      ;
+; Top-level Entity Name           ; top                                                      ;
+; Family                          ; Cyclone V                                                ;
+; Device                          ; 5CGTFD9D5F27C7                                           ;
+; Timing Models                   ; Final                                                    ;
+; Logic utilization (in ALMs)     ; 19,439 / 113,560 ( 17 % )                                ;
+; Total registers                 ; 31507                                                    ;
+; Total pins                      ; 100 / 378 ( 26 % )                                       ;
+; Total virtual pins              ; 30                                                       ;
+; Total block memory bits         ; 1,356,016 / 12,492,800 ( 11 % )                          ;
+; Total DSP Blocks                ; 0 / 342 ( 0 % )                                          ;
+; Total HSSI RX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA RX Deserializers ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI TX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA TX Serializers   ; 4 / 9 ( 44 % )                                           ;
+; Total PLLs                      ; 8 / 17 ( 47 % )                                          ;
+; Total DLLs                      ; 1 / 4 ( 25 % )                                           ;
++---------------------------------+----------------------------------------------------------+
+
+Results for shd 7 100_100
+========================================================
+Info: kernel_fmax 136.229999364 
+
++--------------------------------------------------------------------------------------------+
+; Flow Summary                                                                               ;
++---------------------------------+----------------------------------------------------------+
+; Flow Status                     ; Successful - Tue Dec 22 09:31:57 2020                    ;
+; Quartus Prime Version           ; 17.1.1 Internal Build 593 12/11/2017 SJ Standard Edition ;
+; Revision Name                   ; top                                                      ;
+; Top-level Entity Name           ; top                                                      ;
+; Family                          ; Cyclone V                                                ;
+; Device                          ; 5CGTFD9D5F27C7                                           ;
+; Timing Models                   ; Final                                                    ;
+; Logic utilization (in ALMs)     ; 19,721 / 113,560 ( 17 % )                                ;
+; Total registers                 ; 32085                                                    ;
+; Total pins                      ; 100 / 378 ( 26 % )                                       ;
+; Total virtual pins              ; 30                                                       ;
+; Total block memory bits         ; 1,356,016 / 12,492,800 ( 11 % )                          ;
+; Total DSP Blocks                ; 0 / 342 ( 0 % )                                          ;
+; Total HSSI RX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA RX Deserializers ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI TX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA TX Serializers   ; 4 / 9 ( 44 % )                                           ;
+; Total PLLs                      ; 8 / 17 ( 47 % )                                          ;
+; Total DLLs                      ; 1 / 4 ( 25 % )                                           ;
++---------------------------------+----------------------------------------------------------+
+
+Results for shouji 3 100_100
+========================================================
+Info: kernel_fmax 136.779999733 
+
++--------------------------------------------------------------------------------------------+
+; Flow Summary                                                                               ;
++---------------------------------+----------------------------------------------------------+
+; Flow Status                     ; Successful - Thu Nov  5 19:30:13 2020                    ;
+; Quartus Prime Version           ; 17.1.1 Internal Build 593 12/11/2017 SJ Standard Edition ;
+; Revision Name                   ; top                                                      ;
+; Top-level Entity Name           ; top                                                      ;
+; Family                          ; Cyclone V                                                ;
+; Device                          ; 5CGTFD9D5F27C7                                           ;
+; Timing Models                   ; Final                                                    ;
+; Logic utilization (in ALMs)     ; 23,853 / 113,560 ( 21 % )                                ;
+; Total registers                 ; 52538                                                    ;
+; Total pins                      ; 100 / 378 ( 26 % )                                       ;
+; Total virtual pins              ; 30                                                       ;
+; Total block memory bits         ; 1,353,864 / 12,492,800 ( 11 % )                          ;
+; Total DSP Blocks                ; 0 / 342 ( 0 % )                                          ;
+; Total HSSI RX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA RX Deserializers ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI TX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA TX Serializers   ; 4 / 9 ( 44 % )                                           ;
+; Total PLLs                      ; 8 / 17 ( 47 % )                                          ;
+; Total DLLs                      ; 1 / 4 ( 25 % )                                           ;
++---------------------------------+----------------------------------------------------------+
+
+Results for shouji 5 100_100
+========================================================
+Info: kernel_fmax 136.779999733 
+
++--------------------------------------------------------------------------------------------+
+; Flow Summary                                                                               ;
++---------------------------------+----------------------------------------------------------+
+; Flow Status                     ; Successful - Tue Dec 22 09:41:39 2020                    ;
+; Quartus Prime Version           ; 17.1.1 Internal Build 593 12/11/2017 SJ Standard Edition ;
+; Revision Name                   ; top                                                      ;
+; Top-level Entity Name           ; top                                                      ;
+; Family                          ; Cyclone V                                                ;
+; Device                          ; 5CGTFD9D5F27C7                                           ;
+; Timing Models                   ; Final                                                    ;
+; Logic utilization (in ALMs)     ; 23,853 / 113,560 ( 21 % )                                ;
+; Total registers                 ; 52538                                                    ;
+; Total pins                      ; 100 / 378 ( 26 % )                                       ;
+; Total virtual pins              ; 30                                                       ;
+; Total block memory bits         ; 1,353,864 / 12,492,800 ( 11 % )                          ;
+; Total DSP Blocks                ; 0 / 342 ( 0 % )                                          ;
+; Total HSSI RX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA RX Deserializers ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI TX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA TX Serializers   ; 4 / 9 ( 44 % )                                           ;
+; Total PLLs                      ; 8 / 17 ( 47 % )                                          ;
+; Total DLLs                      ; 1 / 4 ( 25 % )                                           ;
++---------------------------------+----------------------------------------------------------+
+
+Results for shouji 7 100_100
+========================================================
+Info: kernel_fmax 136.779999733 
+
++--------------------------------------------------------------------------------------------+
+; Flow Summary                                                                               ;
++---------------------------------+----------------------------------------------------------+
+; Flow Status                     ; Successful - Tue Dec 22 09:41:06 2020                    ;
+; Quartus Prime Version           ; 17.1.1 Internal Build 593 12/11/2017 SJ Standard Edition ;
+; Revision Name                   ; top                                                      ;
+; Top-level Entity Name           ; top                                                      ;
+; Family                          ; Cyclone V                                                ;
+; Device                          ; 5CGTFD9D5F27C7                                           ;
+; Timing Models                   ; Final                                                    ;
+; Logic utilization (in ALMs)     ; 23,853 / 113,560 ( 21 % )                                ;
+; Total registers                 ; 52538                                                    ;
+; Total pins                      ; 100 / 378 ( 26 % )                                       ;
+; Total virtual pins              ; 30                                                       ;
+; Total block memory bits         ; 1,353,864 / 12,492,800 ( 11 % )                          ;
+; Total DSP Blocks                ; 0 / 342 ( 0 % )                                          ;
+; Total HSSI RX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA RX Deserializers ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI TX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA TX Serializers   ; 4 / 9 ( 44 % )                                           ;
+; Total PLLs                      ; 8 / 17 ( 47 % )                                          ;
+; Total DLLs                      ; 1 / 4 ( 25 % )                                           ;
++---------------------------------+----------------------------------------------------------+
+
+Results for sneaky 3 100_100
+========================================================
+Info: kernel_fmax 139.379999787 
+
++--------------------------------------------------------------------------------------------+
+; Flow Summary                                                                               ;
++---------------------------------+----------------------------------------------------------+
+; Flow Status                     ; Successful - Tue Dec 22 18:08:38 2020                    ;
+; Quartus Prime Version           ; 17.1.1 Internal Build 593 12/11/2017 SJ Standard Edition ;
+; Revision Name                   ; top                                                      ;
+; Top-level Entity Name           ; top                                                      ;
+; Family                          ; Cyclone V                                                ;
+; Device                          ; 5CGTFD9D5F27C7                                           ;
+; Timing Models                   ; Final                                                    ;
+; Logic utilization (in ALMs)     ; 22,623 / 113,560 ( 20 % )                                ;
+; Total registers                 ; 43788                                                    ;
+; Total pins                      ; 100 / 378 ( 26 % )                                       ;
+; Total virtual pins              ; 35                                                       ;
+; Total block memory bits         ; 1,345,160 / 12,492,800 ( 11 % )                          ;
+; Total DSP Blocks                ; 0 / 342 ( 0 % )                                          ;
+; Total HSSI RX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA RX Deserializers ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI TX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA TX Serializers   ; 4 / 9 ( 44 % )                                           ;
+; Total PLLs                      ; 8 / 17 ( 47 % )                                          ;
+; Total DLLs                      ; 1 / 4 ( 25 % )                                           ;
++---------------------------------+----------------------------------------------------------+
+
+Results for sneaky 5 100_100
+========================================================
+Info: kernel_fmax 135.289999843 
+
++--------------------------------------------------------------------------------------------+
+; Flow Summary                                                                               ;
++---------------------------------+----------------------------------------------------------+
+; Flow Status                     ; Successful - Tue Dec 22 18:31:52 2020                    ;
+; Quartus Prime Version           ; 17.1.1 Internal Build 593 12/11/2017 SJ Standard Edition ;
+; Revision Name                   ; top                                                      ;
+; Top-level Entity Name           ; top                                                      ;
+; Family                          ; Cyclone V                                                ;
+; Device                          ; 5CGTFD9D5F27C7                                           ;
+; Timing Models                   ; Final                                                    ;
+; Logic utilization (in ALMs)     ; 23,999 / 113,560 ( 21 % )                                ;
+; Total registers                 ; 45864                                                    ;
+; Total pins                      ; 100 / 378 ( 26 % )                                       ;
+; Total virtual pins              ; 33                                                       ;
+; Total block memory bits         ; 1,346,184 / 12,492,800 ( 11 % )                          ;
+; Total DSP Blocks                ; 0 / 342 ( 0 % )                                          ;
+; Total HSSI RX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA RX Deserializers ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI TX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA TX Serializers   ; 4 / 9 ( 44 % )                                           ;
+; Total PLLs                      ; 8 / 17 ( 47 % )                                          ;
+; Total DLLs                      ; 1 / 4 ( 25 % )                                           ;
++---------------------------------+----------------------------------------------------------+
+
+Results for sneaky 7 100_100
+========================================================
+Info: kernel_fmax 135.109999776 
+
++--------------------------------------------------------------------------------------------+
+; Flow Summary                                                                               ;
++---------------------------------+----------------------------------------------------------+
+; Flow Status                     ; Successful - Tue Dec 22 19:01:44 2020                    ;
+; Quartus Prime Version           ; 17.1.1 Internal Build 593 12/11/2017 SJ Standard Edition ;
+; Revision Name                   ; top                                                      ;
+; Top-level Entity Name           ; top                                                      ;
+; Family                          ; Cyclone V                                                ;
+; Device                          ; 5CGTFD9D5F27C7                                           ;
+; Timing Models                   ; Final                                                    ;
+; Logic utilization (in ALMs)     ; 24,586 / 113,560 ( 22 % )                                ;
+; Total registers                 ; 47407                                                    ;
+; Total pins                      ; 100 / 378 ( 26 % )                                       ;
+; Total virtual pins              ; 31                                                       ;
+; Total block memory bits         ; 1,347,208 / 12,492,800 ( 11 % )                          ;
+; Total DSP Blocks                ; 0 / 342 ( 0 % )                                          ;
+; Total HSSI RX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA RX Deserializers ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI TX PCSs              ; 4 / 9 ( 44 % )                                           ;
+; Total HSSI PMA TX Serializers   ; 4 / 9 ( 44 % )                                           ;
+; Total PLLs                      ; 8 / 17 ( 47 % )                                          ;
+; Total DLLs                      ; 1 / 4 ( 25 % )                                           ;
++---------------------------------+----------------------------------------------------------+
+
