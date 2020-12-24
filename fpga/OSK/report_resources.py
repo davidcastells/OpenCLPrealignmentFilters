@@ -2,8 +2,7 @@ import os
 import sys
 
 def reportDesign(name, th, et, pl):
-	print('Results for', name, th, et, pl, flush=True)
-	print("========================================================", flush=True)
+
 	if (th == -1):
 		dir = '{}_e{}'.format(name, et)
 	else:
@@ -13,6 +12,12 @@ def reportDesign(name, th, et, pl):
 		ptype = '_var'
 	else:
 		ptype =  '_{}_{}'.format(pl, pl)
+
+	aocx = dir+ptype
+
+	print('Results for', aocx,  flush=True)
+	print("========================================================", flush=True)
+	
 
 	os.system('grep kernel_fmax {}/quartus_sh_compile.log'.format(dir+ptype))
 	os.system('head -n 63 {}/top.flow.rpt | tail -n 25'.format(dir+ptype))
