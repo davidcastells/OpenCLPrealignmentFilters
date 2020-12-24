@@ -1,6 +1,6 @@
 BOARD='DE1SOC'
 TIME='/usr/bin/time -f TIME=%E'
-AOCL_FLAGS=''
+AOCL_FLAGS='--board de1soc_sharedonly'
 
 import sys
 sys.path.append('..')
