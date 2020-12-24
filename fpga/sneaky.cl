@@ -9,6 +9,9 @@
 #define SNEAKY_WINDOW_SIZE	8
 #endif
 
+
+
+
 void xorBases(ap_uint_512 p, ap_uint_512 t, ap_uint_512p r);
 void printBin32(unsigned int r, int size);
 
@@ -77,19 +80,6 @@ unsigned int fastclz(unsigned int v)
 */
 unsigned int CLZ_32(unsigned int part, int size)
 {
-	/*int c = 0;
-	unsigned fbmask = 1 << (SNEAKY_WINDOW_SIZE-1);
-
-	for (int i=0; i < SNEAKY_WINDOW_SIZE; i++)
-	{
-		if (!(part & fbmask))
-		{
-			c++;
-			part = part << 1;
-		}
-		else
-			break; 
-	}*/
 	int c = fastclz(part);
 
 	return c  -(32-size);	
@@ -133,9 +123,12 @@ unsigned int sneaky(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 //#ifdef PATTERN_LENGTH 
 //#pragma unroll
 //#endif
-	#pragma unroll
-	for (int w=0; w < plen/SNEAKY_WINDOW_SIZE; w++)
+	//#pragma unroll
+	
 	{
+		int w=0;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
 		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
 		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
 
@@ -293,6 +286,5875 @@ unsigned int sneaky(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		
 		
 		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=1;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=2;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=3;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=4;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=5;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=6;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=7;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=8;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=9;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=10;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=11;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=12;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=13;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=14;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=15;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=16;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=17;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=18;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=19;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=20;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=21;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=22;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=23;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=24;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=25;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=26;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=27;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=28;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=29;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=30;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=31;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=32;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=33;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=34;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=35;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
+	}
+	{
+		int w=36;
+		if (w < plen/SNEAKY_WINDOW_SIZE)
+        {
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		unsigned int XP[SNEAKY_THRESHOLD*2+1];
+		
+		#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++)
+		{
+			ap_uint_512 shifted_pattern;
+			if (s < 0)
+			{
+				ap_uint_512_shift_left(pattern, (-s), AP_UINT_PTR(shifted_pattern));
+			}
+			else if (s==0)
+			{
+				ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			}
+			else
+			{
+				// > 0
+				ap_uint_512_shift_right(pattern, s, AP_UINT_PTR(shifted_pattern));
+			}
+
+			ap_uint_512 dist;
+		
+			xorBases(shifted_pattern, text, AP_UINT_PTR(dist));
+
+			XP[s+SNEAKY_THRESHOLD] = ap_uint_512_range(dist, kstart, kend);
+		}
+		
+		unsigned int LZ[8];
+		
+		#pragma unroll
+		for (int i=0; i<8; i++)
+		{
+			unsigned int mask = (1 << (8-i)) -1;
+			unsigned int AC = mask;
+			
+			
+			#pragma unroll
+			for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++)
+			{
+				unsigned int CX = LeftOnes(XP[s] & mask);
+				AC = AC & CX;
+			}
+			
+			LZ[i] = CLZ_32(AC, 8-i);
+		}
+		
+		unsigned int EDITS[8];
+		
+		// Level 0 (1 bit)
+		if (LZ[0] == 0)
+			EDITS[0] = 1;
+		else
+			EDITS[0] = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ[1] == 0)
+			EDITS[1] = EDITS[0] + 1;
+		else if (LZ[1] == 1)
+			EDITS[1] = 1;
+		else
+			EDITS[1] = 0;
+		
+		// Level 2
+		if (LZ[2] == 0)
+			EDITS[2] = EDITS[1] + 1;
+		else if (LZ[2] == 1)
+			EDITS[2] = EDITS[0] + 1;
+		else if (LZ[2] == 2)
+			EDITS[2] = 1;
+		else
+			EDITS[2] = 0;
+		
+		// Level 3
+		if (LZ[3] == 0)
+			EDITS[3] = EDITS[2] + 1;
+		else if (LZ[3] == 1)
+			EDITS[3] = EDITS[1] + 1;
+		else if (LZ[3] == 2)
+			EDITS[3] = EDITS[0] + 1;
+		else if (LZ[3] == 3)
+			EDITS[3] = 1;
+		else 
+			EDITS[3] = 0;
+		
+		// Level 4
+		if (LZ[4] == 0)
+			EDITS[4] = EDITS[3] +1;
+		else if (LZ[4] == 1)
+			EDITS[4] = EDITS[2] + 1;
+		else if (LZ[4] == 2)
+			EDITS[4] = EDITS[1] + 1;
+		else if (LZ[4] == 3)
+			EDITS[4] = EDITS[0] + 1;
+		else if (LZ[4] == 4)
+			EDITS[4] = 1;
+		else
+			EDITS[4] = 0;
+		
+		// Level 5
+		if (LZ[5] == 0)
+			EDITS[5] = EDITS[4] +1;
+		else if (LZ[5] == 1)
+			EDITS[5] = EDITS[3] +1;
+		else if (LZ[5] == 2)
+			EDITS[5] = EDITS[2] +1;
+		else if (LZ[5] == 3)
+			EDITS[5] = EDITS[1] +1;
+		else if (LZ[5] == 4)
+			EDITS[5] = EDITS[0] +1;
+		else if (LZ[5] == 5)
+			EDITS[5] = 1;
+		else
+			EDITS[5] = 0;
+		
+		// Level 6
+		if (LZ[6] == 0)
+			EDITS[6] = EDITS[5] +1;
+		else if (LZ[6] == 1)
+			EDITS[6] = EDITS[4] +1;
+		else if (LZ[6] == 2)
+			EDITS[6] = EDITS[3] +1;
+		else if (LZ[6] == 3)
+			EDITS[6] = EDITS[2] +1;
+		else if (LZ[6] == 4)
+			EDITS[6] = EDITS[1] +1;
+		else if (LZ[6] == 5)
+			EDITS[6] = EDITS[0] +1;
+		else if (LZ[6] == 6)
+			EDITS[6] = 1;
+		else
+			EDITS[6] = 0;
+		
+		// Level 7
+		if (LZ[7] == 0)
+			EDITS[7] = EDITS[6] +1;
+		else if (LZ[7] == 1)
+			EDITS[7] = EDITS[5] +1;
+		else if (LZ[7] == 2)
+			EDITS[7] = EDITS[4] +1;
+		else if (LZ[7] == 3)
+			EDITS[7] = EDITS[3] +1;
+		else if (LZ[7] == 4)
+			EDITS[7] = EDITS[2] +1;
+		else if (LZ[7] == 5)
+			EDITS[7] = EDITS[1] +1;
+		else if (LZ[7] == 6)
+			EDITS[7] = EDITS[0] +1;
+		else if (LZ[7] == 7)
+			EDITS[7] = 1;
+		else
+			EDITS[7] = 0;
+		
+		
+		EE = EE + EDITS[7];
+	}
 	}
 
 	return EE;
@@ -574,3 +6436,4 @@ r->w9 = (dst_288<<0)|(dst_289<<1)|(dst_290<<2)|(dst_291<<3)|(dst_292<<4)|(dst_29
 r->w8 = (dst_256<<0)|(dst_257<<1)|(dst_258<<2)|(dst_259<<3)|(dst_260<<4)|(dst_261<<5)|(dst_262<<6)|(dst_263<<7)|(dst_264<<8)|(dst_265<<9)|(dst_266<<10)|(dst_267<<11)|(dst_268<<12)|(dst_269<<13)|(dst_270<<14)|(dst_271<<15)|(dst_272<<16)|(dst_273<<17)|(dst_274<<18)|(dst_275<<19)|(dst_276<<20)|(dst_277<<21)|(dst_278<<22)|(dst_279<<23)|(dst_280<<24)|(dst_281<<25)|(dst_282<<26)|(dst_283<<27)|(dst_284<<28)|(dst_285<<29)|(dst_286<<30)|(dst_287<<31);
 
 }
+
