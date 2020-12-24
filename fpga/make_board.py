@@ -34,10 +34,14 @@ def designConstant(aocx):
     part = aocx.split('_')
     return part[0].upper()
 
-def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1, entry_type=0, extra_flags='', blocking=False):
+def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1, entry_type=0, extra_flags='', blocking=False, ignoretargets=[]):
     global gCompiling
     global gCompiled
     global gStarted
+
+    if (aocx in ignoretargets):
+        print(aocx, 'in ignore list')
+        return
 
     if (isCompiling(aocx, cl)):
         print('Already compiling ' + aocx)
@@ -82,23 +86,18 @@ def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1, entry_type=0, 
 
 
 
-def makeVariants(BOARD, AOCL_FLAGS, ths= [[3,5,7],[3,7,10]], lens = [100,150], entry_types = [0,1], blocking=False):
-	
+def makeVariants(BOARD, AOCL_FLAGS, ths= [[3,5,7],[3,7,10]], lens = [100,150], entry_types = [0,1], blocking=False, ignoretargets=[]):
+   for i in range(len(lens)):
+      plen = lens[i]
+      et = entry_types[i]
 
-	for i in range(len(lens)):
-		plen = lens[i]
-		et = entry_types[i]
+      for th in ths[i]:
+         for dsg in ['shd','shouji','sneaky']:
+            makeAocx(aocx='{}_e{}_{}_{}_{}.aocx'.format(dsg, et,th, plen, plen), cl='../{}.cl'.format(dsg), threshold=th, pattern_len=plen, text_len=plen, extra_flags=AOCL_FLAGS, entry_type=et, blocking=blocking, ignoretargets=ignoretargets)
 
-		for th in ths[i]:
-			makeAocx(aocx='shd_e{}_{}_{}_{}.aocx'.format(et,th, plen, plen), cl='../shd.cl', threshold=th, pattern_len=plen, text_len=plen, extra_flags=AOCL_FLAGS, entry_type=et, blocking=blocking)
-			makeAocx(aocx='shouji_e{}_{}_{}_{}.aocx'.format(et,th, plen, plen), cl='../shouji.cl', threshold=th, pattern_len=plen, text_len=plen, extra_flags=AOCL_FLAGS, entry_type=et, blocking=blocking)
-			makeAocx(aocx='sneaky_e{}_{}_{}_{}.aocx'.format(et,th, plen, plen), cl='../sneaky.cl', threshold=th, pattern_len=plen, text_len=plen, extra_flags=AOCL_FLAGS, entry_type=et, blocking=blocking)
+      makeAocx(aocx='kmers_e{}_{}_{}.aocx'.format(et,plen,plen), cl='../kmers.cl', threshold=-1, pattern_len=plen, text_len=plen, extra_flags=AOCL_FLAGS, entry_type=et, blocking=blocking, ignoretargets=ignoretargets) 
+      makeAocx(aocx='kmers_e{}_var.aocx'.format(et), cl='../kmers.cl', extra_flags=AOCL_FLAGS, entry_type=et, blocking=blocking, ignoretargets=ignoretargets)
 
-
-		makeAocx(aocx='kmers_e{}_{}_{}.aocx'.format(et,plen,plen), cl='../kmers.cl', threshold=-1, pattern_len=plen, text_len=plen, extra_flags=AOCL_FLAGS, entry_type=et, blocking=blocking)
-		makeAocx(aocx='kmers_e{}_var.aocx'.format(et), cl='../kmers.cl', extra_flags=AOCL_FLAGS, entry_type=et, blocking=blocking)
-    
-
-	print('SUMMARY: Compiled:' , gCompiled, 'Compiling:', gCompiling, 'Started', gStarted);
+   print('SUMMARY: Compiled:' , gCompiled, 'Compiling:', gCompiling, 'Started', gStarted);
 
 
