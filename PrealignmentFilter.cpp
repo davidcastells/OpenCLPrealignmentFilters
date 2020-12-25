@@ -401,8 +401,9 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int patte
     SAMPLE_CHECK_ERRORS(ret);
 
     lap.stop();
+    double transferTime = lap.lap();
     if (m_reportTime)
-        printf("Argument Setting= %f seconds\n", lap.lap());
+        printf("Argument Setting= %f seconds\n", transferTime);
     
     lap.start();
     
@@ -418,8 +419,9 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int patte
     
     lap.stop();
     
+    double kernelTime = lap.lap();
     if (m_reportTime)
-        printf("Kernel time= %f seconds\n", lap.lap());
+        printf("Kernel time= %f seconds\n", kernelTime);
     
     lap.start();
     
@@ -434,10 +436,13 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int patte
     SAMPLE_CHECK_ERRORS(ret);
 
     lap.stop();
-    
+   
+    transferTime += lap.lap();
     if (m_reportTime)
         printf("Result fetch= %f seconds\n", lap.lap());
 
+    double Mpairs = tasks / 1E6;
+    printf("Throughput. Kernel: %0.2f +Trans: %0.2f\n", (Mpairs/kernelTime), (Mpairs/(kernelTime+transferTime)));
 }
 
 
