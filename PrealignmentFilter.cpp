@@ -200,11 +200,64 @@ void PrealignmentFilter::encodeEntry1( unsigned char* pPattern, unsigned int off
 	}
 }
 
+
 void PrealignmentFilter::encodeEntry2( unsigned char* pPattern, unsigned int offset, string pattern, string text )
 {
-	printf("encodeEntry2 not implemented");
-	exit(0);
+	int pl = pattern.size();
+	int tl = text.size();
+
+	int pBytes = (pl+3)/4;
+	int tBytes = (tl+3)/4;
+	
+	int bytesPerWord = (512/8);
+	int pWords = ((pBytes + 1) + (bytesPerWord-1)) / bytesPerWord;
+	int tWords = ((tBytes + 1) + (bytesPerWord-1)) / bytesPerWord;
+
+
+	if (m_verbose)
+	{
+		printf("PL: %d TL: %d\n", pl, tl);
+	}
+
+	pPattern[offset + 0] = pl;
+
+
+	int baseByteIdx;
+	int baseBitIdx;
+
+	for (int i=0; i < pl; i++)
+	{
+		int bc = dna_encode_valid(pattern[i]);
+		baseByteIdx = i / 4;
+		baseBitIdx = (3 - i%4) * 2;
+		
+		unsigned char vset = bc << baseBitIdx;
+		unsigned char mask = 3 << baseBitIdx;
+		unsigned char nmask = ~mask;
+	
+		pPattern[offset + 1 + baseByteIdx] = (pPattern[offset + 1 + baseByteIdx] & nmask) | vset; 
+	}
+
+	offset += pWords * bytesPerWord;
+
+	pPattern[offset + 0] = tl;
+
+	for (int i=0; i < tl; i++)
+	{
+		int bc = dna_encode_valid(text[i]);
+		baseByteIdx = i / 4;
+		baseBitIdx = (3 - i%4) * 2;
+		
+		unsigned char vset = bc << baseBitIdx;
+		unsigned char mask = 3 << baseBitIdx;
+		unsigned char nmask = ~mask;
+	
+		pPattern[offset + 1 + baseByteIdx] = (pPattern[offset + 1 + baseByteIdx] & nmask) | vset; 
+	}
 }
+
+
+
 
 void PrealignmentFilter::encodeEntry3( unsigned char* pPattern, unsigned int offset, string pattern, string text )
 {
@@ -217,7 +270,7 @@ void PrealignmentFilter::setVerbose(bool verbose)
 	m_verbose = verbose;
 }
 
-int PrealignmentFilter::determineEncodingType()
+int PrealignmentFilter::determineEncodingType(size_t* requiredMemory)
 {
 	// @todo we do not support multiple different encoding types in the same set
 	int pl = m_basesPattern[0].size();
@@ -225,13 +278,25 @@ int PrealignmentFilter::determineEncodingType()
 
 	int pBytes = (pl+3)/4;
 	int tBytes = (tl+3)/4;
+	
+	int bytesPerWord = (512/8);
 
-	if ((pBytes + tBytes + 2) <= (512 / 8)) 
+
+	if ((pBytes + tBytes + 2) <= bytesPerWord) 
 		// both pattern and text in the same 512 bits word
+		*requiredMemory =  (512/8);
 		return 0;
-	if (((pBytes + 1) < (512/8)) && ((tBytes + 1) < (512/8)))
+	if (((pBytes + 1) < bytesPerWord) && ((tBytes + 1) < bytesPerWord))
 		// pattern in a 512 bits word, and text in the following 512 bits word
+		*requiredMemory =  2 * bytesPerWord;
 		return 1;
+
+	int pWords = ((pBytes + 1) + (bytesPerWord-1)) / bytesPerWord;
+	int tWords = ((tBytes + 1) + (bytesPerWord-1)) / bytesPerWord;
+
+	*requiredMemory =  (pWords + tWords) * bytesPerWord;
+
+	return 2;
 	
 	// Unsupported encoding
 	printf("Unsupported Encoding ! Lengths %d+%d = BYTES %d\n", pl, tl, (pBytes+tBytes+2));
@@ -245,16 +310,12 @@ void PrealignmentFilter::computeAll(int realErrors)
     //size_t requiredPatternMemory = countRequiredMemory(m_basesPatternLength);    
     //size_t requiredTextMemory = countRequiredMemory(m_basesTextLength);
 
-    int encodingType = determineEncodingType();
-    
     size_t requiredEntryMemory;
+    int encodingType = determineEncodingType(&requiredEntryMemory);
+    
+    size_t requiredMemory = requiredEntryMemory * m_basesPatternLength.size();
 
-    if (encodingType == 0)
-	requiredEntryMemory = m_basesPatternLength.size() * (512/8);
-    else if (encodingType == 1)
-	requiredEntryMemory = m_basesPatternLength.size() * 2 * (512/8);
-
-    unsigned char* pattern = (unsigned char*) alignedMalloc(requiredEntryMemory);
+    unsigned char* pattern = (unsigned char*) alignedMalloc(requiredMemory);
     unsigned int* workload = (unsigned int*) alignedMalloc(m_basesTextLength.size() * sizeof(unsigned int) * WORKLOAD_TASK_SIZE);
     
     // now fill
@@ -282,14 +343,18 @@ void PrealignmentFilter::computeAll(int realErrors)
 	if (encodingType == 0)
 	{
 		// Type 0 format
-		encodeEntry0(pattern, i*(512/8), m_basesPattern[i],  m_basesText[i]);
+		encodeEntry0(pattern, i*requiredEntryMemory, m_basesPattern[i],  m_basesText[i]);
 	}
 	else if (encodingType == 1)
 	{
 		// Type 1 format
-		encodeEntry1(pattern, i*(1024/8), m_basesPattern[i], m_basesText[i]);
+		encodeEntry1(pattern, i*requiredEntryMemory, m_basesPattern[i], m_basesText[i]);
 	}
-	
+	else if (encodingType == 2)
+	{
+		// Type 2 format
+		encodeEntry2(pattern, i*requiredEntryMemory, m_basesPattern[i], m_basesText[i]);
+	}
  
     }
     lap.stop();
