@@ -34,6 +34,20 @@ def designConstant(aocx):
     part = aocx.split('_')
     return part[0].upper()
 
+def system(cmd):
+    print(cmd)
+    os.system(cmd)
+
+def metaprogram(dsg, level='', flags=''):
+    cl = '{}.cl'.format(dsg)
+    cl_generator = '/tmp/{}.cl.generator'.format(dsg)
+    cl_generator_cpp = cl_generator +'.cpp'
+    meta = '{}{}.cl.metaprogram'.format(dsg, level)
+
+    system('../metagenerator ../{} > {}'.format(meta, cl_generator_cpp))
+    system('g++ {} {} -o {}'.format(cl_generator_cpp, flags, cl_generator))
+    system('{} > ../{}'.format(cl_generator, cl))
+
 def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1, entry_type=0, extra_flags='', blocking=False, ignoretargets=[]):
     global gCompiling
     global gCompiled
@@ -86,7 +100,7 @@ def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1, entry_type=0, 
 
 
 
-def makeVariants(BOARD, AOCL_FLAGS, ths= [[3,5,7],[3,7,10]], lens = [100,150], entry_types = [0,1], blocking=False, ignoretargets=[]):
+def makeVariants(BOARD, AOCL_FLAGS, ths= [[3,5,7],[3,7,10],[5,10,15]], lens = [100,150,300], entry_types = [0,1,2], blocking=False, ignoretargets=[]):
    for i in range(len(lens)):
       plen = lens[i]
       et = entry_types[i]
