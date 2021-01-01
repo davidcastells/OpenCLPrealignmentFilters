@@ -294,11 +294,11 @@ unsigned int computeTaskEntryType2(__global unsigned char* restrict pairs, unsig
 	readPairs(pairs, pi, AP_UINT_PTR(pairs_word_p), AP_UINT_PTR(pairs_word_t));
 
 #ifdef PATTERN_LEN
-	unsigned char pl = PATTERN_LEN;
-	unsigned char tl = TEXT_LEN;
+	unsigned int pl = PATTERN_LEN;
+	unsigned int tl = TEXT_LEN;
 #else
-	unsigned char pl = ap_uint_1024_getHighByte(pairs_word_p, 0);
-	unsigned char tl = ap_uint_1024_getHighByte(pairs_word_t, 0);
+	unsigned int pl = ap_uint_1024_getHighByte(pairs_word_p, 0);
+	unsigned int tl = ap_uint_1024_getHighByte(pairs_word_t, 0);
 #endif
 
 #ifdef FPGA_DEBUG
