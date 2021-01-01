@@ -281,21 +281,28 @@ int PrealignmentFilter::determineEncodingType(size_t* requiredMemory)
 	
 	int bytesPerWord = (512/8);
 
+	printf("pBytes=%d tBytes=%d\n", pBytes, tBytes);
 
 	if ((pBytes + tBytes + 2) <= bytesPerWord) 
+	{
 		// both pattern and text in the same 512 bits word
+		printf("Entry Type 0\n");
 		*requiredMemory =  (512/8);
 		return 0;
+	}
 	if (((pBytes + 1) < bytesPerWord) && ((tBytes + 1) < bytesPerWord))
+	{
 		// pattern in a 512 bits word, and text in the following 512 bits word
+		printf("Entry Type 1\n");
 		*requiredMemory =  2 * bytesPerWord;
 		return 1;
-
+	}
 	int pWords = ((pBytes + 1) + (bytesPerWord-1)) / bytesPerWord;
 	int tWords = ((tBytes + 1) + (bytesPerWord-1)) / bytesPerWord;
 
 	*requiredMemory =  (pWords + tWords) * bytesPerWord;
 
+	printf("Entry Type 2\n");
 	return 2;
 	
 	// Unsupported encoding
@@ -362,7 +369,7 @@ void PrealignmentFilter::computeAll(int realErrors)
 
 //    printf("Invoke kernel\n");
 
-    invokeKernel(pattern, requiredEntryMemory, workload, m_basesPatternLength.size());
+    invokeKernel(pattern, requiredMemory, workload, m_basesPatternLength.size());
     
 	int FP = 0;
 	int FN = 0;
@@ -436,13 +443,13 @@ void PrealignmentFilter::setReportTime(bool reportTime)
    m_reportTime = reportTime;
 }
 
-void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int patternSize, unsigned int* workload, unsigned int tasks)
+void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int totalPairsSize, unsigned int* workload, unsigned int tasks)
 {
     cl_int ret;
     
     PerformanceLap lap;
     
-    m_memPattern = clCreateBuffer(m_context, CL_MEM_READ_WRITE, patternSize, NULL, &ret);
+    m_memPattern = clCreateBuffer(m_context, CL_MEM_READ_WRITE, totalPairsSize, NULL, &ret);
     SAMPLE_CHECK_ERRORS(ret);
 
     m_memWorkload = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), NULL, &ret);
@@ -450,7 +457,7 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int patte
 
     lap.start();
 
-    ret = clEnqueueWriteBuffer(m_queue, m_memPattern, CL_TRUE, 0, patternSize, pattern, 0, NULL, NULL);
+    ret = clEnqueueWriteBuffer(m_queue, m_memPattern, CL_TRUE, 0, totalPairsSize, pattern, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
     ret = clEnqueueWriteBuffer(m_queue, m_memWorkload, CL_TRUE, 0, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), workload, 0, NULL, NULL);
