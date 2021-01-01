@@ -5,14 +5,23 @@ import report_board as rb
 
 
 if __name__ == "__main__":
+    doTable = False
 
-	design = ['shd', 'shouji', 'sneaky', 'kmers']
-	for i, arg in enumerate(sys.argv):
-		if (arg.startswith('design=all')):
-			design = ['shd', 'shouji', 'sneaky', 'kmers']
-		elif (arg.startswith('design=')):
-			part = arg.split('=')
-			design = part[1].split(',')
+    design = ['shd', 'shouji', 'sneaky', 'kmers']
+    for i, arg in enumerate(sys.argv):
+        if (arg.startswith('design=all')):
+            design = ['shd', 'shouji', 'sneaky', 'kmers']
+        elif (arg.startswith('design=')):
+            part = arg.split('=')
+            design = part[1].split(',')
 
-	
-	rb.reportDesigns('DE5NET',design)
+        if (arg.startswith('table')):
+            doTable = True;
+
+    if (doTable):
+        rb.reportTable('DE5NET')
+    else:
+        rb.reportDesigns('DE5NET',design)
+
+
+
