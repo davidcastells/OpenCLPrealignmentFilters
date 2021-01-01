@@ -9,11 +9,11 @@ def systemOutput(cmd):
 
 def getInfo():
     info = {
-		'DE5NET': {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'resources-file':'top.flow.rpt', 'start':68, 'len':30},
-		'OSK' :   {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'resources-file':'top.flow.rpt', 'start':63, 'len':25},
-		'HARP' :   {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'resources-file':'top.flow.rpt', 'start':63, 'len':25},
-		'PAC10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'resources-file':'acl_quartus_report.txt', 'start':7, 'len':7},
-		'PACS10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22},
+		'DE5NET': {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2, 'resources-file':'top.flow.rpt', 'start':68, 'len':30},
+		'OSK' :   {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2,'resources-file':'top.flow.rpt', 'start':63, 'len':25},
+		'HARP' :   {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2,'resources-file':'top.flow.rpt', 'start':63, 'len':25},
+		'PAC10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':','fmax-pos':1,'resources-file':'acl_quartus_report.txt', 'start':7, 'len':7},
+		'PACS10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22},
     }
     return info
 
@@ -30,15 +30,18 @@ def getDesignDir(dsg, et, th, pl):
 
 def getDesignFmax(board, dsg, et, th, pl):
     info = getInfo()
+    sfmaxsep = info[board]['fmax-sep']
+    fmaxpos = info[board]['fmax-pos']
     sfmaxfile = info[board]['fmax-file']
     query = info[board]['fmax']
+
     sdir = getDesignDir(dsg, et, th, pl)
     sfile = '{}/{}'.format(sdir, sfmaxfile)
     if (os.path.exists(sfile) == False):
         return '?'
     cmd = 'grep {} {}'.format(query, sfile)
     sout = systemOutput(cmd)
-    return int(float(sout[0].split(':')[1].strip()))
+    return int(float(sout[0].split(sfmaxsep)[fmaxpos].strip()))
 
 def getDesignResources(board, dsg, et, th, pl):
     info = getInfo()
