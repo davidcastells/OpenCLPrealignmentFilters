@@ -157,8 +157,28 @@ def makeMetaVariants(BOARD, AOCL_FLAGS, blocking=False):
    makeAocx(aocx='shd_e2_10_300_300.aocx', cl='shd_e2_10_300_300.cl', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
    makeAocx(aocx='shd_e2_15_300_300.aocx', cl='shd_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
 
+
+   print('COMPILING SHOUJI for {}:'.format(BOARD));
+
    dsg = 'shouji'
    meta = '../shouji.cl.metaprogram'
+
+   metaprogram(dsg, meta=meta, cl='shouji_e0_3_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHOUJI_THRESHOLD=3')
+   metaprogram(dsg, meta=meta, cl='shouji_e0_5_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHOUJI_THRESHOLD=5')
+   metaprogram(dsg, meta=meta, cl='shouji_e0_7_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHOUJI_THRESHOLD=7')
+
+   makeAocx(aocx='shouji_e0_3_100_100.aocx', cl='shouji_e0_3_100_100.cl', threshold=3, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='shouji_e0_5_100_100.aocx', cl='shouji_e0_5_100_100.cl', threshold=5, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='shouji_e0_7_100_100.aocx', cl='shouji_e0_7_100_100.cl', threshold=7, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+
+   metaprogram(dsg, meta=meta, cl='shouji_e1_3_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHOUJI_THRESHOLD=3')
+   metaprogram(dsg, meta=meta, cl='shouji_e1_7_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHOUJI_THRESHOLD=7')
+   metaprogram(dsg, meta=meta, cl='shouji_e1_10_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHOUJI_THRESHOLD=10')
+
+   makeAocx(aocx='shouji_e1_3_150_150.aocx', cl='shouji_e1_3_150_150.cl', threshold=3, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='shouji_e1_7_150_150.aocx', cl='shouji_e1_7_150_150.cl', threshold=7, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='shouji_e1_10_150_150.aocx', cl='shouji_e1_10_150_150.cl', threshold=10, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+
    metaprogram(dsg, meta=meta, cl='shouji_e2_5_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHOUJI_THRESHOLD=5')
    metaprogram(dsg, meta=meta, cl='shouji_e2_10_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHOUJI_THRESHOLD=10')
    metaprogram(dsg, meta=meta, cl='shouji_e2_15_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHOUJI_THRESHOLD=15')
