@@ -15,17 +15,22 @@
 
 #ifdef ENTRY_TYPE_0
 unsigned int computeTaskEntryType0(__global unsigned char* restrict pairs, unsigned int pi);
+unsigned int computeDistance(ap_uint_512 pattern, int plen, ap_uint_512 text,  int tlen);
+void printSequence(ap_uint_512 w, int len);
 #endif
+
 #ifdef ENTRY_TYPE_1
 unsigned int computeTaskEntryType1(__global unsigned char* restrict pairs, unsigned int pi);
+unsigned int computeDistance(ap_uint_512 pattern, int plen, ap_uint_512 text,  int tlen);
+void printSequence(ap_uint_512 w, int len);
 #endif
 
 #ifdef ENTRY_TYPE_2
 unsigned int computeTaskEntryType2(__global unsigned char* restrict pairs, unsigned int pi);
+unsigned int computeDistance(ap_uint_1024 pattern, int plen, ap_uint_1024 text,  int tlen);
+void printSequence1024(ap_uint_1024 w, int len);
 #endif
 
-unsigned int computeDistance(ap_uint_512 pattern, int plen, ap_uint_512 text,  int tlen);
-void printSequence(ap_uint_512 w, int len);
 
 
 
@@ -108,7 +113,29 @@ void readBigEndian512bits(__global unsigned char* restrict p, ap_uint_512p ret)
 }
 
 
+
+void readBigEndian1024bits(__global unsigned char* restrict p, ap_uint_1024p ret)
+{
+    ap_uint_1024_zero(ret);
     
+    #pragma unroll
+    for (int i=0; i < 1024/8; i++)
+    {
+        // ret |= p[i] << (i * 8);
+        // ap_uint_512_shift_left_self(8, ret);
+        ap_uint_1024_orHighByteConcurrent(ret, i, p[i]);
+
+	// printf("[%d] = 0x%02X\n", i, p[i]);
+    }   
+
+#ifdef FPGA_DEBUG
+    printf("Long Word: ");
+    ap_uint__print(AP_UINT_FROM_PTR(ret));
+    printf("\n");
+#endif
+}
+
+
 
 
 
@@ -285,10 +312,10 @@ unsigned int computeTaskEntryType2(__global unsigned char* restrict pairs, unsig
 
 #ifdef FPGA_DEBUG
 	printf("T:   ");
-	printSequence(text_word, tl);
+	printSequence1024(text_word, tl);
 	printf("\n");
 	printf("P:   ");        
-	printSequence(pattern_word, pl);
+	printSequence1024(pattern_word, pl);
 	printf("\n");
 #endif
 
@@ -321,6 +348,26 @@ void printSequence(ap_uint_512 w, int len)
 	{
 	   int last = 512 - 1 - (i * BASE_SIZE);
 	   unsigned char isym = ap_uint_512_get_bit(w, last - 0 ) << 1 | ap_uint_512_get_bit(w, last -1);  
+           printf("%c", sym[isym]);	   
+	}
+
+}
+
+/**
+* we assume the sequence is left aligned to the 512 bits word, and stored in Most Significant Bit First order
+* @param w
+* @param offset
+* @param len	length in bases
+*/
+void printSequence1024(ap_uint_1024 w, int len)
+{
+	char sym[]={'A','C','G', 'T'};
+	
+	
+	for (int i=0; i < len; i++)
+	{
+	   int last = 1024 - 1 - (i * BASE_SIZE);
+	   unsigned char isym = ap_uint_1024_get_bit(w, last - 0 ) << 1 | ap_uint_1024_get_bit(w, last -1);  
            printf("%c", sym[isym]);	   
 	}
 
