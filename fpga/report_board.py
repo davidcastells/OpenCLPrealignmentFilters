@@ -42,7 +42,7 @@ def getDesignFmax(board, dsg, et, th, pl):
     cmd = 'grep {} {}'.format(query, sfile)
     sout = systemOutput(cmd)
     sout = sout[0]
-    if (query in sout):
+    if ('fmax' in sout):
         return int(float(sout.split(sfmaxsep)[fmaxpos].strip()))
     else:
         return '?'
