@@ -41,7 +41,11 @@ def getDesignFmax(board, dsg, et, th, pl):
         return '?'
     cmd = 'grep {} {}'.format(query, sfile)
     sout = systemOutput(cmd)
-    return int(float(sout[0].split(sfmaxsep)[fmaxpos].strip()))
+    sout = sout[0]
+    if (query in sout):
+        return int(float(sout.split(sfmaxsep)[fmaxpos].strip()))
+    else:
+        return '?'
 
 def getDesignResources(board, dsg, et, th, pl):
     info = getInfo()
