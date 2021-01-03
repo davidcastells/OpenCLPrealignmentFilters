@@ -34,6 +34,8 @@ void inline_ap_uint_1024_get_bit_or_one(const char* x, int bit)
 		inline_ap_uint_512_get_bit(x, bit);
 }
 
+int plen = PATTERN_LEN;
+
 %>
 
 #include "../adapter.cl"
@@ -199,8 +201,8 @@ unsigned int shouji(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tle
 
 
 	<%
-	//for (int k=0; k < plen - SHOUJI_WINDOW_SIZE ; k++)
-	for (int k=0; k < 1024/2 ; k++)
+	for (int k=0; k < plen - SHOUJI_WINDOW_SIZE ; k++)
+	//for (int k=0; k < 1024/2 ; k++)
 	{
 	%>
 	{
@@ -252,8 +254,7 @@ unsigned int shouji(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tle
 		}
 		<%}%>
 
-		if (<%printf("%d",k);%> < plen)
-			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), <%printf("%d",k);%>, cb);
+		ap_uint_1024_or_high_bit(AP_UINT_PTR(acum), <%printf("%d",k);%>, cb);
 	}<%}%>
 
 #ifdef FPGA_DEBUG
@@ -420,8 +421,8 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 
 
 	<%
-	//for (int k=0; k < plen - SHOUJI_WINDOW_SIZE ; k++)
-	for (int k=0; k < 512/2 ; k++)
+	for (int k=0; k < plen - SHOUJI_WINDOW_SIZE ; k++)
+	//for (int k=0; k < 512/2 ; k++)
 	{
 	%>
 	{
@@ -474,8 +475,7 @@ unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 		}
 		<%}%>
 
-		if (<%printf("%d",k);%> < plen)
-			ap_uint_512_or_high_bit(AP_UINT_PTR(acum), <%printf("%d",k);%>, cb);
+		ap_uint_512_or_high_bit(AP_UINT_PTR(acum), <%printf("%d",k);%>, cb);
 	}<%}%>
 
 #ifdef FPGA_DEBUG
