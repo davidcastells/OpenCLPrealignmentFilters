@@ -92,6 +92,7 @@ void 		ap_uint_512_shift_right(ap_uint_512 x, unsigned int shift, ap_uint_512p r
 void 		ap_uint_512_zero(ap_uint_512p v);
 
 int 		ap_uint_1024_get_bit(ap_uint_1024 x, int bit);
+void 		ap_uint_1024_or_bit(ap_uint_1024p v, int bit, int x);
 unsigned int 	ap_uint_1024_pop_count(ap_uint_1024 x);
 unsigned int 	ap_uint_1024_range_high_32(ap_uint_1024 p, unsigned int offset, unsigned int size);
 void 		ap_uint_1024_set_range_high_32(ap_uint_1024p p, unsigned int offset, unsigned int size, unsigned int value);
@@ -1154,6 +1155,11 @@ void ap_uint_1024_set_bit(ap_uint_1024p v, int bit, int x)
 void ap_uint_512_or_high_bit(ap_uint_512p v, int bit, int x)
 {	
 	ap_uint_512_or_bit(v, 512 - 1 - bit, x);
+}
+
+void ap_uint_1024_or_high_bit(ap_uint_1024p v, int bit, int x)
+{	
+	ap_uint_1024_or_bit(v, 1024 - 1 - bit, x);
 }
 
 void ap_uint_512_or_bit(ap_uint_512p v, int bit, int x)
