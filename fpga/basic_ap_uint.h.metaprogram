@@ -95,6 +95,7 @@ unsigned int 	ap_uint_1024_range_high_32(ap_uint_1024 p, unsigned int offset, un
 void 		ap_uint_1024_set_range_high_32(ap_uint_1024p p, unsigned int offset, unsigned int size, unsigned int value);
 void 		ap_uint_1024_setDword(ap_uint_1024p v, int wordidx, unsigned int value);
 
+
 #ifdef FPGA_EMULATION
 
 	#define assert(x) assert_function(x, __FILE__, __LINE__)
