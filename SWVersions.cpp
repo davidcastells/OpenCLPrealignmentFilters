@@ -12,7 +12,8 @@ extern int gFP;	// false positives (detected errors < theshold && real errors > 
 extern int gFN;	// false negatives (detected errors > threhold && real errors > threshold)
 
 
-string bitHamming(string& pattern, string& text)
+
+string bitXor(string& pattern, string& text)
 {
 	string ret;
 	
@@ -26,6 +27,12 @@ string bitHamming(string& pattern, string& text)
 	
 	return ret;
 }
+
+string bitHamming(string& pattern, string& text)
+{
+	return bitXor(pattern, text);
+}
+
 
 string bitNot(string& a)
 {
@@ -453,8 +460,11 @@ int Kmers_SW(string pattern, string text, int threshold)
 	string fp = kmerFingerprint(pattern, k);
 	string ft = kmerFingerprint(text, k);
 
+	// semi-global mode
 	string nft = bitNot(ft);
 	string anded = bitAnd(fp, nft);
+	// global mode
+	//string anded = bitXor(fp, ft);
 
 	int detectedErrors = popCount(anded);
 
