@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plotAlg(name):
+def plotAlg(name, errortype):
 	table_ins = df[df['Test']=='I'][df['Alg'] == name]
 	table_subs = df[df['Test']=='S'][df['Alg'] == name]
 
@@ -16,7 +16,12 @@ def plotAlg(name):
 	plt.gcf().subplots_adjust(bottom=0.15)
 
 	plt.xlabel('Input Errors', fontsize=14)
-	plt.ylabel('FP rate', fontsize=14)
+
+	if (errortype == 'fp'):
+		plt.ylabel('FP rate', fontsize=14)
+	else:
+		plt.ylabel('FN rate', fontsize=14)
+
 	plt.xlim((0, 40))
 	plt.ylim((0, 1))
 
@@ -31,7 +36,11 @@ def plotAlg(name):
 		fn = np.array(list(data['FN']))
 
 		x = e * 2
-		y = np.divide(fp, t)	
+		if (errortype == 'fp'):
+			y = np.divide(fp, t)	
+		else:
+			y = np.divide(fn, t)	
+
 		plt.plot(x,y, colors[thidx]+'-', label='th{}'.format(th))
 
 		data = table_subs[table_subs['th'] == th]
@@ -41,10 +50,13 @@ def plotAlg(name):
 		fn = np.array(list(data['FN']))
 
 		x = e
-		y = np.divide(fp, t)	
+		if (errortype == 'fp'):
+			y = np.divide(fp, t)	
+		else:
+			y = np.divide(fn, t)	
 		plt.plot(x,y, colors[thidx]+'--', label='th{}'.format(th))
 
-	plt.savefig('results_{}_{}.svg'.format(name, baselen))
+	plt.savefig('results_{}_{}_{}.svg'.format(name, baselen, errortype))
 	plt.clf()
 	#plt.show()
 
@@ -53,9 +65,15 @@ baselens = [100, 150, 300]
 for baselen in baselens: 
 	df = pd.read_csv('results_SW_{}.csv'.format(baselen));
 
-	plotAlg('shd')
-	plotAlg('shouji')
-	plotAlg('shoujialser')
-	plotAlg('sneaky')
-	plotAlg('kmers')
+	plotAlg('shd', 'fp')
+	plotAlg('shouji', 'fp')
+	plotAlg('shoujialser', 'fp')
+	plotAlg('sneaky', 'fp')
+	plotAlg('kmers', 'fp')
+
+	plotAlg('shd', 'fn')
+	plotAlg('shouji', 'fn')
+	plotAlg('shoujialser', 'fn')
+	plotAlg('sneaky', 'fn')
+	plotAlg('kmers', 'fn')
 
