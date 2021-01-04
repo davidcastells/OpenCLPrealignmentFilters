@@ -4,7 +4,7 @@ gCompiled = 0
 gCompiling = 0
 gStarted = 0
 
-gOnFlyMax = 4
+gOnFlyMax = 5
 
 def modified_date(path_to_file):
     stat = os.stat(path_to_file)
@@ -186,6 +186,19 @@ def makeMetaVariants(BOARD, AOCL_FLAGS, blocking=False):
    makeAocx(aocx='shouji_e2_5_300_300.aocx', cl='shouji_e2_5_300_300.cl', threshold=5, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
    makeAocx(aocx='shouji_e2_10_300_300.aocx', cl='shouji_e2_10_300_300.cl', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
    makeAocx(aocx='shouji_e2_15_300_300.aocx', cl='shouji_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+
+   print('COMPILING SNEAKY for {}:'.format(BOARD));
+
+   dsg = 'sneaky'
+   meta = '../sneaky_level_2.cl.metaprogram'
+
+   metaprogram(dsg, meta=meta, cl='sneaky_e2_5_300_300.cl', flags='-D ENTRY_TYPE_2 -D SNEAKY_THRESHOLD=5 -D PATTERN_LEN=300')
+   metaprogram(dsg, meta=meta, cl='sneaky_e2_10_300_300.cl', flags='-D ENTRY_TYPE_2 -D SNEAKY_THRESHOLD=10 -D PATTERN_LEN=300')
+   metaprogram(dsg, meta=meta, cl='sneaky_e2_15_300_300.cl', flags='-D ENTRY_TYPE_2 -D SNEAKY_THRESHOLD=15 -D PATTERN_LEN=300')
+
+   makeAocx(aocx='sneaky_e2_5_300_300.aocx', cl='sneaky_e2_5_300_300.cl', threshold=5, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeAocx(aocx='sneaky_e2_10_300_300.aocx', cl='sneaky_e2_10_300_300.cl', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeAocx(aocx='sneaky_e2_15_300_300.aocx', cl='sneaky_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
 
    print('SUMMARY: Compiled:' , gCompiled, 'Compiling:', gCompiling, 'Started', gStarted);
 
