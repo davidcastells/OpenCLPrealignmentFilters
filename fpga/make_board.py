@@ -4,7 +4,7 @@ gCompiled = 0
 gCompiling = 0
 gStarted = 0
 
-gOnFlyMax = 5
+gOnFlyMax = 10
 
 def modified_date(path_to_file):
     stat = os.stat(path_to_file)
@@ -200,5 +200,14 @@ def makeMetaVariants(BOARD, AOCL_FLAGS, blocking=False):
    makeAocx(aocx='sneaky_e2_10_300_300.aocx', cl='sneaky_e2_10_300_300.cl', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
    makeAocx(aocx='sneaky_e2_15_300_300.aocx', cl='sneaky_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
 
+   print('COMPILING KMERS for {}:'.format(BOARD));
+
+   dsg = 'kmers'
+   meta = '../kmers_entry2.cl.metaprogram'
+
+   metaprogram(dsg, meta=meta, cl='kmers_e2_300_300.cl', flags='-D ENTRY_TYPE_2 -D PATTERN_LEN=300')
+   
+   makeAocx(aocx='kmers_e2_300_300.aocx', cl='kmers_e2_300_300.cl', threshold=-1, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   
    print('SUMMARY: Compiled:' , gCompiled, 'Compiling:', gCompiling, 'Started', gStarted);
 
