@@ -11,7 +11,7 @@ def getInfo():
     info = {
 		'DE5NET': {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2, 'resources-file':'top.flow.rpt', 'start':68, 'len':30},
 		'OSK' :   {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2,'resources-file':'top.flow.rpt', 'start':63, 'len':25},
-		'HARP' :   {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2,'resources-file':'top.flow.rpt', 'start':63, 'len':25},
+		'HARP' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'top.flow.rpt', 'start':63, 'len':25},
 		'PAC10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':','fmax-pos':1,'resources-file':'acl_quartus_report.txt', 'start':7, 'len':7},
 		'PACS10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22},
     }
@@ -153,6 +153,15 @@ def reportTable(board):
                 slink = ''
         print('')
 
+    for dsg in ['kmers']:
+        slink = '|{: <10}|'.format(dsg)
+        for etidx, et in enumerate(ets):
+            for th in ths[etidx]:
+                v = getDesignResources(board, dsg, et, -1, pls[etidx])
+                print('{}{: <5}|'.format(slink, v), end='')
+                slink = ''
+        print('')
+
     print('')
     print('Fmax TABLE')
     print('-------------------------------------------------------------------')
@@ -170,4 +179,12 @@ def reportTable(board):
                 slink = ''
         print('')
 
+    for dsg in ['kmers']:
+        slink = '|{: <10}|'.format(dsg)
+        for etidx, et in enumerate(ets):
+            for th in ths[etidx]:
+                v = getDesignFmax(board, dsg, et, -1, pls[etidx])
+                print('{}{: <5}|'.format(slink, v), end='')
+                slink = ''
+        print('')
 
