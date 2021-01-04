@@ -97,10 +97,6 @@ for (int i=0; i < (1024/BASE_SIZE)/32; i++)
 %>
 }
 
-void ap_uint_1024_set_range_high_32(ap_uint_1024p p, unsigned int offset, unsigned int size, unsigned int value);
-unsigned int ap_uint_1024_range_high_32(ap_uint_1024 p, unsigned int start, unsigned int size);
-
-
 unsigned int shouji(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tlen)
 {
 	ap_uint_1024 acum;
@@ -318,8 +314,6 @@ for (int i=0; i < (512/BASE_SIZE)/32; i++)
 %>
 }
 
-void ap_uint_512_set_range_high_32(ap_uint_512p p, unsigned int offset, unsigned int size, unsigned int value);
-unsigned int ap_uint_512_range_high_32(ap_uint_512 p, unsigned int start, unsigned int size);
 
 unsigned int shouji(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 {
