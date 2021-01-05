@@ -192,6 +192,15 @@ def makeMetaVariants(BOARD, AOCL_FLAGS, blocking=False):
    dsg = 'sneaky'
    meta = '../sneaky_level_2.cl.metaprogram'
 
+   metaprogram(dsg, meta=meta, cl='sneaky_e0_3_100_100.cl', flags='-D ENTRY_TYPE_0 -D SNEAKY_THRESHOLD=3 -D PATTERN_LEN=100')
+   metaprogram(dsg, meta=meta, cl='sneaky_e0_5_100_100.cl', flags='-D ENTRY_TYPE_0 -D SNEAKY_THRESHOLD=5 -D PATTERN_LEN=100')
+   metaprogram(dsg, meta=meta, cl='sneaky_e0_7_100_100.cl', flags='-D ENTRY_TYPE_0 -D SNEAKY_THRESHOLD=7 -D PATTERN_LEN=100')
+
+   makeAocx(aocx='sneaky_e0_3_100_100.aocx', cl='sneaky_e0_3_100_100.cl', threshold=3, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='sneaky_e0_5_100_100.aocx', cl='sneaky_e0_5_100_100.cl', threshold=5, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='sneaky_e0_7_100_100.aocx', cl='sneaky_e0_7_100_100.cl', threshold=7, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+
+
    metaprogram(dsg, meta=meta, cl='sneaky_e1_3_150_150.cl', flags='-D ENTRY_TYPE_1 -D SNEAKY_THRESHOLD=3 -D PATTERN_LEN=150')
    metaprogram(dsg, meta=meta, cl='sneaky_e1_7_150_150.cl', flags='-D ENTRY_TYPE_1 -D SNEAKY_THRESHOLD=7 -D PATTERN_LEN=150')
    metaprogram(dsg, meta=meta, cl='sneaky_e1_10_150_150.cl', flags='-D ENTRY_TYPE_1 -D SNEAKY_THRESHOLD=10 -D PATTERN_LEN=150')
