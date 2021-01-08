@@ -1,4 +1,4 @@
-#include "adapter.cl"
+#include "../adapter.cl"
 
 
 #define KMER_K	5
