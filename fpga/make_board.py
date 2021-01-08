@@ -226,7 +226,7 @@ def makeMetaVariants(BOARD, AOCL_FLAGS, blocking=False):
    metaprogram(dsg, meta=meta, cl='kmers_e0_100_100.cl', flags='-D ENTRY_TYPE_0 -D PATTERN_LEN=150')
    metaprogram(dsg, meta=meta, cl='kmers_e1_150_150.cl', flags='-D ENTRY_TYPE_1 -D PATTERN_LEN=150')
    
-   makeAocx(aocx='kmers_e0_100_100.aocx', cl='kmers_e0_100_100.cl', threshold=-1, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='kmers_e0_100_100.aocx', cl='kmers_e0_100_100.cl', threshold=-1, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
    makeAocx(aocx='kmers_e1_150_150.aocx', cl='kmers_e1_150_150.cl', threshold=-1, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
 
    dsg = 'kmers'
