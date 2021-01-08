@@ -4,6 +4,7 @@ FPGA_OCL_LFLAGS := $(shell aocl link-config)
 CC=g++
 LD_FLAGS=-lm -lrt $(FPGA_OCL_LFLAGS)
 CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2
+#CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2 -D USE_OPENCL_SVM
 
 
 all: filter-shd filter-kmers filter-shouji filter-sneaky filter-shoujialser
