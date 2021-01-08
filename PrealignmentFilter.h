@@ -67,6 +67,8 @@ private:
     void encodeEntry3( unsigned char* pPattern, unsigned int offset, string pattern, string text );
  
     int recheckErrors(string& pattern,string& text);
+    void*  allocMem(size_t size);
+    void freeMem(void* p);
 
 public:
     bool m_verbose;
