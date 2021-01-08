@@ -311,6 +311,24 @@ int PrealignmentFilter::determineEncodingType(size_t* requiredMemory)
 	
 }
 
+void* PrealignmentFilter::allocMem(size_t size)
+{
+#ifdef USE_OPENCL_SVM
+	return clSVMAllocAltera(m_context, 0 , size, 1024);
+#else
+	return alignedMalloc(size);
+#endif
+}
+
+void PrealignmentFilter::freeMem(void* p)
+{	
+#ifdef USE_OPENCL_SVM
+	clSVMFreeAltera(m_context, p);
+#else
+	alignedFree(p);
+#endif
+}
+
 void PrealignmentFilter::computeAll(int realErrors)
 {
     // allocate memory buffers
@@ -322,8 +340,8 @@ void PrealignmentFilter::computeAll(int realErrors)
     
     size_t requiredMemory = requiredEntryMemory * m_basesPatternLength.size();
 
-    unsigned char* pattern = (unsigned char*) alignedMalloc(requiredMemory);
-    unsigned int* workload = (unsigned int*) alignedMalloc(m_basesTextLength.size() * sizeof(unsigned int) * WORKLOAD_TASK_SIZE);
+    unsigned char* pattern = (unsigned char*) allocMem(requiredMemory);
+    unsigned int* workload = (unsigned int*) allocMem(m_basesTextLength.size() * sizeof(unsigned int) * WORKLOAD_TASK_SIZE);
     
     // now fill
     unsigned int poff = 0;  // pattern offset
@@ -427,7 +445,7 @@ void PrealignmentFilter::computeAll(int realErrors)
     printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%) Total: %d\n", FP, (FP*100.0/totalCorrect), FN, (FN*100.0/totalCorrect), totalCorrect);
 
     // free all
-    alignedFree(pattern);
+    freeMem(pattern);
     
 }
 
@@ -449,14 +467,28 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int total
     
     PerformanceLap lap;
     
+#ifndef USE_OPENCL_SVM
     m_memPattern = clCreateBuffer(m_context, CL_MEM_READ_WRITE, totalPairsSize, NULL, &ret);
     SAMPLE_CHECK_ERRORS(ret);
 
     m_memWorkload = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), NULL, &ret);
     SAMPLE_CHECK_ERRORS(ret);
+#endif
 
     lap.start();
 
+#ifdef USE_OPENCL_SVM
+    ret = clSetKernelArgSVMPointerAltera(m_kmerKernel, 0, pattern);
+    SAMPLE_CHECK_ERRORS(ret);
+
+    ret = clSetKernelArgSVMPointerAltera(m_kmerKernel, 1, workload);
+    SAMPLE_CHECK_ERRORS(ret);
+
+    ret = clEnqueueSVMMap(m_queue, CL_TRUE, CL_MAP_READ | CL_MAP_WRITE, (void*) pattern, totalPairsSize, NULL, NULL );
+
+    ret = clEnqueueSVMMap(m_queue, CL_TRUE, CL_MAP_READ | CL_MAP_WRITE, (void*) workload, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), NULL, NULL );
+
+#else
     ret = clEnqueueWriteBuffer(m_queue, m_memPattern, CL_TRUE, 0, totalPairsSize, pattern, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
@@ -468,6 +500,7 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int total
     
     ret = clSetKernelArg(m_kmerKernel, 1, sizeof(cl_mem), (void *)&m_memWorkload);
     SAMPLE_CHECK_ERRORS(ret);
+#endif
 
     ret = clSetKernelArg(m_kmerKernel, 2, sizeof(cl_int), (void *)&tasks);
     SAMPLE_CHECK_ERRORS(ret);
@@ -486,9 +519,10 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int total
     ret = clEnqueueNDRangeKernel(m_queue, m_kmerKernel, 1, NULL, gSize, wgSize, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
+#ifndef USE_OPENCL_SVM
     ret = clFinish(m_queue);
     SAMPLE_CHECK_ERRORS(ret);
-    
+#endif    
     lap.stop();
     
     double kernelTime = lap.lap();
@@ -497,6 +531,14 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int total
     
     lap.start();
     
+#ifdef USE_OPENCL_SVM
+    ret = clEnqueueSVMUnmap(m_queue, (void*) pattern, 0, NULL, NULL );
+    SAMPLE_CHECK_ERRORS(ret);
+
+    ret = clEnqueueSVMUnmap(m_queue, (void*) workload, 0, NULL, NULL );
+    SAMPLE_CHECK_ERRORS(ret);
+
+#else
     ret = clEnqueueReadBuffer(m_queue, m_memWorkload, CL_TRUE, 0, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), workload, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
@@ -506,7 +548,7 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int total
     
     ret = clReleaseMemObject(m_memWorkload);
     SAMPLE_CHECK_ERRORS(ret);
-
+#endif
     lap.stop();
    
     transferTime += lap.lap();
