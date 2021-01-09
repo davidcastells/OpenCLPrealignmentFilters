@@ -55,9 +55,25 @@ int plen = PATTERN_LEN;
 
 
 %>
-void printBin32(unsigned int r, int size);
+
+#ifdef FPGA_DEBUG
 
 
+/**
+* Print a number of 32 bits in binary
+*/
+void printBin32(unsigned int r, int size)
+{
+	unsigned fbmask = 1 << (size-1);
+
+	for (int i=0; i < size; i++)
+	{
+		printf("%d", (r & fbmask)?1:0);
+		r = r << 1;
+	} 
+}
+
+#endif
 
 
 
@@ -82,19 +98,6 @@ unsigned int CLZ_32(unsigned int part, int size)
 	return c  -(32-size);	
 }
 
-/**
-* Print a number of 32 bits in binary
-*/
-void printBin32(unsigned int r, int size)
-{
-	unsigned fbmask = 1 << (size-1);
-
-	for (int i=0; i < size; i++)
-	{
-		printf("%d", (r & fbmask)?1:0);
-		r = r << 1;
-	} 
-}
 
 
 
@@ -102,13 +105,12 @@ unsigned int LeftOnes(unsigned int x)
 {
 	unsigned int r = 0;
 	
-	#pragma unroll
-	for (int i=0; i < 32; i++)
+	<%for (int i=0; i < 32; i++){%>
 	{
-		unsigned int b= ((x >> i) > 0) ? 1 : 0;
+		unsigned int b= ((x >> <%printf("%d",i);%>) > 0) ? 1 : 0;
 				
-		r |= ((b&1) << i);		// bits in LSB order
-	}
+		r |= ((b&1) << <%printf("%d",i);%>);		// bits in LSB order
+	}<%}%>
 	
 	return r;
 }
