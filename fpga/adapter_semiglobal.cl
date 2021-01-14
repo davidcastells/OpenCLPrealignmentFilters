@@ -202,7 +202,7 @@ unsigned int computeTaskEntryType0(__global unsigned char* restrict pairs,
 	for (int i=1; i < (tl - pl +1); i++)
 	{
 		ap_uint_512 shifted_text_word;
-		ap_uint_1024_shift_left(text_word, i*BASE_SIZE, AP_UINT_PTR(shifted_text_word));
+		ap_uint_512_shift_left(text_word, i*BASE_SIZE, AP_UINT_PTR(shifted_text_word));
 		
 		d = computeDistance(pattern_word,  pl, shifted_text_word,  pl);	// we just compare pattern
 		mind = (d < mind)? d: mind;
@@ -273,9 +273,21 @@ unsigned int computeTaskEntryType1(__global unsigned char* restrict pairs,
 	printf("\n");*/
 
 
-	d = computeDistance(pattern_word,  pl, text_word,  tl);	// we just compare pattern
+	int mind = pl;
+
+	mind = computeDistance(pattern_word,  pl, text_word,  pl);	// we just compare pattern
 	
-	return d;
+	#pragma unroll
+	for (int i=1; i < (tl - pl +1); i++)
+	{
+		ap_uint_512 shifted_text_word;
+		ap_uint_512_shift_left(text_word, i*BASE_SIZE, AP_UINT_PTR(shifted_text_word));
+		
+		d = computeDistance(pattern_word,  pl, shifted_text_word,  pl);	// we just compare pattern
+		mind = (d < mind)? d: mind;
+	}
+
+	return mind;
 }
 #endif
 
