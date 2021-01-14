@@ -238,3 +238,18 @@ def makeMetaVariants(BOARD, AOCL_FLAGS, blocking=False):
    
    print('SUMMARY: Compiled:' , gCompiled, 'Compiling:', gCompiling, 'Started', gStarted);
 
+
+
+
+def makeSemiglobalVariants(BOARD, AOCL_FLAGS, blocking=False):
+
+   print('COMPILING Semiglobal SHD for {}:'.format(BOARD));
+
+   dsg = 'shd'
+   meta = '../shd_semiglobal.cl.metaprogram'
+
+   metaprogram(dsg, meta=meta, cl='shd_e1_3_100_180.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3')
+   
+   makeAocx(aocx='shd_e1_3_100_180.aocx', cl='shd_e1_3_100_180.cl', threshold=3, pattern_len=100, text_len=180, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+
+
