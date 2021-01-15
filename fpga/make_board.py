@@ -245,17 +245,26 @@ def makeSemiglobalVariants(BOARD, AOCL_FLAGS, blocking=False):
 
    print('COMPILING Semiglobal SHD for {}:'.format(BOARD));
 
-   dsg = 'shd'
-   meta = '../shd_semiglobal.cl.metaprogram'
+   #dsg = 'shd'
+   #meta = '../shd_semiglobal.cl.metaprogram'
 
-   metaprogram(dsg, meta=meta, cl='shd_e1_3_100_104.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=104')
-   metaprogram(dsg, meta=meta, cl='shd_e1_3_100_110.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=110')
-   metaprogram(dsg, meta=meta, cl='shd_e1_3_100_120.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=120')
-   metaprogram(dsg, meta=meta, cl='shd_e1_3_100_140.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=140')
+   #metaprogram(dsg, meta=meta, cl='shd_e1_3_100_104.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=104')
+   #metaprogram(dsg, meta=meta, cl='shd_e1_3_100_110.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=110')
+   #metaprogram(dsg, meta=meta, cl='shd_e1_3_100_120.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=120')
+   #metaprogram(dsg, meta=meta, cl='shd_e1_3_100_140.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=140')
    
-   makeAocx(aocx='shd_e1_3_100_104.aocx', cl='shd_e1_3_100_104.cl', threshold=3, pattern_len=100, text_len=104, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
-   makeAocx(aocx='shd_e1_3_100_110.aocx', cl='shd_e1_3_100_110.cl', threshold=3, pattern_len=100, text_len=110, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
-   makeAocx(aocx='shd_e1_3_100_120.aocx', cl='shd_e1_3_100_120.cl', threshold=3, pattern_len=100, text_len=120, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
-   makeAocx(aocx='shd_e1_3_100_140.aocx', cl='shd_e1_3_100_140.cl', threshold=3, pattern_len=100, text_len=140, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   #makeAocx(aocx='shd_e1_3_100_104.aocx', cl='shd_e1_3_100_104.cl', threshold=3, pattern_len=100, text_len=104, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   #makeAocx(aocx='shd_e1_3_100_110.aocx', cl='shd_e1_3_100_110.cl', threshold=3, pattern_len=100, text_len=110, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   #makeAocx(aocx='shd_e1_3_100_120.aocx', cl='shd_e1_3_100_120.cl', threshold=3, pattern_len=100, text_len=120, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   #makeAocx(aocx='shd_e1_3_100_140.aocx', cl='shd_e1_3_100_140.cl', threshold=3, pattern_len=100, text_len=140, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
 
+   dsg = 'sneaky'
+   meta = '../sneaky_semiglobal.cl.metaprogram'
+
+   metaprogram(dsg, meta=meta, cl='sneaky_e2_10_200_370.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=200 -D TEXT_LEN=370')
+   #metaprogram(dsg, meta=meta, cl='shd_e1_3_100_110.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=110')
+   #metaprogram(dsg, meta=meta, cl='shd_e1_3_100_120.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=120')
+   #metaprogram(dsg, meta=meta, cl='shd_e1_3_100_140.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=140')
+   
+   makeAocx(aocx='sneakt_e2_10_200_370.aocx', cl='shd_e1_10_200_370.cl', threshold=10, pattern_len=200, text_len=370, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
 
