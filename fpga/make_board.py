@@ -248,8 +248,11 @@ def makeSemiglobalVariants(BOARD, AOCL_FLAGS, blocking=False):
    dsg = 'shd'
    meta = '../shd_semiglobal.cl.metaprogram'
 
-   metaprogram(dsg, meta=meta, cl='shd_e1_3_100_180.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3')
+#   metaprogram(dsg, meta=meta, cl='shd_e1_3_100_120.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3')
+#   metaprogram(dsg, meta=meta, cl='shd_e1_3_100_180.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3')
    
-   makeAocx(aocx='shd_e1_3_100_180.aocx', cl='shd_e1_3_100_180.cl', threshold=3, pattern_len=100, text_len=180, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+#   makeAocx(aocx='shd_e1_3_100_104.aocx', cl='shd_e1_3_100_104.cl', threshold=3, pattern_len=100, text_len=104, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='shd_e1_3_100_120.aocx', cl='shd_e1_3_100_120.cl', threshold=3, pattern_len=100, text_len=120, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+#   makeAocx(aocx='shd_e1_3_100_180.aocx', cl='shd_e1_3_100_180.cl', threshold=3, pattern_len=100, text_len=180, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
 
 
