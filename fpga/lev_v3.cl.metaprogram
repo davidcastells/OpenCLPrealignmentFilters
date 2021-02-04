@@ -1,0 +1,331 @@
+<%
+#define BASE_SIZE 2
+
+#include <math.h>
+#include <memory>
+#include <string>
+#include <stdexcept>
+#include <stdarg.h>
+
+using namespace std;
+
+
+string format(const char *fmt, ...)
+{
+    std::string result = "";
+
+    char buffer[256];
+    va_list args;
+    va_start (args, fmt);
+    vsprintf (buffer,fmt, args);
+    
+    result.append(buffer);
+    
+    va_end (args);
+  
+    return result;
+}
+
+
+int max(int a, int b)
+{
+	if (a > b) 
+		return a; 
+	else
+		return b;
+}
+
+int abs(int a)
+{
+	if (a < 0) return -a;
+	else return a;
+}
+
+void inline_ap_uint_512_get_bit(const char* x, int bit)
+{
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+
+	printf("((%s.w%d >> %d)&1)", x, wordidx, bitidx);
+}
+
+void inline_ap_uint_512_get_bit_or_one(const char* x, int bit)
+{
+	if (bit >= 512 || bit < 0)
+		printf("1");
+	else
+		inline_ap_uint_512_get_bit(x, bit);
+}
+
+void inline_ap_uint_1024_get_bit(const char* x, int bit)
+{
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+
+	printf("((%s.w%d >> %d)&1)", x, wordidx, bitidx);
+}
+
+void inline_ap_uint_1024_get_bit_or_one(const char* x, int bit)
+{
+	if (bit >= 1024 || bit < 0)
+		printf("1");
+	else
+		inline_ap_uint_512_get_bit(x, bit);
+}
+
+
+#ifdef ENTRY_TYPE_2
+
+void inlineEqualBases(const char* p, int i, const char* t,  int j)
+{
+
+	int srcidx0 = 1024 - 1 -i*2;
+	int srcidx1 = 1024 - 2 -i*2;
+
+	int srcjdx0 = 1024 - 1 -j*2;
+	int srcjdx1 = 1024 - 2 -j*2;
+
+	printf(" (" );
+	inline_ap_uint_1024_get_bit(p, srcidx0);
+	printf(" ^ ");
+	inline_ap_uint_1024_get_bit(t, srcjdx0);
+	printf(") | (");
+	inline_ap_uint_1024_get_bit(p, srcidx1);
+	printf(" ^ ");
+	inline_ap_uint_1024_get_bit(t, srcjdx1);
+	printf(")");
+
+}
+
+#else
+
+void inlineEqualBases(const char* p, int i, const char* t,  int j)
+{
+
+	int srcidx0 = 512 - 1 -i*2;
+	int srcidx1 = 512 - 2 -i*2;
+
+	int srcjdx0 = 512 - 1 -j*2;
+	int srcjdx1 = 512 - 2 -j*2;
+
+	printf(" (" );
+	inline_ap_uint_512_get_bit(p, srcidx0);
+	printf(" ^ ");
+	inline_ap_uint_512_get_bit(t, srcjdx0);
+	printf(") | (");
+	inline_ap_uint_512_get_bit(p, srcidx1);
+	printf(" ^ ");
+	inline_ap_uint_512_get_bit(t, srcjdx1);
+	printf(")");
+
+}
+
+#endif
+
+
+void inlineNewMin(string s_type, string d_var, string sex, bool& isInit)
+{
+	if (!isInit)
+	{
+		printf("\t%s %s = %s;\n", s_type.c_str(), d_var.c_str(), sex.c_str());
+		isInit = true;
+	}
+	else
+		printf("\t%s = min(%s, %s);\n", d_var.c_str(), d_var.c_str(), sex.c_str());
+}
+
+%>
+#include "../adapter.cl"
+
+#pragma OPENCL EXTENSION cl_intel_arbitrary_precision_integers : enable
+
+<%
+int LEV_THRESHOLD_BITS = ceil(log(LEV_THRESHOLD) / log(2));
+
+
+%>
+
+ap_uint< <%printf("%d", LEV_THRESHOLD_BITS+1);%> > satAdd(ap_uint< <%printf("%d", LEV_THRESHOLD_BITS+1);%> > a, ap_uint< <%printf("%d", LEV_THRESHOLD_BITS+1);%> > b)
+{
+	// bits
+	int lev_bits = <%printf("%d", LEV_THRESHOLD_BITS);%>;
+	int mask = 1 << lev_bits;
+	int isASaturated = (a >> lev_bits) & 1;
+	if (isASaturated)
+		return mask;
+	else
+		return a + b;
+}
+
+<%
+#ifdef ENTRY_TYPE_2
+%>
+
+
+unsigned int lev(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tlen)
+{
+	//int d = 0;
+
+<%
+	for (int i = 0; i <= max(PATTERN_LEN, TEXT_LEN); i++)
+	{
+		for (int xinc = 0; xinc <= LEV_THRESHOLD; xinc++)
+		{
+			int y = i;
+			int x = i + xinc;
+			bool valInit = false;
+			string eq_var = format("eq_%d_%d", x, y);
+			string d_var = format("d_%d_%d", x, y);
+			string s_type = format("ap_uint< %d >", LEV_THRESHOLD_BITS+1);
+ 
+			printf("\tint %s = ", eq_var.c_str());
+			if (x > 0 && y > 0)
+				inlineEqualBases("text", x-1, "pattern", y-1);
+			else
+				printf("0");
+			printf(";\n");
+
+
+			if (x <= LEV_THRESHOLD)
+			{
+				printf("\t%s %s = %d;\n", s_type.c_str(), d_var.c_str(), x);
+				valInit = true;
+				
+			}
+			
+
+			if (x > 0) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x-1, y), valInit);
+			if (y > 0 && xinc < LEV_THRESHOLD-1) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x, y-1), valInit);
+			if ((x>0) && (y>0)) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , %s)", x-1, y-1, eq_var.c_str()), valInit);
+		}
+	
+		for (int yinc = 1; yinc <= LEV_THRESHOLD; yinc++)
+		{
+			int y = i + yinc;
+			int x = i;
+			bool valInit = false;
+			string eq_var = format("eq_%d_%d", x, y);
+			string d_var = format("d_%d_%d", x, y);
+			string s_type = format("ap_uint< %d >", LEV_THRESHOLD_BITS+1);
+
+			printf("\tint %s = ", eq_var.c_str());
+			if (x > 0 && y > 0)
+				inlineEqualBases("text", x-1, "pattern", y-1);
+			else
+				printf("0");
+			printf(";\n");
+
+			if (y <= LEV_THRESHOLD)
+			{
+				printf("\t%s %s = %d;\n", s_type.c_str(), d_var.c_str(), y);
+				valInit = true;
+				
+			}
+
+			if (x > 0 && yinc < LEV_THRESHOLD-1) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x-1, y), valInit);
+			if (y > 0) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x, y-1), valInit);
+			if ((x>0) && (y>0)) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , %s)", x-1, y-1, eq_var.c_str()), valInit);
+
+		}
+	}%>	
+
+	return d_<%printf("%d", TEXT_LEN);%>_<%printf("%d", PATTERN_LEN);%>;
+	
+}
+
+
+
+unsigned int computeDistance(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tlen)
+{
+	return lev(pattern,  plen, text,  plen);
+}
+
+
+<%
+#else
+%>
+
+unsigned int lev(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
+{
+	//int d = 0;
+
+<%
+	for (int i = 0; i <= max(PATTERN_LEN, TEXT_LEN); i++)
+	{
+		for (int xinc = 0; xinc <= LEV_THRESHOLD; xinc++)
+		{
+			int y = i;
+			int x = i + xinc;
+			bool valInit = false;
+			string eq_var = format("eq_%d_%d", x, y);
+			string d_var = format("d_%d_%d", x, y);
+			string s_type = format("ap_uint< %d >", LEV_THRESHOLD_BITS+1);
+ 
+			printf("\tint %s = ", eq_var.c_str());
+			if (x > 0 && y > 0)
+				inlineEqualBases("text", x-1, "pattern", y-1);
+			else
+				printf("0");
+			printf(";\n");
+
+
+			if (x <= LEV_THRESHOLD)
+			{
+				printf("\t%s %s = %d;\n", s_type.c_str(), d_var.c_str(), x);
+				valInit = true;
+				
+			}
+			
+
+			if (x > 0) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x-1, y), valInit);
+			if (y > 0 && xinc < LEV_THRESHOLD-1) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x, y-1), valInit);
+			if ((x>0) && (y>0)) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , %s)", x-1, y-1, eq_var.c_str()), valInit);
+		}
+	
+		for (int yinc = 1; yinc <= LEV_THRESHOLD; yinc++)
+		{
+			int y = i + yinc;
+			int x = i;
+			bool valInit = false;
+			string eq_var = format("eq_%d_%d", x, y);
+			string d_var = format("d_%d_%d", x, y);
+			string s_type = format("ap_uint< %d >", LEV_THRESHOLD_BITS+1);
+
+			printf("\tint %s = ", eq_var.c_str());
+			if (x > 0 && y > 0)
+				inlineEqualBases("text", x-1, "pattern", y-1);
+			else
+				printf("0");
+			printf(";\n");
+
+			if (y <= LEV_THRESHOLD)
+			{
+				printf("\t%s %s = %d;\n", s_type.c_str(), d_var.c_str(), y);
+				valInit = true;
+				
+			}
+
+			if (x > 0 && yinc < LEV_THRESHOLD-1) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x-1, y), valInit);
+			if (y > 0) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x, y-1), valInit);
+			if ((x>0) && (y>0)) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , %s)", x-1, y-1, eq_var.c_str()), valInit);
+
+		}
+	}%>	
+
+	return d_<%printf("%d", TEXT_LEN);%>_<%printf("%d", PATTERN_LEN);%>;
+	
+}
+
+
+
+unsigned int computeDistance(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
+{
+	return lev(pattern,  plen, text,  plen);
+}
+
+<%
+#endif
+%>
+
+
+

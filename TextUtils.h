@@ -31,5 +31,12 @@ using namespace std;
 
 string humanUnits(double v, const char* units);
 
+
+string rtrim(std::string& s);
+string ltrim(std::string& s );
+string trim(std::string& s );
+
+
+
 #endif /* TEXTUTILS_H */
 

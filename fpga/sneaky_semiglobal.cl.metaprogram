@@ -1,0 +1,994 @@
+<%
+#define BASE_SIZE 2
+
+
+void inline_ap_uint_512_get_bit(const char* x, int bit)
+{
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+
+	printf("((%s.w%d >> %d)&1)", x, wordidx, bitidx);
+}
+
+void inline_ap_uint_512_get_bit_or_one(const char* x, int bit)
+{
+	if (bit >= 512 || bit < 0)
+		printf("1");
+	else
+		inline_ap_uint_512_get_bit(x, bit);
+}
+
+void inline_ap_uint_1024_get_bit(const char* x, int bit)
+{
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+
+	printf("((%s.w%d >> %d)&1)", x, wordidx, bitidx);
+}
+
+void inline_ap_uint_1024_get_bit_or_one(const char* x, int bit)
+{
+	if (bit >= 1024 || bit < 0)
+		printf("1");
+	else
+		inline_ap_uint_512_get_bit(x, bit);
+}
+
+int plen = PATTERN_LEN;
+
+%>
+
+#ifdef BASIC_AP_UINT
+	#include "../basic_ap_uint.h"
+#else
+	#include "my_ap_uint.h"
+#endif
+
+#define WORKLOAD_TASK_SIZE  3
+#define INDEX_SIZE          2
+#define BASE_SIZE           2
+
+
+#ifndef WORKLOAD_CHUNK
+#define WORKLOAD_CHUNK 1024*16
+#endif
+
+#ifdef ENTRY_TYPE_0
+unsigned int computeTaskEntryType0(__global unsigned char* restrict pairs, unsigned int pi);
+unsigned int computeDistance(ap_uint_512 pattern, int plen, ap_uint_512 text,  int tlen);
+void printSequence(ap_uint_512 w, int len);
+#endif
+
+#ifdef ENTRY_TYPE_1
+unsigned int computeTaskEntryType1(__global unsigned char* restrict pairs, unsigned int pi);
+unsigned int computeDistance(ap_uint_512 pattern, int plen, ap_uint_512 text,  int tlen);
+void printSequence(ap_uint_512 w, int len);
+#endif
+
+#ifdef ENTRY_TYPE_2
+unsigned int computeTaskEntryType2(__global unsigned char* restrict pairs, unsigned int pi);
+unsigned int computeDistance(ap_uint_1024 pattern, int plen, ap_uint_1024 text,  int tlen);
+void printSequence1024(ap_uint_1024 w, int len);
+#endif
+
+
+
+
+/**
+ * from version 11 we assume that pattern index, and text index is the same worload index  
+ */
+void doWorkloadTask(__global unsigned char* restrict pairs ,
+                    /*__global*/ unsigned int* workload, unsigned int wi, unsigned int li)
+{
+    unsigned int pi = wi; // workload[wi*WORKLOAD_TASK_SIZE+0];
+    unsigned int ti = wi; // workload[wi*WORKLOAD_TASK_SIZE+1];
+
+#ifdef ENTRY_TYPE_0
+    unsigned int d = computeTaskEntryType0(pairs,  pi);
+#endif
+#ifdef ENTRY_TYPE_1
+    unsigned int d = computeTaskEntryType1(pairs,  pi);
+#endif
+#ifdef ENTRY_TYPE_2
+    unsigned int d = computeTaskEntryType2(pairs,  pi);
+#endif
+
+#ifdef FPGA_DEBUG
+    printf("[FPGA] pi=%d  ", pi);
+    printf(" task %d = %d\n", wi, d);
+#endif
+    
+    //workload[wi*WORKLOAD_TASK_SIZE+2] = d;
+    workload[li] = d;
+}
+
+
+__kernel void kmer(__global unsigned char* restrict pairs ,
+		   __global unsigned int* workload, 
+		   unsigned int workloadLength)
+{
+#ifdef FPGA_DEBUG
+	// test_my_ap_uint();
+#endif
+
+	
+	unsigned int workload_result[WORKLOAD_CHUNK];
+	
+    for (int i=0; i < workloadLength; /*i++*/)
+    {
+    	int base_i = i;
+        int li;
+	
+    	// compute to local memory
+    	for (li=0; (li < WORKLOAD_CHUNK) && (i < workloadLength); li++, i++)
+	{
+	   doWorkloadTask(pairs, workload_result, i, li);
+	}
+		
+	// transfer the results back to the main table
+	for (int ti=0; ti < li; ti++)
+		workload[(base_i + ti)*WORKLOAD_TASK_SIZE+2] = workload_result[ti];
+     }
+}
+
+void readBigEndian512bits(__global unsigned char* restrict p, ap_uint_512p ret)
+{
+    ap_uint_512_zero(ret);
+    
+    #pragma unroll
+    for (int i=0; i < 512/8; i++)
+    {
+        // ret |= p[i] << (i * 8);
+        // ap_uint_512_shift_left_self(8, ret);
+        ap_uint_512_orHighByteConcurrent(ret, i, p[i]);
+
+	// printf("[%d] = 0x%02X\n", i, p[i]);
+    }   
+
+#ifdef FPGA_DEBUG
+    printf("Long Word: ");
+    ap_uint_512_print(AP_UINT_FROM_PTR(ret));
+    printf("\n");
+#endif
+}
+
+
+
+void readBigEndian1024bits(__global unsigned char* restrict p, ap_uint_1024p ret)
+{
+    ap_uint_1024_zero(ret);
+    
+    #pragma unroll
+    for (int i=0; i < 1024/8; i++)
+    {
+        // ret |= p[i] << (i * 8);
+        // ap_uint_512_shift_left_self(8, ret);
+        ap_uint_1024_orHighByteConcurrent(ret, i, p[i]);
+
+	// printf("[%d] = 0x%02X\n", i, p[i]);
+    }   
+
+#ifdef FPGA_DEBUG
+    printf("Long Word: ");
+    ap_uint__print(AP_UINT_FROM_PTR(ret));
+    printf("\n");
+#endif
+}
+
+
+
+
+
+#ifdef ENTRY_TYPE_0
+
+void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_uint_512p ret)
+{
+    unsigned int offset = pi * 512 /  8;
+    
+    readBigEndian512bits(&pattern[offset], ret);  
+}
+
+
+unsigned int computeTaskEntryType0(__global unsigned char* restrict pairs,
+                 unsigned int pi)
+{
+	int d = 0;
+
+	ap_uint_512 pairs_word;
+	
+	ap_uint_512 pattern_word;
+	ap_uint_512 text_word;
+
+	readPairs(pairs, pi, AP_UINT_PTR(pairs_word));
+
+#ifdef PATTERN_LEN
+	unsigned char pl = PATTERN_LEN;
+	unsigned char tl = TEXT_LEN;
+#else
+	unsigned char pl = ap_uint_512_getHighByte(pairs_word, 0);
+	unsigned char tl = ap_uint_512_getHighByte(pairs_word, 1);
+#endif
+
+#ifdef FPGA_DEBUG
+	printf("pattern len: %d\ttext len: %d\n", pl, tl);
+#endif
+	int alignedTextStart = 1 + 1 + (((pl * BASE_SIZE) + 7) / 8) ;	// in bytes
+
+	ap_uint_512_shift_left_bytes(pairs_word, 2, AP_UINT_PTR(pattern_word));
+	ap_uint_512_shift_left_bytes(pairs_word, alignedTextStart, AP_UINT_PTR(text_word));
+
+
+#ifdef FPGA_DEBUG
+	printf("T:   ");
+	printSequence(text_word, tl);
+	printf("\n");
+	printf("P:   ");        
+	printSequence(pattern_word, pl);
+	printf("\n");
+#endif
+
+	/*printf("T:   ");
+	ap_uint_512_print(text_word);
+	printf("\n");
+	printf("P:   ");        
+	ap_uint_512_print(pattern_word);
+	printf("\n");*/
+
+	int mind = pl;
+
+	mind = computeDistance(pattern_word,  pl, text_word,  pl);	// we just compare pattern
+	
+	#pragma unroll
+	for (int i=1; i < (tl - pl +1); i++)
+	{
+		ap_uint_512 shifted_text_word;
+		ap_uint_512_shift_left(text_word, i*BASE_SIZE, AP_UINT_PTR(shifted_text_word));
+		
+		d = computeDistance(pattern_word,  pl, shifted_text_word,  pl);	// we just compare pattern
+		mind = (d < mind)? d: mind;
+		
+	}
+
+	return mind;
+}
+#endif
+
+
+
+#ifdef ENTRY_TYPE_1
+
+void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_uint_512p pword,  ap_uint_512p tword )
+{
+    unsigned int offsetp = (pi * 2 * 512) /  8;
+    unsigned int offsett = ((pi * 2 * 512) + 512) /  8;
+    
+    readBigEndian512bits(&pattern[offsetp], pword);  
+    readBigEndian512bits(&pattern[offsett], tword);  
+}
+
+unsigned int computeTaskEntryType1(__global unsigned char* restrict pairs,
+                 unsigned int pi)
+{
+	int d = 0;
+
+	ap_uint_512 pairs_word_p;
+	ap_uint_512 pairs_word_t;
+	
+	ap_uint_512 pattern_word;
+	ap_uint_512 text_word;
+
+	readPairs(pairs, pi, AP_UINT_PTR(pairs_word_p), AP_UINT_PTR(pairs_word_t));
+
+#ifdef PATTERN_LEN
+	unsigned char pl = PATTERN_LEN;
+	unsigned char tl = TEXT_LEN;
+#else
+	unsigned char pl = ap_uint_512_getHighByte(pairs_word_p, 0);
+	unsigned char tl = ap_uint_512_getHighByte(pairs_word_t, 0);
+#endif
+
+#ifdef FPGA_DEBUG
+	printf("pattern len: %d\ttext len: %d\n", pl, tl);
+#endif
+	//int alignedTextStart = 1 + 1 + (((pl * BASE_SIZE) + 7) / 8) ;	// in bytes
+
+	ap_uint_512_shift_left_bytes(pairs_word_p, 1, AP_UINT_PTR(pattern_word));
+	ap_uint_512_shift_left_bytes(pairs_word_t, 1, AP_UINT_PTR(text_word));
+
+
+#ifdef FPGA_DEBUG
+	printf("T:   ");
+	printSequence(text_word, tl);
+	printf("\n");
+	printf("P:   ");        
+	printSequence(pattern_word, pl);
+	printf("\n");
+#endif
+
+	/*printf("T:   ");
+	ap_uint_512_print(text_word);
+	printf("\n");
+	printf("P:   ");        
+	ap_uint_512_print(pattern_word);
+	printf("\n");*/
+
+
+	int mind = pl;
+
+	mind = computeDistance(pattern_word,  pl, text_word,  pl);	// we just compare pattern
+	
+	#pragma unroll
+	for (int i=1; i < (tl - pl +1); i++)
+	{
+		ap_uint_512 shifted_text_word;
+		ap_uint_512_shift_left(text_word, i*BASE_SIZE, AP_UINT_PTR(shifted_text_word));
+		
+		d = computeDistance(pattern_word,  pl, shifted_text_word,  pl);	// we just compare pattern
+		mind = (d < mind)? d: mind;
+	}
+
+	return mind;
+}
+#endif
+
+
+
+#ifdef ENTRY_TYPE_2
+
+void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_uint_1024p pword,  ap_uint_1024p tword )
+{
+    // every pair is 2 * 1024
+    unsigned int offsetp = (pi * 2 * 1024) /  8;
+    unsigned int offsett = ((pi * 2 * 1024) + 512) /  8;
+    
+    readBigEndian1024bits(&pattern[offsetp], pword);  
+    readBigEndian1024bits(&pattern[offsett], tword);  
+}
+
+unsigned int computeTaskEntryType2(__global unsigned char* restrict pairs, unsigned int pi)
+{
+	int d = 0;
+
+	ap_uint_1024 pairs_word_p;
+	ap_uint_1024 pairs_word_t;
+	
+	ap_uint_1024 pattern_word;
+	ap_uint_1024 text_word;
+
+	readPairs(pairs, pi, AP_UINT_PTR(pairs_word_p), AP_UINT_PTR(pairs_word_t));
+
+#ifdef PATTERN_LEN
+	unsigned int pl = PATTERN_LEN;
+	unsigned int tl = TEXT_LEN;
+#else
+	unsigned int pl = ap_uint_1024_getHighByte(pairs_word_p, 0);
+	unsigned int tl = ap_uint_1024_getHighByte(pairs_word_t, 0);
+#endif
+
+#ifdef FPGA_DEBUG
+	printf("pattern len: %d\ttext len: %d\n", pl, tl);
+#endif
+	//int alignedTextStart = 1 + 1 + (((pl * BASE_SIZE) + 7) / 8) ;	// in bytes
+
+	ap_uint_1024_shift_left_bytes(pairs_word_p, 1, AP_UINT_PTR(pattern_word));
+	ap_uint_1024_shift_left_bytes(pairs_word_t, 1, AP_UINT_PTR(text_word));
+
+
+#ifdef FPGA_DEBUG
+	printf("T:   ");
+	printSequence1024(text_word, tl);
+	printf("\n");
+	printf("P:   ");        
+	printSequence1024(pattern_word, pl);
+	printf("\n");
+#endif
+
+	/*printf("T:   ");
+	ap_uint_512_print(text_word);
+	printf("\n");
+	printf("P:   ");        
+	ap_uint_512_print(pattern_word);
+	printf("\n");*/
+
+
+	int mind = pl;
+
+	mind = computeDistance(pattern_word,  pl, text_word,  pl);	// we just compare pattern
+	
+	#pragma unroll
+	for (int i=1; i < (tl - pl +1); i++)
+	{
+		ap_uint_1024 shifted_text_word;
+		ap_uint_1024_shift_left(text_word, i*BASE_SIZE, AP_UINT_PTR(shifted_text_word));
+		
+		d = computeDistance(pattern_word,  pl, shifted_text_word,  pl);	// we just compare pattern
+		mind = (d < mind)? d: mind;
+	}
+
+	return mind;
+}
+#endif
+
+/**
+* we assume the sequence is left aligned to the 512 bits word, and stored in Most Significant Bit First order
+* @param w
+* @param offset
+* @param len	length in bases
+*/
+void printSequence(ap_uint_512 w, int len)
+{
+	char sym[]={'A','C','G', 'T'};
+	
+	
+	for (int i=0; i < len; i++)
+	{
+	   int last = 512 - 1 - (i * BASE_SIZE);
+	   unsigned char isym = ap_uint_512_get_bit(w, last - 0 ) << 1 | ap_uint_512_get_bit(w, last -1);  
+           printf("%c", sym[isym]);	   
+	}
+
+}
+
+/**
+* we assume the sequence is left aligned to the 512 bits word, and stored in Most Significant Bit First order
+* @param w
+* @param offset
+* @param len	length in bases
+*/
+void printSequence1024(ap_uint_1024 w, int len)
+{
+	char sym[]={'A','C','G', 'T'};
+	
+	
+	for (int i=0; i < len; i++)
+	{
+	   int last = 1024 - 1 - (i * BASE_SIZE);
+	   unsigned char isym = ap_uint_1024_get_bit(w, last - 0 ) << 1 | ap_uint_1024_get_bit(w, last -1);  
+           printf("%c", sym[isym]);	   
+	}
+
+}
+
+
+
+
+#ifndef SNEAKY_WINDOW_SIZE
+#define SNEAKY_WINDOW_SIZE	8
+#endif
+
+
+<%
+#ifndef SNEAKY_WINDOW_SIZE
+#define SNEAKY_WINDOW_SIZE	8
+#endif
+
+
+%>
+
+#ifdef FPGA_DEBUG
+
+
+/**
+* Print a number of 32 bits in binary
+*/
+void printBin32(unsigned int r, int size)
+{
+	unsigned fbmask = 1 << (size-1);
+
+	for (int i=0; i < size; i++)
+	{
+		printf("%d", (r & fbmask)?1:0);
+		r = r << 1;
+	} 
+}
+
+#endif
+
+
+
+unsigned int fastclz(unsigned int v)
+{
+ int x = (0 != (v >> 16)) * 16;
+ x += (0 != (v >> (x + 8))) * 8;
+ x += (0 != (v >> (x + 4))) * 4;
+ x += (0 != (v >> (x + 2))) * 2;
+ x += (0 != (v >> (x + 1)));
+ x += (0 != (v >> x));
+ return 32 - x;
+}
+
+/**
+* Count the number of leading zeros
+*/
+unsigned int CLZ_32(unsigned int part, int size)
+{
+	int c = fastclz(part);
+
+	return c  -(32-size);	
+}
+
+
+
+
+unsigned int LeftOnes(unsigned int x)
+{
+	unsigned int r = 0;
+	
+	<%for (int i=0; i < 32; i++){%>
+	{
+		unsigned int b= ((x >> <%printf("%d",i);%>) > 0) ? 1 : 0;
+				
+		r |= ((b&1) << <%printf("%d",i);%>);		// bits in LSB order
+	}<%}%>
+	
+	return r;
+}
+
+
+<%
+#ifdef ENTRY_TYPE_2
+%>
+
+
+void xorBases(ap_uint_1024 p, ap_uint_1024 t, ap_uint_1024p r)
+{
+<%
+for (int i=0; i < 1024/BASE_SIZE; i++)
+{
+	int dstidx = 1024 - 1 -i;
+	int srcidx0 = 1024 - 1 -i*2;
+	int srcidx1 = 1024 - 2 -i*2;
+
+	printf("\tint dst_%d = (", dstidx);
+	inline_ap_uint_1024_get_bit("p", srcidx0);
+	printf(" ^ ");
+	inline_ap_uint_1024_get_bit("t", srcidx0);
+	printf(") | (");
+	inline_ap_uint_1024_get_bit("p", srcidx1);
+	printf(" ^ ");
+	inline_ap_uint_1024_get_bit("t", srcidx1);
+	printf(") ;\n");
+
+}
+
+for (int i=0; i < (1024/BASE_SIZE)/32; i++)
+{
+	int wordidx = 1024/32 - 1 -i;
+	printf("r->w%d = ", wordidx);
+
+	for (int k=0; k < 32; k++)
+	{
+		int ref = wordidx * 32 + k;
+		if (k>0) printf("|");
+		printf("(dst_%d<<%d)", ref, k);
+	}
+
+	printf(";\n");
+}
+%>
+}
+
+
+
+unsigned int sneaky(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tlen)
+{
+	unsigned int EE = 0;
+
+//#ifdef PATTERN_LENGTH 
+//#pragma unroll
+//#endif
+	<%for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++){%>
+	ap_uint_1024 dist_<%printf("%d",s+SNEAKY_THRESHOLD);%>;	<%}%>
+	<%for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++){%>
+	ap_uint_1024 shifted_pattern_<%printf("%d",s+SNEAKY_THRESHOLD);%>;	<%}%>
+	<%for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++){%>
+	<%if (s < 0)
+	{
+	%>ap_uint_1024_shift_left(pattern, (<%printf("%d",-s);%>), AP_UINT_PTR(shifted_pattern_<%printf("%d",s+SNEAKY_THRESHOLD);%>));<%
+	}
+	else if (s==0)
+	{
+	%>ap_uint_1024_set(AP_UINT_PTR(shifted_pattern_<%printf("%d",s+SNEAKY_THRESHOLD);%>), pattern);<%
+	}
+	else
+	{
+		// > 0
+	%>ap_uint_1024_shift_right(pattern, <%printf("%d",s);%>, AP_UINT_PTR(shifted_pattern_<%printf("%d",s+SNEAKY_THRESHOLD);%>));<%
+	}%>
+	xorBases(shifted_pattern_<%printf("%d",s+SNEAKY_THRESHOLD);%>, text, AP_UINT_PTR(dist_<%printf("%d",s+SNEAKY_THRESHOLD);%>));<%}%>
+
+
+	//#pragma unroll
+	<%for (int w=0; w < PATTERN_LEN/SNEAKY_WINDOW_SIZE; w++)
+	{
+
+	%>
+        {
+		<%
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		
+		//#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++){%>
+		unsigned int XP_<%printf("%d",s+SNEAKY_THRESHOLD);%> = ap_uint_1024_range_high_32(dist_<%printf("%d",s+SNEAKY_THRESHOLD);%>, <%printf("%d",kstart);%>, <%printf("%d",SNEAKY_WINDOW_SIZE);%>);		<%}%>
+		
+		
+		
+		//#pragma unroll
+		<%for (int i=0; i<8; i++){%>
+		unsigned int LZ_<%printf("%d", i);%>;
+		unsigned int EDITS_<%printf("%d", i);%>;
+		{
+			<%
+			unsigned int mask = (1 << (8-i)) -1;			%>
+			unsigned int AC = <%printf("0x%X", mask);%>;
+			
+			
+			//#pragma unroll
+			<%for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++){%>
+			AC = AC & LeftOnes(XP_<%printf("%d",s);%> & <%printf("0x%X", mask);%>);
+			<%}%>
+			
+			LZ_<%printf("%d", i);%> = CLZ_32(AC, <%printf("%d", 8-i);%>);
+		}<%}%>
+		
+		// Level 0 (1 bit)
+		if (LZ_0 == 0)
+			EDITS_0 = 1;
+		else
+			EDITS_0 = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ_1 == 0)
+			EDITS_1 = EDITS_0 + 1;
+		else if (LZ_1 == 1)
+			EDITS_1 = 1;
+		else
+			EDITS_1 = 0;
+		
+		// Level 2
+		if (LZ_2 == 0)
+			EDITS_2 = EDITS_1 + 1;
+		else if (LZ_2 == 1)
+			EDITS_2 = EDITS_0 + 1;
+		else if (LZ_2 == 2)
+			EDITS_2 = 1;
+		else
+			EDITS_2 = 0;
+		
+		// Level 3
+		if (LZ_3 == 0)
+			EDITS_3 = EDITS_2 + 1;
+		else if (LZ_3 == 1)
+			EDITS_3 = EDITS_1 + 1;
+		else if (LZ_3 == 2)
+			EDITS_3 = EDITS_0 + 1;
+		else if (LZ_3 == 3)
+			EDITS_3 = 1;
+		else 
+			EDITS_3 = 0;
+		
+		// Level 4
+		if (LZ_4 == 0)
+			EDITS_4 = EDITS_3 +1;
+		else if (LZ_4 == 1)
+			EDITS_4 = EDITS_2 + 1;
+		else if (LZ_4 == 2)
+			EDITS_4 = EDITS_1 + 1;
+		else if (LZ_4 == 3)
+			EDITS_4 = EDITS_0 + 1;
+		else if (LZ_4 == 4)
+			EDITS_4 = 1;
+		else
+			EDITS_4 = 0;
+		
+		// Level 5
+		if (LZ_5 == 0)
+			EDITS_5 = EDITS_4 +1;
+		else if (LZ_5 == 1)
+			EDITS_5 = EDITS_3 +1;
+		else if (LZ_5 == 2)
+			EDITS_5 = EDITS_2 +1;
+		else if (LZ_5 == 3)
+			EDITS_5 = EDITS_1 +1;
+		else if (LZ_5 == 4)
+			EDITS_5 = EDITS_0 +1;
+		else if (LZ_5 == 5)
+			EDITS_5 = 1;
+		else
+			EDITS_5 = 0;
+		
+		// Level 6
+		if (LZ_6 == 0)
+			EDITS_6 = EDITS_5 +1;
+		else if (LZ_6 == 1)
+			EDITS_6 = EDITS_4 +1;
+		else if (LZ_6 == 2)
+			EDITS_6 = EDITS_3 +1;
+		else if (LZ_6 == 3)
+			EDITS_6 = EDITS_2 +1;
+		else if (LZ_6 == 4)
+			EDITS_6 = EDITS_1 +1;
+		else if (LZ_6 == 5)
+			EDITS_6 = EDITS_0 +1;
+		else if (LZ_6 == 6)
+			EDITS_6 = 1;
+		else
+			EDITS_6 = 0;
+		
+		// Level 7
+		if (LZ_7 == 0)
+			EDITS_7 = EDITS_6 +1;
+		else if (LZ_7 == 1)
+			EDITS_7 = EDITS_5 +1;
+		else if (LZ_7 == 2)
+			EDITS_7 = EDITS_4 +1;
+		else if (LZ_7 == 3)
+			EDITS_7 = EDITS_3 +1;
+		else if (LZ_7 == 4)
+			EDITS_7 = EDITS_2 +1;
+		else if (LZ_7 == 5)
+			EDITS_7 = EDITS_1 +1;
+		else if (LZ_7 == 6)
+			EDITS_7 = EDITS_0 +1;
+		else if (LZ_7 == 7)
+			EDITS_7 = 1;
+		else
+			EDITS_7 = 0;
+		
+		
+		EE = EE + EDITS_7;
+	}<%
+	}%>
+
+	return EE;
+}
+
+
+
+unsigned int computeDistance(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tlen)
+{
+	return sneaky(pattern,  plen, text,  plen);
+}
+
+
+
+<%
+#else
+// ENTRY_TYPE_2
+%>
+
+
+void xorBases(ap_uint_512 p, ap_uint_512 t, ap_uint_512p r)
+{
+<%
+for (int i=0; i < 512/BASE_SIZE; i++)
+{
+	int dstidx = 512 - 1 -i;
+	int srcidx0 = 512 - 1 -i*2;
+	int srcidx1 = 512 - 2 -i*2;
+
+	printf("\tint dst_%d = (", dstidx);
+	inline_ap_uint_512_get_bit("p", srcidx0);
+	printf(" ^ ");
+	inline_ap_uint_512_get_bit("t", srcidx0);
+	printf(") | (");
+	inline_ap_uint_512_get_bit("p", srcidx1);
+	printf(" ^ ");
+	inline_ap_uint_512_get_bit("t", srcidx1);
+	printf(") ;\n");
+
+}
+
+for (int i=0; i < (512/BASE_SIZE)/32; i++)
+{
+	int wordidx = 512/32 - 1 -i;
+	printf("r->w%d = ", wordidx);
+
+	for (int k=0; k < 32; k++)
+	{
+		int ref = wordidx * 32 + k;
+		if (k>0) printf("|");
+		printf("(dst_%d<<%d)", ref, k);
+	}
+
+	printf(";\n");
+}
+%>
+}
+
+
+
+unsigned int sneaky(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
+{
+	unsigned int EE = 0;
+
+//#ifdef PATTERN_LENGTH 
+//#pragma unroll
+//#endif
+	<%for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++){%>
+	ap_uint_512 dist_<%printf("%d",s+SNEAKY_THRESHOLD);%>;	<%}%>
+	<%for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++){%>
+	ap_uint_512 shifted_pattern_<%printf("%d",s+SNEAKY_THRESHOLD);%>;	<%}%>
+	<%for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++){%>
+	<%if (s < 0)
+	{
+	%>ap_uint_512_shift_left(pattern, (<%printf("%d",-s);%>), AP_UINT_PTR(shifted_pattern_<%printf("%d",s+SNEAKY_THRESHOLD);%>));<%
+	}
+	else if (s==0)
+	{
+	%>ap_uint_512_set(AP_UINT_PTR(shifted_pattern_<%printf("%d",s+SNEAKY_THRESHOLD);%>), pattern);<%
+	}
+	else
+	{
+		// > 0
+	%>ap_uint_512_shift_right(pattern, <%printf("%d",s);%>, AP_UINT_PTR(shifted_pattern_<%printf("%d",s+SNEAKY_THRESHOLD);%>));<%
+	}%>
+	xorBases(shifted_pattern_<%printf("%d",s+SNEAKY_THRESHOLD);%>, text, AP_UINT_PTR(dist_<%printf("%d",s+SNEAKY_THRESHOLD);%>));<%}%>
+
+
+	//#pragma unroll
+	<%for (int w=0; w < PATTERN_LEN/SNEAKY_WINDOW_SIZE; w++)
+	{
+
+	%>
+        {
+		<%
+		unsigned int kstart = w*SNEAKY_WINDOW_SIZE;
+		unsigned int kend = (w+1) * SNEAKY_WINDOW_SIZE;
+
+		
+		//#pragma unroll
+		for (int s=-SNEAKY_THRESHOLD; s <= SNEAKY_THRESHOLD; s++){%>
+		unsigned int XP_<%printf("%d",s+SNEAKY_THRESHOLD);%> = ap_uint_512_range_high_32(dist_<%printf("%d",s+SNEAKY_THRESHOLD);%>, <%printf("%d",kstart);%>, <%printf("%d",SNEAKY_WINDOW_SIZE);%>);		<%}%>
+		
+		
+		
+		//#pragma unroll
+		<%for (int i=0; i<8; i++){%>
+		unsigned int LZ_<%printf("%d", i);%>;
+		unsigned int EDITS_<%printf("%d", i);%>;
+		{
+			<%
+			unsigned int mask = (1 << (8-i)) -1;			%>
+			unsigned int AC = <%printf("0x%X", mask);%>;
+			
+			
+			//#pragma unroll
+			<%for (int s=0; s < 2*SNEAKY_THRESHOLD+1; s++){%>
+			AC = AC & LeftOnes(XP_<%printf("%d",s);%> & <%printf("0x%X", mask);%>);
+			<%}%>
+			
+			LZ_<%printf("%d", i);%> = CLZ_32(AC, <%printf("%d", 8-i);%>);
+		}<%}%>
+		
+		// Level 0 (1 bit)
+		if (LZ_0 == 0)
+			EDITS_0 = 1;
+		else
+			EDITS_0 = 0;
+		
+		// Level 1 (2 bits)
+		if (LZ_1 == 0)
+			EDITS_1 = EDITS_0 + 1;
+		else if (LZ_1 == 1)
+			EDITS_1 = 1;
+		else
+			EDITS_1 = 0;
+		
+		// Level 2
+		if (LZ_2 == 0)
+			EDITS_2 = EDITS_1 + 1;
+		else if (LZ_2 == 1)
+			EDITS_2 = EDITS_0 + 1;
+		else if (LZ_2 == 2)
+			EDITS_2 = 1;
+		else
+			EDITS_2 = 0;
+		
+		// Level 3
+		if (LZ_3 == 0)
+			EDITS_3 = EDITS_2 + 1;
+		else if (LZ_3 == 1)
+			EDITS_3 = EDITS_1 + 1;
+		else if (LZ_3 == 2)
+			EDITS_3 = EDITS_0 + 1;
+		else if (LZ_3 == 3)
+			EDITS_3 = 1;
+		else 
+			EDITS_3 = 0;
+		
+		// Level 4
+		if (LZ_4 == 0)
+			EDITS_4 = EDITS_3 +1;
+		else if (LZ_4 == 1)
+			EDITS_4 = EDITS_2 + 1;
+		else if (LZ_4 == 2)
+			EDITS_4 = EDITS_1 + 1;
+		else if (LZ_4 == 3)
+			EDITS_4 = EDITS_0 + 1;
+		else if (LZ_4 == 4)
+			EDITS_4 = 1;
+		else
+			EDITS_4 = 0;
+		
+		// Level 5
+		if (LZ_5 == 0)
+			EDITS_5 = EDITS_4 +1;
+		else if (LZ_5 == 1)
+			EDITS_5 = EDITS_3 +1;
+		else if (LZ_5 == 2)
+			EDITS_5 = EDITS_2 +1;
+		else if (LZ_5 == 3)
+			EDITS_5 = EDITS_1 +1;
+		else if (LZ_5 == 4)
+			EDITS_5 = EDITS_0 +1;
+		else if (LZ_5 == 5)
+			EDITS_5 = 1;
+		else
+			EDITS_5 = 0;
+		
+		// Level 6
+		if (LZ_6 == 0)
+			EDITS_6 = EDITS_5 +1;
+		else if (LZ_6 == 1)
+			EDITS_6 = EDITS_4 +1;
+		else if (LZ_6 == 2)
+			EDITS_6 = EDITS_3 +1;
+		else if (LZ_6 == 3)
+			EDITS_6 = EDITS_2 +1;
+		else if (LZ_6 == 4)
+			EDITS_6 = EDITS_1 +1;
+		else if (LZ_6 == 5)
+			EDITS_6 = EDITS_0 +1;
+		else if (LZ_6 == 6)
+			EDITS_6 = 1;
+		else
+			EDITS_6 = 0;
+		
+		// Level 7
+		if (LZ_7 == 0)
+			EDITS_7 = EDITS_6 +1;
+		else if (LZ_7 == 1)
+			EDITS_7 = EDITS_5 +1;
+		else if (LZ_7 == 2)
+			EDITS_7 = EDITS_4 +1;
+		else if (LZ_7 == 3)
+			EDITS_7 = EDITS_3 +1;
+		else if (LZ_7 == 4)
+			EDITS_7 = EDITS_2 +1;
+		else if (LZ_7 == 5)
+			EDITS_7 = EDITS_1 +1;
+		else if (LZ_7 == 6)
+			EDITS_7 = EDITS_0 +1;
+		else if (LZ_7 == 7)
+			EDITS_7 = 1;
+		else
+			EDITS_7 = 0;
+		
+		
+		EE = EE + EDITS_7;
+	}<%
+	}%>
+
+	return EE;
+}
+
+
+
+unsigned int computeDistance(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
+{
+	return sneaky(pattern,  plen, text,  plen);
+}
+
+
+<%
+
+#endif 
+// ENTRY_TYPE_2
+%>
+
+
+
+

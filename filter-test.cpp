@@ -10,6 +10,8 @@
 #include "PrealignmentFilter.h"
 #include "edlib.h"
 #include "SWVersions.h"
+#include "PerformanceLap.h"
+#include "TextUtils.h"
 
 using namespace std;
 
@@ -33,6 +35,9 @@ int gPid = -1; 	// OpenCL platform id
 string gText;		// Text string for single test mode
 string gPattern;	// Pattern string for single test mode
 
+bool gPerformanceEdlib = false;
+
+char* gInputFile = NULL;
 
 #define ORIGINAL_CHARACTER	'.'
 #define SUBSTITUTION_CHARACTER 	'X'
@@ -50,7 +55,8 @@ bool contains(vector<T> v, T x)
            return false;
 }
 
-EdlibAlignConfig gAlignConfig = edlibNewAlignConfig(-1, EDLIB_MODE_HW, EDLIB_TASK_DISTANCE, NULL, 0);
+EdlibAlignConfig gAlignConfig = edlibNewAlignConfig(-1, EDLIB_MODE_NW, EDLIB_TASK_DISTANCE, NULL, 0);
+EdlibAlignConfig gSemiAlignConfig = edlibNewAlignConfig(-1, EDLIB_MODE_HW, EDLIB_TASK_DISTANCE, NULL, 0);
 
 int recheckErrors(string& pattern, string& text)
 {
@@ -136,6 +142,15 @@ void parseOptions(int argc, char* args[])
 			i++;
 			gKmersK = atoi(args[i]);
 		}
+		if (strcmp(args[i], "-perfedlib") == 0)
+		{
+			gPerformanceEdlib = true;
+		}
+		if (strcmp(args[i], "-f") == 0)
+		{
+			i++;
+			gInputFile = args[i];
+		}
 	}
 }
 
@@ -157,6 +172,8 @@ void usage()
 	printf("\t-pid <id>\tOpenCL Platform ID\n");
 	printf("\t-t <str>\tThe Text Sequence (for an especific pair test)\n");
 	printf("\t-p <str>\tThe Pattern Sequence (for an especific pair test)\n");
+	printf("\t-perfedlib\tTest the performance of edlib");
+	printf("\t-f <filename>\tTest the pairs from the file");
 	exit(0);
 }
 
@@ -299,11 +316,9 @@ void createPair(string& pattern, string& text)
 	}
 }
 
-void testSequence(string& pattern, string& text)
-{
-	
+int getDetectedErrors(string& pattern, string& text)
+{	
 	int detectedErrors;
-	
 	string aocx_file = AOCX_FILE;
 
 	if (aocx_file.compare("shd") == 0)
@@ -322,6 +337,14 @@ void testSequence(string& pattern, string& text)
 		exit(0);
 	}
 
+	return detectedErrors;
+}
+
+void testSequence(string& pattern, string& text)
+{
+	
+	int detectedErrors = getDetectedErrors(pattern, text);
+	
 		
 	int realErrors = gES + gEI + gED;
 	
@@ -370,6 +393,78 @@ void testSoftware()
 	string pattern;
 	string text;
 		
+	if (gPerformanceEdlib)
+	{
+		printf("Testing Edlib performance");
+		createPair(pattern, text);
+		
+		const char* ps = pattern.c_str();
+		unsigned int pn = pattern.size();
+		const char* ts = text.c_str();
+		unsigned int tn = text.size();
+
+		PerformanceLap lap;
+		lap.start();
+
+		if (pn == tn)
+			for (int i=0; i < gN; i++)
+				EdlibAlignResult ret = edlibAlign(ps, pn, ts, tn, gAlignConfig);
+		else
+			for (int i=0; i < gN; i++)
+				EdlibAlignResult ret = edlibAlign(ps, pn, ts, tn, gSemiAlignConfig);
+		lap.stop();
+
+		printf("Edlib on %d elements took %f seconds. %f MPairs/s\n", gN, lap.lap(), (gN/1E6)/lap.lap());
+		return;
+	}
+
+	if (gInputFile != NULL)
+	{
+		// do statistical analysis of input file
+		ifstream file(gInputFile);
+		string str; 
+		int stats[100];
+		for (int i=0; i <100; i++) stats[i] = 0;
+
+		gN = 0;
+
+		while (std::getline(file, str)) 
+		{
+		  	string del = "\t";
+			string pattern = str.substr(0, str.find(del));
+			string text = str.substr(str.find(del));
+			text = trim(text);
+
+			printf("P:%s\n", pattern.c_str());
+			printf("T:%s\n", text.c_str());
+
+			EdlibAlignResult ret = edlibAlign(pattern.c_str(), pattern.size(), 
+				text.c_str(), text.size(), gAlignConfig);
+			int realErrors = ret.editDistance;
+			printf("d:%d\n", realErrors);
+			//exit(0);
+
+			stats[realErrors] = stats[realErrors]+1;
+			gN++;
+
+			int detectedErrors = getDetectedErrors(pattern, text);
+			
+
+			if ((detectedErrors <= gTh) && (realErrors > gTh)) gFP++;
+			if ((detectedErrors > gTh) && (realErrors <= gTh)) gFN++;
+				
+				
+		}
+
+		printf("Error,Count\n");
+		for (int i=0; i <100; i++) printf("%d, %d\n", i, stats[i] );
+
+		gTotalCorrect += gN;
+
+		printf("FP: %d (%0.2f %%)  FN: %d (%0.2f %%) Total: %d\n", gFP, (gFP*100.0/gTotalCorrect), gFN, (gFN*100.0/gTotalCorrect), gTotalCorrect);
+		exit(0);
+	}
+
 	if (gN == -1)
 	{
 		// Single Test
