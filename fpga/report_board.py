@@ -102,7 +102,7 @@ def reportDesign(board, name, th, et, pl):
 
 def reportDesigns(board, design):
 
-	thresholdbased = ['shd', 'shouji', 'sneaky']
+	thresholdbased = ['shd', 'shouji', 'sneaky', 'lev']
 		
 	ths = [[3,5,7],[3,7,10],[5,10,15]]
 	ets = [0,1,2]
@@ -144,7 +144,7 @@ def reportTable(board):
             print('{}{: <5}|'.format(slink, th), end='')
             slink = ''
     print('')
-    for dsg in ['shd', 'shouji', 'sneaky']:
+    for dsg in ['shd', 'shouji', 'sneaky','lev']:
         slink = '|{: <10}|'.format(dsg)
         for etidx, et in enumerate(ets):
             for th in ths[etidx]:
@@ -170,7 +170,7 @@ def reportTable(board):
         print('{}{: <17}|'.format(slink, et), end='')
         slink = ''
     print('')
-    for dsg in ['shd', 'shouji', 'sneaky']:
+    for dsg in ['shd', 'shouji', 'sneaky', 'lev']:
         slink = '|{: <10}|'.format(dsg)
         for etidx, et in enumerate(ets):
             for th in ths[etidx]:
