@@ -9,8 +9,8 @@ import make_board as mb
 
 blocking=False
 
-mb.makeMetaVariants(BOARD, AOCL_FLAGS, blocking=blocking)
-
+#mb.makeMetaVariants(BOARD, AOCL_FLAGS, blocking=blocking)
+mb.makeLev(BOARD, AOCL_FLAGS, blocking=blocking)
 
 #for th in [5]:
 #   mb.metaprogram('sneaky', level='_level_2', flags=' -D SNEAKY_THRESHOLD={} -D PATTERN_LEN={}'.format(th, 8*2))
