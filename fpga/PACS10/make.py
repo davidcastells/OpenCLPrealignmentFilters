@@ -8,7 +8,9 @@ import make_board as mb
 
 blocking=True
 
-mb.makeMetaVariants(BOARD, AOCL_FLAGS, blocking=blocking)
+#mb.makeSemiglobalVariants(BOARD, AOCL_FLAGS, blocking=blocking)
+#mb.makeMetaVariants(BOARD, AOCL_FLAGS, blocking=blocking)
 
 #mb.makeVariants(BOARD, AOCL_FLAGS, blocking=True)
 
+mb.makeLev(BOARD, AOCL_FLAGS, blocking=blocking)
