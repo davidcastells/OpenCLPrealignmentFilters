@@ -281,7 +281,7 @@ def makeLev(BOARD, AOCL_FLAGS, blocking=False):
    print('COMPILING Lev {}:'.format(BOARD));
 
    dsg = 'lev'
-   meta = '../lev_v3.cl.metaprogram'
+   meta = '../lev_v4.cl.metaprogram'
 
    metaprogram(dsg, meta=meta, cl='lev_e0_3_100_100.cl', flags='-D ENTRY_TYPE_0 -D LEV_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100')
    metaprogram(dsg, meta=meta, cl='lev_e0_5_100_100.cl', flags='-D ENTRY_TYPE_0 -D LEV_THRESHOLD=5 -D PATTERN_LEN=100 -D TEXT_LEN=100')
