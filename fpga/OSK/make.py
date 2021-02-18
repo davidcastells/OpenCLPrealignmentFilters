@@ -15,5 +15,8 @@ ignore.append('kmers_e1_150_150.aocx')
 
 blocking=False
 
-mb.makeMetaVariants(BOARD, AOCL_FLAGS, blocking=blocking)
+#mb.makeMetaVariants(BOARD, AOCL_FLAGS, blocking=blocking)
+#mb.makeLev(BOARD, AOCL_FLAGS, blocking=blocking)
+mb.makeMyers(BOARD, AOCL_FLAGS, blocking=blocking)
+
 
