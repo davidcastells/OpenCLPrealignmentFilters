@@ -130,7 +130,7 @@ void readBigEndian1024bits(__global unsigned char* restrict p, ap_uint_1024p ret
 
 #ifdef FPGA_DEBUG
     printf("Long Word: ");
-    ap_uint__print(AP_UINT_FROM_PTR(ret));
+    ap_uint_1024_print(AP_UINT_FROM_PTR(ret));
     printf("\n");
 #endif
 }
