@@ -5699,6 +5699,14 @@ void ap_uint_512_printBinHigh(ap_uint_512 r, int len)
 	}
 }
 
+void ap_uint_1024_print(ap_uint_1024 r)
+{
+	printf("0x");
+
+	for (int i=0; i < 1024/32; i++)
+		printf("%08X ", ap_uint_1024_getDword(r, (1024/32)-1-i));
+}
+
 void ap_uint_1024_printBinHigh(ap_uint_1024 r, int len)
 {
 	for (int i=0; i < len; i++)
