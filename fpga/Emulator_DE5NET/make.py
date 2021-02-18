@@ -6,5 +6,6 @@ import sys
 sys.path.append('..')
 import make_board as mb
 
-mb.makeVariants(BOARD, AOCL_FLAGS)
-
+blocking=False
+#mb.makeVariants(BOARD, AOCL_FLAGS)
+mb.makeMyers(BOARD, AOCL_FLAGS, blocking=blocking)
