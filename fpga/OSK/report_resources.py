@@ -7,10 +7,10 @@ import report_board as rb
 if __name__ == "__main__":
     doTable = False
 
-    design = ['shd', 'shouji', 'sneaky', 'kmers']
+    design = ['shd', 'shouji', 'sneaky', 'kmers', 'lev']
     for i, arg in enumerate(sys.argv):
         if (arg.startswith('design=all')):
-            design = ['shd', 'shouji', 'sneaky', 'kmers']
+            design = ['shd', 'shouji', 'sneaky', 'kmers', 'lev']
         elif (arg.startswith('design=')):
             part = arg.split('=')
             design = part[1].split(',')
