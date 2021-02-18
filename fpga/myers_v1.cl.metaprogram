@@ -151,22 +151,21 @@ void inlineNewMin(string s_type, string d_var, string sex, bool& isInit)
 %>
 
 
-unsigned int lev(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tlen)
+unsigned int myers(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tlen)
 {
 	//int d = 0;
 
 <%
-	for (int i = 0; i <= max(PATTERN_LEN, TEXT_LEN); i++)
+	for (int x = 0; x <= TEXT_LEN; x++)
 	{
-		for (int xinc = 0; xinc <= LEV_THRESHOLD; xinc++)
+		for (int y = 0; y <= PATTERN_LEN; y++)
 		{
-			int y = i;
-			int x = i + xinc;
 			bool valInit = false;
 			string eq_var = format("eq_%d_%d", x, y);
 			string d_var = format("d_%d_%d", x, y);
 			string s_type = "unsigned int ";
  
+			// equality variable
 			printf("\tint %s = ", eq_var.c_str());
 			if (x > 0 && y > 0)
 				inlineEqualBases("text", x-1, "pattern", y-1);
@@ -174,54 +173,50 @@ unsigned int lev(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tlen)
 				printf("0");
 			printf(";\n");
 
+			if (x == 0 || y == 0)
+				printf("\tint d0_%d_%d = 0;\n", x, y);
+			else
+				printf("\tint d0_%d_%d = ((eq_%d_%d) | vn_%d_%d | hn_%d_%d) & 0x1;\n", x, y, x, y, x-1, y, x, y-1);
 
-			if (x <= LEV_THRESHOLD)
-			{
-				printf("\t%s %s = %d;\n", s_type.c_str(), d_var.c_str(), x);
-				valInit = true;
-				
-			}
-			
+			if (y == 0)
+				printf("\tint vp_%d_%d = 0;\n", x, y);
+			else if (x == 0)
+				printf("\tint vp_%d_%d = 1;\n", x, y);
+			else
+				printf("\tint vp_%d_%d = (hn_%d_%d | ~(hp_%d_%d | d0_%d_%d)) & 0x1;\n", x, y, x, y-1, x, y-1, x, y);
 
-			if (x > 0) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x-1, y), valInit);
-			if (y > 0 && xinc < LEV_THRESHOLD-1) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x, y-1), valInit);
-			if ((x>0) && (y>0)) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , %s)", x-1, y-1, eq_var.c_str()), valInit);
+			if (x == 0 || y == 0)
+				printf("\tint vn_%d_%d = 0;\n", x, y);
+			else
+				printf("\tint vn_%d_%d = (hp_%d_%d & d0_%d_%d) & 0x1;\n", x, y, x, y-1, x, y);
+
+			if (y == 0)
+				printf("\tint hp_%d_%d = 1;\n", x, y);
+			else if (x == 0)
+				printf("\tint hp_%d_%d = 0;\n", x, y);
+			else
+				printf("\tint hp_%d_%d = (vn_%d_%d | ~(vp_%d_%d | d0_%d_%d)) & 0x1;\n", x, y, x-1, y, x-1, y, x, y);
+
+			if (x == 0 || y == 0)
+				printf("\tint hn_%d_%d = 0;\n", x, y);
+			else
+				printf("\tint hn_%d_%d = (vp_%d_%d & d0_%d_%d) & 0x1;\n", x, y, x-1, y, x, y);
+		
 		}
 	
-		for (int yinc = 1; yinc <= LEV_THRESHOLD; yinc++)
-		{
-			int y = i + yinc;
-			int x = i;
-			bool valInit = false;
-			string eq_var = format("eq_%d_%d", x, y);
-			string d_var = format("d_%d_%d", x, y);
-			string s_type = "unsigned int ";
 
-			printf("\tint %s = ", eq_var.c_str());
-			if (x > 0 && y > 0)
-				inlineEqualBases("text", x-1, "pattern", y-1);
-			else
-				printf("0");
-			printf(";\n");
+	}
+%>
+	int d = 0; 
+<%	for (int i = 0; i <= max(TEXT_LEN, PATTERN_LEN); i++)
+	{
+		printf("\td += ~(d0_%d_%d);\n", i, i);
+	}
+%>	
 
-			if (y <= LEV_THRESHOLD)
-			{
-				printf("\t%s %s = %d;\n", s_type.c_str(), d_var.c_str(), y);
-				valInit = true;
-				
-			}
-
-			if (x > 0 && yinc < LEV_THRESHOLD-1) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x-1, y), valInit);
-			if (y > 0) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , 1)", x, y-1), valInit);
-			if ((x>0) && (y>0)) inlineNewMin(s_type, d_var, format("satAdd(d_%d_%d , %s)", x-1, y-1, eq_var.c_str()), valInit);
-
-		}
-	}%>	
-
-	return d_<%printf("%d", TEXT_LEN);%>_<%printf("%d", PATTERN_LEN);%>;
+	return d;
 	
 }
-
 
 
 unsigned int computeDistance(ap_uint_1024 pattern,  int plen, ap_uint_1024 text,  int tlen)
@@ -259,31 +254,31 @@ unsigned int myers(ap_uint_512 pattern,  int plen, ap_uint_512 text,  int tlen)
 			if (x == 0 || y == 0)
 				printf("\tint d0_%d_%d = 0;\n", x, y);
 			else
-				printf("\tint d0_%d_%d = (eq_%d_%d) | vn_%d_%d | hn_%d_%d;\n", x, y, x, y, x-1, y, x, y-1);
+				printf("\tint d0_%d_%d = ((eq_%d_%d) | vn_%d_%d | hn_%d_%d) & 0x1;\n", x, y, x, y, x-1, y, x, y-1);
 
 			if (y == 0)
 				printf("\tint vp_%d_%d = 0;\n", x, y);
 			else if (x == 0)
 				printf("\tint vp_%d_%d = 1;\n", x, y);
 			else
-				printf("\tint vp_%d_%d = hn_%d_%d | ~(hp_%d_%d | d0_%d_%d);\n", x, y, x, y-1, x, y-1, x, y);
+				printf("\tint vp_%d_%d = (hn_%d_%d | ~(hp_%d_%d | d0_%d_%d)) & 0x1;\n", x, y, x, y-1, x, y-1, x, y);
 
 			if (x == 0 || y == 0)
 				printf("\tint vn_%d_%d = 0;\n", x, y);
 			else
-				printf("\tint vn_%d_%d = hp_%d_%d & d0_%d_%d;\n", x, y, x, y-1, x, y);
+				printf("\tint vn_%d_%d = (hp_%d_%d & d0_%d_%d) & 0x1;\n", x, y, x, y-1, x, y);
 
 			if (y == 0)
 				printf("\tint hp_%d_%d = 1;\n", x, y);
 			else if (x == 0)
 				printf("\tint hp_%d_%d = 0;\n", x, y);
 			else
-				printf("\tint hp_%d_%d = vn_%d_%d | ~(vp_%d_%d | d0_%d_%d);\n", x, y, x-1, y, x-1, y, x, y);
+				printf("\tint hp_%d_%d = (vn_%d_%d | ~(vp_%d_%d | d0_%d_%d)) & 0x1;\n", x, y, x-1, y, x-1, y, x, y);
 
 			if (x == 0 || y == 0)
 				printf("\tint hn_%d_%d = 0;\n", x, y);
 			else
-				printf("\tint hn_%d_%d = vp_%d_%d & d0_%d_%d;\n", x, y, x-1, y, x, y);
+				printf("\tint hn_%d_%d = (vp_%d_%d & d0_%d_%d) & 0x1;\n", x, y, x-1, y, x, y);
 		
 		}
 	
