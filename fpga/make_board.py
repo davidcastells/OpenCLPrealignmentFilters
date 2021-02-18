@@ -308,3 +308,16 @@ def makeLev(BOARD, AOCL_FLAGS, blocking=False):
    makeAocx(aocx='lev_e2_15_300_300.aocx', cl='lev_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
    
 
+
+def makeMyers(BOARD, AOCL_FLAGS, blocking=False):
+
+   print('COMPILING Myers {}:'.format(BOARD));
+
+   dsg = 'myers'
+   meta = '../myers_v1.cl.metaprogram'
+
+   metaprogram(dsg, meta=meta, cl='myers_e0_3_100_100.cl', flags='-D ENTRY_TYPE_0 -D MYERS_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100')
+#   metaprogram(dsg, meta=meta, cl='lev_e0_5_100_100.cl', flags='-D ENTRY_TYPE_0 -D LEV_THRESHOLD=5 -D PATTERN_LEN=100 -D TEXT_LEN=100')
+#   metaprogram(dsg, meta=meta, cl='lev_e0_7_100_100.cl', flags='-D ENTRY_TYPE_0 -D LEV_THRESHOLD=7 -D PATTERN_LEN=100 -D TEXT_LEN=100')
+
+   makeAocx(aocx='myers_e0_3_100_100.aocx', cl='myers_e0_3_100_100.cl', threshold=3, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
