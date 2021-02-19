@@ -144,7 +144,7 @@ def reportTable(board):
             print('{}{: <5}|'.format(slink, th), end='')
             slink = ''
     print('')
-    for dsg in ['shd', 'shouji', 'sneaky','lev']:
+    for dsg in ['shd', 'shouji', 'sneaky','lev', 'myers']:
         slink = '|{: <10}|'.format(dsg)
         for etidx, et in enumerate(ets):
             for th in ths[etidx]:
@@ -170,7 +170,7 @@ def reportTable(board):
         print('{}{: <17}|'.format(slink, et), end='')
         slink = ''
     print('')
-    for dsg in ['shd', 'shouji', 'sneaky', 'lev']:
+    for dsg in ['shd', 'shouji', 'sneaky', 'lev', 'myers']:
         slink = '|{: <10}|'.format(dsg)
         for etidx, et in enumerate(ets):
             for th in ths[etidx]:
