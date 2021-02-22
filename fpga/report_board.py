@@ -102,7 +102,7 @@ def reportDesign(board, name, th, et, pl):
 
 def reportDesigns(board, design):
 
-	thresholdbased = ['shd', 'shouji', 'sneaky', 'lev']
+	thresholdbased = ['shd', 'shouji', 'sneaky', 'lev', 'myers']
 		
 	ths = [[3,5,7],[3,7,10],[5,10,15]]
 	ets = [0,1,2]
