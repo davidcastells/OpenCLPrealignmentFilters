@@ -317,22 +317,28 @@ def makeMyers(BOARD, AOCL_FLAGS, blocking=False):
    meta = '../myers_v1.cl.metaprogram'
 
    metaprogram(dsg, meta=meta, cl='myers_e0_3_100_100.cl', flags='-D ENTRY_TYPE_0 -D MYERS_THRESHOLD=3 -D PATTERN_LEN=100 -D TEXT_LEN=100')
-#   metaprogram(dsg, meta=meta, cl='lev_e0_5_100_100.cl', flags='-D ENTRY_TYPE_0 -D LEV_THRESHOLD=5 -D PATTERN_LEN=100 -D TEXT_LEN=100')
-#   metaprogram(dsg, meta=meta, cl='lev_e0_7_100_100.cl', flags='-D ENTRY_TYPE_0 -D LEV_THRESHOLD=7 -D PATTERN_LEN=100 -D TEXT_LEN=100')
+   metaprogram(dsg, meta=meta, cl='myers_e0_5_100_100.cl', flags='-D ENTRY_TYPE_0 -D MYERS_THRESHOLD=5 -D PATTERN_LEN=100 -D TEXT_LEN=100')
+   metaprogram(dsg, meta=meta, cl='myers_e0_7_100_100.cl', flags='-D ENTRY_TYPE_0 -D MYERS_THRESHOLD=7 -D PATTERN_LEN=100 -D TEXT_LEN=100')
 
    makeAocx(aocx='myers_e0_3_100_100.aocx', cl='myers_e0_3_100_100.cl', threshold=3, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='myers_e0_5_100_100.aocx', cl='myers_e0_5_100_100.cl', threshold=5, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='myers_e0_7_100_100.aocx', cl='myers_e0_7_100_100.cl', threshold=7, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
 
 
    metaprogram(dsg, meta=meta, cl='myers_e1_3_150_150.cl', flags='-D ENTRY_TYPE_1 -D MYERS_THRESHOLD=3 -D PATTERN_LEN=150 -D TEXT_LEN=150')
-#   metaprogram(dsg, meta=meta, cl='lev_e1_7_150_150.cl', flags='-D ENTRY_TYPE_1 -D LEV_THRESHOLD=7 -D PATTERN_LEN=150 -D TEXT_LEN=150')
-#   metaprogram(dsg, meta=meta, cl='lev_e1_10_150_150.cl', flags='-D ENTRY_TYPE_1 -D LEV_THRESHOLD=10 -D PATTERN_LEN=150 -D TEXT_LEN=150')
+   metaprogram(dsg, meta=meta, cl='myers_e1_7_150_150.cl', flags='-D ENTRY_TYPE_1 -D MYERS_THRESHOLD=7 -D PATTERN_LEN=150 -D TEXT_LEN=150')
+   metaprogram(dsg, meta=meta, cl='myers_e1_10_150_150.cl', flags='-D ENTRY_TYPE_1 -D MYERS_THRESHOLD=10 -D PATTERN_LEN=150 -D TEXT_LEN=150')
 
    makeAocx(aocx='myers_e1_3_150_150.aocx', cl='myers_e1_3_150_150.cl', threshold=3, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='myers_e1_7_150_150.aocx', cl='myers_e1_7_150_150.cl', threshold=7, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='myers_e1_10_150_150.aocx', cl='myers_e1_10_150_150.cl', threshold=10, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
 
    metaprogram(dsg, meta=meta, cl='myers_e2_5_300_300.cl', flags='-D ENTRY_TYPE_2 -D MYERS_THRESHOLD=5 -D PATTERN_LEN=300 -D TEXT_LEN=300')
-#   metaprogram(dsg, meta=meta, cl='lev_e2_10_300_300.cl', flags='-D ENTRY_TYPE_2 -D LEV_THRESHOLD=10 -D PATTERN_LEN=300 -D TEXT_LEN=300')
-#   metaprogram(dsg, meta=meta, cl='lev_e2_15_300_300.cl', flags='-D ENTRY_TYPE_2 -D LEV_THRESHOLD=15 -D PATTERN_LEN=300 -D TEXT_LEN=300')
+   metaprogram(dsg, meta=meta, cl='myers_e2_10_300_300.cl', flags='-D ENTRY_TYPE_2 -D MYERS_THRESHOLD=10 -D PATTERN_LEN=300 -D TEXT_LEN=300')
+   metaprogram(dsg, meta=meta, cl='myers_e2_15_300_300.cl', flags='-D ENTRY_TYPE_2 -D MYERS_THRESHOLD=15 -D PATTERN_LEN=300 -D TEXT_LEN=300')
 
    makeAocx(aocx='myers_e2_5_300_300.aocx', cl='myers_e2_5_300_300.cl', threshold=5, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeAocx(aocx='myers_e2_10_300_300.aocx', cl='myers_e2_10_300_300.cl', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeAocx(aocx='myers_e2_15_300_300.aocx', cl='myers_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
 
 
