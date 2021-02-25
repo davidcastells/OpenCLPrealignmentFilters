@@ -216,7 +216,7 @@ unsigned int satAdd(unsigned int a, unsigned int b)
 	if (isASaturated)
 		return mask & final_mask;
 	else
-		return (a + b) & final_mask;
+		return ((a& final_mask) + (b& final_mask)) & final_mask;
 }
 
 <%
