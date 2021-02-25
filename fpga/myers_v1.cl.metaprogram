@@ -194,7 +194,7 @@ void inlineNewMin(string s_type, string d_var, string sex, bool& isInit)
 int isFarFromDiag(int x, int y)
 {
 	int d = abs(x-y);
-	return (d > MYERS_THRESHOLD);
+	return (d > (MYERS_THRESHOLD/2));
 }
 
 %>
@@ -203,11 +203,26 @@ int isFarFromDiag(int x, int y)
 #pragma OPENCL EXTENSION cl_intel_arbitrary_precision_integers : enable
 
 <%
-// int LEV_THRESHOLD_BITS = ceil(log(LEV_THRESHOLD) / log(2));
-
+int MYERS_THRESHOLD_BITS = ceil(log(MYERS_THRESHOLD) / log(2));
 
 %>
 
+
+unsigned int satAdd(unsigned int a, unsigned int b)
+{
+	// final mask
+	int final_mask = (1 << (<%printf("%d", MYERS_THRESHOLD_BITS+1);%>) ) -1;
+
+
+	// bits
+	int lev_bits = <%printf("%d", MYERS_THRESHOLD_BITS);%>;
+	int mask = 1 << lev_bits;
+	int isASaturated = (a >> lev_bits) & 1;
+	if (isASaturated)
+		return mask & final_mask;
+	else
+		return (a + b) & final_mask;
+}
 
 <%
 #ifdef ENTRY_TYPE_2
@@ -380,7 +395,7 @@ inlinePrintBases("pattern", y-1, "text", x-1);
 
 <%	for (int i = 0; i <= max(TEXT_LEN, PATTERN_LEN); i++)
 	{
-		printf("\td += (~(d0_%d_%d)) & 1;\n", i, i);
+		printf("\td = satAdd(d ,  (~(d0_%d_%d)) & 1);\n", i, i);
 
 %>
 #ifdef FPGA_DEBUG
