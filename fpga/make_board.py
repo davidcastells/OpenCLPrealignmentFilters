@@ -4,7 +4,7 @@ gCompiled = 0
 gCompiling = 0
 gStarted = 0
 
-gOnFlyMax = 10
+gOnFlyMax = 7
 
 def modified_date(path_to_file):
     stat = os.stat(path_to_file)
