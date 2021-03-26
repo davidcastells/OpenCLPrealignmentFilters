@@ -113,6 +113,7 @@ void readBigEndian512bits(__global unsigned char* restrict p, ap_uint_512p ret)
 }
 
 
+#ifdef ENTRY_TYPE_2
 
 void readBigEndian1024bits(__global unsigned char* restrict p, ap_uint_1024p ret)
 {
@@ -135,6 +136,7 @@ void readBigEndian1024bits(__global unsigned char* restrict p, ap_uint_1024p ret
 #endif
 }
 
+#endif
 
 
 
