@@ -60,7 +60,13 @@ EdlibAlignConfig gSemiAlignConfig = edlibNewAlignConfig(-1, EDLIB_MODE_HW, EDLIB
 
 int recheckErrors(string& pattern, string& text)
 {
-	EdlibAlignResult ret = edlibAlign(pattern.c_str(), pattern.size(), text.c_str(), text.size(), gAlignConfig);
+	EdlibAlignResult ret;
+
+	if (pattern.size() == text.size())
+		ret = edlibAlign(pattern.c_str(), pattern.size(), text.c_str(), text.size(), gAlignConfig);
+	else
+		ret = edlibAlign(pattern.c_str(), pattern.size(), text.c_str(), text.size(), gSemiAlignConfig);
+
 
 	return ret.editDistance;
 }
@@ -503,12 +509,26 @@ void testHardware()
 	filter.initKernels(0,  aocx_file , gTh);
 
 
-	for (int i=0; i < gN; i++)
+	if (gN == -1)
 	{
-		createPair(pattern, text);
+		// Single Test
+		pattern = gPattern;
+		text = gText;
+
+		if (verbose)
+			printf("Hardware Single Test Mode\n");
+
+		gTotalCorrect = 1;
 		filter.addInput(pattern, text);
 	}
-
+	else
+	{
+		for (int i=0; i < gN; i++)
+		{
+			createPair(pattern, text);
+			filter.addInput(pattern, text);
+		}
+	}
 	int realErrors = gES + gEI + gED;
 	filter.computeAll(realErrors);
 
