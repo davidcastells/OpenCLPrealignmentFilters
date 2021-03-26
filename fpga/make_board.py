@@ -342,3 +342,32 @@ def makeMyers(BOARD, AOCL_FLAGS, blocking=False):
    makeAocx(aocx='myers_e2_15_300_300.aocx', cl='myers_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
 
 
+def makeBpc(BOARD, AOCL_FLAGS, blocking=False):
+
+   print('COMPILING Myers {}:'.format(BOARD));
+
+   dsg = 'bpc'
+   meta = '../bpc_v1.cl.metaprogram'
+
+	
+   erate = 0.1
+   pl = 100
+   th = (pl * erate) // 1
+   tl = pl + 2*th
+
+   total = th + tl 
+   if ((total + 2) < (512//8)):
+	etype = 0
+   else:
+	raise Exception('total = {} > {}'.format(total+2, 512//8))
+
+   cl = 'bpc_e0_{}_{}_{}.cl'.format(th, pl, tl)
+   aocx = 'bpc_e0_{}_{}_{}.aocx'.format(th, pl, tl)
+   flags='-D ENTRY_TYPE_{} -D BPC_THRESHOLD={} -D PATTERN_LEN={} -D TEXT_LEN={}'.format(etype, th,pl, tl)
+   metaprogram(dsg, meta=meta, cl=cl, flags=flags)
+
+   makeAocx(aocx=aocx, cl=cl, threshold=th, pattern_len=pl, text_len=tl, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+
+
+
+
