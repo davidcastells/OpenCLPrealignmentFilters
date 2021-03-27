@@ -349,24 +349,31 @@ def makeBpc(BOARD, AOCL_FLAGS, blocking=False):
    dsg = 'bpc'
    meta = '../bpc_v1.cl.metaprogram'
 
-	
-   erate = 0.1
-   pl = 100
-   th = (pl * erate) // 1
-   tl = pl + 2*th
+   for erate in [0.03, 0.05, 0.1]:
+      for pl in [100,150,200,250,300,350]:
+         #erate = 0.1
+         #pl = 100
+         th = int(pl * erate) 
+         tl = pl + 2*th
 
-   total = th + tl 
-   if ((total + 2) < (512//8)):
-	etype = 0
-   else:
-	raise Exception('total = {} > {}'.format(total+2, 512//8))
+         total = pl + tl 
+         if ((total + 2) < (512//2)):
+            etype = 0
+         elif (pl < (512//2) and tl < (512//2)):
+            etype = 1
+         elif (pl < (1024//2) and tl < (1024//2)):
+            etype = 2
+         else:
+            raise Exception('total = {} pl: {} tl: {}'.format(total, pl, tl))
 
-   cl = 'bpc_e0_{}_{}_{}.cl'.format(th, pl, tl)
-   aocx = 'bpc_e0_{}_{}_{}.aocx'.format(th, pl, tl)
-   flags='-D ENTRY_TYPE_{} -D BPC_THRESHOLD={} -D PATTERN_LEN={} -D TEXT_LEN={}'.format(etype, th,pl, tl)
-   metaprogram(dsg, meta=meta, cl=cl, flags=flags)
+         print('Total length =', total)
 
-   makeAocx(aocx=aocx, cl=cl, threshold=th, pattern_len=pl, text_len=tl, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+         cl = 'bpc_e{}_{}_{}_{}.cl'.format(etype, th, pl, tl)
+         aocx = 'bpc_e{}_{}_{}_{}.aocx'.format(etype, th, pl, tl)
+         flags='-D ENTRY_TYPE_{} -D BPC_THRESHOLD={} -D PATTERN_LEN={} -D TEXT_LEN={}'.format(etype, th,pl, tl)
+         metaprogram(dsg, meta=meta, cl=cl, flags=flags)
+
+         makeAocx(aocx=aocx, cl=cl, threshold=th, pattern_len=pl, text_len=tl, extra_flags=AOCL_FLAGS, entry_type=etype, blocking=blocking, meta=meta)
 
 
 
