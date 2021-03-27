@@ -17,7 +17,9 @@ def getInfo():
     }
     return info
 
-def getDesignDir(dsg, et, th, pl):
+def getDesignDir(dsg, et, th, pl, tl=None):
+    if (tl==None):
+        tl = pl
     if (th == -1):
         dir = '{}_e{}'.format(dsg, et)
     else:
@@ -25,17 +27,20 @@ def getDesignDir(dsg, et, th, pl):
     if (pl == -1):
         ptype = '_var'
     else:
-        ptype = '_{}_{}'.format(pl, pl)
+        ptype = '_{}_{}'.format(pl, tl)
     return dir+ptype
 
-def getDesignFmax(board, dsg, et, th, pl):
+def getDesignFmax(board, dsg, et, th, pl, tl=None):
+    if (tl==None):
+        tl = pl
+
     info = getInfo()
     sfmaxsep = info[board]['fmax-sep']
     fmaxpos = info[board]['fmax-pos']
     sfmaxfile = info[board]['fmax-file']
     query = info[board]['fmax']
 
-    sdir = getDesignDir(dsg, et, th, pl)
+    sdir = getDesignDir(dsg, et, th, pl, tl)
     sfile = '{}/{}'.format(sdir, sfmaxfile)
     if (os.path.exists(sfile) == False):
         return '?'
@@ -47,10 +52,13 @@ def getDesignFmax(board, dsg, et, th, pl):
     else:
         return '?'
 
-def getDesignResources(board, dsg, et, th, pl):
+def getDesignResources(board, dsg, et, th, pl, tl=None):
+    if (tl==None):
+        tl = pl
+
     info = getInfo()
     sresourcesfile = info[board]['resources-file']
-    sdir = getDesignDir(dsg, et, th, pl)
+    sdir = getDesignDir(dsg, et, th, pl, tl)
     sfile = '{}/{}'.format(sdir, sresourcesfile)
     if (os.path.exists(sfile) == False):
         return '?'
@@ -67,6 +75,27 @@ def getDesignResources(board, dsg, et, th, pl):
         part = ret.split('(')
         part = part[1].split(')')
         ret = part[0].strip()
+    else:
+        return '?'
+    return ret
+
+def getDesignRegisters(board, dsg, et, th, pl, tl=None):
+    if (tl==None):
+        tl = pl
+
+    info = getInfo()
+    sresourcesfile = info[board]['resources-file']
+    sdir = getDesignDir(dsg, et, th, pl, tl)
+    sfile = '{}/{}'.format(sdir, sresourcesfile)
+    if (os.path.exists(sfile) == False):
+        return '?'
+    cmd = ' grep "Total dedicated logic registers" {}'.format(sfile)
+    sout = systemOutput(cmd)
+    ret = sout[0]
+    if (';' in ret):
+        part = ret.split(';')
+        ret = part[2].strip()
+        
     else:
         return '?'
     return ret
