@@ -4,7 +4,7 @@ gCompiled = 0
 gCompiling = 0
 gStarted = 0
 
-gOnFlyMax = 7
+gOnFlyMax = 5
 
 def modified_date(path_to_file):
     stat = os.stat(path_to_file)
@@ -29,6 +29,19 @@ def isCompiled(aocx, cl):
     cl_date = modified_date(cl)
     if (aocx_date > cl_date):
         return True
+
+def getAoco(aocx):
+    part = aocx.split('.aocx')
+    return part[0] + '.aoco'
+
+def aocoExist(aocx):
+    aoco = getAoco(aocx)
+    if (os.path.exists(aoco) == True):
+        print('AOCO file found ' , aoco)
+        return True
+    else:
+        return False
+
 
 def designConstant(aocx):
     part = aocx.split('_')
@@ -80,6 +93,9 @@ def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1, entry_type=0, 
     if ((gCompiling + gStarted) > gOnFlyMax and blocking == False):
         print('concurrent works limit reached')
         return
+
+    if (aocoExist(aocx)):
+        cl = getAoco(aocx)
 
     entry_type_flags = ' -D ENTRY_TYPE_{} '.format(entry_type)
     common_flags = '-D BASIC_AP_UINT -I $INTELFPGAOCLSDKROOT/include/kernel_headers -g'
@@ -366,7 +382,7 @@ def makeBpc(BOARD, AOCL_FLAGS, blocking=False):
          else:
             raise Exception('total = {} pl: {} tl: {}'.format(total, pl, tl))
 
-         print('Total length =', total)
+         print('Total length ={}'.format(total))
 
          cl = 'bpc_e{}_{}_{}_{}.cl'.format(etype, th, pl, tl)
          aocx = 'bpc_e{}_{}_{}_{}.aocx'.format(etype, th, pl, tl)
