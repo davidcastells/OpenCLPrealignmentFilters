@@ -9,11 +9,11 @@ def systemOutput(cmd):
 
 def getInfo():
     info = {
-		'DE5NET': {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2, 'resources-file':'top.flow.rpt', 'start':68, 'len':30},
+		'DE5NET': {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2, 'resources-file':'top.flow.rpt', 'start':68, 'len':30, 'registers-key':''},
 		'OSK' :   {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2,'resources-file':'top.flow.rpt', 'start':63, 'len':25},
-		'HARP' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'top.flow.rpt', 'start':63, 'len':25},
+		'HARP' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'top.flow.rpt', 'start':63, 'len':25, 'registers-key':'Total registers'},
 		'PAC10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':','fmax-pos':1,'resources-file':'acl_quartus_report.txt', 'start':7, 'len':7},
-		'PACS10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22},
+		'PACS10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers'},
     }
     return info
 
@@ -79,6 +79,33 @@ def getDesignResources(board, dsg, et, th, pl, tl=None):
         return '?'
     return ret
 
+def getDesignResourcesRaw(board, dsg, et, th, pl, tl=None):
+    if (tl==None):
+        tl = pl
+
+    info = getInfo()
+    sresourcesfile = info[board]['resources-file']
+    sdir = getDesignDir(dsg, et, th, pl, tl)
+    sfile = '{}/{}'.format(sdir, sresourcesfile)
+    if (os.path.exists(sfile) == False):
+        return '?'
+    cmd = ' grep "Logic utilization" {}'.format(sfile)
+    sout = systemOutput(cmd)
+    ret = sout[0]
+    if ('ALMs' in ret):
+        # PACS10
+        part = ret.split(';')
+        part = part[2].split('(')
+        ret = part[0]
+        return ret.strip()
+    elif ('Logic utilization' in ret):
+        part = ret.split('(')
+        part = part[1].split(')')
+        ret = part[0].strip()
+    else:
+        return '?'
+    return ret
+
 def getDesignRegisters(board, dsg, et, th, pl, tl=None):
     if (tl==None):
         tl = pl
@@ -89,7 +116,7 @@ def getDesignRegisters(board, dsg, et, th, pl, tl=None):
     sfile = '{}/{}'.format(sdir, sresourcesfile)
     if (os.path.exists(sfile) == False):
         return '?'
-    cmd = ' grep "Total dedicated logic registers" {}'.format(sfile)
+    cmd = ' grep "{}" {}'.format(info[board]['registers-key'], sfile)
     sout = systemOutput(cmd)
     ret = sout[0]
     if (';' in ret):
