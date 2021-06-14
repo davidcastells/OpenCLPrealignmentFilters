@@ -194,13 +194,13 @@ void inlineNewMin(string s_type, string d_var, string sex, bool& isInit)
 int isFarFromDiag(int x, int y)
 {
 	int d = abs(x-BPC_THRESHOLD-y);	// we substract BPC_THRESHOLD becaus the main diagonal starts at BPC_THRESHOLD
-	return (d > (BPC_THRESHOLD));
+	return (d > (BPC_THRESHOLD*2));
 }
 
 int inEdge(int x, int y)
 {
-	int d = abs(x-BPC_THRESHOLD-y);	// we substract BPC_THRESHOLD becaus the main diagonal starts at BPC_THRESHOLD
-	return (d == (BPC_THRESHOLD)+1);
+	int d = abs(x-BPC_THRESHOLD-y);	// we substract BPC_THRESHOLD because the main diagonal starts at BPC_THRESHOLD
+	return (d == (BPC_THRESHOLD*2)+1);
 }
 
 %>
@@ -211,7 +211,7 @@ int inEdge(int x, int y)
 <%
 // Bit-Parallel Method based on Diagonals
 
-int BPC_THRESHOLD_BITS = ceil(log(2*BPC_THRESHOLD+1) / log(2));
+int BPC_THRESHOLD_BITS = ceil(log(2*2*BPC_THRESHOLD+1) / log(2));
 
 %>
 
@@ -550,16 +550,24 @@ else
 		%> + hp_<%printf("%d_%d", PATTERN_LEN+i+BPC_THRESHOLD, PATTERN_LEN); 
 		%> - hn_<%printf("%d_%d", PATTERN_LEN+i+BPC_THRESHOLD, PATTERN_LEN);%>;
 
+	d = min(d, dp_<%printf("%d_%d", PATTERN_LEN+i+BPC_THRESHOLD, PATTERN_LEN);%>);
+<%
+	}
+%>
+
+	// Now compute the neighbouring cells
+<%	for (int i = 1; i <= BPC_THRESHOLD*2; i++)
+	{%>
 	int dm_<%printf("%d_%d", PATTERN_LEN-i+BPC_THRESHOLD, PATTERN_LEN);
 		%>= dm_<%printf("%d_%d", PATTERN_LEN-i+BPC_THRESHOLD+1, PATTERN_LEN);
 		%> - hp_<%printf("%d_%d", PATTERN_LEN-i+BPC_THRESHOLD, PATTERN_LEN); 
 		%> + hn_<%printf("%d_%d", PATTERN_LEN-i+BPC_THRESHOLD, PATTERN_LEN);%>;
 
-	d = min(d, dp_<%printf("%d_%d", PATTERN_LEN+i+BPC_THRESHOLD, PATTERN_LEN);%>);
 	d = min(d, dm_<%printf("%d_%d", PATTERN_LEN-i+BPC_THRESHOLD, PATTERN_LEN);%>);
 <%
 	}
 %>
+
 	return d;
 	
 }
