@@ -365,8 +365,8 @@ def makeBpc(BOARD, AOCL_FLAGS, blocking=False):
    dsg = 'bpc'
    meta = '../bpc_v1.cl.metaprogram'
 
-   for erate in [0.03, 0.05, 0.1]:
-      for pl in [100,150,200,250,300,350]:
+   for erate in  [0.03, 0.05, 0.1]:
+       for pl in  [100,200,300]:
          #erate = 0.1
          #pl = 100
          th = int(pl * erate) 
