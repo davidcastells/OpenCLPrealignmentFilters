@@ -38,6 +38,9 @@ string gPattern;	// Pattern string for single test mode
 bool gPerformanceEdlib = false;
 
 char* gInputFile = NULL;
+char* gFilter = "";
+char* gBoard = "";
+int gMemBanks = 1;	// Memory banks used in FPGA kernel (usefull for FPGAs with multiple memory ports, such as HBM based)
 
 #define ORIGINAL_CHARACTER	'.'
 #define SUBSTITUTION_CHARACTER 	'X'
@@ -157,6 +160,21 @@ void parseOptions(int argc, char* args[])
 			i++;
 			gInputFile = args[i];
 		}
+		if (strcmp(args[i], "-filter") == 0)
+		{
+			i++;
+			gFilter = args[i];
+		}
+		if (strcmp(args[i], "-board") == 0)
+		{
+			i++;
+			gBoard = args[i];
+		}
+		if (strcmp(args[i], "-mem") == 0)
+		{
+			i++;
+			gMemBanks = atoi(args[i]);
+		}
 	}
 }
 
@@ -167,19 +185,22 @@ void usage()
 	printf("filter-test [options]\n\n");
 	printf("where options can be\n");
 	printf("\t-v\tverbose output\n");
-	printf("\t-N\tnumber of pairs\n");
+	printf("\t-filter <filter>\tFilter type, any of [shd|kmer|shouji|sneaky|lev|myers|bpc]\n");
+	printf("\t-board <filter>\tFPGA board, any of [OSK|DE5|PAC10|PACS10|HARP|U50]\n");
+	printf("\t-mem <num>\tNumber of memory banks used in the kernel (1 by default)\n");
+	printf("\t-N <num>\tnumber of pairs\n");
 	printf("\t-ps <offset>\tPattern start offset with respect to Text, random if not specified\n");
 	printf("\t-ES <errors>\tNumber of substitution errors\n");
 	printf("\t-EI <errors>\tNumber of insertion errors\n");
 	printf("\t-ED <errors>\tNumber of deletion errors\n");
-	printf("\t-th <errors>\nError threshold\n");
+	printf("\t-th <errors>\tError threshold\n");
 	printf("\t-pl <len>\tPattern Length\n");
 	printf("\t-tl <len>\tText Length\n");
 	printf("\t-pid <id>\tOpenCL Platform ID\n");
 	printf("\t-t <str>\tThe Text Sequence (for an especific pair test)\n");
 	printf("\t-p <str>\tThe Pattern Sequence (for an especific pair test)\n");
-	printf("\t-perfedlib\tTest the performance of edlib");
-	printf("\t-f <filename>\tTest the pairs from the file");
+	printf("\t-perfedlib\tTest the performance of edlib\n");
+	printf("\t-f <filename>\tTest the pairs from the file\n");
 	exit(0);
 }
 
@@ -325,7 +346,7 @@ void createPair(string& pattern, string& text)
 int getDetectedErrors(string& pattern, string& text)
 {	
 	int detectedErrors;
-	string aocx_file = AOCX_FILE;
+	string aocx_file = gFilter;
 
 	if (aocx_file.compare("shd") == 0)
 		detectedErrors = SHD_SW(pattern, text, gTh);
@@ -339,7 +360,7 @@ int getDetectedErrors(string& pattern, string& text)
 		detectedErrors = Kmers_SW(pattern, text, gTh);
 	else
 	{
-		printf("Invalid algorithm %s\n", AOCX_FILE);
+		printf("Invalid algorithm %s\n", gFilter);
 		exit(0);
 	}
 
@@ -500,13 +521,13 @@ void testHardware()
 	string pattern;
 	string text;
 
-	string aocx_file = AOCX_FILE;
+	string bitstream_file = gFilter;
 
 	PrealignmentFilter filter;
 	filter.setVerbose(verbose);
 	filter.setReportTime(true);
 	filter.initOpenCL(gPid);
-	filter.initKernels(0,  aocx_file , gTh);
+	filter.initKernels(gBoard, gMemBanks, bitstream_file , gTh, gPatternLen, gTextLen);
 
 
 	if (gN == -1)
