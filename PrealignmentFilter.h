@@ -43,7 +43,7 @@ public:
     
 public:
     void initOpenCL(int platform_id);
-    void initKernels(int version, string openCLKernelType, int threshold);
+    void initKernels(string board, int memBanks, string openCLKernelType, int threshold, int patternLen, int textLen);
     void finalizeOpenCL();
     void finalizeKernels();
     void addInput(string pattern, string text);
@@ -53,8 +53,8 @@ public:
     void setVerbose(bool verbose);
     void setReportTime(bool reportTime);
    
-    void invokeKernel(unsigned char* pattern, unsigned int patternSize, 
-                                    unsigned int* workload, unsigned int tasks);
+    void invokeKernelSingleBuffer(unsigned char* pattern, unsigned int patternSize, unsigned int* workload, unsigned int tasks);
+    void invokeKernelMultipleBuffers(unsigned char* pattern, unsigned int patternSize, unsigned char* workload, unsigned int tasks);
     
 private:
     size_t countRequiredMemory(vector<int>& len);
@@ -80,6 +80,9 @@ private:
     vector<int> m_basesPatternLength;
     vector<int> m_basesTextLength;
 
+    int m_patternLen;
+    int m_textLen;
+    int m_memBanks;
 
     cl_platform_id m_platform;
     cl_context m_context;
@@ -88,6 +91,7 @@ private:
     cl_command_queue m_queue;
     cl_kernel m_kmerKernel;
     string m_openCLFilesPath;
+    string m_board;
     
     cl_mem m_memPattern;
     cl_mem m_memPatternIdx;
@@ -97,7 +101,7 @@ private:
 
     int m_threshold;
     
-    int m_openCLKernelVersion;
+    //int m_openCLKernelVersion;
 
 
 };
