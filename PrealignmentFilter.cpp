@@ -273,8 +273,8 @@ void PrealignmentFilter::setVerbose(bool verbose)
 int PrealignmentFilter::determineEncodingType(size_t* requiredMemory)
 {
 	// @todo we do not support multiple different encoding types in the same set
-	int pl = m_basesPattern[0].size();
-	int tl = m_basesText[0].size();
+	int pl = m_patternLen;	// m_basesPattern[0].size();
+	int tl = m_textLen; 	// m_basesText[0].size();
 
 	int pBytes = (pl+3)/4;
 	int tBytes = (tl+3)/4;
@@ -287,20 +287,23 @@ int PrealignmentFilter::determineEncodingType(size_t* requiredMemory)
 	{
 		// both pattern and text in the same 512 bits word
 		printf("Entry Type 0\n");
-		*requiredMemory =  (512/8);
+		if (requiredMemory != NULL)
+			*requiredMemory =  (512/8);
 		return 0;
 	}
 	if (((pBytes + 1) < bytesPerWord) && ((tBytes + 1) < bytesPerWord))
 	{
 		// pattern in a 512 bits word, and text in the following 512 bits word
 		printf("Entry Type 1\n");
-		*requiredMemory =  2 * bytesPerWord;
+		if (requiredMemory != NULL)
+			*requiredMemory =  2 * bytesPerWord;
 		return 1;
 	}
 	int pWords = ((pBytes + 1) + (bytesPerWord-1)) / bytesPerWord;
 	int tWords = ((tBytes + 1) + (bytesPerWord-1)) / bytesPerWord;
 
-	*requiredMemory =  (pWords + tWords) * bytesPerWord;
+	if (requiredMemory != NULL)
+		*requiredMemory =  (pWords + tWords) * bytesPerWord;
 
 	printf("Entry Type 2\n");
 	return 2;
@@ -386,8 +389,10 @@ void PrealignmentFilter::computeAll(int realErrors)
 	printf("Enconding of entries took %f seconds\n", lap.lap());
 
 //    printf("Invoke kernel\n");
-
-    invokeKernel(pattern, requiredMemory, workload, m_basesPatternLength.size());
+	if (m_memBanks == 1)
+	    invokeKernelSingleBuffer(pattern, requiredMemory, workload, m_basesPatternLength.size());
+	else
+	    invokeKernelMultipleBuffers(pattern, requiredMemory, (unsigned char*) workload, m_basesPatternLength.size());
     
 	int FP = 0;
 	int FN = 0;
@@ -461,7 +466,10 @@ void PrealignmentFilter::setReportTime(bool reportTime)
    m_reportTime = reportTime;
 }
 
-void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int totalPairsSize, unsigned int* workload, unsigned int tasks)
+/**
+ * Invoke a single buffer kernel, all the input data is continously located in memory 
+ */
+void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsigned int totalPairsSize, unsigned int* workload, unsigned int tasks)
 {
     cl_int ret;
     
@@ -538,10 +546,12 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int total
     ret = clEnqueueSVMUnmap(m_queue, (void*) workload, 0, NULL, NULL );
     SAMPLE_CHECK_ERRORS(ret);
 
+    lap.stop();
 #else
     ret = clEnqueueReadBuffer(m_queue, m_memWorkload, CL_TRUE, 0, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), workload, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
+    lap.stop();
     
     ret = clReleaseMemObject(m_memPattern);
     SAMPLE_CHECK_ERRORS(ret);
@@ -549,7 +559,157 @@ void PrealignmentFilter::invokeKernel(unsigned char* pattern, unsigned int total
     ret = clReleaseMemObject(m_memWorkload);
     SAMPLE_CHECK_ERRORS(ret);
 #endif
+    
+   
+    transferTime += lap.lap();
+    if (m_reportTime)
+        printf("Result fetch= %f seconds\n", lap.lap());
+
+    double Mpairs = tasks / 1E6;
+    printf("Throughput. Kernel: %0.2f +Trans: %0.2f\n", (Mpairs/kernelTime), (Mpairs/(kernelTime+transferTime)));
+}
+
+#include <CL/cl_ext_xilinx.h>
+
+/**
+ * Invoke a single buffer kernel, all the input data is continously located in memory 
+ */
+void PrealignmentFilter::invokeKernelMultipleBuffers(unsigned char* pattern, unsigned int totalPairsSize, unsigned char* workload, unsigned int tasks)
+{
+    cl_int ret;
+    
+    PerformanceLap lap;
+    
+    
+
+    cl_mem memPattern[m_memBanks];
+    cl_mem memWorkload[m_memBanks];
+    cl_mem_ext_ptr_t memPatternExt[m_memBanks];
+    cl_mem_ext_ptr_t memWorkloadExt[m_memBanks];
+
+    unsigned int totalWorkloadSize = tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int);
+    unsigned int buffer_size = (totalPairsSize + m_memBanks-1) / m_memBanks;
+    unsigned int workload_size = (totalWorkloadSize + m_memBanks-1) / m_memBanks;
+
+#ifndef USE_OPENCL_SVM
+    unsigned int toTransferPairs = totalPairsSize;
+    unsigned int toTransferWorkload = totalWorkloadSize;
+
+    for (int i=0; i < m_memBanks; i++)
+    {
+       memPattern[i] = clCreateBuffer(m_context, CL_MEM_READ_WRITE | XCL_MEM_TOPOLOGY | CL_MEM_USE_HOST_PTR, min(toTransferPairs, buffer_size), &pattern[i*buffer_size], &ret);
+       SAMPLE_CHECK_ERRORS(ret);
+
+       memWorkload[i] = clCreateBuffer(m_context, CL_MEM_READ_WRITE | XCL_MEM_TOPOLOGY | CL_MEM_USE_HOST_PTR, min(toTransferWorkload, workload_size),  &workload[i*workload_size], &ret);
+       SAMPLE_CHECK_ERRORS(ret);
+
+	toTransferPairs -= buffer_size;
+	toTransferWorkload -= workload_size;
+    }
+#endif
+
+    printf("Buffers created\n");
+    lap.start();
+
+#ifdef USE_OPENCL_SVM
+/*    ret = clSetKernelArgSVMPointerAltera(m_kmerKernel, 0, pattern);
+    SAMPLE_CHECK_ERRORS(ret);
+
+    ret = clSetKernelArgSVMPointerAltera(m_kmerKernel, 1, workload);
+    SAMPLE_CHECK_ERRORS(ret);
+
+    ret = clEnqueueSVMMap(m_queue, CL_TRUE, CL_MAP_READ | CL_MAP_WRITE, (void*) pattern, totalPairsSize, NULL, NULL );
+
+    ret = clEnqueueSVMMap(m_queue, CL_TRUE, CL_MAP_READ | CL_MAP_WRITE, (void*) workload, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), NULL, NULL );
+*/
+#else
+    /*unsigned int toTransferPairs = totalPairsSize;
+    unsigned int toTransferWorkload = totalWorkloadSize;
+
+    for (int i=0; i < m_memBanks; i++)
+    {
+        ret = clEnqueueWriteBuffer(m_queue, memPattern[i], CL_TRUE, 0, min(toTransferPairs, buffer_size), &pattern[i*buffer_size], 0, NULL, NULL);
+        SAMPLE_CHECK_ERRORS(ret);
+    
+        ret = clEnqueueWriteBuffer(m_queue, memWorkload[i], CL_TRUE, 0, min(toTransferWorkload, workload_size), &workload[i*workload_size], 0, NULL, NULL);
+        SAMPLE_CHECK_ERRORS(ret);
+
+	toTransferPairs -= buffer_size;
+	toTransferWorkload -= workload_size;
+    }
+*/
+    for (int i=0; i < m_memBanks; i++)
+    {
+        ret = clSetKernelArg(m_kmerKernel, i, sizeof(cl_mem), (void *)&memPattern[i]);
+        SAMPLE_CHECK_ERRORS(ret);
+    
+        ret = clSetKernelArg(m_kmerKernel, m_memBanks+i, sizeof(cl_mem), (void *)&memWorkload[i]);
+        SAMPLE_CHECK_ERRORS(ret);
+    }
+#endif
+
+    ret = clSetKernelArg(m_kmerKernel, 2*m_memBanks, sizeof(cl_int), (void *)&tasks);
+    SAMPLE_CHECK_ERRORS(ret);
+
     lap.stop();
+    double transferTime = lap.lap();
+    if (m_reportTime)
+        printf("Argument Setting= %f seconds\n", transferTime);
+    
+    lap.start();
+    
+    // send the events to the FPGA
+    size_t wgSize[3] = {1, 1, 1};
+    size_t gSize[3] = {1, 1, 1};
+
+    ret = clEnqueueNDRangeKernel(m_queue, m_kmerKernel, 1, NULL, gSize, wgSize, 0, NULL, NULL);
+    SAMPLE_CHECK_ERRORS(ret);
+    
+#ifndef USE_OPENCL_SVM
+    ret = clFinish(m_queue);
+    SAMPLE_CHECK_ERRORS(ret);
+#endif    
+    lap.stop();
+    
+    double kernelTime = lap.lap();
+    if (m_reportTime)
+        printf("Kernel time= %f seconds\n", kernelTime);
+    
+    lap.start();
+    
+#ifdef USE_OPENCL_SVM
+/*    ret = clEnqueueSVMUnmap(m_queue, (void*) pattern, 0, NULL, NULL );
+    SAMPLE_CHECK_ERRORS(ret);
+
+    ret = clEnqueueSVMUnmap(m_queue, (void*) workload, 0, NULL, NULL );
+    SAMPLE_CHECK_ERRORS(ret);
+
+    lap.stop();
+*/
+#else
+
+    toTransferWorkload = totalWorkloadSize;
+    
+    for (int i=0; i < m_memBanks; i++)
+    {
+        ret = clEnqueueReadBuffer(m_queue, memWorkload[i], CL_TRUE, 0, min(toTransferWorkload, workload_size), &workload[i*workload_size], 0, NULL, NULL);
+        SAMPLE_CHECK_ERRORS(ret);
+
+	toTransferWorkload -= workload_size;
+    }
+    
+    lap.stop();
+    
+    for (int i=0; i < m_memBanks; i++)
+    {
+        ret = clReleaseMemObject(memPattern[i]);
+        SAMPLE_CHECK_ERRORS(ret);
+    
+        ret = clReleaseMemObject(memWorkload[i]);
+        SAMPLE_CHECK_ERRORS(ret);
+    }
+#endif
+    
    
     transferTime += lap.lap();
     if (m_reportTime)
@@ -651,11 +811,15 @@ void PrealignmentFilter::finalizeOpenCL()
     
 }
 
-void PrealignmentFilter::initKernels(int version, string openCLKernelType, int threshold)
+void PrealignmentFilter::initKernels(string board, int memBanks, string openCLKernelType, int threshold, int patternLen, int textLen)
 {
     cl_int ret;
-    
-    m_openCLKernelVersion = version;
+    m_patternLen = patternLen;
+    m_textLen = textLen;    
+    m_board = board;
+    m_memBanks = memBanks;
+
+    //m_openCLKernelVersion = version;
     m_threshold = threshold;
     
     if (m_verbose)
@@ -666,6 +830,12 @@ void PrealignmentFilter::initKernels(int version, string openCLKernelType, int t
     string platformName = getPlatformName(m_platform);
         
     printf("[OCLFPGA] Platform Name = %s\n", platformName.c_str());
+
+    string bitstream_ext = "aocx";
+
+
+    if (platformName.compare("Xilinx") == 0)
+        bitstream_ext = "xclbin";
 
     uint64 t0, tf;
 
@@ -682,7 +852,14 @@ void PrealignmentFilter::initKernels(int version, string openCLKernelType, int t
 
     int kernelCount = 0;
 
-    std::string fullPath  = m_openCLFilesPath.c_str() + format("/fpga/%s.aocx", openCLKernelType.c_str());
+    int encoding = determineEncodingType(NULL);
+
+    string sMemBanks = "";
+
+    if (memBanks > 1)
+        sMemBanks = format("m%d", memBanks); 
+
+    std::string fullPath  = m_openCLFilesPath.c_str() + format("/fpga/%s/%s_e%d_%s_%d_%d_%d.%s", board.c_str(), openCLKernelType.c_str(), encoding, sMemBanks.c_str(), m_threshold, m_patternLen, m_textLen, bitstream_ext.c_str());
 
     printf("Opening %s\n", fullPath.c_str());
 
