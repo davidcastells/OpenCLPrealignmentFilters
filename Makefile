@@ -3,11 +3,11 @@ FPGA_OCL_LFLAGS := $(shell aocl link-config)
 
 CC=g++
 LD_FLAGS=-lm -lrt $(FPGA_OCL_LFLAGS)
-CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2
+CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2 -I /opt/xilinx/xrt/include/
 #CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2 -D USE_OPENCL_SVM
 
 
-all: filter-shd filter-kmers filter-shouji filter-sneaky filter-shoujialser
+all: filter-test
 
 clean:
 	rm -f *.o
@@ -39,17 +39,7 @@ fix_pacs10:
 
 SOURCES= filter-test.cpp PrealignmentFilter.cpp PerformanceLap.cpp OpenCLUtils.cpp TextUtils.cpp edlib.cpp SWVersions.cpp
 
-filter-shd: $(SOURCES)
-	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""shd"\" $(SOURCES)  -o filter-shd -lOpenCL
+filter-test: $(SOURCES)
+	g++ $(CC_FLAGS) $(LD_FLAGS) $(SOURCES)  -o filter-test -lOpenCL
 
-filter-kmers: $(SOURCES)
-	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""kmers"\" $(SOURCES) -o filter-kmers -lOpenCL
 
-filter-shouji: $(SOURCES)
-	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""shouji"\" $(SOURCES) -o filter-shouji -lOpenCL
-
-filter-shoujialser: $(SOURCES)
-	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""shoujialser"\" $(SOURCES) -o filter-shoujialser -lOpenCL
-
-filter-sneaky: $(SOURCES)
-	g++ $(CC_FLAGS) $(LD_FLAGS) -D AOCX_FILE=\""sneaky"\" $(SOURCES) -o filter-sneaky -lOpenCL
