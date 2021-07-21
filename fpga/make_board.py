@@ -6,6 +6,19 @@ gStarted = 0
 
 gOnFlyMax = 5
 
+def getInfo():
+    info = {
+                'DE5NET': {'flow':'aoc'},
+                'OSK' :   {'flow':'aoc'},
+                'HARP' :   {'flow':'aoc'},
+                'PAC10' :   {'flow':'aoc'},
+                'PACS10' :   {'flow':'aoc'},
+		'U50' : {'flow':'vitis'},
+		'AWSF1' : { 'flow':'vitis'}
+    }
+    return info
+
+
 def modified_date(path_to_file):
     stat = os.stat(path_to_file)
     return stat.st_mtime
