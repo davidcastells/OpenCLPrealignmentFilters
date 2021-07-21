@@ -11,9 +11,9 @@ def getInfo():
     info = {
 		'DE5NET': {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2, 'resources-file':'top.flow.rpt', 'start':68, 'len':30, 'registers-key':''},
 		'OSK' :   {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2,'resources-file':'top.flow.rpt', 'start':63, 'len':25},
-		'HARP' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'top.flow.rpt', 'start':63, 'len':25, 'registers-key':'Total registers'},
+		'HARP' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'top.flow.rpt', 'start':63, 'len':25, 'registers-key':'Total registers', 'total_alms':427200, 'total_kles':1150, 'total_registers':1708800},
 		'PAC10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':','fmax-pos':1,'resources-file':'acl_quartus_report.txt', 'start':7, 'len':7},
-		'PACS10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers'},
+		'PACS10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
     }
     return info
 
