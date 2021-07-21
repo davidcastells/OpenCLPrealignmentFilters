@@ -139,6 +139,64 @@ def makeAocx(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1, entry_type=0, 
     gStarted = gStarted + 1
 
 
+def makeVitisXo(aocx, cl, threshold=-1, pattern_len=-1, text_len=-1, entry_type=0, extra_flags='', blocking=False, ignoretargets=[], meta=None):
+    global gCompiling
+    global gCompiled
+    global gStarted
+
+    if (meta == None):
+        filedate = meta
+    else:
+        filedate = cl
+
+    if (aocx in ignoretargets):
+        print(aocx, 'in ignore list')
+        return
+
+    if (isCompiling(aocx)):
+        print('Already compiling ' + aocx)
+        gCompiling = gCompiling + 1
+        return
+    if (isCompiled(aocx, filedate)):
+        print('Already compiled ' + aocx)
+        gCompiled = gCompiled + 1
+        return
+
+    if ((gCompiling + gStarted) > gOnFlyMax and blocking == False):
+        print('concurrent works limit reached')
+        return
+
+    if (aocoExist(aocx)):
+        cl = getAoco(aocx)
+
+    entry_type_flags = ' -D ENTRY_TYPE_{} '.format(entry_type)
+    common_flags = '--save-temps -D BASIC_AP_UINT --platform xilinx_u200_xdma_201830_2  -g'
+    design_name = withoutExtension(aocx)
+
+    if (threshold >= 0):
+        threshold_flag = ' -D ' + designConstant(aocx) + '_THRESHOLD={}'.format(threshold)
+    else:
+        threshold_flag = ' '
+
+    if (pattern_len > 0):
+        item_flags = ' -D PATTERN_LEN={} -D TEXT_LEN={} '.format(pattern_len, text_len)
+    else:
+        item_flags = ' '
+
+    if (blocking):
+        nohup = ''
+        noblocksuffix = ''
+    else:
+        nohup = 'nohup'
+        noblocksuffix = '&'
+    outlog = ' >> compile.' + design_name + '.out'
+    cmd = nohup + ' v++ '+common_flags + threshold_flag + entry_type_flags + extra_flags + item_flags+cl+' -o '+aocx + outlog + noblocksuffix
+    print(cmd)
+    os.system('echo "'+cmd+'" > compile.' + design_name + '.out')
+    os.system(cmd)
+
+    gStarted = gStarted + 1
+
 
 def makeVariants(BOARD, AOCL_FLAGS, ths=[[3,5,7],[3,7,10],[5,10,15]], lens=[100,150,300], entry_types=[0,1,2], blocking=False, ignoretargets=[]):
    for i in range(len(lens)):
@@ -155,7 +213,18 @@ def makeVariants(BOARD, AOCL_FLAGS, ths=[[3,5,7],[3,7,10],[5,10,15]], lens=[100,
    print('SUMMARY: Compiled:' , gCompiled, 'Compiling:', gCompiling, 'Started', gStarted);
 
 
+
 def makeMetaVariants(BOARD, AOCL_FLAGS, blocking=False):
+
+   info = getInfo()[BOARD]
+
+   if (info['flow'] == 'aoc'):
+       makeMetaVariantsAoc(BOARD, AOCL_FLAGS, blocking)
+   else:
+       makeMetaVariantsVitis(BOARD, AOCL_FLAGS, blocking)
+
+
+def makeMetaVariantsAoc(BOARD, AOCL_FLAGS, blocking=False):
 
    print('COMPILING SHD for {}:'.format(BOARD));
 
@@ -268,6 +337,118 @@ def makeMetaVariants(BOARD, AOCL_FLAGS, blocking=False):
    print('SUMMARY: Compiled:' , gCompiled, 'Compiling:', gCompiling, 'Started', gStarted);
 
 
+
+def makeMetaVariantsVitis(BOARD, AOCL_FLAGS, blocking=False):
+
+   print('COMPILING SHD for {}:'.format(BOARD));
+
+   dsg = 'shd'
+   meta = '../shd.cl.metaprogram'
+
+   metaprogram(dsg, meta=meta, cl='shd_e0_3_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHD_THRESHOLD=3')
+   metaprogram(dsg, meta=meta, cl='shd_e0_5_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHD_THRESHOLD=5')
+   metaprogram(dsg, meta=meta, cl='shd_e0_7_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHD_THRESHOLD=7')
+
+   makeAocx(aocx='shd_e0_3_100_100.xo', cl='shd_e0_3_100_100.cl', threshold=3, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='shd_e0_5_100_100.xo', cl='shd_e0_5_100_100.cl', threshold=5, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='shd_e0_7_100_100.xo', cl='shd_e0_7_100_100.cl', threshold=7, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+
+   metaprogram(dsg, meta=meta, cl='shd_e1_3_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=3')
+   metaprogram(dsg, meta=meta, cl='shd_e1_7_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=7')
+   metaprogram(dsg, meta=meta, cl='shd_e1_10_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=10')
+
+   makeAocx(aocx='shd_e1_3_150_150.xo', cl='shd_e1_3_150_150.cl', threshold=3, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='shd_e1_7_150_150.xo', cl='shd_e1_7_150_150.cl', threshold=7, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='shd_e1_10_150_150.xo', cl='shd_e1_10_150_150.cl', threshold=10, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+
+   metaprogram(dsg, meta=meta, cl='shd_e2_5_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHD_THRESHOLD=5')
+   metaprogram(dsg, meta=meta, cl='shd_e2_10_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHD_THRESHOLD=10')
+   metaprogram(dsg, meta=meta, cl='shd_e2_15_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHD_THRESHOLD=15')
+
+   makeAocx(aocx='shd_e2_5_300_300.xo', cl='shd_e2_5_300_300.cl', threshold=5, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeAocx(aocx='shd_e2_10_300_300.xo', cl='shd_e2_10_300_300.cl', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeAocx(aocx='shd_e2_15_300_300.xo', cl='shd_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+
+
+   print('COMPILING SHOUJI for {}:'.format(BOARD));
+
+   dsg = 'shouji'
+   meta = '../shouji.cl.metaprogram'
+
+   metaprogram(dsg, meta=meta, cl='shouji_e0_3_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHOUJI_THRESHOLD=3 -D PATTERN_LEN=100')
+   metaprogram(dsg, meta=meta, cl='shouji_e0_5_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHOUJI_THRESHOLD=5 -D PATTERN_LEN=100')
+   metaprogram(dsg, meta=meta, cl='shouji_e0_7_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHOUJI_THRESHOLD=7 -D PATTERN_LEN=100')
+
+   makeAocx(aocx='shouji_e0_3_100_100.xo', cl='shouji_e0_3_100_100.cl', threshold=3, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='shouji_e0_5_100_100.xo', cl='shouji_e0_5_100_100.cl', threshold=5, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='shouji_e0_7_100_100.xo', cl='shouji_e0_7_100_100.cl', threshold=7, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+
+   metaprogram(dsg, meta=meta, cl='shouji_e1_3_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHOUJI_THRESHOLD=3 -D PATTERN_LEN=150')
+   metaprogram(dsg, meta=meta, cl='shouji_e1_7_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHOUJI_THRESHOLD=7 -D PATTERN_LEN=150')
+   metaprogram(dsg, meta=meta, cl='shouji_e1_10_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHOUJI_THRESHOLD=10 -D PATTERN_LEN=150')
+
+   makeAocx(aocx='shouji_e1_3_150_150.xo', cl='shouji_e1_3_150_150.cl', threshold=3, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='shouji_e1_7_150_150.xo', cl='shouji_e1_7_150_150.cl', threshold=7, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='shouji_e1_10_150_150.xo', cl='shouji_e1_10_150_150.cl', threshold=10, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+
+   metaprogram(dsg, meta=meta, cl='shouji_e2_5_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHOUJI_THRESHOLD=5 -D PATTERN_LEN=300')
+   metaprogram(dsg, meta=meta, cl='shouji_e2_10_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHOUJI_THRESHOLD=10 -D PATTERN_LEN=300')
+   metaprogram(dsg, meta=meta, cl='shouji_e2_15_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHOUJI_THRESHOLD=15 -D PATTERN_LEN=300')
+
+   makeAocx(aocx='shouji_e2_5_300_300.xo', cl='shouji_e2_5_300_300.cl', threshold=5, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeAocx(aocx='shouji_e2_10_300_300.xo', cl='shouji_e2_10_300_300.cl', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeAocx(aocx='shouji_e2_15_300_300.xo', cl='shouji_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+
+   print('COMPILING SNEAKY for {}:'.format(BOARD));
+
+   dsg = 'sneaky'
+   meta = '../sneaky_level_2.cl.metaprogram'
+
+   metaprogram(dsg, meta=meta, cl='sneaky_e0_3_100_100.cl', flags='-D ENTRY_TYPE_0 -D SNEAKY_THRESHOLD=3 -D PATTERN_LEN=100')
+   metaprogram(dsg, meta=meta, cl='sneaky_e0_5_100_100.cl', flags='-D ENTRY_TYPE_0 -D SNEAKY_THRESHOLD=5 -D PATTERN_LEN=100')
+   metaprogram(dsg, meta=meta, cl='sneaky_e0_7_100_100.cl', flags='-D ENTRY_TYPE_0 -D SNEAKY_THRESHOLD=7 -D PATTERN_LEN=100')
+
+   makeAocx(aocx='sneaky_e0_3_100_100.xo', cl='sneaky_e0_3_100_100.cl', threshold=3, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='sneaky_e0_5_100_100.xo', cl='sneaky_e0_5_100_100.cl', threshold=5, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='sneaky_e0_7_100_100.xo', cl='sneaky_e0_7_100_100.cl', threshold=7, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+
+
+   metaprogram(dsg, meta=meta, cl='sneaky_e1_3_150_150.cl', flags='-D ENTRY_TYPE_1 -D SNEAKY_THRESHOLD=3 -D PATTERN_LEN=150')
+   metaprogram(dsg, meta=meta, cl='sneaky_e1_7_150_150.cl', flags='-D ENTRY_TYPE_1 -D SNEAKY_THRESHOLD=7 -D PATTERN_LEN=150')
+   metaprogram(dsg, meta=meta, cl='sneaky_e1_10_150_150.cl', flags='-D ENTRY_TYPE_1 -D SNEAKY_THRESHOLD=10 -D PATTERN_LEN=150')
+
+   makeAocx(aocx='sneaky_e1_3_150_150.xo', cl='sneaky_e1_3_150_150.cl', threshold=3, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='sneaky_e1_7_150_150.xo', cl='sneaky_e1_7_150_150.cl', threshold=7, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+   makeAocx(aocx='sneaky_e1_10_150_150.xo', cl='sneaky_e1_10_150_150.cl', threshold=10, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+
+
+   metaprogram(dsg, meta=meta, cl='sneaky_e2_5_300_300.cl', flags='-D ENTRY_TYPE_2 -D SNEAKY_THRESHOLD=5 -D PATTERN_LEN=300')
+   metaprogram(dsg, meta=meta, cl='sneaky_e2_10_300_300.cl', flags='-D ENTRY_TYPE_2 -D SNEAKY_THRESHOLD=10 -D PATTERN_LEN=300')
+   metaprogram(dsg, meta=meta, cl='sneaky_e2_15_300_300.cl', flags='-D ENTRY_TYPE_2 -D SNEAKY_THRESHOLD=15 -D PATTERN_LEN=300')
+
+   makeAocx(aocx='sneaky_e2_5_300_300.xo', cl='sneaky_e2_5_300_300.cl', threshold=5, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeAocx(aocx='sneaky_e2_10_300_300.xo', cl='sneaky_e2_10_300_300.cl', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeAocx(aocx='sneaky_e2_15_300_300.xo', cl='sneaky_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+
+   print('COMPILING KMERS for {}:'.format(BOARD));
+
+   dsg = 'kmers'
+   meta = '../kmers.cl'
+
+   metaprogram(dsg, meta=meta, cl='kmers_e0_100_100.cl', flags='-D ENTRY_TYPE_0 -D PATTERN_LEN=150')
+   metaprogram(dsg, meta=meta, cl='kmers_e1_150_150.cl', flags='-D ENTRY_TYPE_1 -D PATTERN_LEN=150')
+   
+   makeAocx(aocx='kmers_e0_100_100.xo', cl='kmers_e0_100_100.cl', threshold=-1, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeAocx(aocx='kmers_e1_150_150.xo', cl='kmers_e1_150_150.cl', threshold=-1, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta)
+
+   dsg = 'kmers'
+   meta = '../kmers_entry2.cl.metaprogram'
+
+   metaprogram(dsg, meta=meta, cl='kmers_e2_300_300.cl', flags='-D ENTRY_TYPE_2 -D PATTERN_LEN=300')
+   
+   makeAocx(aocx='kmers_e2_300_300.xo', cl='kmers_e2_300_300.cl', threshold=-1, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   
+   print('SUMMARY: Compiled:' , gCompiled, 'Compiling:', gCompiling, 'Started', gStarted);
 
 
 def makeSemiglobalVariants(BOARD, AOCL_FLAGS, blocking=False):
