@@ -349,7 +349,7 @@ def makeMetaVariantsVitis(BOARD, AOCL_FLAGS, blocking=False):
    metaprogram(dsg, meta=meta, cl='shd_e0_5_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHD_THRESHOLD=5')
    metaprogram(dsg, meta=meta, cl='shd_e0_7_100_100.cl', flags='-D ENTRY_TYPE_0 -D SHD_THRESHOLD=7')
 
-   makeAocx(aocx='shd_e0_3_100_100.xo', cl='shd_e0_3_100_100.cl', threshold=3, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
+   makeVitisXo(aocx='shd_e0_3_100_100.xo', cl='shd_e0_3_100_100.cl', threshold=3, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
    makeAocx(aocx='shd_e0_5_100_100.xo', cl='shd_e0_5_100_100.cl', threshold=5, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
    makeAocx(aocx='shd_e0_7_100_100.xo', cl='shd_e0_7_100_100.cl', threshold=7, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta)
 
