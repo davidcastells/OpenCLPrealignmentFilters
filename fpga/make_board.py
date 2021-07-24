@@ -185,7 +185,7 @@ def makeVitisXclbin(xclbin, cl, threshold=-1, pattern_len=-1, text_len=-1, entry
     common_flags = '-t hw --save-temps -D BASIC_AP_UINT --platform $AWS_PLATFORM  -g'
     design_name = withoutExtension(xclbin)
 
-    extra_flags = extra_flags + ' --report_dir={}_report '.format(design_name)
+    extra_flags = extra_flags + ' --report_dir={} '.format(design_name)
     if (threshold >= 0):
         threshold_flag = ' -D ' + designConstant(xclbin) + '_THRESHOLD={}'.format(threshold)
     else:
@@ -417,7 +417,7 @@ def makeMetaVariantsVitis(BOARD, AOCL_FLAGS, blocking=False):
 
    makeVitisXclbin(xclbin='shouji_e2_5_300_300.xclbin', cl='shouji_e2_5_300_300.cl', threshold=5, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
    makeVitisXclbin(xclbin='shouji_e2_10_300_300.xclbin', cl='shouji_e2_10_300_300.cl', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
-   makeVitisXclbin(aocx='shouji_e2_15_300_300.xclbin', cl='shouji_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
+   makeVitisXclbin(xclbin='shouji_e2_15_300_300.xclbin', cl='shouji_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta)
 
    print('COMPILING SNEAKY for {}:'.format(BOARD));
 
