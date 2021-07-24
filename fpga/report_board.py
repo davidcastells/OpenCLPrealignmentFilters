@@ -14,6 +14,7 @@ def getInfo():
 		'HARP' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'top.flow.rpt', 'start':63, 'len':25, 'registers-key':'Total registers', 'total_alms':427200, 'total_kles':1150, 'total_registers':1708800},
 		'PAC10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':','fmax-pos':1,'resources-file':'acl_quartus_report.txt', 'start':7, 'len':7},
 		'PACS10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
+		'AWSF1' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
     }
     return info
 
@@ -53,6 +54,24 @@ def getDesignFmax(board, dsg, et, th, pl, tl=None):
         return '?'
 
 def getDesignResources(board, dsg, et, th, pl, tl=None):
+    if (board=='AWSF1'):
+        return getDesignResourcesXilinx(board, dsg, et, th, pl, tl)
+    else:
+        return getDesignResourcesIntel(board, dsg, et, th, pl, tl)
+
+def getDesignResourcesXilinx(board, dsg, et, th, pl, tl=None):
+
+    sdir = getDesignDir(dsg, et, th, pl, tl)
+    sFile = '{}/link/system_estimate_{}.xtxt'.format(sdir, sdir)
+    cmd = 'grep  "kmer_1        kmer         kmer " {}'.format(sFile)
+
+    if (os.path.exists(sFile) == False):
+        return '?'
+    sout = systemOutput(cmd)
+    ret = int(sout[2].split()[4])
+    return ret//1000
+
+def getDesignResourcesIntel(board, dsg, et, th, pl, tl=None):
     if (tl==None):
         tl = pl
 
@@ -200,6 +219,7 @@ def reportTable(board):
             print('{}{: <5}|'.format(slink, th), end='')
             slink = ''
     print('')
+    print('+----------+-----------------+-----------------+-----------------+')
     for dsg in ['shd', 'shouji', 'sneaky','lev', 'myers']:
         slink = '|{: <10}|'.format(dsg)
         for etidx, et in enumerate(ets):
@@ -220,12 +240,15 @@ def reportTable(board):
 
     print('')
     print('Fmax TABLE')
-    print('-------------------------------------------------------------------')
+    print('------------------------------------------------------------------')
     slink = '|{: <10}|'.format('')
     for etidx, et in enumerate(ets):
         print('{}{: <17}|'.format(slink, et), end='')
         slink = ''
     print('')
+
+    print('+----------+-----------------+-----------------+-----------------+')
+
     for dsg in ['shd', 'shouji', 'sneaky', 'lev', 'myers']:
         slink = '|{: <10}|'.format(dsg)
         for etidx, et in enumerate(ets):
