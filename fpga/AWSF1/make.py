@@ -6,7 +6,8 @@ import sys
 sys.path.append('..')
 import make_board as mb
 
-blocking=False
+blocking=True
+#blocking=False
 
 #mb.makeSemiglobalVariants(BOARD, AOCL_FLAGS, blocking=blocking)
 mb.makeMetaVariants(BOARD, AOCL_FLAGS, blocking=blocking)
