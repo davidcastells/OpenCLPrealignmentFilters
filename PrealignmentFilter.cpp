@@ -597,10 +597,18 @@ void PrealignmentFilter::invokeKernelMultipleBuffers(unsigned char* pattern, uns
 
     for (int i=0; i < m_memBanks; i++)
     {
-       memPattern[i] = clCreateBuffer(m_context, CL_MEM_READ_WRITE | XCL_MEM_TOPOLOGY | CL_MEM_USE_HOST_PTR, min(toTransferPairs, buffer_size), &pattern[i*buffer_size], &ret);
+	memPatternExt[i].obj = &pattern[i*buffer_size];
+	memPatternExt[i].param = 0;
+	memPatternExt[i].flags = i | XCL_MEM_TOPOLOGY;
+
+       memPattern[i] = clCreateBuffer(m_context, CL_MEM_READ_WRITE | CL_MEM_EXT_PTR_XILINX | CL_MEM_USE_HOST_PTR, min(toTransferPairs, buffer_size), &memPatternExt[i], &ret);
        SAMPLE_CHECK_ERRORS(ret);
 
-       memWorkload[i] = clCreateBuffer(m_context, CL_MEM_READ_WRITE | XCL_MEM_TOPOLOGY | CL_MEM_USE_HOST_PTR, min(toTransferWorkload, workload_size),  &workload[i*workload_size], &ret);
+	memWorkloadExt[i].obj = &workload[i*workload_size];
+	memWorkloadExt[i].param = 0;
+	memWorkloadExt[i].flags = (m_memBanks + i) | XCL_MEM_TOPOLOGY;
+
+       memWorkload[i] = clCreateBuffer(m_context, CL_MEM_READ_WRITE | CL_MEM_EXT_PTR_XILINX | CL_MEM_USE_HOST_PTR, min(toTransferWorkload, workload_size), &memWorkloadExt[i], &ret);
        SAMPLE_CHECK_ERRORS(ret);
 
 	toTransferPairs -= buffer_size;
