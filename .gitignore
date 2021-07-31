@@ -1,7 +1,11 @@
 *.aocx
 *.aoco
+*.aocr
 *.out
 *.tmp
+*.temp
+*.bc
+*.pyc
 filter-kmers
 filter-shd
 filter-shouji*
@@ -12,6 +16,9 @@ fpga/*/shd_e*/
 fpga/*/kmers_e*/
 fpga/*/shouji_e*/
 fpga/*/sneaky_e*/
+fpga/*/lev_e*/
+fpga/*/myers_e*/
+fpga/*/bpc_e*/
 fpga/*/test/
 fpga/*/*.cl
 fpga/metagenerator
