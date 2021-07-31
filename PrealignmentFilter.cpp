@@ -865,9 +865,9 @@ void PrealignmentFilter::initKernels(string board, int memBanks, string openCLKe
     string sMemBanks = "";
 
     if (memBanks > 1)
-        sMemBanks = format("m%d", memBanks); 
+        sMemBanks = format("_m%d", memBanks); 
 
-    std::string fullPath  = m_openCLFilesPath.c_str() + format("/fpga/%s/%s_e%d_%s_%d_%d_%d.%s", board.c_str(), openCLKernelType.c_str(), encoding, sMemBanks.c_str(), m_threshold, m_patternLen, m_textLen, bitstream_ext.c_str());
+    std::string fullPath  = m_openCLFilesPath.c_str() + format("/fpga/%s/%s_e%d%s_%d_%d_%d.%s", board.c_str(), openCLKernelType.c_str(), encoding, sMemBanks.c_str(), m_threshold, m_patternLen, m_textLen, bitstream_ext.c_str());
 
     printf("Opening %s\n", fullPath.c_str());
 
