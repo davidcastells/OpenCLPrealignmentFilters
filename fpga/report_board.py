@@ -32,6 +32,23 @@ def getDesignDir(dsg, et, th, pl, tl=None):
     return dir+ptype
 
 def getDesignFmax(board, dsg, et, th, pl, tl=None):
+    if (board == 'AWSF1'):
+        return getDesignFmaxXilinx(board, dsg, et, th, pl, tl)
+    else:
+        return getDesignFmaxIntel(board, dsg, et, th, pl, tl)
+
+def getDesignFmaxXilinx(board, dsg, et, th, pl, tl):
+    sdir = getDesignDir(dsg, et, th, pl, tl)
+    sFile = '{}/{}/system_estimate_{}.xtxt'.format(sdir, sdir, sdir)
+    cmd = 'grep  "kmer_1        kmer         kmer                   250" {}'.format(sFile)
+
+    if (os.path.exists(sFile) == False):
+        return '?'
+    sout = systemOutput(cmd)[0]
+    ret = int(float(sout.split()[4]))
+    return '{}'.format(ret)
+
+def getDesignFmaxIntel(board, dsg, et, th, pl, tl=None):
     if (tl==None):
         tl = pl
 
