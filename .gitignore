@@ -2,6 +2,9 @@
 *.aoco
 *.out
 *.tmp
+*.log
+*.pyc
+*summary
 filter-kmers
 filter-shd
 filter-shouji*
