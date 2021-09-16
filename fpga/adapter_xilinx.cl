@@ -88,19 +88,22 @@ void kmer( ap_uint<512>* pairs ,
 	
     for (int i=0; i < workloadLength; /*i++*/)
     {
-#pragma HLS PIPELINE
     	int base_i = i;
         int li;
 	
     	// compute to local memory
     	for (li=0; (li < WORKLOAD_CHUNK) && (i < workloadLength); li++, i++)
 	{
+	#pragma HLS PIPELINE
 	   doWorkloadTask(pairs, workload_result, i, li);
 	}
 		
 	// transfer the results back to the main table
 	for (int ti=0; ti < li; ti++)
+		 {
+		 #pragma HLS PIPELINE
 		workload[(base_i + ti)*WORKLOAD_TASK_SIZE+2] = workload_result[ti];
+		}
      }
 }
 }
