@@ -14,7 +14,7 @@ def getInfo():
                 'PAC10' :   {'flow':'aoc'},
                 'PACS10' :   {'flow':'aoc'},
                 'U50' : {'flow':'vitis', 'platform':'xilinx_u50_gen3x16_xdma_201920_3'},
-                'U250' : {'flow':'vitis', 'platform':'xilinx_u50_gen3x16_xdma_201920_3'},
+                'U250' : {'flow':'vitis', 'platform':'xilinx_u250_gen3x16_xdma_3_1_202020_1'},
                 'AWSF1' : { 'flow':'vitis', 'platform':'$AWS_PLATFORM'}
     }
     return info
