@@ -29,7 +29,7 @@
 // #include "benchmark/benchmark_edit_alg.h"
 #include "edlib.h"
 
-#define WORKLOAD_TASK_SIZE  3
+//#define WORKLOAD_TASK_SIZE  3
 #define INDEX_SIZE          2
 #define BASE_SIZE           2
 #define LOAD_BASES_ALIGNMENT_BITS   512
@@ -344,7 +344,7 @@ void PrealignmentFilter::computeAll(int realErrors)
     size_t requiredMemory = requiredEntryMemory * m_basesPatternLength.size();
 
     unsigned char* pattern = (unsigned char*) allocMem(requiredMemory);
-    unsigned int* workload = (unsigned int*) allocMem(m_basesTextLength.size() * sizeof(unsigned int) * WORKLOAD_TASK_SIZE);
+    unsigned int* workload = (unsigned int*) allocMem(m_basesTextLength.size() * sizeof(unsigned int)); // * WORKLOAD_TASK_SIZE);
     
     // now fill
     unsigned int poff = 0;  // pattern offset
@@ -357,8 +357,8 @@ void PrealignmentFilter::computeAll(int realErrors)
     for (int i=0; i < m_basesPatternLength.size(); i++)
     {
         // fill the workload
-        workload[i*WORKLOAD_TASK_SIZE+0] = i;   // pattern
-        workload[i*WORKLOAD_TASK_SIZE+1] = i;   // text
+        //workload[i*WORKLOAD_TASK_SIZE+0] = i;   // pattern
+        //workload[i*WORKLOAD_TASK_SIZE+1] = i;   // text
         
 
         // fill the pattern
@@ -402,7 +402,7 @@ void PrealignmentFilter::computeAll(int realErrors)
     for (int i=0; i < total; i++)
     {
         bool accepted;
-        unsigned int detectedErrors = workload[i*WORKLOAD_TASK_SIZE+2];
+        unsigned int detectedErrors = workload[i]; // *WORKLOAD_TASK_SIZE+2];
 
 
 	if (m_verbose)
@@ -479,7 +479,7 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
     m_memPattern = clCreateBuffer(m_context, CL_MEM_READ_WRITE, totalPairsSize, NULL, &ret);
     SAMPLE_CHECK_ERRORS(ret);
 
-    m_memWorkload = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), NULL, &ret);
+    m_memWorkload = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks* /* WORKLOAD_TASK_SIZE* */ sizeof(unsigned int), NULL, &ret);
     SAMPLE_CHECK_ERRORS(ret);
 #endif
 
@@ -494,13 +494,13 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
 
     ret = clEnqueueSVMMap(m_queue, CL_TRUE, CL_MAP_READ | CL_MAP_WRITE, (void*) pattern, totalPairsSize, NULL, NULL );
 
-    ret = clEnqueueSVMMap(m_queue, CL_TRUE, CL_MAP_READ | CL_MAP_WRITE, (void*) workload, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), NULL, NULL );
+    ret = clEnqueueSVMMap(m_queue, CL_TRUE, CL_MAP_READ | CL_MAP_WRITE, (void*) workload, tasks * /* WORKLOAD_TASK_SIZE* */ sizeof(unsigned int), NULL, NULL );
 
 #else
     ret = clEnqueueWriteBuffer(m_queue, m_memPattern, CL_TRUE, 0, totalPairsSize, pattern, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
-    ret = clEnqueueWriteBuffer(m_queue, m_memWorkload, CL_TRUE, 0, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), workload, 0, NULL, NULL);
+    ret = clEnqueueWriteBuffer(m_queue, m_memWorkload, CL_TRUE, 0, tasks* /* WORKLOAD_TASK_SIZE* */ sizeof(unsigned int), workload, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
 
     ret = clSetKernelArg(m_kmerKernel, 0, sizeof(cl_mem), (void *)&m_memPattern);
@@ -548,7 +548,7 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
 
     lap.stop();
 #else
-    ret = clEnqueueReadBuffer(m_queue, m_memWorkload, CL_TRUE, 0, tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int), workload, 0, NULL, NULL);
+    ret = clEnqueueReadBuffer(m_queue, m_memWorkload, CL_TRUE, 0, tasks* /* WORKLOAD_TASK_SIZE* */ sizeof(unsigned int), workload, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
     lap.stop();
@@ -587,7 +587,7 @@ void PrealignmentFilter::invokeKernelMultipleBuffers(unsigned char* pattern, uns
     cl_mem_ext_ptr_t memPatternExt[m_memBanks];
     cl_mem_ext_ptr_t memWorkloadExt[m_memBanks];
 
-    unsigned int totalWorkloadSize = tasks*WORKLOAD_TASK_SIZE*sizeof(unsigned int);
+    unsigned int totalWorkloadSize = tasks* /* WORKLOAD_TASK_SIZE* */ sizeof(unsigned int);
     unsigned int buffer_size = (totalPairsSize + m_memBanks-1) / m_memBanks;
     unsigned int workload_size = (totalWorkloadSize + m_memBanks-1) / m_memBanks;
 
