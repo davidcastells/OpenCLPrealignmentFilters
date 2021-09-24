@@ -3,19 +3,17 @@
 *.aocr
 *.out
 *.tmp
-<<<<<<< HEAD
 *.temp
 *.bc
 *.pyc
-=======
 *.log
 *.pyc
 *summary
->>>>>>> cc5c18142ee80a00878526e3dedf61593ac3b5f8
 filter-kmers
 filter-shd
 filter-shouji*
 filter-sneaky
+filter-test
 datasets/
 fpga/*/kmers/
 fpga/*/shd_e*/
