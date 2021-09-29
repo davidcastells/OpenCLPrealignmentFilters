@@ -1,21 +1,17 @@
-FPGA_OCL_CFLAGS := $(shell aocl compile-config)
-FPGA_OCL_LFLAGS := $(shell aocl link-config)
+#FPGA_OCL_CFLAGS := $(shell aocl compile-config)
+#FPGA_OCL_LFLAGS := $(shell aocl link-config)
 
 CC=g++
 LD_FLAGS=-lm -lrt $(FPGA_OCL_LFLAGS)
-CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2 -I /opt/xilinx/xrt/include/
+CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2 -I /opt/xilinx/xrt/include/ -D USE_READ_WRITE
 #CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2 -D USE_OPENCL_SVM
-
+# You must specify one of the options -D USE_READ_WRITE -D USE_MIGRATE_MEM -D USE_OPENCL_SVM
 
 all: filter-test
 
 clean:
 	rm -f *.o
-	rm -f filter-shd
-	rm -f filter-kmers
-	rm -f filter-shouji
-	rm -f filter-shoujialser
-	rm -f filter-sneaky
+	rm -f filter-test
 
 fix_pac10:
 	rm -f filter-shd-pac10
