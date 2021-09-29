@@ -219,16 +219,16 @@ unsigned int shd(ap_uint<512> pattern,  int plen, ap_uint<512> text,  int tlen)
 		ap_uint<512> shifted_pattern;
 		if (i < 0)
 		{
-			ap_uint_512_shift_left(pattern, (-i)*BASE_SIZE, AP_UINT_PTR(shifted_pattern));
+			shifted_pattern = pattern << (-i)*BASE_SIZE;
 		}
 		else if (i==0)
 		{
-			ap_uint_512_set(AP_UINT_PTR(shifted_pattern), pattern);
+			shifted_pattern = pattern;
 		}
 		else
 		{
 			// > 0
-			ap_uint_512_shift_right(pattern, i*BASE_SIZE, AP_UINT_PTR(shifted_pattern));
+			shifted_pattern = pattern >> i*BASE_SIZE;
 		}
 
 		printf("shift [%2d] =", i);
