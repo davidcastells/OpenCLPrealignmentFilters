@@ -551,7 +551,12 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
 #ifdef USE_READ_WRITE
     ret = clFinish(m_queue);
     SAMPLE_CHECK_ERRORS(ret);
-#endif    
+#endif  
+
+#ifdef USE_MIGRATE_MEM
+    ret = clFinish(m_queue);
+    SAMPLE_CHECK_ERRORS(ret);
+#endif  
     lap.stop();
     
     double kernelTime = lap.lap();
@@ -588,6 +593,8 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
     ret = clEnqueueMigrateMemObjects(m_queue, 1, {&m_memWorkload}, CL_MIGRATE_MEM_OBJECT_HOST, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret); 
 
+    ret = clFinish(m_queue);
+    SAMPLE_CHECK_ERRORS(ret); 
     
     lap.stop();
 
