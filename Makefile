@@ -3,7 +3,7 @@
 
 CC=g++
 LD_FLAGS=-lm -lrt $(FPGA_OCL_LFLAGS)
-CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2 -I /opt/xilinx/xrt/include/ -D USE_READ_WRITE
+CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2 -I /opt/xilinx/xrt/include/ -D USE_MIGRATE_MEM
 #CC_FLAGS=-Wall -g $(FPGA_OCL_CFLAGS) -O2 -D USE_OPENCL_SVM
 # You must specify one of the options -D USE_READ_WRITE -D USE_MIGRATE_MEM -D USE_OPENCL_SVM
 
