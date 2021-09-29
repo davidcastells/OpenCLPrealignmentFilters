@@ -475,11 +475,19 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
     
     PerformanceLap lap;
     
-#ifndef USE_OPENCL_SVM
+#ifdef USE_READ_WRITE
     m_memPattern = clCreateBuffer(m_context, CL_MEM_READ_WRITE, totalPairsSize, NULL, &ret);
     SAMPLE_CHECK_ERRORS(ret);
 
     m_memWorkload = clCreateBuffer(m_context, CL_MEM_READ_WRITE, tasks* /* WORKLOAD_TASK_SIZE* */ sizeof(unsigned int), NULL, &ret);
+    SAMPLE_CHECK_ERRORS(ret);
+#endif
+
+#ifdef USE_MIGRATE_MEM
+    m_memPattern = clCreateBuffer(m_context, CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, totalPairsSize, pattern, &ret);
+    SAMPLE_CHECK_ERRORS(ret);
+
+    m_memWorkload = clCreateBuffer(m_context, CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, tasks*sizeof(unsigned int), workload, &ret);
     SAMPLE_CHECK_ERRORS(ret);
 #endif
 
@@ -496,7 +504,9 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
 
     ret = clEnqueueSVMMap(m_queue, CL_TRUE, CL_MAP_READ | CL_MAP_WRITE, (void*) workload, tasks * /* WORKLOAD_TASK_SIZE* */ sizeof(unsigned int), NULL, NULL );
 
-#else
+#endif
+
+#ifdef USE_READ_WRITE
     ret = clEnqueueWriteBuffer(m_queue, m_memPattern, CL_TRUE, 0, totalPairsSize, pattern, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
@@ -507,6 +517,17 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
     SAMPLE_CHECK_ERRORS(ret);
     
     ret = clSetKernelArg(m_kmerKernel, 1, sizeof(cl_mem), (void *)&m_memWorkload);
+    SAMPLE_CHECK_ERRORS(ret);
+#endif
+
+#ifdef USE_MIGRATE_MEM
+    ret = clSetKernelArg(m_kmerKernel, 0, sizeof(cl_mem), (void*) &m_memPattern);
+    SAMPLE_CHECK_ERRORS(ret);
+
+    ret = clSetKernelArg(m_kmerKernel, 1, sizeof(cl_mem), (void*) &m_memWorkload);
+    SAMPLE_CHECK_ERRORS(ret);
+
+    ret = clEnqueueMigrateMemObjects(m_queue, 1, {&m_memPattern}, 0, 0, NULL, NULL); 
     SAMPLE_CHECK_ERRORS(ret);
 #endif
 
@@ -527,7 +548,7 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
     ret = clEnqueueNDRangeKernel(m_queue, m_kmerKernel, 1, NULL, gSize, wgSize, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
-#ifndef USE_OPENCL_SVM
+#ifdef USE_READ_WRITE
     ret = clFinish(m_queue);
     SAMPLE_CHECK_ERRORS(ret);
 #endif    
@@ -547,7 +568,9 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
     SAMPLE_CHECK_ERRORS(ret);
 
     lap.stop();
-#else
+#endif
+
+#ifdef USE_READ_WRITE
     ret = clEnqueueReadBuffer(m_queue, m_memWorkload, CL_TRUE, 0, tasks* /* WORKLOAD_TASK_SIZE* */ sizeof(unsigned int), workload, 0, NULL, NULL);
     SAMPLE_CHECK_ERRORS(ret);
     
@@ -558,6 +581,24 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
     
     ret = clReleaseMemObject(m_memWorkload);
     SAMPLE_CHECK_ERRORS(ret);
+#endif
+
+#ifdef USE_MIGRATE_MEM
+    
+    ret = clEnqueueMigrateMemObjects(m_queue, 1, {&m_memWorkload}, CL_MIGRATE_MEM_OBJECT_HOST, 0, NULL, NULL);
+    SAMPLE_CHECK_ERRORS(ret); 
+
+    
+    lap.stop();
+
+
+    ret = clReleaseMemObject(m_memPattern);
+    SAMPLE_CHECK_ERRORS(ret);
+
+    ret = clReleaseMemObject(m_memWorkload);
+    SAMPLE_CHECK_ERRORS(ret);
+
+
 #endif
     
    
