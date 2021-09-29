@@ -1,9 +1,11 @@
 
 BOARD='U250'
 TIME='/usr/bin/time -f TIME=%E'
-AOCL_FLAGS='--profile.stall all:all:all --profile.data all:all:all --profile_kernel data:all:all:all'
+#AOCL_FLAGS='--profile.stall all:all:all --profile.data all:all:all --profile_kernel data:all:all:all -D FPGA_DEBUG '
 #TARGET='sw_emu'
+
 TARGET='hw'
+AOCL_FLAGS=' '
 
 import sys
 sys.path.append('..')
