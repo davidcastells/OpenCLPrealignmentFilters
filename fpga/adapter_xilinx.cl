@@ -1,16 +1,15 @@
-/*
-#ifdef BASIC_AP_UINT
-	#include "basic_ap_uint.h"
-#else
-	#include "my_ap_uint.h"
-#endif
-*/
 
 #include "xilinx_ap_uint.h"
+
+#ifndef PREPROCESSING
 #include <stdio.h>
+#else
+__hash__ include <stdio.h>
+#endif
 
 
-#define WORKLOAD_TASK_SIZE  3
+//#define WORKLOAD_TASK_SIZE  3  @deprecated, this will be assumed to be 1, it has little sense to have indexing (as originally thought)
+
 #define INDEX_SIZE          2
 #define BASE_SIZE           2
 
@@ -20,7 +19,7 @@
 #endif
 
 #ifdef ENTRY_TYPE_0
-unsigned int computeTaskEntryType0(ap_uint<512>* pairs, unsigned int pi);
+unsigned int computeTaskEntryType0(ap_uint<512> pairs_word);
 unsigned int computeDistance(ap_uint<512> pattern, int plen, ap_uint<512> text, int tlen);
 void printSequence(ap_uint<512> w, int len);
 #endif
@@ -41,17 +40,19 @@ void printSequence1024(ap_uint<1024> w, int len);
 
 
 /**
- * from version 11 we assume that pattern index, and text index is the same worload index  
+ * from version 11 we assume that pattern index, and text index is the same worload index 
+ * @param pairs_word the input pairs word (512 bit vector) containing Pattern and Text
+ * @param workload pointer to the local memory that will store the computed distance result
  */
-void doWorkloadTask(ap_uint<512>* pairs ,
+void doWorkloadTask(ap_uint<512> pairs_word ,
                     ap_uint<32>* workload, 
 		    unsigned int wi, unsigned int li)
 {
-    unsigned int pi = wi; // workload[wi*WORKLOAD_TASK_SIZE+0];
-    unsigned int ti = wi; // workload[wi*WORKLOAD_TASK_SIZE+1];
+    // unsigned int pi = wi; 
+    // unsigned int ti = wi; 
 
 #ifdef ENTRY_TYPE_0
-    unsigned int d = computeTaskEntryType0(pairs,  pi);
+    unsigned int d = computeTaskEntryType0(pairs_word);
 #endif
 #ifdef ENTRY_TYPE_1
     unsigned int d = computeTaskEntryType1(pairs,  pi);
@@ -61,18 +62,17 @@ void doWorkloadTask(ap_uint<512>* pairs ,
 #endif
 
 #ifdef FPGA_DEBUG
-    printf("[FPGA] pi=%d  ", pi);
-    printf(" task %d = %d\n", wi, d);
+    printf("[FPGA] task index=%d  ", wi );
+    printf(" local mem index=%d d=%d\n", li, d);
 #endif
     
-    //workload[wi*WORKLOAD_TASK_SIZE+2] = d;
     workload[li] = d;
 }
 
 extern "C" {
 // __kernel 
 void kmer( ap_uint<512>* pairs ,
-	   ap_uint<32>* workload, 
+	   ap_uint<512>* workload, 
 	   unsigned int workloadLength)
 
 #pragma HLS_INTERFACE m_axi port = pairs
@@ -80,56 +80,96 @@ void kmer( ap_uint<512>* pairs ,
 #pragma HLS_INTERFACE s_axilite port = workloadLength 
 {
 #ifdef FPGA_DEBUG
+    printf("[FPGA] kernel invoked\n");
 	// test_my_ap_uint();
 #endif
 
 	
-	ap_uint<32> workload_result[WORKLOAD_CHUNK];
+    ap_uint<32> workload_result[WORKLOAD_CHUNK];
 	
-    for (int i=0; i < workloadLength; /*i++*/)
+    for (int i=0; i < workloadLength; /*i++*/) // i is incremented in the following loop
     {
     	int base_i = i;
         int li;
 	
     	// compute to local memory
-    	for (li=0; (li < WORKLOAD_CHUNK) && (i < workloadLength); li++, i++)
+    	for (li=0; (li < WORKLOAD_CHUNK) && (i < workloadLength); li+=8, i+=8)
 	{
-	#pragma HLS PIPELINE
-	   doWorkloadTask(pairs, workload_result, i, li);
+	    #pragma HLS PIPELINE
+
+	    ap_uint<512> pw[8];
+
+	    // create read bursts (8*512/8 = 512 bytes)
+	    for (int j=0; j < 8; j++)
+            {
+		#pragma HLS PIPELINE
+		pw[j] = ap_uint_512_byteReversal(pairs[i+j]);
+	    }
+
+            for (int j=0; j < 8; j++)
+	    {
+		#pragma HLS PIPELINE
+	   	doWorkloadTask(pw[j], workload_result, i, li+j); // it will save values to worload_result[li]
+	    }
 	}
 		
 	// transfer the results back to the main table
-	for (int ti=0; ti < li; ti++)
-		 {
-		 #pragma HLS PIPELINE
-		workload[(base_i + ti)*WORKLOAD_TASK_SIZE+2] = workload_result[ti];
-		}
-     }
-}
-}
+	// li will contain the number of (32 bits) words
+#ifdef FPGA_DEBUG
+	printf("Number of computed pairs: %d\n", li);
+#endif
+	li = (li+15) / 16 ; // this is the number of 512 words
+#ifdef FPGA_DEBUG
+	printf("Number of required 512 bits words: %d\n", li);
+#endif
 
-/*
-void readBigEndian512bits(unsigned char* restrict p, ap_uint_512p ret)
-{
-    ret = 0;
-    
-    #pragma unroll
-    for (int i=0; i < 512/8; i++)
-    {
-        // ret |= p[i] << (i * 8);
-        // ap_uint_512_shift_left_self(8, ret);
-        ap_uint_512_orHighByteConcurrent(ret, i, p[i]);
+	for (int ti=0; ti < li; ti+=8)
+	{
+	    #pragma HLS PIPELINE
 
-	// printf("[%d] = 0x%02X\n", i, p[i]);
-    }   
+	    ap_uint<512> pw[8];
+
+	    // create write burst (128*32/8 = 512 bytes)
+	    for (int j=0; j < 8; j++)
+	    {
+	        #pragma HLS PIPELINE
+		
+		pw[j](511, 480) = workload_result[ti*128+j*16+0];
+		pw[j](479, 448) = workload_result[ti*128+j*16+1];
+		pw[j](447, 416) = workload_result[ti*128+j*16+2];
+		pw[j](415, 384) = workload_result[ti*128+j*16+3];
+		pw[j](383, 352) = workload_result[ti*128+j*16+4];
+		pw[j](351, 320) = workload_result[ti*128+j*16+5];
+		pw[j](319, 288) = workload_result[ti*128+j*16+6];
+		pw[j](287, 256) = workload_result[ti*128+j*16+7];
+
+		pw[j](255, 224) = workload_result[ti*128+j*16+8];
+		pw[j](223, 192) = workload_result[ti*128+j*16+9];
+		pw[j](191, 160) = workload_result[ti*128+j*16+10];
+		pw[j](159, 128) = workload_result[ti*128+j*16+11];
+		pw[j](127,  96) = workload_result[ti*128+j*16+12];
+		pw[j](95 ,  64) = workload_result[ti*128+j*16+13];
+		pw[j](65 ,  32) = workload_result[ti*128+j*16+14];
+		pw[j](31 ,   0) = workload_result[ti*128+j*16+15];
+	    
+		//#pragma HLS PIPELINE
+
+		// write the 512 bit word to the global memory
+		// 512 bytes require 8 (512 bit) words 
+		workload[base_i + ti*8 + j ] = ap_uint_512_uintReversal(pw[j]);
 
 #ifdef FPGA_DEBUG
-    printf("Long Word: ");
-    ap_uint_512_print(AP_UINT_FROM_PTR(ret));
-    printf("\n");
+		// printf("workload[%d]=", base_i + ti*8 + j);
+		for (int k=0; k < 16; k++)
+			 printf("workload_result[%d] = %d\n", ti*128+j*16+k, (int) workload_result[ti*128+j*16+k]);
+		printf("\n");
 #endif
-}*/
+	    }
+        }
+    }
+}
 
+} // extern "C"
 
 #ifdef ENTRY_TYPE_2
 
@@ -162,26 +202,16 @@ void readBigEndian1024bits(unsigned char* restrict p, ap_uint_1024p ret)
 
 #ifdef ENTRY_TYPE_0
 
-/*
-void readPairs(unsigned char* pattern , unsigned int pi, ap_uint_512p ret)
-{
-    unsigned int offset = pi * 512 /  8;
-    
-    readBigEndian512bits(&pattern[offset], ret);  
-}*/
 
 
-unsigned int computeTaskEntryType0(ap_uint<512>* pairs, unsigned int pi)
+unsigned int computeTaskEntryType0(ap_uint<512> pairs_word)
 {
 	int d = 0;
 
-	ap_uint<512> pairs_word;
 	
 	ap_uint<512> pattern_word;
 	ap_uint<512> text_word;
 
-	//readPairs(pairs, pi, AP_UINT_PTR(pairs_word));
-        pairs_word = pairs[pi];
 
 #ifdef PATTERN_LEN
 	unsigned char pl = PATTERN_LEN;
@@ -192,15 +222,20 @@ unsigned int computeTaskEntryType0(ap_uint<512>* pairs, unsigned int pi)
 #endif
 
 #ifdef FPGA_DEBUG
-	printf("pattern len: %d\ttext len: %d\n", pl, tl);
+	unsigned char pl2 = ap_uint_512_getHighByte(pairs_word, 0);
+	unsigned char tl2 = ap_uint_512_getHighByte(pairs_word, 1);
+	printf("pattern len: %d\ttext len: %d\n", pl2, tl2);
 #endif
 	int alignedTextStart = 1 + 1 + (((pl * BASE_SIZE) + 7) / 8) ;	// in bytes
 
-	pattern_word = pairs_word << 2*8;
-	text_word = pairs_word << alignedTextStart;
+	pattern_word = pairs_word << (2*8);
+	text_word = pairs_word << (alignedTextStart*8);
 
 
 #ifdef FPGA_DEBUG
+        printf("WORD:");
+	printSequence(pairs_word, 256);
+	printf("\n");
 	printf("T:   ");
 	printSequence(text_word, tl);
 	printf("\n");
@@ -208,13 +243,6 @@ unsigned int computeTaskEntryType0(ap_uint<512>* pairs, unsigned int pi)
 	printSequence(pattern_word, pl);
 	printf("\n");
 #endif
-
-	/*printf("T:   ");
-	ap_uint_512_print(text_word);
-	printf("\n");
-	printf("P:   ");        
-	ap_uint_512_print(pattern_word);
-	printf("\n");*/
 
 
 	d = computeDistance(pattern_word,  pl, text_word,  tl);	// we just compare pattern
@@ -369,7 +397,7 @@ void printSequence(ap_uint<512> w, int len)
 	for (int i=0; i < len; i++)
 	{
 	   int last = 512 - 1 - (i * BASE_SIZE);
-	   unsigned char isym = (w[last - 0] << 1) | w[last -1];  
+	   unsigned char isym = w(last, last - 1); // (w[last - 0] << 1) | w[last -1];  
            printf("%c", sym[isym]);	   
 	}
 
@@ -389,7 +417,7 @@ void printSequence1024(ap_uint<1024> w, int len)
 	for (int i=0; i < len; i++)
 	{
 	   int last = 1024 - 1 - (i * BASE_SIZE);
-	   unsigned char isym = (w[last-0] << 1) | w[last-1];  
+	   unsigned char isym = w(last, last - 1); // (w[last-0] << 1) | w[last-1];  
            printf("%c", sym[isym]);	   
 	}
 
