@@ -529,6 +529,9 @@ void PrealignmentFilter::invokeKernelSingleBuffer(unsigned char* pattern, unsign
 
     ret = clEnqueueMigrateMemObjects(m_queue, 1, {&m_memPattern}, 0, 0, NULL, NULL); 
     SAMPLE_CHECK_ERRORS(ret);
+    
+    ret = clFinish(m_queue);
+    SAMPLE_CHECK_ERRORS(ret);
 #endif
 
     ret = clSetKernelArg(m_kmerKernel, 2, sizeof(cl_int), (void *)&tasks);
