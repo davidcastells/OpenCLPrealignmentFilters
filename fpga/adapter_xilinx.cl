@@ -25,7 +25,7 @@ void printSequence(ap_uint<512> w, int len);
 #endif
 
 #ifdef ENTRY_TYPE_1
-unsigned int computeTaskEntryType1(unsigned char* pairs, unsigned int pi);
+unsigned int computeTaskEntryType1(ap_uint<512> pairs_word_p, ap_uint<512> pairs_word_t);
 unsigned int computeDistance(ap_uint<512> pattern, int plen, ap_uint<512> text, int tlen);
 void printSequence(ap_uint<512> w, int len);
 #endif
@@ -39,35 +39,8 @@ void printSequence1024(ap_uint<1024> w, int len);
 
 
 
-/**
- * from version 11 we assume that pattern index, and text index is the same worload index 
- * @param pairs_word the input pairs word (512 bit vector) containing Pattern and Text
- * @param workload pointer to the local memory that will store the computed distance result
- */
-void doWorkloadTask(ap_uint<512> pairs_word ,
-                    ap_uint<32>* workload, 
-		    unsigned int wi, unsigned int li)
-{
-    // unsigned int pi = wi; 
-    // unsigned int ti = wi; 
 
-#ifdef ENTRY_TYPE_0
-    unsigned int d = computeTaskEntryType0(pairs_word);
-#endif
-#ifdef ENTRY_TYPE_1
-    unsigned int d = computeTaskEntryType1(pairs,  pi);
-#endif
-#ifdef ENTRY_TYPE_2
-    unsigned int d = computeTaskEntryType2(pairs,  pi);
-#endif
 
-#ifdef FPGA_DEBUG
-    printf("[FPGA] task index=%d  ", wi );
-    printf(" local mem index=%d d=%d\n", li, d);
-#endif
-    
-    workload[li] = d;
-}
 
 extern "C" {
 // __kernel 
@@ -106,10 +79,26 @@ void kmer( ap_uint<512>* pairs ,
 		pw[j] = ap_uint_512_byteReversal(pairs[i+j]);
 	    }
 
-            for (int j=0; j < 8; j++)
+            for (int sj=0, tj=0; sj < 8; tj++)
 	    {
 		#pragma HLS PIPELINE
-	   	doWorkloadTask(pw[j], workload_result, i, li+j); // it will save values to worload_result[li]
+
+
+#ifdef ENTRY_TYPE_0
+                workload[li+tj] = computeTaskEntryType0(pw[sj]);
+		sj++;
+#endif
+
+#ifdef ENTRY_TYPE_1
+		workload[li+tj] = computeTaskEntryType1(pw[sj], pw[sj+1]);
+		sj += 2;
+#endif
+
+#ifdef ENTRY_TYPE_2
+		workload[li+tj] = computeTaskEntryType2(pw[sj], pw[sj+1], pw[sj+2], pw[sj+3]);
+		sj += 4;
+#endif
+
 	    }
 	}
 		
@@ -203,7 +192,7 @@ void readBigEndian1024bits(unsigned char* restrict p, ap_uint_1024p ret)
 #ifdef ENTRY_TYPE_0
 
 
-
+// both words are encoded in a single 512 bits (256 bases) words
 unsigned int computeTaskEntryType0(ap_uint<512> pairs_word)
 {
 	int d = 0;
@@ -255,27 +244,18 @@ unsigned int computeTaskEntryType0(ap_uint<512> pairs_word)
 
 #ifdef ENTRY_TYPE_1
 
-void readPairs(unsigned char* restrict pattern , unsigned int pi, ap_uint_512p pword,  ap_uint_512p tword )
-{
-    unsigned int offsetp = (pi * 2 * 512) /  8;
-    unsigned int offsett = ((pi * 2 * 512) + 512) /  8;
-    
-    readBigEndian512bits(&pattern[offsetp], pword);  
-    readBigEndian512bits(&pattern[offsett], tword);  
-}
 
-unsigned int computeTaskEntryType1(__global unsigned char* restrict pairs,
-                 unsigned int pi)
+unsigned int computeTaskEntryType1(ap_uint<512> pairs_word_p, ap_uint<512> pairs_word_t)
 {
 	int d = 0;
 
-	ap_uint_512 pairs_word_p;
-	ap_uint_512 pairs_word_t;
+	// ap_uint_512 pairs_word_p;
+	// ap_uint_512 pairs_word_t;
 	
-	ap_uint_512 pattern_word;
-	ap_uint_512 text_word;
+	ap_uint<512> pattern_word;
+	ap_uint<512> text_word;
 
-	readPairs(pairs, pi, AP_UINT_PTR(pairs_word_p), AP_UINT_PTR(pairs_word_t));
+	// readPairs(pairs, pi, AP_UINT_PTR(pairs_word_p), AP_UINT_PTR(pairs_word_t));
 
 #ifdef PATTERN_LEN
 	unsigned char pl = PATTERN_LEN;
@@ -290,8 +270,8 @@ unsigned int computeTaskEntryType1(__global unsigned char* restrict pairs,
 #endif
 	//int alignedTextStart = 1 + 1 + (((pl * BASE_SIZE) + 7) / 8) ;	// in bytes
 
-	ap_uint_512_shift_left_bytes(pairs_word_p, 1, AP_UINT_PTR(pattern_word));
-	ap_uint_512_shift_left_bytes(pairs_word_t, 1, AP_UINT_PTR(text_word));
+	pattern_word = pairs_word_p << 1*8; //, AP_UINT_PTR(pattern_word));
+	text_word = pairs_word_t << 1*8; //, AP_UINT_PTR(text_word));
 
 
 #ifdef FPGA_DEBUG
