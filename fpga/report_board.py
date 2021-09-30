@@ -9,12 +9,13 @@ def systemOutput(cmd):
 
 def getInfo():
     info = {
-		'DE5NET': {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2, 'resources-file':'top.flow.rpt', 'start':68, 'len':30, 'registers-key':''},
-		'OSK' :   {'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2,'resources-file':'top.flow.rpt', 'start':63, 'len':25},
-		'HARP' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'top.flow.rpt', 'start':63, 'len':25, 'registers-key':'Total registers', 'total_alms':427200, 'total_kles':1150, 'total_registers':1708800},
-		'PAC10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':','fmax-pos':1,'resources-file':'acl_quartus_report.txt', 'start':7, 'len':7},
-		'PACS10' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
-		'AWSF1' :   {'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
+        'DE5NET': {'company':'Intel', 'fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2, 'resources-file':'top.flow.rpt', 'start':68, 'len':30, 'registers-key':''},
+        'OSK' : {'company':'Intel','fmax':'kernel_fmax', 'fmax-file':'quartus_sh_compile.log', 'fmax-sep':' ', 'fmax-pos':2,'resources-file':'top.flow.rpt', 'start':63, 'len':25},
+        'HARP' :   {'company':'Intel', 'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'top.flow.rpt', 'start':63, 'len':25, 'registers-key':'Total registers', 'total_alms':427200, 'total_kles':1150, 'total_registers':1708800},
+        'PAC10' :   {'company':'Intel', 'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':','fmax-pos':1,'resources-file':'acl_quartus_report.txt', 'start':7, 'len':7},
+        'PACS10' :   {'company':'Intel', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
+        'AWSF1' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
+        'U250' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'link/imp/impl_1_full_util_synthed.rpt', 'start':51, 'len':17, 'registers-key':'Total dedicated logic registers',  'total_les': 1726216, 'total_registers':3732480},
     }
     return info
 
@@ -32,7 +33,10 @@ def getDesignDir(dsg, et, th, pl, tl=None):
     return dir+ptype
 
 def getDesignFmax(board, dsg, et, th, pl, tl=None):
-    if (board == 'AWSF1'):
+    info = getInfo()
+    company = info[board]['company']
+
+    if (company == 'Xilinx'):
         return getDesignFmaxXilinx(board, dsg, et, th, pl, tl)
     else:
         return getDesignFmaxIntel(board, dsg, et, th, pl, tl)
@@ -71,22 +75,27 @@ def getDesignFmaxIntel(board, dsg, et, th, pl, tl=None):
         return '?'
 
 def getDesignResources(board, dsg, et, th, pl, tl=None):
-    if (board=='AWSF1'):
+    info = getInfo()
+    company = info[board]['company']
+
+    if (company=='Xilinx'):
         return getDesignResourcesXilinx(board, dsg, et, th, pl, tl)
     else:
         return getDesignResourcesIntel(board, dsg, et, th, pl, tl)
 
 def getDesignResourcesXilinx(board, dsg, et, th, pl, tl=None):
+    info = getInfo()
+    resourcesfile = info[board]['resources-file']
 
     sdir = getDesignDir(dsg, et, th, pl, tl)
-    sFile = '{}/link/system_estimate_{}.xtxt'.format(sdir, sdir)
-    cmd = 'grep  "kmer_1        kmer         kmer " {}'.format(sFile)
+    sFile = '{}/{}'.format(sdir, resourcesfile)
+    cmd = 'grep  "CLB LUTs" {}'.format(sFile)
 
     if (os.path.exists(sFile) == False):
         return '?'
     sout = systemOutput(cmd)
-    ret = int(sout[2].split()[4])
-    return ret//1000
+    ret = int(float(sout[0].split('|')[5]))
+    return '{} %'.format(ret)
 
 def getDesignResourcesIntel(board, dsg, et, th, pl, tl=None):
     if (tl==None):
