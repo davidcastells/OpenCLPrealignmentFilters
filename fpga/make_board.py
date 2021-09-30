@@ -380,17 +380,17 @@ def makeMetaVariantsVitis(BOARD, AOCL_FLAGS, blocking=False, target='hw'):
    #metaprogram(dsg, meta=meta, cl='shd_e1_7_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=7')
    #metaprogram(dsg, meta=meta, cl='shd_e1_10_150_150.cl', flags='-D ENTRY_TYPE_1 -D SHD_THRESHOLD=10')
 
-   makeVitisXclbin(xclbin='shd_e1_3_150_150.xclbin', cl='shd_e1_3_150_150.cl', threshold=3, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta, board=BOARD, target=target)
-   makeVitisXclbin(xclbin='shd_e1_7_150_150.xclbin', cl='shd_e1_7_150_150.cl', threshold=7, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta, board=BOARD, target=target)
-   makeVitisXclbin(xclbin='shd_e1_10_150_150.xclbin', cl='shd_e1_10_150_150.cl', threshold=10, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta, board=BOARD, target=target)
+   makeVitisXclbin(xclbin='shd_e1_3_150_150.xclbin', cl='../shd_xilinx.cpp', threshold=3, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta, board=BOARD, target=target)
+   makeVitisXclbin(xclbin='shd_e1_7_150_150.xclbin', cl='../shd_xilinx.cpp', threshold=7, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta, board=BOARD, target=target)
+   makeVitisXclbin(xclbin='shd_e1_10_150_150.xclbin', cl='../shd_xilinx.cpp', threshold=10, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta, board=BOARD, target=target)
 
    #metaprogram(dsg, meta=meta, cl='shd_e2_5_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHD_THRESHOLD=5')
    #metaprogram(dsg, meta=meta, cl='shd_e2_10_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHD_THRESHOLD=10')
    #metaprogram(dsg, meta=meta, cl='shd_e2_15_300_300.cl', flags='-D ENTRY_TYPE_2 -D SHD_THRESHOLD=15')
 
-   makeVitisXclbin(xclbin='shd_e2_5_300_300.xclbin', cl='shd_e2_5_300_300.cl', threshold=5, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta, board=BOARD, target=target)
-   makeVitisXclbin(xclbin='shd_e2_10_300_300.xclbin', cl='shd_e2_10_300_300.cl', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta, board=BOARD, target=target)
-   makeVitisXclbin(xclbin='shd_e2_15_300_300.xclbin', cl='shd_e2_15_300_300.cl', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta, board=BOARD, target=target)
+   makeVitisXclbin(xclbin='shd_e2_5_300_300.xclbin', cl='../shd_xilinx.cpp', threshold=5, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta, board=BOARD, target=target)
+   makeVitisXclbin(xclbin='shd_e2_10_300_300.xclbin', cl='../shd_xilinx.cpp', threshold=10, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta, board=BOARD, target=target)
+   makeVitisXclbin(xclbin='shd_e2_15_300_300.xclbin', cl='../shd_xilinx.cpp', threshold=15, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta, board=BOARD, target=target)
 
 
    print('COMPILING SHOUJI for {}:'.format(BOARD));
