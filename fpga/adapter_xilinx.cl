@@ -31,7 +31,7 @@ void printSequence(ap_uint<512> w, int len);
 #endif
 
 #ifdef ENTRY_TYPE_2
-unsigned int computeTaskEntryType2(unsigned char* pairs, unsigned int pi);
+unsigned int computeTaskEntryType2(ap_uint<512> pairs_word_p0, ap_uint<512> pairs_word_p1, ap_uint<512> pairs_word_t0, ap_uint<512> pairs_word_t1);
 unsigned int computeDistance(ap_uint<1024> pattern, int plen, ap_uint<1024> text, int tlen);
 void printSequence1024(ap_uint<1024> w, int len);
 #endif
@@ -301,27 +301,17 @@ unsigned int computeTaskEntryType1(ap_uint<512> pairs_word_p, ap_uint<512> pairs
 
 #ifdef ENTRY_TYPE_2
 
-void readPairs(__global unsigned char* restrict pattern , unsigned int pi, ap_uint_1024p pword,  ap_uint_1024p tword )
-{
-    // every pair is 2 * 1024
-    unsigned int offsetp = (pi * 2 * 1024) /  8;
-    unsigned int offsett = ((pi * 2 * 1024) + 512) /  8;
-    
-    readBigEndian1024bits(&pattern[offsetp], pword);  
-    readBigEndian1024bits(&pattern[offsett], tword);  
-}
-
-unsigned int computeTaskEntryType2(__global unsigned char* restrict pairs, unsigned int pi)
+unsigned int computeTaskEntryType2(ap_uint<512> p0, ap_uint<512> p1, ap_uint<512> t0, ap_uint<512> t1)
 {
 	int d = 0;
 
-	ap_uint_1024 pairs_word_p;
-	ap_uint_1024 pairs_word_t;
+	ap_uint<1024> pairs_word_p = p0 << 512 | p1;
+	ap_uint<1024> pairs_word_t = t0 << 512 | t1;
 	
-	ap_uint_1024 pattern_word;
-	ap_uint_1024 text_word;
+	ap_uint<1024> pattern_word;
+	ap_uint<1024> text_word;
 
-	readPairs(pairs, pi, AP_UINT_PTR(pairs_word_p), AP_UINT_PTR(pairs_word_t));
+//	readPairs(pairs, pi, AP_UINT_PTR(pairs_word_p), AP_UINT_PTR(pairs_word_t));
 
 #ifdef PATTERN_LEN
 	unsigned int pl = PATTERN_LEN;
@@ -336,8 +326,8 @@ unsigned int computeTaskEntryType2(__global unsigned char* restrict pairs, unsig
 #endif
 	//int alignedTextStart = 1 + 1 + (((pl * BASE_SIZE) + 7) / 8) ;	// in bytes
 
-	ap_uint_1024_shift_left_bytes(pairs_word_p, 1, AP_UINT_PTR(pattern_word));
-	ap_uint_1024_shift_left_bytes(pairs_word_t, 1, AP_UINT_PTR(text_word));
+	pattern_word = pairs_word_p << 1*8;
+	text_word = pairs_word_t << 1*8;
 
 
 #ifdef FPGA_DEBUG
