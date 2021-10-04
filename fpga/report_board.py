@@ -15,6 +15,7 @@ def getInfo():
         'PAC10' :   {'company':'Intel', 'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':','fmax-pos':1,'resources-file':'acl_quartus_report.txt', 'start':7, 'len':7},
         'PACS10' :   {'company':'Intel', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
         'AWSF1' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
+        'U50' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'link/imp/impl_1_full_util_synthed.rpt', 'start':51, 'len':17, 'registers-key':'Total dedicated logic registers',  'total_les': 1726216, 'total_registers':3732480},
         'U250' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'link/imp/impl_1_full_util_synthed.rpt', 'start':51, 'len':17, 'registers-key':'Total dedicated logic registers',  'total_les': 1726216, 'total_registers':3732480},
     }
     return info
