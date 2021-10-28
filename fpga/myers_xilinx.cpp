@@ -96,9 +96,12 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 		for (int y = 0; y <= PATTERN_LEN; y++)
 		{
 #pragma HLS UNROLL
- 
+			int farxy = isFarFromDiag(x,y);
+ 			int farxm1y = isFarFromDiag(x-1,y);
+ 			int farxym1 = isFarFromDiag(x,y-1);
+
 			// equality variable
-			if (!isFarFromDiag(x,y) && (x > 0) && (y > 0))
+			if (!farxy && (x > 0) && (y > 0))
 				eq[x][y] = equalBases(text, x-1, pattern, y-1);
 			else
 				eq[x][y] = 0;
@@ -106,7 +109,7 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 
 
 			// D0
-			if (isFarFromDiag(x,y))
+			if (farxy)
 			{
 				// ignore the elements distant from the diagonal
 				d0[x][y] = 0;
@@ -119,10 +122,10 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 			{
 				d0[x][y] = eq[x][y];
 
-				if (!isFarFromDiag(x-1, y))
+				if (!farxm1y)
 					d0[x][y] |= vn[x-1][y];
 
-				if (!isFarFromDiag(x, y-1))
+				if (!farxym1)
 					d0[x][y] |= hn[x][y-1];
 			}
 
@@ -144,14 +147,14 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 			{
 				
 				printf("\tunsigned char vp_%d_%d = ", x, y);
-				if (!isFarFromDiag(x, y-1))
+				if (!farxym1)
 					vp[x][y] = ( hn[x][y-1] | ~(hp[x][y-1] | d0[x][y]));
 				else
 					vp[x][y] = ( 0 | ~(0 | d0[x][y]));
 			}
 
 
-			if (isFarFromDiag(x,y))
+			if (farxy)
 			{
 				// Ignore
 				vn[x][y] = 0;
@@ -163,7 +166,7 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 			else 
 			{
 				printf("\tunsigned char vn_%d_%d = ", x, y);
-				if (!isFarFromDiag(x, y-1))
+				if (!farxym1)
 					vn[x][y] = (hp[x][y-1] & d0[x][y]);
 				else
 					vn[x][y] = (0 & d0[x][y]);
@@ -185,7 +188,7 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 			}
 			else 
 			{
-				if (!isFarFromDiag(x-1,y))
+				if (!farxm1y)
 					hp[x][y] = (vn[x-1][y] | ~(vp[x-1][y] | d0[x][y]));
 				else
 					hp[x][y] = (0 | ~(1 | d0[x][y]));
@@ -193,7 +196,7 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 
 
 
-			if (isFarFromDiag(x,y))
+			if (farxy)
 			{
 				// Ignore
 				hn[x][y] = 0;
@@ -205,7 +208,7 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 			else 
 			{
 				printf("\tunsigned char hn_%d_%d =", x, y);
-				if (!isFarFromDiag(x-1,y))
+				if (!farxm1y)
 					hn[x][y] = (vp[x-1][y] & d0[x][y]);
 				else
 					hn[x][y] = (1 & d0[x][y]);
