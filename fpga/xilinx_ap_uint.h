@@ -64,6 +64,17 @@ ap_uint<512> ap_uint_512_onesHigh(int n)
 	return v;
 }
 
+ap_uint<1024> ap_uint_1024_onesHigh(int n)
+{
+	ap_uint<1024> v = 0;
+
+	for (int i = 0; i < 1024; i++)
+	{
+#pragma HLS UNROLL
+		v[1024-1-i] = (i<n)?1:0;
+	}
+	return v;
+}
 
 unsigned int ap_uint_512_pop_count(ap_uint<512> x)
 {
