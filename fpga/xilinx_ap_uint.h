@@ -16,6 +16,8 @@ void ap_uint_512_printBinHigh(ap_uint<512> r, int len);
 unsigned char ap_uint_512_getHighByte(ap_uint<512> v, int index);
 unsigned char ap_uint_512_getLowByte(ap_uint<512> v, int index);
 
+unsigned int ap_uint_1024_pop_count(ap_uint<1024> x);
+
 ap_uint<512> ap_uint_512_bitReversal(ap_uint<512> v)
 {
 	ap_uint<512> r = 0;
@@ -69,6 +71,19 @@ unsigned int ap_uint_512_pop_count(ap_uint<512> x)
 	unsigned int p=0;
 
 	for (int i = 0; i < 512; i++)
+	{
+#pragma HLS UNROLL
+		p += x[i];
+	}
+
+	return p;
+}
+
+unsigned int ap_uint_1024_pop_count(ap_uint<1024> x)
+{
+	unsigned int p=0;
+
+	for (int i=0; i < 1024; i++)
 	{
 #pragma HLS UNROLL
 		p += x[i];
