@@ -220,6 +220,7 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 
 	for (int i = 0; i <= max(TEXT_LEN, PATTERN_LEN); i++)
 	{
+#pragma HLS UNROLL
 		d = satAdd(d ,  (~(d0[i][i]) & 1));
 
 	}
