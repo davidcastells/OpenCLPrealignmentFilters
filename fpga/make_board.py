@@ -211,14 +211,14 @@ def makeVitisXclbin(xclbin, cl, threshold=-1, pattern_len=-1, text_len=-1, entry
         outlog_link = ' > link.' + design_name + '.out'
     
     if (xoExist(xclbin)):
-        cmd = nohup + ' v++ --link '+common_flags + threshold_flag + entry_type_flags + extra_flags + item_flags+xo+' -o '+xclbin + outlog_compile + noblocksuffix
+        cmd = nohup + ' v++ --link '+common_flags + threshold_flag + entry_type_flags + extra_flags + item_flags+xo+' -o '+xclbin + outlog_link + noblocksuffix
         print(cmd)
-        os.system('echo "'+cmd)
+        os.system('echo "{}"'.format(cmd))
         os.system(cmd)
     else:
-        cmd = nohup + ' v++ -c '+common_flags + threshold_flag + entry_type_flags + extra_flags + item_flags+cl+' -o '+xo + outlog_link + noblocksuffix
+        cmd = nohup + ' v++ -c '+common_flags + threshold_flag + entry_type_flags + extra_flags + item_flags+cl+' -o '+xo + outlog_compile + noblocksuffix
         print(cmd)
-        os.system('echo "'+cmd)
+        os.system('echo "{}"'.format(cmd))
         os.system(cmd)
 
     gStarted = gStarted + 1
