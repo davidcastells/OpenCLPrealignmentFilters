@@ -112,6 +112,15 @@ void ap_uint_512_printBinHigh(ap_uint<512> r, int len)
 	}
 }
 
+void ap_uint_1024_printBinHigh(ap_uint<1024> r, int len)
+{
+	for (int i=0; i < len; i++)
+	{
+		int bit = r[1024-1-i];
+		printf("%d", bit);
+	}
+}
+
 unsigned char ap_uint_512_getHighByte(ap_uint<512> v, int index)
 {
 	return ap_uint_512_getLowByte(v, (512/8) - 1 - index);
