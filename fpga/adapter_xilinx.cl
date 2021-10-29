@@ -72,7 +72,7 @@ void kmer( ap_uint<512>* pairs ,
 #endif
 	
     	// compute to local memory
-    	for (li=0; (li < WORKLOAD_CHUNK) && (i < workloadLength); i+=8)
+    	for (li=0; (li < WORKLOAD_CHUNK) && (i < workloadLength); )
 	{
 	    #pragma HLS PIPELINE
 
@@ -120,6 +120,7 @@ void kmer( ap_uint<512>* pairs ,
 
 	    }
 	    li += tj;
+	    i += tj;
        }
 		
 	   // transfer the results back to the main table
