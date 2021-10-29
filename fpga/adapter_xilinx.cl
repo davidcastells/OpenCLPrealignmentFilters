@@ -21,18 +21,19 @@ __hash__ include <stdio.h>
 #ifdef ENTRY_TYPE_0
 unsigned int computeTaskEntryType0(ap_uint<512> pairs_word);
 unsigned int computeDistance(ap_uint<512> pattern, int plen, ap_uint<512> text, int tlen);
-void printSequence(ap_uint<512> w, int len);
+void printSequence512(ap_uint<512> w, int len);
 #endif
 
 #ifdef ENTRY_TYPE_1
 unsigned int computeTaskEntryType1(ap_uint<512> pairs_word_p, ap_uint<512> pairs_word_t);
 unsigned int computeDistance(ap_uint<512> pattern, int plen, ap_uint<512> text, int tlen);
-void printSequence(ap_uint<512> w, int len);
+void printSequence512(ap_uint<512> w, int len);
 #endif
 
 #ifdef ENTRY_TYPE_2
 unsigned int computeTaskEntryType2(ap_uint<512> pairs_word_p0, ap_uint<512> pairs_word_p1, ap_uint<512> pairs_word_t0, ap_uint<512> pairs_word_t1);
 unsigned int computeDistance(ap_uint<1024> pattern, int plen, ap_uint<1024> text, int tlen);
+void printSequence512(ap_uint<512> w, int len);
 void printSequence1024(ap_uint<1024> w, int len);
 #endif
 
@@ -63,10 +64,14 @@ void kmer( ap_uint<512>* pairs ,
     for (int i=0; i < workloadLength; /*i++*/) // i is incremented in the following loop
     {
     	int base_i = i;
-        int li;
+        int li;		// local memory index
+
+#ifdef FPGA_DEBUG
+	printf("load pair %d\n", i);
+#endif
 	
     	// compute to local memory
-    	for (li=0; (li < WORKLOAD_CHUNK) && (i < workloadLength); li+=8, i+=8)
+    	for (li=0; (li < WORKLOAD_CHUNK) && (i < workloadLength); i+=8)
 	{
 	    #pragma HLS PIPELINE
 
@@ -77,29 +82,41 @@ void kmer( ap_uint<512>* pairs ,
             {
 		#pragma HLS PIPELINE
 		pw[j] = ap_uint_512_byteReversal(pairs[i+j]);
+
+#ifdef FPGA_DEBUG
+		printf("pw[%d]=", j);
+		printSequence512(pw[j], 256);
+		printf("\n");
+#endif
 	    }
 
-            for (int sj=0, tj=0; sj < 8; tj++)
+	    int tj = 0;
+            for (int sj=0 ; sj < 8; tj++)
 	    {
 		#pragma HLS PIPELINE
 
 
 #ifdef ENTRY_TYPE_0
-                workload[li+tj] = computeTaskEntryType0(pw[sj]);
+                workload_result[li+tj] = computeTaskEntryType0(pw[sj]);
 		sj++;
 #endif
 
 #ifdef ENTRY_TYPE_1
-		workload[li+tj] = computeTaskEntryType1(pw[sj], pw[sj+1]);
+		workload_result[li+tj] = computeTaskEntryType1(pw[sj], pw[sj+1]);
 		sj += 2;
 #endif
 
 #ifdef ENTRY_TYPE_2
-		workload[li+tj] = computeTaskEntryType2(pw[sj], pw[sj+1], pw[sj+2], pw[sj+3]);
+		workload_result[li+tj] = computeTaskEntryType2(pw[sj], pw[sj+1], pw[sj+2], pw[sj+3]);
 		sj += 4;
 #endif
 
+#ifdef FPGA_DEBUG
+		printf("workload: %d distance=%d\n", li+tj, workload_result[li+tj]);
+#endif
+
 	    }
+	    li += tj;
 	}
 		
 	// transfer the results back to the main table
@@ -160,31 +177,7 @@ void kmer( ap_uint<512>* pairs ,
 
 } // extern "C"
 
-#ifdef ENTRY_TYPE_2
 
-/*
-void readBigEndian1024bits(unsigned char* restrict p, ap_uint_1024p ret)
-{
-    ap_uint_1024_zero(ret);
-    
-    #pragma unroll
-    for (int i=0; i < 1024/8; i++)
-    {
-        // ret |= p[i] << (i * 8);
-        // ap_uint_512_shift_left_self(8, ret);
-        ap_uint_1024_orHighByteConcurrent(ret, i, p[i]);
-
-	// printf("[%d] = 0x%02X\n", i, p[i]);
-    }   
-
-#ifdef FPGA_DEBUG
-    printf("Long Word: ");
-    ap_uint_1024_print(AP_UINT_FROM_PTR(ret));
-    printf("\n");
-#endif
-}
-*/
-#endif
 
 
 
@@ -223,13 +216,13 @@ unsigned int computeTaskEntryType0(ap_uint<512> pairs_word)
 
 #ifdef FPGA_DEBUG
         printf("WORD:");
-	printSequence(pairs_word, 256);
+	printSequence512(pairs_word, 256);
 	printf("\n");
 	printf("T:   ");
-	printSequence(text_word, tl);
+	printSequence512(text_word, tl);
 	printf("\n");
 	printf("P:   ");        
-	printSequence(pattern_word, pl);
+	printSequence512(pattern_word, pl);
 	printf("\n");
 #endif
 
@@ -276,19 +269,12 @@ unsigned int computeTaskEntryType1(ap_uint<512> pairs_word_p, ap_uint<512> pairs
 
 #ifdef FPGA_DEBUG
 	printf("T:   ");
-	printSequence(text_word, tl);
+	printSequence512(text_word, tl);
 	printf("\n");
 	printf("P:   ");        
-	printSequence(pattern_word, pl);
+	printSequence512(pattern_word, pl);
 	printf("\n");
 #endif
-
-	/*printf("T:   ");
-	ap_uint_512_print(text_word);
-	printf("\n");
-	printf("P:   ");        
-	ap_uint_512_print(pattern_word);
-	printf("\n");*/
 
 
 	d = computeDistance(pattern_word,  pl, text_word,  tl);	// we just compare pattern
@@ -305,13 +291,34 @@ unsigned int computeTaskEntryType2(ap_uint<512> p0, ap_uint<512> p1, ap_uint<512
 {
 	int d = 0;
 
-	ap_uint<1024> pairs_word_p = p0 << 512 | p1;
-	ap_uint<1024> pairs_word_t = t0 << 512 | t1;
+	ap_uint<1024> p0big = p0;
+	ap_uint<1024> p1big = p1;
+	ap_uint<1024> t0big = t0;
+	ap_uint<1024> t1big = t1;
+
+	ap_uint<1024> pairs_word_p = (p0big << 512) | p1big;
+	ap_uint<1024> pairs_word_t = (t0big << 512) | t1big;
 	
+#ifdef FPGA_DEBUG
+	printf("T(raw): ");
+	printSequence1024(pairs_word_t, 512);
+	printf("\n");
+
+	printf("t0:");
+	printSequence512(t0, 256);
+	printf("\n");
+	printf("t1:");
+	printSequence512(t1, 256);
+	printf("\n");
+
+	//printf("P(raw): ");
+	//printSequence1024(pairs_word_t, 512);
+	//printf("\n");
+#endif
+
 	ap_uint<1024> pattern_word;
 	ap_uint<1024> text_word;
 
-//	readPairs(pairs, pi, AP_UINT_PTR(pairs_word_p), AP_UINT_PTR(pairs_word_t));
 
 #ifdef PATTERN_LEN
 	unsigned int pl = PATTERN_LEN;
@@ -324,7 +331,6 @@ unsigned int computeTaskEntryType2(ap_uint<512> p0, ap_uint<512> p1, ap_uint<512
 #ifdef FPGA_DEBUG
 	printf("pattern len: %d\ttext len: %d\n", pl, tl);
 #endif
-	//int alignedTextStart = 1 + 1 + (((pl * BASE_SIZE) + 7) / 8) ;	// in bytes
 
 	pattern_word = pairs_word_p << 1*8;
 	text_word = pairs_word_t << 1*8;
@@ -339,14 +345,6 @@ unsigned int computeTaskEntryType2(ap_uint<512> p0, ap_uint<512> p1, ap_uint<512
 	printf("\n");
 #endif
 
-	/*printf("T:   ");
-	ap_uint_512_print(text_word);
-	printf("\n");
-	printf("P:   ");        
-	ap_uint_512_print(pattern_word);
-	printf("\n");*/
-
-
 	d = computeDistance(pattern_word,  pl, text_word,  tl);	// we just compare pattern
 	
 	return d;
@@ -359,7 +357,7 @@ unsigned int computeTaskEntryType2(ap_uint<512> p0, ap_uint<512> p1, ap_uint<512
 * @param offset
 * @param len	length in bases
 */
-void printSequence(ap_uint<512> w, int len)
+void printSequence512(ap_uint<512> w, int len)
 {
 	char sym[]={'A','C','G', 'T'};
 	
