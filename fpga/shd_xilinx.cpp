@@ -5,11 +5,13 @@
 	#define ap_uint_onesHigh ap_uint_1024_onesHigh
 	#define ap_uint_printBinHigh ap_uint_1024_printBinHigh
 	#define ap_uint_pop_count ap_uint_1024_pop_count
+	#define printSequence printSequence1024
 #else
 	#define WORD_BITS 512
 	#define ap_uint_onesHigh ap_uint_512_onesHigh
 	#define ap_uint_printBinHigh ap_uint_512_printBinHigh
 	#define ap_uint_pop_count ap_uint_512_pop_count
+	#define printSequence printSequence512
 #endif
 
 
@@ -60,6 +62,8 @@ unsigned int shd(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> text,
 	acum = ap_uint_onesHigh( plen);
 
 #ifdef FPGA_DEBUG
+	printf("shift details\n");
+
 	for (int i=-SHD_THRESHOLD; i <= SHD_THRESHOLD; i++)
 	{
 		ap_uint<WORD_BITS> shifted_pattern;
