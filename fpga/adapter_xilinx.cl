@@ -120,10 +120,11 @@ void kmer( ap_uint<512>* pairs ,
 
 	    }
 	    li += tj;
-	
+       }
 		
 	   // transfer the results back to the main table
-           // li will contain the number of (32 bits) words
+           // li will contain the number of (32 bits) words,
+	   // i.e. number of valid results in the table
 #ifdef FPGA_DEBUG
            printf("Number of computed pairs: %d\n", li);
 #endif
@@ -173,7 +174,7 @@ void kmer( ap_uint<512>* pairs ,
 			 printf("workload_result[%d] = %d\n", ti*128+j*16+k, (int) workload_result[ti*128+j*16+k]);
 		   printf("\n");
 #endif
-	       }
+	       
            }
        }
    }
