@@ -58,7 +58,8 @@ void kmer( ap_uint<512>* pairs ,
 	// test_my_ap_uint();
 #endif
 
-	
+    // Local Memory to store the intermediate results
+
     ap_uint<32> workload_result[WORKLOAD_CHUNK];
 	
     for (int i=0; i < workloadLength; /*i++*/) // i is incremented in the following loop
@@ -90,6 +91,8 @@ void kmer( ap_uint<512>* pairs ,
 #endif
 	    }
 
+
+	    // now, compute the results and store them in the local memory
 	    int tj = 0;
             for (int sj=0 ; sj < 8; tj++)
 	    {
@@ -117,62 +120,63 @@ void kmer( ap_uint<512>* pairs ,
 
 	    }
 	    li += tj;
-	}
+	
 		
-	// transfer the results back to the main table
-	// li will contain the number of (32 bits) words
+	   // transfer the results back to the main table
+           // li will contain the number of (32 bits) words
 #ifdef FPGA_DEBUG
-	printf("Number of computed pairs: %d\n", li);
+           printf("Number of computed pairs: %d\n", li);
 #endif
-	li = (li+15) / 16 ; // this is the number of 512 words
+           li = (li+15) / 16 ; // this is the number of 512 words
 #ifdef FPGA_DEBUG
-	printf("Number of required 512 bits words: %d\n", li);
+           printf("Number of required 512 bits words: %d\n", li);
 #endif
 
-	for (int ti=0; ti < li; ti+=8)
-	{
-	    #pragma HLS PIPELINE
+           for (int ti=0; ti < li; ti+=8)
+           {
+	       #pragma HLS PIPELINE
 
-	    ap_uint<512> pw[8];
+               ap_uint<512> pw[8];
 
-	    // create write burst (128*32/8 = 512 bytes)
-	    for (int j=0; j < 8; j++)
-	    {
-	        #pragma HLS PIPELINE
+               // create write burst (128*32/8 = 512 bytes)
+               for (int j=0; j < 8; j++)
+	       {
+	            #pragma HLS PIPELINE
 		
-		pw[j](511, 480) = workload_result[ti*128+j*16+0];
-		pw[j](479, 448) = workload_result[ti*128+j*16+1];
-		pw[j](447, 416) = workload_result[ti*128+j*16+2];
-		pw[j](415, 384) = workload_result[ti*128+j*16+3];
-		pw[j](383, 352) = workload_result[ti*128+j*16+4];
-		pw[j](351, 320) = workload_result[ti*128+j*16+5];
-		pw[j](319, 288) = workload_result[ti*128+j*16+6];
-		pw[j](287, 256) = workload_result[ti*128+j*16+7];
+                    pw[j](511, 480) = workload_result[ti*128+j*16+0];
+                    pw[j](479, 448) = workload_result[ti*128+j*16+1];
+		    pw[j](447, 416) = workload_result[ti*128+j*16+2];
+		    pw[j](415, 384) = workload_result[ti*128+j*16+3];
+		    pw[j](383, 352) = workload_result[ti*128+j*16+4];
+		    pw[j](351, 320) = workload_result[ti*128+j*16+5];
+		    pw[j](319, 288) = workload_result[ti*128+j*16+6];
+		    pw[j](287, 256) = workload_result[ti*128+j*16+7];
 
-		pw[j](255, 224) = workload_result[ti*128+j*16+8];
-		pw[j](223, 192) = workload_result[ti*128+j*16+9];
-		pw[j](191, 160) = workload_result[ti*128+j*16+10];
-		pw[j](159, 128) = workload_result[ti*128+j*16+11];
-		pw[j](127,  96) = workload_result[ti*128+j*16+12];
-		pw[j](95 ,  64) = workload_result[ti*128+j*16+13];
-		pw[j](65 ,  32) = workload_result[ti*128+j*16+14];
-		pw[j](31 ,   0) = workload_result[ti*128+j*16+15];
+		    pw[j](255, 224) = workload_result[ti*128+j*16+8];
+		    pw[j](223, 192) = workload_result[ti*128+j*16+9];
+		    pw[j](191, 160) = workload_result[ti*128+j*16+10];
+		    pw[j](159, 128) = workload_result[ti*128+j*16+11];
+		    pw[j](127,  96) = workload_result[ti*128+j*16+12];
+		    pw[j](95 ,  64) = workload_result[ti*128+j*16+13];
+		    pw[j](65 ,  32) = workload_result[ti*128+j*16+14];
+		    pw[j](31 ,   0) = workload_result[ti*128+j*16+15];
 	    
-		//#pragma HLS PIPELINE
+		    //#pragma HLS PIPELINE
 
-		// write the 512 bit word to the global memory
-		// 512 bytes require 8 (512 bit) words 
-		workload[base_i + ti*8 + j ] = ap_uint_512_uintReversal(pw[j]);
+		   // write the 512 bit word to the global memory
+		   // 512 bytes require 8 (512 bit) words 
+		   workload[base_i + ti*8 + j ] = ap_uint_512_uintReversal(pw[j]);
 
 #ifdef FPGA_DEBUG
-		// printf("workload[%d]=", base_i + ti*8 + j);
-		for (int k=0; k < 16; k++)
+		   // printf("workload[%d]=", base_i + ti*8 + j);
+		   for (int k=0; k < 16; k++)
 			 printf("workload_result[%d] = %d\n", ti*128+j*16+k, (int) workload_result[ti*128+j*16+k]);
-		printf("\n");
+		   printf("\n");
 #endif
-	    }
-        }
-    }
+	       }
+           }
+       }
+   }
 }
 
 } // extern "C"
