@@ -15,6 +15,7 @@
 #define BASE_SIZE 2
 
 
+#ifndef PREPROCESSING
 
 int max(int a, int b)
 {
@@ -30,6 +31,7 @@ int abs(int a)
 	else return a;
 }
 
+#endif
 
 #include <math.h>
 
