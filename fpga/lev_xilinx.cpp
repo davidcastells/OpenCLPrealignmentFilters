@@ -15,6 +15,14 @@
 #define BASE_SIZE 2
 
 
+int min2(int a, int b)
+{
+   if (a < b)
+return a;
+else 
+return b;
+}
+
 int max2(int a, int b)
 {
 	if (a > b) 
@@ -80,7 +88,7 @@ ap_uint<1> equalBases(ap_uint<WORD_BITS> p, int i, ap_uint<WORD_BITS>,  int j)
 unsigned int lev(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> text,  int tlen)
 {
 	ap_uint<1> 	eq[tlen][plen];
-	unsigned int	d[tlen][plen]
+	unsigned int	d[tlen][plen];
 
 	for (int i = 0; i <= max2(PATTERN_LEN, TEXT_LEN); i++)
 	{
@@ -118,11 +126,11 @@ unsigned int lev(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> text,
 			d[x][y] = max2(x,y);
 
 			if (x > 0) 
-				d[x][y] = min(d[x][y], satAdd(d[x-1][y], 1));
+				d[x][y] = min2(d[x][y], satAdd(d[x-1][y], 1));
 			if (y > 0 && xinc < LEV_THRESHOLD_HALF)
-				d[x][y] = min(d[x][y], satAdd(d[x][y-1], 1));
+				d[x][y] = min2(d[x][y], satAdd(d[x][y-1], 1));
 			if ((x>0) && (y>0))
-				d[x][y] = min(d[x][y], satAdd(d[x-1][y-1], eq[x][y]));
+				d[x][y] = min2(d[x][y], satAdd(d[x-1][y-1], eq[x][y]));
 
 
 #ifdef FPGA_DEBUG
@@ -162,11 +170,11 @@ unsigned int lev(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> text,
 			d[x][y] = max2(x,y);
 
 			if (x > 0 && yinc < LEV_THRESHOLD_HALF)
-				d[x][y] = min(d[x][y], satAdd(d[x-1][y], 1));
+				d[x][y] = min2(d[x][y], satAdd(d[x-1][y], 1));
 			if (y > 0)
-				d[x][y] = min(d[x][y], satAdd(d[x][y-1], 1));
+				d[x][y] = min2(d[x][y], satAdd(d[x][y-1], 1));
 			if ((x>0) && (y>0))
-				d[x][y] = min(d[x][y] , satAdd(d[x-1][y-1], eq[x][y]));
+				d[x][y] = min2(d[x][y] , satAdd(d[x-1][y-1], eq[x][y]));
 
 
 #ifdef FPGA_DEBUG
