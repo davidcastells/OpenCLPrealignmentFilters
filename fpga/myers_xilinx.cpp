@@ -43,6 +43,7 @@ int MYERS_THRESHOLD_BITS = ceil(log(MYERS_THRESHOLD) / log(2));
 
 unsigned int satAdd(unsigned int a, unsigned int b)
 {
+#pragma HLS INLINE
 	// final mask
 	int final_mask = (1 << (MYERS_THRESHOLD_BITS+1) ) -1;
 
@@ -61,13 +62,14 @@ unsigned int satAdd(unsigned int a, unsigned int b)
 
 int isFarFromDiag(int x, int y)
 {
+#pragma HLS INLINE
 	int d = abs(x-y);
 	return (d > (MYERS_THRESHOLD/2));
 }
 
 ap_uint<1> equalBases(ap_uint<WORD_BITS> p, int i, ap_uint<WORD_BITS>,  int j)
 {
-
+#pragma HLS INLINE
 	int srcidx0 = WORD_BITS - 1 -i*2;
 	int srcidx1 = WORD_BITS - 2 -i*2;
 
@@ -85,13 +87,19 @@ ap_uint<1> equalBases(ap_uint<WORD_BITS> p, int i, ap_uint<WORD_BITS>,  int j)
 
 unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> text,  int tlen)
 {
-	ap_uint<1> 	eq[tlen][plen];
-	ap_uint<1> 	d0[tlen][plen];
-	ap_uint<1> 	vn[tlen][plen];
-	ap_uint<1> 	vp[tlen][plen];
-	ap_uint<1> 	hn[tlen][plen];
-	ap_uint<1> 	hp[tlen][plen];
+	ap_uint<1> 	eq[TEXT_LEN+1][PATTERN_LEN+1];
+	ap_uint<1> 	d0[TEXT_LEN+1][PATTERN_LEN+1];
+	ap_uint<1> 	vn[TEXT_LEN+1][PATTERN_LEN+1];
+	ap_uint<1> 	vp[TEXT_LEN+1][PATTERN_LEN+1];
+	ap_uint<1> 	hn[TEXT_LEN+1][PATTERN_LEN+1];
+	ap_uint<1> 	hp[TEXT_LEN+1][PATTERN_LEN+1];
 
+	#pragma HLS array_partition variable=eq complete dim=0
+	#pragma HLS array_partition variable=d0 complete dim=0
+	#pragma HLS array_partition variable=vp complete dim=0
+	#pragma HLS array_partition variable=vn complete dim=0
+	#pragma HLS array_partition variable=hn complete dim=0
+	#pragma HLS array_partition variable=hp complete dim=0
 	for (int x = 0; x <= TEXT_LEN; x++)
 	{
 #pragma HLS UNROLL
@@ -132,7 +140,7 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 			}
 
 
-			if (isFarFromDiag(x,y))
+			if (farxy)
 			{
 				// Ignore
 				vp[x][y] = 0;
@@ -147,8 +155,9 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 			}
 			else
 			{
-				
+#ifdef FPGA_DEBUG
 				printf("\tunsigned char vp_%d_%d = ", x, y);
+#endif
 				if (!farxym1)
 					vp[x][y] = ( hn[x][y-1] | ~(hp[x][y-1] | d0[x][y]));
 				else
@@ -167,7 +176,9 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 			}
 			else 
 			{
+#ifdef FPGA_DEBUG
 				printf("\tunsigned char vn_%d_%d = ", x, y);
+#endif
 				if (!farxym1)
 					vn[x][y] = (hp[x][y-1] & d0[x][y]);
 				else
@@ -175,7 +186,7 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 			}
 
 
-			if (isFarFromDiag(x,y))
+			if (farxy)
 			{
 				// Ignore
 				hp[x][y] = 0;
@@ -209,7 +220,9 @@ unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> tex
 			}
 			else 
 			{
+#ifdef FPGA_DEBUG
 				printf("\tunsigned char hn_%d_%d =", x, y);
+#endif
 				if (!farxm1y)
 					hn[x][y] = (vp[x-1][y] & d0[x][y]);
 				else
