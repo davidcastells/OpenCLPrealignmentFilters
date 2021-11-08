@@ -4,7 +4,7 @@ gCompiled = 0
 gCompiling = 0
 gStarted = 0
 
-gOnFlyMax = 2
+gOnFlyMax =2 
 
 def getInfo():
     info = {
@@ -159,10 +159,10 @@ def makeVitisXclbin(xclbin, cl, threshold=-1, pattern_len=-1, text_len=-1, entry
 
     info=getInfo()[board]
 
-    if (meta == None):
-        filedate = meta
-    else:
-        filedate = cl
+    # DELME if (meta == None):
+    # DELME    filedate = meta
+    # DELME else:
+    filedate = cl
 
     if (xclbin in ignoretargets):
         print(xclbin, 'in ignore list')
@@ -387,25 +387,6 @@ def makeMetaVariantsVitis(BOARD, AOCL_FLAGS, blocking=False, target='hw'):
    
 
 
-   #print('COMPILING KMERS for {}:'.format(BOARD));
-
-   #dsg = 'kmers'
-   #meta = '../kmers.cl'
-
-   #metaprogram(dsg, meta=meta, cl='kmers_e0_100_100.cl', flags='-D ENTRY_TYPE_0 -D PATTERN_LEN=150')
-   #metaprogram(dsg, meta=meta, cl='kmers_e1_150_150.cl', flags='-D ENTRY_TYPE_1 -D PATTERN_LEN=150')
-   
-   #makeVitisXclbin(xclbin='kmers_e0_100_100.xclbin', cl='kmers_e0_100_100.cl', threshold=-1, pattern_len=100, text_len=100, extra_flags=AOCL_FLAGS, entry_type=0, blocking=blocking, meta=meta, board=BOARD, target=target)
-   #makeVitisXclbin(xclbin='kmers_e1_150_150.xclbin', cl='kmers_e1_150_150.cl', threshold=-1, pattern_len=150, text_len=150, extra_flags=AOCL_FLAGS, entry_type=1, blocking=blocking, meta=meta, board=BOARD, target=target)
-
-   #dsg = 'kmers'
-   #meta = '../kmers_entry2.cl.metaprogram'
-
-   #metaprogram(dsg, meta=meta, cl='kmers_e2_300_300.cl', flags='-D ENTRY_TYPE_2 -D PATTERN_LEN=300')
-   
-   #makeVitisXclbin(xclbin='kmers_e2_300_300.xclbin', cl='kmers_e2_300_300.cl', threshold=-1, pattern_len=300, text_len=300, extra_flags=AOCL_FLAGS, entry_type=2, blocking=blocking, meta=meta, board=BOARD, target=target)
-   
-   print('SUMMARY: Compiled:' , gCompiled, 'Compiling:', gCompiling, 'Started', gStarted);
 
 
 def makeSemiglobalVariants(BOARD, AOCL_FLAGS, blocking=False):
