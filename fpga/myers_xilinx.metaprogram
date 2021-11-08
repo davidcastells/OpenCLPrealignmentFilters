@@ -1,0 +1,372 @@
+<%
+#define BASE_SIZE 2
+
+#include <math.h>
+#include <memory>
+#include <string>
+#include <stdexcept>
+#include <stdarg.h>
+
+#ifdef ENTRY_TYPE_2
+   #define WORD_BITS 1024
+   #define inline_ap_uint_get_bit inline_ap_uint_1024_get_bit
+#else
+   #define WORD_BITS 512
+   #define inline_ap_uint_get_bit inline_ap_uint_512_get_bit
+#endif
+
+using namespace std;
+
+
+string format(const char *fmt, ...)
+{
+    std::string result = "";
+
+    char buffer[256];
+    va_list args;
+    va_start (args, fmt);
+    vsprintf (buffer,fmt, args);
+    
+    result.append(buffer);
+    
+    va_end (args);
+  
+    return result;
+}
+
+
+int max(int a, int b)
+{
+	if (a > b) 
+		return a; 
+	else
+		return b;
+}
+
+int abs(int a)
+{
+	if (a < 0) return -a;
+	else return a;
+}
+
+void inline_ap_uint_512_get_bit(const char* x, int bit)
+{
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+
+	printf("%s[%d]", x, bit);
+}
+
+void inline_ap_uint_512_get_bit_or_one(const char* x, int bit)
+{
+	if (bit >= 512 || bit < 0)
+		printf("1");
+	else
+		inline_ap_uint_512_get_bit(x, bit);
+}
+
+void inline_ap_uint_1024_get_bit(const char* x, int bit)
+{
+	int wordidx = bit >> 5; // int wordidx = bit / 32;
+	int bitidx = bit & 0x1F; // int bitidx = (bit % 32);
+
+	printf("%s[%d]", x, bit);
+}
+
+void inline_ap_uint_1024_get_bit_or_one(const char* x, int bit)
+{
+	if (bit >= 1024 || bit < 0)
+		printf("1");
+	else
+		inline_ap_uint_512_get_bit(x, bit);
+}
+
+
+
+void inlineEqualBases(const char* p, int i, const char* t,  int j)
+{
+
+	int srcidx0 = WORD_BITS - 1 -i*2;
+	int srcidx1 = WORD_BITS - 2 -i*2;
+
+	int srcjdx0 = WORD_BITS - 1 -j*2;
+	int srcjdx1 = WORD_BITS - 2 -j*2;
+
+	printf(" ((" );
+	inline_ap_uint_1024_get_bit(p, srcidx0);
+	printf(" ^ ");
+	inline_ap_uint_1024_get_bit(t, srcjdx0);
+	printf(") | (");
+	inline_ap_uint_1024_get_bit(p, srcidx1);
+	printf(" ^ ");
+	inline_ap_uint_1024_get_bit(t, srcjdx1);
+	printf(")) ^1 ");
+
+}
+
+void inlinePrintBases(const char* p, int i, const char* t,  int j)
+{
+
+	int srcidx0 = WORD_BITS - 1 -i*2;
+	int srcidx1 = WORD_BITS - 2 -i*2;
+
+	int srcjdx0 = WORD_BITS - 1 -j*2;
+	int srcjdx1 = WORD_BITS - 2 -j*2;
+
+	printf("{\n");
+	printf("   int pc = ");
+	inline_ap_uint_1024_get_bit(p, srcidx0);
+	printf(" << 1 | ");
+	inline_ap_uint_1024_get_bit(p, srcidx1);
+	printf(";\n");
+
+	printf("    int tc = ");
+	inline_ap_uint_1024_get_bit(t, srcjdx0);
+	printf(" << 1 | ");
+	inline_ap_uint_1024_get_bit(t, srcjdx1);
+	printf(";\n");
+
+	printf(" char sc[]={'A','C','G','T'};\n");
+
+	printf(" printf(\"%%c = %%c ?\n\", sc[pc], sc[tc]); ");
+	printf("}\n");
+}
+
+
+
+void inlineNewMin(string s_type, string d_var, string sex, bool& isInit)
+{
+	if (!isInit)
+	{
+		printf("\t%s %s = %s;\n", s_type.c_str(), d_var.c_str(), sex.c_str());
+		isInit = true;
+	}
+	else
+		printf("\t%s = min(%s, %s);\n", d_var.c_str(), d_var.c_str(), sex.c_str());
+}
+
+int isFarFromDiag(int x, int y)
+{
+	int d = abs(x-y);
+	return (d > (MYERS_THRESHOLD/2));
+}
+
+%>
+#include "../adapter_xilinx.cl"
+
+#ifdef ENTRY_TYPE_2
+   #define WORD_BITS 1024
+#else
+   #define WORD_BITS 512
+#endif
+
+<%
+int MYERS_THRESHOLD_BITS = ceil(log(MYERS_THRESHOLD) / log(2));
+
+%>
+
+
+unsigned int satAdd(unsigned int a, unsigned int b)
+{
+	// final mask
+	int final_mask = (1 << (<%printf("%d", MYERS_THRESHOLD_BITS+1);%>) ) -1;
+
+
+	// bits
+	int lev_bits = <%printf("%d", MYERS_THRESHOLD_BITS);%>;
+	int mask = 1 << lev_bits;
+	int isASaturated = (a >> lev_bits) & 1;
+	if (isASaturated)
+		return mask & final_mask;
+	else
+		return (a + b) & final_mask;
+}
+
+unsigned int myers(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> text,  int tlen)
+{
+<%
+
+	for (int x = 0; x <= TEXT_LEN; x++)
+	{
+		for (int y = 0; y <= PATTERN_LEN; y++)
+		{
+			bool valInit = false;
+			string eq_var = format("eq_%d_%d", x, y);
+			string d_var = format("d_%d_%d", x, y);
+			string s_type = "unsigned int ";
+ 
+			// equality variable
+			if (!isFarFromDiag(x,y) && (x > 0) && (y > 0))
+			{
+				printf("\tunsigned char %s = ", eq_var.c_str());
+				if (x > 0 && y > 0)
+					inlineEqualBases("pattern", y-1, "text", x-1);
+				else
+					printf("0");
+				printf(";\n");
+%>
+#ifdef FPGA_DEBUG
+	printf("<%printf("eq_%d_%d", x, y);%>=%d ", <%printf("eq_%d_%d", x, y);%>);
+<%
+inlinePrintBases("pattern", y-1, "text", x-1);
+%>	
+	
+#endif
+<%
+			}
+
+
+			// D0
+			if (isFarFromDiag(x,y))
+			{
+				// ignore the elements distant from the diagonal
+			}
+			else if (x == 0 || y == 0)
+				printf("\tunsigned char d0_%d_%d = 1;\n", x, y);
+			else
+			{
+				printf("\tunsigned char d0_%d_%d = ((eq_%d_%d) ", x, y, x, y);
+
+				if (!isFarFromDiag(x-1, y))
+					printf("| vn_%d_%d ", x-1, y);
+				else
+					printf("| 0 ");
+
+				if (!isFarFromDiag(x, y-1))
+					printf("| hn_%d_%d", x, y-1);
+				else
+					printf("| 0 ");
+
+				printf(") & 0x1;\n");
+%>
+#ifdef FPGA_DEBUG
+	printf("<%printf("d0_%d_%d", x, y);%>=%d \n", <%printf("d0_%d_%d", x, y);%>);
+#endif
+<%
+			}
+
+
+			if (isFarFromDiag(x,y))
+			{
+				// Ignore
+			}
+			else if (y == 0)
+				printf("\tunsigned char vp_%d_%d = 0;\n", x, y);
+			else if (x == 0)
+				printf("\tunsigned char vp_%d_%d = 1;\n", x, y);
+			else
+			{
+				printf("\tunsigned char vp_%d_%d = ", x, y);
+				if (!isFarFromDiag(x, y-1))
+					printf("(hn_%d_%d | ~(hp_%d_%d | d0_%d_%d)) & 0x1;\n", x, y-1, x, y-1, x, y);
+				else
+					printf("(0 | ~(0 | d0_%d_%d)) & 0x1;\n", x, y);
+%>
+#ifdef FPGA_DEBUG
+	printf("<%printf("vp_%d_%d", x, y);%>=%d\n", <%printf("vp_%d_%d", x, y);%>);
+#endif
+<%
+			}
+
+
+			if (isFarFromDiag(x,y))
+			{
+				// Ignore
+			}
+			else if (x == 0 || y == 0)
+				printf("\tunsigned char vn_%d_%d = 0;\n", x, y);
+			else 
+			{
+				printf("\tunsigned char vn_%d_%d = ", x, y);
+				if (!isFarFromDiag(x, y-1))
+					printf("(hp_%d_%d & d0_%d_%d) & 0x1;\n", x, y-1, x, y);
+				else
+					printf("(0 & d0_%d_%d) & 0x1;\n",  x, y);
+%>
+#ifdef FPGA_DEBUG
+	printf("<%printf("vn_%d_%d", x, y);%>=%d\n", <%printf("vn_%d_%d", x, y);%>);
+#endif
+<%
+			}
+
+
+			if (isFarFromDiag(x,y))
+			{
+				// Ignore
+			}
+			else if (y == 0)
+				printf("\tunsigned char hp_%d_%d = 1;\n", x, y);
+			else if (x == 0)
+				printf("\tunsigned char hp_%d_%d = 0;\n", x, y);
+			else 
+			{
+				printf("\tunsigned char hp_%d_%d = ", x, y);
+				if (!isFarFromDiag(x-1,y))
+					printf("(vn_%d_%d | ~(vp_%d_%d | d0_%d_%d)) & 0x1;\n", x-1, y, x-1, y, x, y);
+				else
+					printf("(0 | ~(1 | d0_%d_%d)) & 0x1;\n",  x, y);
+%>
+#ifdef FPGA_DEBUG
+	printf("<%printf("hp_%d_%d", x, y);%>=%d\n", <%printf("hp_%d_%d", x, y);%>);
+#endif
+<%
+			}
+
+
+
+			if (isFarFromDiag(x,y))
+			{
+				// Ignore
+			}
+			else if (x == 0 || y == 0)
+				printf("\tunsigned char hn_%d_%d = 0;\n", x, y);
+			else 
+			{
+				printf("\tunsigned char hn_%d_%d =", x, y);
+				if (!isFarFromDiag(x-1,y))
+					printf(" (vp_%d_%d & d0_%d_%d) & 0x1;\n",  x-1, y, x, y);
+				else
+					printf(" (1 & d0_%d_%d) & 0x1;\n",  x, y);
+
+
+%>
+#ifdef FPGA_DEBUG
+	printf("<%printf("hn_%d_%d", x, y);%>=%d\n", <%printf("hn_%d_%d", x, y);%>);
+#endif
+<%
+			}
+		}
+	
+
+	}
+%>
+	int d = 0; 
+
+<%	for (int i = 0; i <= max(TEXT_LEN, PATTERN_LEN); i++)
+	{
+		printf("\td = satAdd(d ,  (~(d0_%d_%d)) & 1);\n", i, i);
+
+%>
+#ifdef FPGA_DEBUG
+	printf("<%printf("d0_%d_%d", i, i);%>=%d\n", <%printf("d0_%d_%d", i, i);%>);
+#endif
+<%
+	}
+%>	
+
+	return d;
+	
+}
+
+
+
+
+unsigned int computeDistance(ap_uint<WORD_BITS> pattern,  int plen, ap_uint<WORD_BITS> text,  int tlen)
+{
+	return myers(pattern,  plen, text,  plen);
+}
+
+
+
+
+
