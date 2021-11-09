@@ -61,6 +61,7 @@ void kmer( ap_uint<512>* pairs ,
     // Local Memory to store the intermediate results
 
     ap_uint<32> workload_result[WORKLOAD_CHUNK];
+#pragma HLS BIND_STORAGE variable=workload_result type=RAM_T2P impl=URAM
 	
     for (int i=0; i < workloadLength; /*i++*/) // i is incremented in the following loop
     {
