@@ -95,8 +95,12 @@ for dsg in ['shd', 'shouji', 'sneaky','lev', 'myers']:
 
 			cs = compilation['seconds']
 			ls = linking['seconds']
-			
+
 			extra = ''
+			if (cs == 0):
+				extra = extra + ' NOT COMPILED'			
+			if (ls == 0):
+				extra = extra + ' NOT LINKED'
 			if (ls == -1):
 				extra = linking
 				extra.pop('seconds')
