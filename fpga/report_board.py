@@ -15,9 +15,9 @@ def getInfo():
         'HARP' :   {'company':'Intel', 'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'top.flow.rpt', 'start':63, 'len':25, 'registers-key':'Total registers', 'total_alms':427200, 'total_kles':1150, 'total_registers':1708800},
         'PAC10' :   {'company':'Intel', 'fmax':'"Kernel fmax"', 'fmax-file':'acl_quartus_report.txt', 'fmax-sep':':','fmax-pos':1,'resources-file':'acl_quartus_report.txt', 'start':7, 'len':7},
         'PACS10' :   {'company':'Intel', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
-        'AWSF1' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
-        'U50' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'link/imp/impl_1_full_util_synthed.rpt', 'start':51, 'len':17, 'registers-key':'Total dedicated logic registers',  'total_les': 1726216, 'total_registers':3732480},
-        'U250' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-pos':1,'resources-file':'link/imp/impl_1_full_util_synthed.rpt', 'start':51, 'len':17, 'registers-key':'Total dedicated logic registers',  'total_les': 1726216, 'total_registers':3732480},
+        'AWSF1' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-entry':0,'resources-file':'build/output_files/afu_default.flow.rpt', 'start':75, 'len':22, 'registers-key':'Total dedicated logic registers', 'total_alms':933120, 'total_kles':2753, 'total_registers':3732480},
+        'U50' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-entry':1,'resources-file':'link/imp/impl_1_full_util_synthed.rpt', 'start':51, 'len':17, 'registers-key':'Total dedicated logic registers',  'total_les': 1726216, 'total_registers':3732480},
+        'U250' :   {'company':'Xilinx', 'fmax':'"Kernel fmax"', 'fmax-file':'build/acl_quartus_report.txt', 'fmax-sep':':', 'fmax-entry':0,'resources-file':'link/imp/impl_1_full_util_synthed.rpt', 'start':51, 'len':17, 'registers-key':'Total dedicated logic registers',  'total_les': 1726216, 'total_registers':3732480},
     }
     return info
 
@@ -44,13 +44,17 @@ def getDesignFmax(board, dsg, et, th, pl, tl=None):
         return getDesignFmaxIntel(board, dsg, et, th, pl, tl)
 
 def getDesignFmaxXilinx(board, dsg, et, th, pl, tl):
+    info = getInfo()
+    fmaxentry = info[board]['fmax-entry']
+
     sdir = getDesignDir(dsg, et, th, pl, tl)
     sFile = '{}/link/vivado.log'.format( sdir)
     cmd = 'grep  "exceeds" {}'.format(sFile)
 
     if (os.path.exists(sFile) == False):
         return '?'
-    sout = systemOutput(cmd)[0]
+    sout = systemOutput(cmd)
+    sout = sout[fmaxentry]
     ret = re.split("'", sout)[1]
     ret = int(float(ret.split()[0]))
     return '{}'.format(ret)
