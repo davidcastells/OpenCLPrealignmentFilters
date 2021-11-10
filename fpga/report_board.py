@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 
 def systemOutput(cmd):
     stream = os.popen(cmd)
@@ -44,13 +45,14 @@ def getDesignFmax(board, dsg, et, th, pl, tl=None):
 
 def getDesignFmaxXilinx(board, dsg, et, th, pl, tl):
     sdir = getDesignDir(dsg, et, th, pl, tl)
-    sFile = '{}/{}/system_estimate_{}.xtxt'.format(sdir, sdir, sdir)
-    cmd = 'grep  "kmer_1        kmer         kmer                   250" {}'.format(sFile)
+    sFile = '{}/link/vivado.log'.format( sdir)
+    cmd = 'grep  "exceeds" {}'.format(sFile)
 
     if (os.path.exists(sFile) == False):
         return '?'
     sout = systemOutput(cmd)[0]
-    ret = int(float(sout.split()[4]))
+    ret = re.split("'", sout)[1]
+    ret = int(float(ret.split()[0]))
     return '{}'.format(ret)
 
 def getDesignFmaxIntel(board, dsg, et, th, pl, tl=None):
@@ -285,12 +287,12 @@ def reportTable(board):
                 slink = ''
         print('')
 
-    for dsg in ['kmers']:
-        slink = '|{: <10}|'.format(dsg)
-        for etidx, et in enumerate(ets):
-            for th in ths[etidx]:
-                v = getDesignFmax(board, dsg, et, -1, pls[etidx])
-                print('{}{: <5}|'.format(slink, v), end='')
-                slink = ''
-        print('')
+    #for dsg in ['kmers']:
+    #    slink = '|{: <10}|'.format(dsg)
+    #    for etidx, et in enumerate(ets):
+    #        for th in ths[etidx]:
+    #            v = getDesignFmax(board, dsg, et, -1, pls[etidx])
+    #            print('{}{: <5}|'.format(slink, v), end='')
+    #            slink = ''
+    #    print('')
 
