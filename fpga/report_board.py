@@ -256,14 +256,14 @@ def reportTable(board):
                 slink = ''
         print('')
 
-    for dsg in ['kmers']:
-        slink = '|{: <10}|'.format(dsg)
-        for etidx, et in enumerate(ets):
-            for th in ths[etidx]:
-                v = getDesignResources(board, dsg, et, -1, pls[etidx])
-                print('{}{: <5}|'.format(slink, v), end='')
-                slink = ''
-        print('')
+    #for dsg in ['kmers']:
+    #    slink = '|{: <10}|'.format(dsg)
+    #    for etidx, et in enumerate(ets):
+    #        for th in ths[etidx]:
+    #            v = getDesignResources(board, dsg, et, -1, pls[etidx])
+    #            print('{}{: <5}|'.format(slink, v), end='')
+    #            slink = ''
+    #    print('')
 
     print('')
     print('Fmax TABLE')
