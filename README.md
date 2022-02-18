@@ -20,9 +20,16 @@ The application can work in two modes of operation.
 
 ## Options
 
+filter-test [options]
+
+where options can be
+
+
 | Parameter | Description |
 |-----|----------------|
 | -v | verbose output |
+| -filter <filter> | Filter type, any of [shd|kmer|shouji|sneaky|lev|myers|bpc] |
+| -board <filter> | FPGA board, any of [OSK|DE5|PAC10|PACS10|HARP|U50] |
 | -pid <number> | Identifier of the OpenCL Platform to use |
 | -tl <number> | Length of the Text |
 | -pl <number> | Length of the pattern |
@@ -33,9 +40,13 @@ The application can work in two modes of operation.
 | -N <number> | The number of pairs to test |
 | -t <string> | The text sequence for a single test |
 | -p <string> | The pattern sequence for a single test |
+| -perfedlib | Test the performance of edlib |
+| -f <filename> | Test the pairs from the file |
+| -ps <offset> | Pattern start offset with respect to Text, random if not specified |
+| -mem <num> | (EXPERIMENTAL) Number of memory banks used in the kernel (1 by default) |
 
 ## Examples
 
-filter-shd -pid 0 -ES 4 -th 3 -tl 100 -pl 100 -n 10
+filter-test -filter shd -board U50 -pid 0 -ES 4 -th 3 -tl 100 -pl 100 -n 10
 
-It creates 10 sequence pairs. The text length and pattern length are all equal to 100. The pattern has 4 substitution errors compared with the text and the detection threshold is set to 3. The OpenCL platform 0 is used and the SHD algorithm is tested.
+It creates 10 sequence pairs. The text length and pattern length are all equal to 100. The pattern has 4 substitution errors compared with the text and the detection threshold is set to 3. The OpenCL platform 0 is used (and it should refer to a Xilinx U50 board) and the SHD algorithm is tested.
