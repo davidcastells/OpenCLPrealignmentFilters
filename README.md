@@ -50,3 +50,7 @@ where options can be
 filter-test -filter shd -board U50 -pid 0 -ES 4 -th 3 -tl 100 -pl 100 -n 10
 
 It creates 10 sequence pairs. The text length and pattern length are all equal to 100. The pattern has 4 substitution errors compared with the text and the detection threshold is set to 3. The OpenCL platform 0 is used (and it should refer to a Xilinx U50 board) and the SHD algorithm is tested.
+   
+## Citation
+   
+>@ARTICLE{9718100,  author={Castells-Rufas, David and Marco-Sola, Santiago and Moure, Juan Carlos and Aguado, Quim and Espinosa, Antonio},  journal={IEEE Access},   title={FPGA Acceleration of Pre-Alignment Filters for Short Read Mapping With HLS},   year={2022},  volume={10},  number={},  pages={22079-22100},  doi={10.1109/ACCESS.2022.3153032}}
